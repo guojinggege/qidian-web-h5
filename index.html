@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奇点社区 · 原型导航</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="shared/styles.css">
+<style>
+  body { padding: 0; }
+  .nav-shell { max-width: 1080px; margin: 0 auto; padding: 56px 32px 80px; }
+  .nav-hero {
+    margin-bottom: 48px;
+    padding: 56px 48px;
+    background: linear-gradient(135deg, rgba(127,119,221,0.18), rgba(83,74,183,0.05) 70%);
+    border-radius: var(--r-2xl);
+    border: 1px solid var(--border-2);
+    position: relative;
+    overflow: hidden;
+  }
+  .nav-hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -60px;
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(159,127,229,0.30), transparent 60%);
+    pointer-events: none;
+  }
+  .nav-hero > * { position: relative; }
+  .nav-hero .badge-row { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+  .nav-hero h1 { font-size: 38px; font-weight: 500; letter-spacing: -0.5px; line-height: 1.2; margin: 0 0 14px; }
+  .nav-hero h1 .gradient { background: linear-gradient(135deg, #A8A0F0, #4ADBCC); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-hero p { color: var(--text-2); font-size: 15px; margin: 0; max-width: 620px; line-height: 1.6; }
+  .nav-stats { display: flex; gap: 32px; margin-top: 28px; }
+  .nav-stat .num { font-size: 24px; font-weight: 500; color: var(--text-1); }
+  .nav-stat .lbl { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .nav-section { margin-bottom: 56px; }
+  .nav-section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .nav-section-head h2 { font-size: 18px; font-weight: 500; margin: 0; display: flex; align-items: center; gap: 10px; }
+  .nav-section-head .count { font-size: 12px; color: var(--text-3); }
+
+  .nav-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 800px) { .nav-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .nav-grid { grid-template-columns: 1fr; } }
+
+  .nav-card {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 18px 18px 16px;
+    transition: transform .15s, border-color .15s, background .15s;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+  .nav-card:hover { transform: translateY(-2px); border-color: var(--border-2); background: var(--bg-elev); }
+  .nav-card .nc-num {
+    position: absolute; top: 14px; right: 16px;
+    font-size: 10px; color: var(--text-4); font-family: ui-monospace, monospace;
+  }
+  .nav-card .nc-icon {
+    width: 36px; height: 36px;
+    background: var(--brand-bg);
+    color: var(--brand-300);
+    border-radius: var(--r-md);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+  .nav-card.h5 .nc-icon { background: var(--c-teal-bg); color: var(--c-teal); }
+  .nav-card .nc-title { font-size: 14px; font-weight: 500; color: var(--text-1); margin-bottom: 4px; }
+  .nav-card .nc-sub { font-size: 12px; color: var(--text-3); line-height: 1.5; }
+
+  .nav-footer {
+    margin-top: 64px; padding-top: 32px;
+    border-top: 1px solid var(--border-1);
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-4);
+  }
+</style>
+</head>
+<body>
+<div class="nav-shell">
+
+  <div class="nav-hero">
+    <div class="badge-row">
+      <span class="badge brand">Phase 1 · Static UI Demo</span>
+      <span class="badge gold"><i class="ti ti-crown"></i>23 Pages</span>
+      <span class="live-dot">Live</span>
+    </div>
+    <h1>奇点社区 — <span class="gradient">今天，你的世界观被刷新了吗？</span></h1>
+    <p>面向全球华人男性的泛娱乐社区平台。Reddit 式深度盖楼 + Discord 式实时聊天双轨并行，覆盖 11 大频道、Web 桌面与 H5 移动双端。</p>
+    <div class="nav-stats">
+      <div class="nav-stat"><div class="num">23</div><div class="lbl">Pages</div></div>
+      <div class="nav-stat"><div class="num">11</div><div class="lbl">Channels</div></div>
+      <div class="nav-stat"><div class="num">2</div><div class="lbl">Platforms</div></div>
+      <div class="nav-stat"><div class="num">0</div><div class="lbl">Dependencies</div></div>
+    </div>
+  </div>
+
+  <section class="nav-section">
+    <div class="nav-section-head">
+      <h2><i class="ti ti-device-desktop" style="color:var(--brand-300)"></i>Web 桌面版</h2>
+      <span class="count">11 / 11 页</span>
+    </div>
+    <div class="nav-grid">
+      <a class="nav-card" href="web/home.html">
+        <span class="nc-num">W01</span>
+        <div class="nc-icon"><i class="ti ti-home"></i></div>
+        <div class="nc-title">首页</div>
+        <div class="nc-sub">三栏布局 · 频道树 + 信息流 + 实时房</div>
+      </a>
+      <a class="nav-card" href="web/post-detail.html">
+        <span class="nc-num">W02</span>
+        <div class="nc-icon"><i class="ti ti-message-2"></i></div>
+        <div class="nc-title">帖子详情</div>
+        <div class="nc-sub">评论盖楼 + 实时房双栏并列</div>
+      </a>
+      <a class="nav-card" href="web/post-editor.html">
+        <span class="nc-num">W03</span>
+        <div class="nc-icon"><i class="ti ti-pencil-plus"></i></div>
+        <div class="nc-title">发帖编辑器</div>
+        <div class="nc-sub">6 种内容类型 · 富文本 · VIP 高级选项</div>
+      </a>
+      <a class="nav-card" href="web/vip.html">
+        <span class="nc-num">W04</span>
+        <div class="nc-icon"><i class="ti ti-crown"></i></div>
+        <div class="nc-title">黑卡会员</div>
+        <div class="nc-sub">三档套餐 · 权益矩阵 · 用户证言</div>
+      </a>
+      <a class="nav-card" href="web/search.html">
+        <span class="nc-num">W05</span>
+        <div class="nc-icon"><i class="ti ti-search"></i></div>
+        <div class="nc-title">搜索结果</div>
+        <div class="nc-sub">综合/帖子/用户/圈子 · 筛选高亮</div>
+      </a>
+      <a class="nav-card" href="web/messages.html">
+        <span class="nc-num">W06</span>
+        <div class="nc-icon"><i class="ti ti-bell"></i></div>
+        <div class="nc-title">消息中心</div>
+        <div class="nc-sub">通知 / 私信 / 互动 / 系统</div>
+      </a>
+      <a class="nav-card" href="web/profile.html">
+        <span class="nc-num">W07</span>
+        <div class="nc-icon"><i class="ti ti-user"></i></div>
+        <div class="nc-title">用户主页</div>
+        <div class="nc-sub">Banner + 统计 + 帖子/评论/勋章</div>
+      </a>
+      <a class="nav-card" href="web/creator-center.html">
+        <span class="nc-num">W08</span>
+        <div class="nc-icon"><i class="ti ti-chart-bar"></i></div>
+        <div class="nc-title">创作者中心</div>
+        <div class="nc-sub">收益概览 · 数据趋势 · 稿件管理</div>
+      </a>
+      <a class="nav-card" href="web/drama-channel.html">
+        <span class="nc-num">W09</span>
+        <div class="nc-icon"><i class="ti ti-device-tv"></i></div>
+        <div class="nc-title">短剧频道</div>
+        <div class="nc-sub">Banner · 筛选器 · 剧集瀑布流</div>
+      </a>
+      <a class="nav-card" href="web/drama-watch.html">
+        <span class="nc-num">W10</span>
+        <div class="nc-icon"><i class="ti ti-player-play"></i></div>
+        <div class="nc-title">短剧观看页</div>
+        <div class="nc-sub">播放器 · 60集列表 · 付费解锁</div>
+      </a>
+      <a class="nav-card" href="web/divination-channel.html">
+        <span class="nc-num">W11</span>
+        <div class="nc-icon"><i class="ti ti-yin-yang"></i></div>
+        <div class="nc-title">玄学频道</div>
+        <div class="nc-sub">大师卡片 · 服务分类 · 预约支付</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="nav-section">
+    <div class="nav-section-head">
+      <h2><i class="ti ti-device-mobile" style="color:var(--c-teal)"></i>H5 移动版</h2>
+      <span class="count">12 / 12 页</span>
+    </div>
+    <div class="nav-grid">
+      <a class="nav-card h5" href="h5/home.html">
+        <span class="nc-num">H01</span>
+        <div class="nc-icon"><i class="ti ti-home"></i></div>
+        <div class="nc-title">首页</div>
+        <div class="nc-sub">顶部Tab · 单栏流 · 底部 5Tab</div>
+      </a>
+      <a class="nav-card h5" href="h5/channels.html">
+        <span class="nc-num">H02</span>
+        <div class="nc-icon"><i class="ti ti-grid-dots"></i></div>
+        <div class="nc-title">频道列表</div>
+        <div class="nc-sub">已订阅 + 全部 4 列网格</div>
+      </a>
+      <a class="nav-card h5" href="h5/post-detail.html">
+        <span class="nc-num">H03</span>
+        <div class="nc-icon"><i class="ti ti-message-2"></i></div>
+        <div class="nc-title">帖子详情</div>
+        <div class="nc-sub">Tab 切换 帖子 / 实时房</div>
+      </a>
+      <a class="nav-card h5" href="h5/post-editor.html">
+        <span class="nc-num">H04</span>
+        <div class="nc-icon"><i class="ti ti-pencil-plus"></i></div>
+        <div class="nc-title">发帖编辑器</div>
+        <div class="nc-sub">移动端简化 · 6 种类型</div>
+      </a>
+      <a class="nav-card h5" href="h5/profile.html">
+        <span class="nc-num">H05</span>
+        <div class="nc-icon"><i class="ti ti-user"></i></div>
+        <div class="nc-title">个人中心</div>
+        <div class="nc-sub">Profile + VIP banner + 菜单</div>
+      </a>
+      <a class="nav-card h5" href="h5/settings.html">
+        <span class="nc-num">H06</span>
+        <div class="nc-icon"><i class="ti ti-settings"></i></div>
+        <div class="nc-title">设置页</div>
+        <div class="nc-sub">账号 / 通知 / 隐私 / 通用</div>
+      </a>
+      <a class="nav-card h5" href="h5/vip.html">
+        <span class="nc-num">H07</span>
+        <div class="nc-icon"><i class="ti ti-crown"></i></div>
+        <div class="nc-title">黑卡会员</div>
+        <div class="nc-sub">移动端开通流程</div>
+      </a>
+      <a class="nav-card h5" href="h5/divination-channel.html">
+        <span class="nc-num">H08</span>
+        <div class="nc-icon"><i class="ti ti-yin-yang"></i></div>
+        <div class="nc-title">玄学频道</div>
+        <div class="nc-sub">大师入口 · 预约 sheet</div>
+      </a>
+      <a class="nav-card h5" href="h5/drama-channel.html">
+        <span class="nc-num">H09</span>
+        <div class="nc-icon"><i class="ti ti-device-tv"></i></div>
+        <div class="nc-title">短剧频道</div>
+        <div class="nc-sub">追剧 + 本周热推 两列</div>
+      </a>
+      <a class="nav-card h5" href="h5/drama-watch.html">
+        <span class="nc-num">H10</span>
+        <div class="nc-icon"><i class="ti ti-player-play"></i></div>
+        <div class="nc-title">短剧观看</div>
+        <div class="nc-sub">竖屏播放器 · TikTok 操作栏</div>
+      </a>
+      <a class="nav-card h5" href="h5/messages.html">
+        <span class="nc-num">H11</span>
+        <div class="nc-icon"><i class="ti ti-bell"></i></div>
+        <div class="nc-title">消息中心</div>
+        <div class="nc-sub">4 列快捷分类 + 列表</div>
+      </a>
+      <a class="nav-card h5" href="h5/search.html">
+        <span class="nc-num">H12</span>
+        <div class="nc-icon"><i class="ti ti-search"></i></div>
+        <div class="nc-title">搜索</div>
+        <div class="nc-sub">历史 + 热搜 + 输入结果</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="nav-footer">
+    奇点社区 © 2026 · 静态原型 v1.0 · 零依赖 HTML/CSS/JS · 可直接部署至 GitHub Pages / Vercel
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>消息 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .h5-shell { padding-bottom: 80px; }
+  .cat-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 14px 16px;
+  }
+  .cat-tile {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 16px 6px 12px;
+    text-align: center;
+    position: relative;
+  }
+  .cat-tile .icon-bubble {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .cat-tile .name { font-size: 11px; }
+  .cat-tile .dot { position: absolute; top: 10px; right: 10px; min-width: 16px; height: 16px; background: var(--brand-400); color: white; font-size: 9px; padding: 0 5px; border-radius: var(--r-pill); display: flex; align-items: center; justify-content: center; }
+
+  .ib-like    { background: var(--c-rose-bg);    color: var(--c-rose); }
+  .ib-comment { background: var(--brand-bg);     color: var(--brand-300); }
+  .ib-follow  { background: var(--c-green-bg);   color: var(--c-green); }
+  .ib-system  { background: var(--bg-elev);      color: var(--text-2); }
+  .ib-reward  { background: rgba(255,215,0,0.14); color: #FFD700; }
+
+  .list-section { padding: 0 16px; }
+  .list-section h3 { font-size: 13px; font-weight: 500; padding: 8px 0; color: var(--text-3); }
+  .msg-item-h5 {
+    display: flex; gap: 12px; align-items: center;
+    padding: 12px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-md);
+    margin-bottom: 8px;
+  }
+  .msg-item-h5 .body { flex: 1; min-width: 0; }
+  .msg-item-h5 .time { font-size: 10px; color: var(--text-4); }
+</style>
+</head>
+<body>
+<div class="h5-shell">
+  <header class="h5-header">
+    <i class="ti ti-arrow-left c-2" style="font-size:20px" onclick="history.back()"></i>
+    <div class="title">消息</div>
+    <i class="ti ti-settings c-2" style="font-size:20px"></i>
+  </header>
+
+  <div class="cat-grid">
+    <div class="cat-tile">
+      <div class="icon-bubble ib-like"><i class="ti ti-heart"></i></div>
+      <div class="name">点赞</div>
+      <span class="dot">5</span>
+    </div>
+    <div class="cat-tile">
+      <div class="icon-bubble ib-comment"><i class="ti ti-message-circle"></i></div>
+      <div class="name">评论</div>
+      <span class="dot">2</span>
+    </div>
+    <div class="cat-tile">
+      <div class="icon-bubble ib-follow"><i class="ti ti-user-plus"></i></div>
+      <div class="name">新粉丝</div>
+      <span class="dot">3</span>
+    </div>
+    <div class="cat-tile">
+      <div class="icon-bubble ib-reward"><i class="ti ti-coin"></i></div>
+      <div class="name">收益</div>
+    </div>
+  </div>
+
+  <div class="list-section">
+    <h3>最近私信</h3>
+    <div id="dmList"></div>
+  </div>
+
+  <div class="list-section">
+    <h3>系统通知</h3>
+    <div id="sysList"></div>
+  </div>
+
+  <div class="h5-tabbar" id="tabbar"></div>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  document.getElementById('dmList').innerHTML = QD.dms.map(dm => {
+    const u = QD.authorById[dm.userId];
+    return `
+      <div class="msg-item-h5">
+        ${QDC.tplAvatar(u, 'md')}
+        <div class="body">
+          <div class="row gap-2">
+            <span class="f-medium t-sm">${u.name}</span>
+            ${u.vip ? '<span class="badge gold t-xs">VIP</span>' : ''}
+            <span class="time" style="margin-left:auto">${dm.time}</span>
+          </div>
+          <div class="t-sm c-3 ellipsis" style="margin-top:2px">${dm.last}</div>
+        </div>
+        ${dm.unread ? `<span class="badge brand t-xs" style="flex-shrink:0">${dm.unread}</span>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('sysList').innerHTML = QD.notifications.filter(n => n.type === 'system' || n.type === 'reward').map(n => `
+    <div class="msg-item-h5">
+      <div class="icon-bubble ${n.type === 'reward' ? 'ib-reward' : 'ib-system'}" style="width:36px;height:36px;flex-shrink:0"><i class="ti ${n.type === 'reward' ? 'ti-coin' : 'ti-bell'}"></i></div>
+      <div class="body">
+        <div class="row gap-2"><span class="f-medium t-sm">系统通知</span><span class="time" style="margin-left:auto">${n.time}</span></div>
+        <div class="t-sm c-2" style="margin-top:2px;line-height:1.5">${n.text}</div>
+      </div>
+    </div>
+  `).join('');
+
+  QDC.renderH5TabBar(document.getElementById('tabbar'), 'messages');
+</script>
+</body>
+</html>

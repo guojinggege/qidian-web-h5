@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>搜索 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .h5-shell { padding-bottom: 24px; }
+  .sr-bar-h5 {
+    display: flex; gap: 10px; align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .sr-input {
+    flex: 1; height: 36px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-pill);
+    padding: 0 14px;
+    color: var(--text-1);
+    font-size: 13px;
+    outline: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sr-input input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-1); font-size: 13px; }
+
+  .sr-section { padding: 18px 16px 0; }
+  .sr-section .head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .sr-section .head h3 { font-size: 14px; font-weight: 500; margin: 0; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag-row .tag {
+    padding: 6px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-pill);
+    font-size: 12px;
+    color: var(--text-2);
+  }
+
+  .hot-list-h5 .hot-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .hot-row .rk { font-size: 16px; font-weight: 500; width: 24px; color: var(--text-4); font-family: ui-monospace, monospace; }
+  .hot-row .rk.top { color: var(--c-coral); }
+
+  .pane-result, .pane-discover { display: none; }
+  .pane-discover.active, .pane-result.active { display: block; }
+  .pane-result { padding: 14px 16px; }
+  .pane-result .tabs { margin-bottom: 14px; }
+  .hl { background: rgba(127,119,221,0.28); color: var(--brand-200); padding: 0 2px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="h5-shell">
+  <header class="h5-header">
+    <div class="sr-input" style="flex:1;height:36px">
+      <i class="ti ti-search c-3"></i>
+      <input id="srInput" placeholder="搜帖子、用户、频道..." autofocus>
+      <i class="ti ti-x c-3" id="clearBtn"></i>
+    </div>
+    <span class="t-sm c-2" onclick="history.back()">取消</span>
+  </header>
+
+  <div class="pane-discover active" id="discoverPane">
+    <div class="sr-section">
+      <div class="head">
+        <h3><i class="ti ti-history c-3"></i> 搜索历史</h3>
+        <i class="ti ti-trash c-3"></i>
+      </div>
+      <div class="tag-row">
+        <span class="tag">约基奇G3</span>
+        <span class="tag">伦敦Quant</span>
+        <span class="tag">海归霸总38</span>
+        <span class="tag">玄海道长</span>
+        <span class="tag">清冷感</span>
+        <span class="tag">黑神话TGA</span>
+      </div>
+    </div>
+
+    <div class="sr-section">
+      <div class="head"><h3><i class="ti ti-sparkles c-brand"></i> 搜索发现</h3></div>
+      <div class="tag-row" id="suggestions"></div>
+    </div>
+
+    <div class="sr-section">
+      <div class="head">
+        <h3><i class="ti ti-flame c-danger"></i> 热搜榜</h3>
+        <span class="t-xs c-3">实时</span>
+      </div>
+      <div class="hot-list-h5" id="hotList"></div>
+    </div>
+  </div>
+
+  <div class="pane-result" id="resultPane">
+    <div class="tabs">
+      <div class="tab active">综合 142</div>
+      <div class="tab">帖子 88</div>
+      <div class="tab">用户 24</div>
+      <div class="tab">圈子 12</div>
+    </div>
+
+    <div class="t-sm c-3" style="margin-bottom:10px"><i class="ti ti-users"></i> 用户</div>
+    <div class="card" style="display:flex;gap:12px;align-items:center;padding:12px;margin-bottom:10px">
+      <div class="avatar md bg-grad-1 has-bg vip-ring">硅</div>
+      <div class="grow">
+        <div class="row gap-2"><span class="f-medium t-sm">硅谷<span class="hl">郊狼</span></span><span class="badge t-xs">Lv.31</span><span class="badge gold t-xs">VIP</span></div>
+        <div class="t-xs c-3">12.8k 粉丝 · NBA观察者</div>
+      </div>
+      <button class="btn sm btn-primary">关注</button>
+    </div>
+
+    <div class="t-sm c-3" style="margin: 14px 0 10px"><i class="ti ti-message"></i> 帖子</div>
+    <div id="postsResult"></div>
+  </div>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  document.getElementById('suggestions').innerHTML = QD.searchSuggestions.map(s => `<span class="tag">${s}</span>`).join('');
+  document.getElementById('hotList').innerHTML = QD.hotSearches.map((h, i) => `
+    <div class="hot-row">
+      <span class="rk ${i < 3 ? 'top' : ''}">${i+1}</span>
+      <span class="grow t-sm">${h.q}</span>
+      <span class="badge ${h.delta.includes('NEW') ? 'brand' : (h.delta === '热' ? 'danger' : '')} t-xs">${h.delta}</span>
+    </div>
+  `).join('');
+
+  const samples = QD.posts.filter(p => p.title.includes('约基奇')).concat(QD.posts.slice(0,1));
+  document.getElementById('postsResult').innerHTML = samples.slice(0,3).map(p => {
+    let html = QDC.tplPostCard(p);
+    html = html.replace(/约基奇/g, '<span class="hl">约基奇</span>');
+    return html.replace('<article ', `<article onclick="location.href='post-detail.html?id=${p.id}'" `);
+  }).join('');
+
+  // Switch panes on input
+  const input = document.getElementById('srInput');
+  function check() {
+    if (input.value.trim()) {
+      document.getElementById('discoverPane').classList.remove('active');
+      document.getElementById('resultPane').classList.add('active');
+    } else {
+      document.getElementById('discoverPane').classList.add('active');
+      document.getElementById('resultPane').classList.remove('active');
+    }
+  }
+  input.addEventListener('input', check);
+  document.querySelectorAll('.tag').forEach(t => t.addEventListener('click', () => { input.value = t.textContent; check(); }));
+  document.querySelectorAll('.hot-row').forEach(r => r.addEventListener('click', () => { input.value = r.querySelector('.grow').textContent; check(); }));
+  document.getElementById('clearBtn').addEventListener('click', () => { input.value = ''; check(); input.focus(); });
+</script>
+</body>
+</html>

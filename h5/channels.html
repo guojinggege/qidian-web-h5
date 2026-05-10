@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>频道 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .ch-pad { padding: 16px 14px 24px; }
+  .ch-section h2 { font-size: 14px; font-weight: 500; margin: 0 0 12px; display: flex; align-items: center; justify-content: space-between; }
+
+  .my-channels { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .my-ch-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+  }
+  .ch-icon-sq {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .ch-icon-sq.coral  { background: var(--c-coral-bg);  color: var(--c-coral); }
+  .ch-icon-sq.amber  { background: var(--c-amber-bg);  color: var(--c-amber); }
+  .ch-icon-sq.green  { background: var(--c-green-bg);  color: var(--c-green); }
+  .ch-icon-sq.pink   { background: var(--c-pink-bg);   color: var(--c-pink); }
+  .ch-icon-sq.purple { background: var(--c-purple-bg); color: var(--c-purple); }
+  .ch-icon-sq.blue   { background: var(--c-blue-bg);   color: var(--c-blue); }
+  .ch-icon-sq.teal   { background: var(--c-teal-bg);   color: var(--c-teal); }
+  .ch-icon-sq.violet { background: var(--c-violet-bg); color: var(--c-violet); }
+  .ch-icon-sq.lime   { background: var(--c-lime-bg);   color: var(--c-lime); }
+  .ch-icon-sq.sky    { background: var(--c-sky-bg);    color: var(--c-sky); }
+  .ch-icon-sq.rose   { background: var(--c-rose-bg);   color: var(--c-rose); }
+
+  .all-channels {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .ch-tile {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 14px 8px 12px;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 6px;
+    cursor: pointer;
+  }
+  .ch-tile .ch-icon-sq { width: 48px; height: 48px; font-size: 22px; }
+  .ch-tile .name { font-size: 12px; color: var(--text-1); }
+  .ch-tile .stat { font-size: 10px; color: var(--text-4); }
+</style>
+</head>
+<body>
+<div class="h5-shell">
+  <header class="h5-header">
+    <i class="ti ti-arrow-left c-2" style="font-size:20px" onclick="history.back()"></i>
+    <div class="title">频道</div>
+    <i class="ti ti-search c-2" style="font-size:20px" onclick="location.href='search.html'"></i>
+  </header>
+
+  <div class="ch-pad">
+    <section class="ch-section" style="margin-bottom:24px">
+      <h2>已订阅 <span class="t-xs c-3">7 个</span></h2>
+      <div class="my-channels" id="myChannels"></div>
+    </section>
+
+    <section class="ch-section">
+      <h2>全部频道 <span class="t-xs c-3">11 个</span></h2>
+      <div class="all-channels" id="allChannels"></div>
+    </section>
+  </div>
+
+  <div class="h5-tabbar" id="tabbar"></div>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  document.getElementById('myChannels').innerHTML = QD.channels.filter(c => c.subscribed).map(c => `
+    <a class="my-ch-item" href="home.html?ch=${c.slug}">
+      <div class="ch-icon-sq ${c.color}"><i class="ti ${c.icon}"></i></div>
+      <div class="grow">
+        <div class="row gap-2">
+          <span class="f-medium">${c.name}</span>
+          ${c.unread > 0 ? `<span class="badge brand t-xs">${c.unread}</span>` : ''}
+        </div>
+        <div class="t-xs c-3">${QD.fmtNum(c.members)} 成员 · ${QD.fmtNum(c.online)} 在线</div>
+      </div>
+      <i class="ti ti-chevron-right c-3"></i>
+    </a>
+  `).join('');
+
+  document.getElementById('allChannels').innerHTML = QD.channels.map(c => `
+    <a class="ch-tile" href="home.html?ch=${c.slug}">
+      <div class="ch-icon-sq ${c.color}"><i class="ti ${c.icon}"></i></div>
+      <div class="name">${c.name}</div>
+      <div class="stat">${QD.fmtNum(c.online)} 在线</div>
+    </a>
+  `).join('');
+
+  QDC.renderH5TabBar(document.getElementById('tabbar'), 'channels');
+</script>
+</body>
+</html>

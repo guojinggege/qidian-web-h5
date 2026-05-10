@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>设置 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .h5-shell { padding-bottom: 80px; }
+  .set-section { margin: 14px 16px; }
+  .set-section .title { font-size: 12px; color: var(--text-4); padding: 0 2px 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .set-list { background: var(--bg-card); border: 1px solid var(--border-1); border-radius: var(--r-lg); overflow: hidden; }
+  .set-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .set-item:last-child { border-bottom: none; }
+  .set-item .label { flex: 1; font-size: 14px; }
+  .set-item .value { font-size: 13px; color: var(--text-3); }
+  .set-item.danger .label { color: var(--danger); }
+</style>
+</head>
+<body>
+<div class="h5-shell">
+  <header class="h5-header">
+    <i class="ti ti-arrow-left c-2" style="font-size:20px" onclick="history.back()"></i>
+    <div class="title">设置</div>
+    <span style="width:20px"></span>
+  </header>
+
+  <div class="set-section">
+    <div class="title">账号</div>
+    <div class="set-list">
+      <div class="set-item"><span class="label">账号信息</span><span class="value">u_self</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">个人资料</span><span class="value">过路的星辰</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">绑定手机</span><span class="value">+1 ••• 8932</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">绑定邮箱</span><span class="value">已绑定</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">第三方登录</span><span class="value">Google · Apple</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">修改密码</span><i class="ti ti-chevron-right c-3"></i></div>
+    </div>
+  </div>
+
+  <div class="set-section">
+    <div class="title">通知</div>
+    <div class="set-list">
+      <div class="set-item"><span class="label">推送通知</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="set-item"><span class="label">评论与回复</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="set-item"><span class="label">点赞与收藏</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="set-item"><span class="label">新粉丝</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="set-item"><span class="label">系统通知</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="set-item"><span class="label">私信</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="set-item"><span class="label">营销活动</span><div class="switch" onclick="this.classList.toggle('on')"></div></div>
+      <div class="set-item"><span class="label">免打扰时段</span><span class="value">22:00 - 08:00</span><i class="ti ti-chevron-right c-3"></i></div>
+    </div>
+  </div>
+
+  <div class="set-section">
+    <div class="title">隐私</div>
+    <div class="set-list">
+      <div class="set-item"><span class="label">谁可以关注我</span><span class="value">所有人</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">谁可以私信我</span><span class="value">关注的人</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">展示在线状态</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="set-item"><span class="label">实时房展示头像</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="set-item"><span class="label">黑名单</span><span class="value">3 人</span><i class="ti ti-chevron-right c-3"></i></div>
+    </div>
+  </div>
+
+  <div class="set-section">
+    <div class="title">内容偏好</div>
+    <div class="set-list">
+      <div class="set-item"><span class="label">屏蔽频道</span><span class="value">0 个</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">屏蔽关键词</span><span class="value">2 个</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">青少年模式</span><div class="switch" onclick="this.classList.toggle('on')"></div></div>
+      <div class="set-item"><span class="label">敏感内容警告</span><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+    </div>
+  </div>
+
+  <div class="set-section">
+    <div class="title">通用</div>
+    <div class="set-list">
+      <div class="set-item"><span class="label">语言</span><span class="value">简体中文</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">地区</span><span class="value">美国</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">主题</span><span class="value">深色（默认）</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">字体大小</span><span class="value">标准</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">省流量模式</span><div class="switch" onclick="this.classList.toggle('on')"></div></div>
+      <div class="set-item"><span class="label">清理缓存</span><span class="value">128 MB</span><i class="ti ti-chevron-right c-3"></i></div>
+    </div>
+  </div>
+
+  <div class="set-section">
+    <div class="title">关于</div>
+    <div class="set-list">
+      <div class="set-item"><span class="label">版本号</span><span class="value">v1.0.0 · build 2026.05</span></div>
+      <div class="set-item"><span class="label">用户协议</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">隐私政策</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">玄学服务条款</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">VIP 订阅协议</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="set-item"><span class="label">关于奇点社区</span><i class="ti ti-chevron-right c-3"></i></div>
+    </div>
+  </div>
+
+  <div class="set-section">
+    <div class="set-list">
+      <div class="set-item danger" style="justify-content:center"><span class="label" style="text-align:center;flex:none">退出登录</span></div>
+    </div>
+  </div>
+
+  <div class="set-section">
+    <div class="set-list">
+      <div class="set-item danger" style="justify-content:center"><span class="label" style="text-align:center;flex:none">注销账号</span></div>
+    </div>
+  </div>
+
+  <div style="text-align:center;color:var(--text-4);font-size:11px;padding:20px">
+    奇点社区 © 2026 Singularity Community Ltd.
+  </div>
+</div>
+</body>
+</html>

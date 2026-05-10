@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>消息中心 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .msg-shell {
+    max-width: 1200px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 16px;
+    padding: 24px;
+  }
+  .msg-side {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 14px 10px;
+    align-self: start;
+    position: sticky; top: calc(var(--header-h) + 16px);
+  }
+  .msg-side-title { font-size: 11px; text-transform: uppercase; color: var(--text-4); padding: 6px 10px; letter-spacing: 0.5px; }
+  .msg-cat {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    border-radius: var(--r-md);
+    color: var(--text-2);
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .msg-cat:hover { background: var(--bg-elev); color: var(--text-1); }
+  .msg-cat.active { background: var(--brand-bg); color: var(--brand-200); }
+  .msg-cat.active i { color: var(--brand-300); }
+  .msg-cat .count { margin-left: auto; font-size: 11px; color: var(--text-4); }
+  .msg-cat.active .count { color: var(--brand-300); }
+
+  .msg-main {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    min-height: 70vh;
+  }
+  .msg-head {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border-1);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .msg-item {
+    display: flex; gap: 14px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border-1);
+    cursor: pointer; transition: background .15s;
+  }
+  .msg-item:hover { background: var(--bg-elev); }
+  .msg-item.unread { background: rgba(127,119,221,0.04); }
+  .msg-item.unread::before { content:''; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-400); align-self: center; margin-left: -8px; }
+  .msg-item .body { flex: 1; min-width: 0; }
+  .msg-item .time { font-size: 11px; color: var(--text-4); }
+
+  .icon-bubble {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .ib-like    { background: var(--c-rose-bg);    color: var(--c-rose); }
+  .ib-comment { background: var(--brand-bg);     color: var(--brand-300); }
+  .ib-follow  { background: var(--c-green-bg);   color: var(--c-green); }
+  .ib-mention { background: var(--c-amber-bg);   color: var(--c-amber); }
+  .ib-system  { background: var(--bg-elev);      color: var(--text-2); }
+  .ib-reward  { background: rgba(255,215,0,0.14); color: #FFD700; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header"><div id="header"></div></header>
+  <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
+
+  <main class="app-main">
+    <div class="msg-shell">
+      <aside class="msg-side">
+        <div class="msg-side-title">分类</div>
+        <a class="msg-cat active"><i class="ti ti-inbox"></i>全部消息<span class="count">12</span></a>
+        <a class="msg-cat"><i class="ti ti-heart"></i>互动<span class="count">5</span></a>
+        <a class="msg-cat"><i class="ti ti-mail"></i>私信<span class="count">3</span></a>
+        <a class="msg-cat"><i class="ti ti-at"></i>提及<span class="count">1</span></a>
+        <a class="msg-cat"><i class="ti ti-bell"></i>系统通知<span class="count">3</span></a>
+
+        <div class="msg-side-title" style="margin-top:14px">最近私信</div>
+        <div id="dms"></div>
+      </aside>
+
+      <section class="msg-main">
+        <div class="msg-head">
+          <div>
+            <div class="t-md f-medium">全部消息</div>
+            <div class="t-sm c-3">3 条未读 · 自动同步</div>
+          </div>
+          <div class="row gap-2">
+            <button class="btn sm"><i class="ti ti-mail-opened"></i>全部标为已读</button>
+            <button class="btn sm"><i class="ti ti-settings"></i>通知设置</button>
+          </div>
+        </div>
+        <div id="msgList"></div>
+      </section>
+    </div>
+  </main>
+
+  <aside class="app-rightbar" style="display:none"></aside>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  QDC.renderHeader(QDC.$('#header'));
+  QDC.renderSidebar(QDC.$('#sidebar'));
+  document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
+  document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
+
+  const typeMap = {
+    like:    { icon: 'ti-heart',  cls: 'ib-like' },
+    comment: { icon: 'ti-message-circle', cls: 'ib-comment' },
+    follow:  { icon: 'ti-user-plus', cls: 'ib-follow' },
+    mention: { icon: 'ti-at', cls: 'ib-mention' },
+    system:  { icon: 'ti-bell', cls: 'ib-system' },
+    reward:  { icon: 'ti-coin', cls: 'ib-reward' },
+  };
+
+  document.getElementById('msgList').innerHTML = QD.notifications.map(n => {
+    const t = typeMap[n.type] || typeMap.system;
+    const from = n.from === 'sys' ? null : QD.authorById[n.from];
+    return `
+      <div class="msg-item ${!n.read ? 'unread' : ''}">
+        <div class="icon-bubble ${t.cls}"><i class="ti ${t.icon}"></i></div>
+        <div class="body">
+          ${from ? `<div class="row gap-2" style="margin-bottom:2px"><span class="f-medium t-sm">${from.name}</span><span class="dot-sep"></span><span class="t-xs c-3">Lv.${from.level}</span></div>` : '<div class="row gap-2" style="margin-bottom:2px"><span class="f-medium t-sm">系统通知</span></div>'}
+          <div class="t-sm c-2">${n.text}</div>
+        </div>
+        <div class="time">${n.time}</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('dms').innerHTML = QD.dms.map(dm => {
+    const u = QD.authorById[dm.userId];
+    return `
+      <div class="msg-cat" style="padding: 8px 12px">
+        ${QDC.tplAvatar(u, 'sm')}
+        <div class="grow" style="min-width:0">
+          <div class="t-sm f-medium ellipsis">${u.name}</div>
+          <div class="t-xs c-3 ellipsis">${dm.last}</div>
+        </div>
+        ${dm.unread ? `<span class="badge brand t-xs">${dm.unread}</span>` : ''}
+      </div>
+    `;
+  }).join('');
+</script>
+</body>
+</html>

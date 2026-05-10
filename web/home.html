@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奇点社区 · 首页</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .main-pad { padding: 20px 28px 40px; max-width: 900px; margin: 0 auto; }
+  .feed-head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 16px; }
+  .feed-head h1 { font-size: 22px; font-weight: 500; margin: 0; }
+  .feed-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .hot-banner {
+    margin-bottom: 16px;
+    padding: 18px 22px;
+    background: linear-gradient(135deg, rgba(127,119,221,0.15), rgba(74,219,204,0.05) 80%);
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-lg);
+    display: flex; align-items: center; gap: 16px;
+  }
+  .hot-banner .num {
+    font-size: 28px; font-weight: 500; color: var(--brand-300);
+    font-family: ui-monospace, monospace;
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header"><div id="header"></div></header>
+  <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
+
+  <main class="app-main">
+    <div class="main-pad">
+      <div class="hot-banner">
+        <div>
+          <div class="num">+22.4w</div>
+        </div>
+        <div class="grow">
+          <div class="row gap-2" style="margin-bottom:4px">
+            <span class="badge brand"><i class="ti ti-flame"></i>今日热议</span>
+            <span class="t-sm c-3">2026-05-10 · 全网在线 32.1k</span>
+          </div>
+          <div class="t-md">中世纪欧洲为什么不洗澡？这段史料笑到全社区炸锅</div>
+        </div>
+        <button class="btn btn-primary">立即查看</button>
+      </div>
+
+      <div class="feed-head">
+        <h1>推荐</h1>
+        <div class="seg">
+          <div class="seg-item active">推荐</div>
+          <div class="seg-item">最新</div>
+          <div class="seg-item">热门</div>
+          <div class="seg-item">关注</div>
+        </div>
+      </div>
+
+      <div class="feed-list" id="feed"></div>
+    </div>
+  </main>
+
+  <aside class="app-rightbar">
+    <div class="rightbar" id="rightbar"></div>
+  </aside>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  QDC.renderHeader(QDC.$('#header'));
+  QDC.renderSidebar(QDC.$('#sidebar'));
+
+  // Feed
+  document.getElementById('feed').innerHTML = QD.posts.map(p => {
+    return QDC.tplPostCard(p).replace('<article ', `<article onclick="location.href='post-detail.html?id=${p.id}'" `);
+  }).join('');
+
+  // Right bar
+  document.getElementById('rightbar').innerHTML = `
+    <div class="rightbar-card">
+      <div class="rightbar-title row-between">
+        <span><i class="ti ti-broadcast" style="color:var(--live)"></i> 实时房 · 奇点</span>
+        <span class="live-dot">LIVE</span>
+      </div>
+      <div class="live-room" style="height:540px">
+        <div class="live-room-body" id="liveBody"></div>
+        <div class="live-room-foot">
+          <input class="live-input" placeholder="说点什么...">
+          <button class="icon-btn"><i class="ti ti-send"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="rightbar-card">
+      <div class="rightbar-title"><i class="ti ti-trending-up"></i> 热搜榜</div>
+      ${QD.hotSearches.map((h, i) => `
+        <div class="row gap-2" style="padding:8px 0; border-bottom:1px solid var(--border-1)">
+          <span class="${i < 3 ? 'c-brand' : 'c-3'} t-sm f-medium" style="width:18px">${i+1}</span>
+          <span class="grow ellipsis">${h.q}</span>
+          <span class="badge ${h.delta.includes('NEW') ? 'brand' : h.delta === '热' ? 'danger' : ''} t-xs">${h.delta}</span>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="rightbar-card" style="background:linear-gradient(180deg, rgba(255,215,0,0.08), var(--bg-card) 40%);border-color:rgba(255,215,0,0.30)">
+      <div class="row gap-2" style="margin-bottom:6px">
+        <i class="ti ti-crown" style="color:#FFD700;font-size:20px"></i>
+        <span class="t-md f-medium">黑卡会员</span>
+      </div>
+      <div class="t-sm c-2" style="margin-bottom:12px">解锁全部短剧 · 玄学咨询 8 折 · 8 大专属权益</div>
+      <a class="btn btn-vip block" href="vip.html">立即开通 ¥99/月起</a>
+    </div>
+  `;
+
+  QDC.startLiveRoom(document.querySelector('.live-room'), 'p001');
+</script>
+</body>
+</html>

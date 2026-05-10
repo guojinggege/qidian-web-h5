@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .pf-cover-h5 {
+    height: 140px;
+    background:
+      linear-gradient(135deg, rgba(127,119,221,0.40), rgba(74,219,204,0.30)),
+      radial-gradient(circle at 30% 50%, rgba(159,127,229,0.40), transparent 50%);
+    position: relative;
+  }
+  .pf-cover-h5 i.set { position: absolute; top: 14px; right: 14px; color: white; font-size: 22px; }
+  .pf-head-h5 {
+    margin: -50px 16px 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 18px;
+    position: relative;
+  }
+  .pf-avatar-h5 {
+    width: 76px; height: 76px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7F77DD, #534AB7);
+    border: 3px solid var(--bg-card);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 28px; font-weight: 500;
+    box-shadow: 0 0 0 2px #FFD700;
+    margin-top: -50px;
+    position: relative;
+  }
+  .pf-stats-h5 { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-1); }
+  .pf-stat-h5 { text-align: center; }
+  .pf-stat-h5 .num { font-size: 17px; font-weight: 500; font-family: ui-monospace, monospace; }
+  .pf-stat-h5 .lbl { font-size: 10px; color: var(--text-3); margin-top: 2px; }
+
+  .pf-section { margin: 18px 16px; }
+  .vip-banner {
+    background: linear-gradient(135deg, rgba(255,215,0,0.12), rgba(83,74,183,0.20));
+    border: 1px solid rgba(255,215,0,0.30);
+    border-radius: var(--r-lg);
+    padding: 16px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .vip-banner i { font-size: 30px; color: #FFD700; }
+
+  .menu-list {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+  }
+  .menu-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-1);
+    cursor: pointer;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item:hover { background: var(--bg-elev); }
+  .menu-icon {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .menu-icon.brand  { background: var(--brand-bg);     color: var(--brand-300); }
+  .menu-icon.gold   { background: rgba(255,215,0,0.14); color: #FFD700; }
+  .menu-icon.coral  { background: var(--c-coral-bg);   color: var(--c-coral); }
+  .menu-icon.teal   { background: var(--c-teal-bg);    color: var(--c-teal); }
+  .menu-icon.green  { background: var(--c-green-bg);   color: var(--c-green); }
+  .menu-icon.pink   { background: var(--c-pink-bg);    color: var(--c-pink); }
+</style>
+</head>
+<body>
+<div class="h5-shell">
+  <div class="pf-cover-h5">
+    <i class="ti ti-settings set" onclick="location.href='settings.html'"></i>
+  </div>
+
+  <div class="pf-head-h5">
+    <div class="pf-avatar-h5">星</div>
+    <div class="row gap-2" style="margin-top:10px"><span class="t-md f-medium">过路的星辰</span><span class="badge">Lv.23</span><span class="badge gold">VIP 金</span></div>
+    <div class="t-sm c-3" style="margin: 4px 0 8px">北美程序员 · 摩羯座 · 半个NBA球迷</div>
+    <div class="t-xs c-4">奇点ID: u_self · 注册于 2024-08</div>
+
+    <div class="pf-stats-h5">
+      <div class="pf-stat-h5"><div class="num">142</div><div class="lbl">帖子</div></div>
+      <div class="pf-stat-h5"><div class="num">1.8k</div><div class="lbl">粉丝</div></div>
+      <div class="pf-stat-h5"><div class="num">332</div><div class="lbl">关注</div></div>
+      <div class="pf-stat-h5"><div class="num">8.9k</div><div class="lbl">奇点币</div></div>
+    </div>
+  </div>
+
+  <div class="pf-section">
+    <div class="vip-banner" onclick="location.href='vip.html'">
+      <i class="ti ti-crown"></i>
+      <div class="grow">
+        <div class="f-medium">黑卡金 · 剩余 28 天</div>
+        <div class="t-xs c-3">续费享 8 折优惠 · 立即续费节省 ¥120</div>
+      </div>
+      <i class="ti ti-chevron-right c-3"></i>
+    </div>
+  </div>
+
+  <div class="pf-section">
+    <div class="menu-list">
+      <div class="menu-item"><div class="menu-icon brand"><i class="ti ti-edit"></i></div><span class="grow">我的发布</span><span class="t-xs c-4">142</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="menu-item"><div class="menu-icon teal"><i class="ti ti-bookmark"></i></div><span class="grow">我的收藏</span><span class="t-xs c-4">88</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="menu-item"><div class="menu-icon coral"><i class="ti ti-history"></i></div><span class="grow">浏览历史</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="menu-item"><div class="menu-icon green"><i class="ti ti-device-tv"></i></div><span class="grow">追剧列表</span><span class="t-xs c-4">12</span><i class="ti ti-chevron-right c-3"></i></div>
+    </div>
+  </div>
+
+  <div class="pf-section">
+    <div class="menu-list">
+      <div class="menu-item" onclick="location.href='../web/creator-center.html'"><div class="menu-icon brand"><i class="ti ti-chart-bar"></i></div><span class="grow">创作者中心</span><span class="badge brand t-xs">¥4,328</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="menu-item"><div class="menu-icon gold"><i class="ti ti-coin"></i></div><span class="grow">奇点币</span><span class="t-xs c-4">8,932</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="menu-item"><div class="menu-icon pink"><i class="ti ti-yin-yang"></i></div><span class="grow">我的玄学订单</span><span class="t-xs c-4">3</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="menu-item"><div class="menu-icon teal"><i class="ti ti-trophy"></i></div><span class="grow">勋章成就</span><span class="t-xs c-4">18 / 64</span><i class="ti ti-chevron-right c-3"></i></div>
+    </div>
+  </div>
+
+  <div class="pf-section">
+    <div class="menu-list">
+      <div class="menu-item"><div class="menu-icon brand"><i class="ti ti-user-plus"></i></div><span class="grow">邀请好友拿奖励</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="menu-item"><div class="menu-icon coral"><i class="ti ti-headset"></i></div><span class="grow">客服中心</span><i class="ti ti-chevron-right c-3"></i></div>
+      <div class="menu-item" onclick="location.href='settings.html'"><div class="menu-icon teal"><i class="ti ti-settings"></i></div><span class="grow">设置</span><i class="ti ti-chevron-right c-3"></i></div>
+    </div>
+  </div>
+
+  <div class="h5-tabbar" id="tabbar"></div>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  QDC.renderH5TabBar(document.getElementById('tabbar'), 'profile');
+</script>
+</body>
+</html>

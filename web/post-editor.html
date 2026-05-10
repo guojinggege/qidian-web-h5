@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>发布新帖 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .ed-shell { max-width: 880px; margin: 0 auto; padding: 24px 28px 80px; }
+  .ed-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .ed-head h1 { margin: 0; font-size: 22px; font-weight: 500; }
+
+  .ed-types { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 24px; }
+  .ed-type {
+    padding: 14px 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-md);
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .ed-type:hover { border-color: var(--border-2); background: var(--bg-elev); }
+  .ed-type.active { border-color: var(--brand-400); background: var(--brand-bg); }
+  .ed-type i { font-size: 22px; display: block; margin-bottom: 6px; color: var(--text-2); }
+  .ed-type.active i { color: var(--brand-300); }
+  .ed-type span { font-size: 12px; }
+
+  .ed-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+  .ed-title-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-1);
+    font-size: 22px;
+    font-weight: 500;
+    padding: 4px 0;
+  }
+  .ed-title-input::placeholder { color: var(--text-4); }
+
+  .ed-toolbar {
+    display: flex; gap: 4px; padding: 6px;
+    background: var(--bg-elev);
+    border-radius: var(--r-md);
+    margin-bottom: 14px;
+  }
+  .ed-toolbar .icon-btn { width: 28px; height: 28px; border-radius: 5px; }
+  .ed-toolbar .icon-btn i { font-size: 15px; }
+  .ed-toolbar .divider-v { width: 1px; background: var(--border-1); margin: 4px 4px; }
+
+  .ed-body {
+    width: 100%; min-height: 320px;
+    background: transparent; border: none; outline: none;
+    color: var(--text-1); font-size: 14px; line-height: 1.8; resize: vertical;
+  }
+
+  .ed-channel {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px;
+    background: var(--bg-elev);
+    border-radius: var(--r-md);
+  }
+
+  .ed-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-1); }
+  .ed-row:last-child { border-bottom: none; }
+  .ed-row-label { display: flex; align-items: center; gap: 10px; }
+
+  .ed-foot {
+    position: sticky;
+    bottom: 0;
+    background: var(--bg-base);
+    border-top: 1px solid var(--border-1);
+    padding: 14px 0;
+    display: flex; gap: 12px;
+    margin-top: 24px;
+  }
+
+  .upload-zone {
+    border: 1.5px dashed var(--border-2);
+    border-radius: var(--r-md);
+    padding: 32px;
+    text-align: center;
+    color: var(--text-3);
+    margin-bottom: 14px;
+    cursor: pointer;
+  }
+  .upload-zone:hover { border-color: var(--brand-400); color: var(--brand-300); background: var(--brand-bg); }
+  .upload-zone i { font-size: 28px; display: block; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header"><div id="header"></div></header>
+  <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
+
+  <main class="app-main">
+    <div class="ed-shell">
+      <div class="ed-head">
+        <button class="icon-btn" onclick="history.back()"><i class="ti ti-arrow-left"></i></button>
+        <h1>发布新帖</h1>
+        <span style="margin-left:auto" class="t-sm c-3">草稿自动保存于 1 分钟前 · <span class="text-link">查看草稿</span></span>
+      </div>
+
+      <div class="ed-types">
+        <div class="ed-type active"><i class="ti ti-align-left"></i><span>图文</span></div>
+        <div class="ed-type"><i class="ti ti-video"></i><span>视频</span></div>
+        <div class="ed-type"><i class="ti ti-photo"></i><span>图集</span></div>
+        <div class="ed-type"><i class="ti ti-microphone"></i><span>语音</span></div>
+        <div class="ed-type"><i class="ti ti-chart-bar"></i><span>投票</span></div>
+        <div class="ed-type"><i class="ti ti-help"></i><span>提问</span></div>
+      </div>
+
+      <div class="ed-card">
+        <input class="ed-title-input" placeholder="标题（限 80 字以内 · 第一句决定打开率）">
+        <div class="divider" style="margin: 14px 0"></div>
+
+        <div class="ed-toolbar">
+          <button class="icon-btn" title="加粗"><i class="ti ti-bold"></i></button>
+          <button class="icon-btn" title="斜体"><i class="ti ti-italic"></i></button>
+          <button class="icon-btn" title="下划线"><i class="ti ti-underline"></i></button>
+          <span class="divider-v"></span>
+          <button class="icon-btn" title="标题"><i class="ti ti-h-1"></i></button>
+          <button class="icon-btn" title="引用"><i class="ti ti-quote"></i></button>
+          <button class="icon-btn" title="列表"><i class="ti ti-list"></i></button>
+          <button class="icon-btn" title="代码"><i class="ti ti-code"></i></button>
+          <span class="divider-v"></span>
+          <button class="icon-btn" title="链接"><i class="ti ti-link"></i></button>
+          <button class="icon-btn" title="图片"><i class="ti ti-photo"></i></button>
+          <button class="icon-btn" title="视频"><i class="ti ti-video"></i></button>
+          <button class="icon-btn" title="@提及"><i class="ti ti-at"></i></button>
+          <span class="divider-v"></span>
+          <button class="icon-btn" title="VIP 高级排版"><i class="ti ti-crown" style="color:#FFD700"></i></button>
+        </div>
+
+        <textarea class="ed-body" placeholder="说点什么... 支持 Markdown · ⌘+↵ 发布"></textarea>
+
+        <div class="upload-zone">
+          <i class="ti ti-cloud-upload"></i>
+          <div class="t-sm">拖拽图片到此处，或 <span class="text-link">点击上传</span></div>
+          <div class="t-xs c-4" style="margin-top:4px">支持 JPG/PNG/GIF · 单张 ≤ 10MB · 最多 9 张</div>
+        </div>
+
+        <div class="row gap-2" style="flex-wrap:wrap">
+          <span class="badge brand">#冷知识</span>
+          <span class="badge brand">#世界史</span>
+          <span class="ch-pill" style="border-style:dashed; cursor:pointer"><i class="ti ti-plus ico"></i>添加标签</span>
+        </div>
+      </div>
+
+      <div class="ed-card">
+        <div class="t-md f-medium" style="margin-bottom: 14px">发布设置</div>
+
+        <div class="ed-row">
+          <div class="ed-row-label">
+            <i class="ti ti-hash c-3"></i>
+            <span>发布到</span>
+          </div>
+          <div class="ed-channel">
+            <span class="ch-pill purple"><i class="ti ti-sparkles ico"></i>奇点</span>
+            <i class="ti ti-chevron-down c-3"></i>
+          </div>
+        </div>
+
+        <div class="ed-row">
+          <div class="ed-row-label">
+            <i class="ti ti-eye c-3"></i>
+            <span>谁可以查看</span>
+          </div>
+          <div class="seg">
+            <div class="seg-item active">所有人</div>
+            <div class="seg-item">仅订阅者</div>
+            <div class="seg-item">VIP</div>
+          </div>
+        </div>
+
+        <div class="ed-row">
+          <div class="ed-row-label">
+            <i class="ti ti-broadcast c-3"></i>
+            <span>开启实时讨论房</span>
+          </div>
+          <div class="switch on"></div>
+        </div>
+
+        <div class="ed-row">
+          <div class="ed-row-label">
+            <i class="ti ti-message-circle c-3"></i>
+            <span>允许评论</span>
+          </div>
+          <div class="switch on"></div>
+        </div>
+
+        <div class="ed-row">
+          <div class="ed-row-label">
+            <i class="ti ti-coin c-3"></i>
+            <span>开启打赏</span>
+          </div>
+          <div class="switch on"></div>
+        </div>
+
+        <div class="ed-row">
+          <div class="ed-row-label">
+            <i class="ti ti-crown" style="color:#FFD700"></i>
+            <span>VIP 付费解锁</span>
+            <span class="badge gold">VIP</span>
+          </div>
+          <div class="switch"></div>
+        </div>
+
+        <div class="ed-row">
+          <div class="ed-row-label">
+            <i class="ti ti-clock c-3"></i>
+            <span>定时发布</span>
+          </div>
+          <span class="text-link t-sm">不定时</span>
+        </div>
+      </div>
+
+      <div class="ed-foot">
+        <button class="btn">存为草稿</button>
+        <button class="btn"><i class="ti ti-eye"></i>预览</button>
+        <span style="margin-left:auto" class="t-sm c-3">⌘+↵ 发布</span>
+        <button class="btn btn-primary lg"><i class="ti ti-send"></i>立即发布</button>
+      </div>
+    </div>
+  </main>
+
+  <aside class="app-rightbar" style="display:none"></aside>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  QDC.renderHeader(QDC.$('#header'));
+  QDC.renderSidebar(QDC.$('#sidebar'));
+  document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
+  document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
+  // type switcher
+  document.querySelectorAll('.ed-type').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.ed-type').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+    });
+  });
+  document.querySelectorAll('.switch').forEach(s => {
+    s.addEventListener('click', () => s.classList.toggle('on'));
+  });
+</script>
+</body>
+</html>

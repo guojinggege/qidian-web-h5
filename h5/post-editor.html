@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>发布新帖 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .h5-shell { padding-bottom: 100px; }
+  .ed-pad { padding: 14px 16px 24px; }
+  .ed-types-h5 {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    margin-bottom: 18px;
+  }
+  .ed-type-h5 {
+    padding: 14px 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-md);
+    text-align: center;
+  }
+  .ed-type-h5 i { font-size: 22px; display: block; margin-bottom: 4px; color: var(--text-2); }
+  .ed-type-h5 .name { font-size: 12px; }
+  .ed-type-h5.active { background: var(--brand-bg); border-color: var(--brand-400); }
+  .ed-type-h5.active i { color: var(--brand-300); }
+
+  .ed-card-h5 {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+
+  .ed-title-h5 {
+    width: 100%; background: transparent; border: none; outline: none;
+    color: var(--text-1); font-size: 17px; font-weight: 500;
+  }
+  .ed-title-h5::placeholder { color: var(--text-4); }
+
+  .ed-body-h5 {
+    width: 100%; min-height: 200px;
+    background: transparent; border: none; outline: none;
+    color: var(--text-1); font-size: 14px; line-height: 1.7; resize: vertical;
+  }
+
+  .quick-tools {
+    display: flex; gap: 8px;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-1);
+    position: fixed;
+    bottom: 56px; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px;
+    z-index: 60;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .quick-tools::-webkit-scrollbar { display: none; }
+  .quick-tool {
+    flex-shrink: 0;
+    width: 38px; height: 38px;
+    background: var(--bg-elev);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-2);
+    font-size: 18px;
+  }
+  .quick-tool.brand { background: var(--brand-bg); color: var(--brand-300); }
+
+  .submit-bar {
+    position: fixed;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px;
+    background: rgba(14,14,18,0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border-1);
+    padding: 8px 14px;
+    display: flex; gap: 8px;
+    z-index: 70;
+    height: 56px;
+    align-items: center;
+  }
+
+  .opts-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-1); }
+  .opts-row:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+<div class="h5-shell">
+  <header class="h5-header">
+    <i class="ti ti-x c-2" style="font-size:20px" onclick="history.back()"></i>
+    <div class="title">发布新帖</div>
+    <span class="t-sm c-3">草稿</span>
+  </header>
+
+  <div class="ed-pad">
+    <div class="ed-types-h5">
+      <div class="ed-type-h5 active"><i class="ti ti-align-left"></i><div class="name">图文</div></div>
+      <div class="ed-type-h5"><i class="ti ti-video"></i><div class="name">视频</div></div>
+      <div class="ed-type-h5"><i class="ti ti-photo"></i><div class="name">图集</div></div>
+      <div class="ed-type-h5"><i class="ti ti-microphone"></i><div class="name">语音</div></div>
+      <div class="ed-type-h5"><i class="ti ti-chart-bar"></i><div class="name">投票</div></div>
+      <div class="ed-type-h5"><i class="ti ti-help"></i><div class="name">提问</div></div>
+    </div>
+
+    <div class="ed-card-h5">
+      <input class="ed-title-h5" placeholder="标题（限 80 字）">
+    </div>
+
+    <div class="ed-card-h5">
+      <textarea class="ed-body-h5" placeholder="说点什么... 第一句决定打开率"></textarea>
+      <div class="row gap-2" style="flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--border-1)">
+        <span class="badge brand">#冷知识</span>
+        <span class="ch-pill" style="border-style:dashed"><i class="ti ti-plus ico"></i>添加标签</span>
+      </div>
+    </div>
+
+    <div class="ed-card-h5">
+      <div class="opts-row">
+        <span class="t-sm"><i class="ti ti-hash c-3"></i> 发布到</span>
+        <span class="ch-pill purple"><i class="ti ti-sparkles ico"></i>奇点 <i class="ti ti-chevron-down"></i></span>
+      </div>
+      <div class="opts-row">
+        <span class="t-sm"><i class="ti ti-eye c-3"></i> 谁可以查看</span>
+        <span class="t-sm c-2">所有人 <i class="ti ti-chevron-right c-3"></i></span>
+      </div>
+      <div class="opts-row">
+        <span class="t-sm"><i class="ti ti-broadcast c-3"></i> 开启实时讨论房</span>
+        <div class="switch on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="opts-row">
+        <span class="t-sm"><i class="ti ti-coin c-3"></i> 开启打赏</span>
+        <div class="switch on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="opts-row">
+        <span class="t-sm"><i class="ti ti-crown" style="color:#FFD700"></i> VIP 付费解锁 <span class="badge gold t-xs">VIP</span></span>
+        <div class="switch" onclick="this.classList.toggle('on')"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-tools">
+    <div class="quick-tool brand"><i class="ti ti-photo"></i></div>
+    <div class="quick-tool"><i class="ti ti-video"></i></div>
+    <div class="quick-tool"><i class="ti ti-microphone"></i></div>
+    <div class="quick-tool"><i class="ti ti-at"></i></div>
+    <div class="quick-tool"><i class="ti ti-hash"></i></div>
+    <div class="quick-tool"><i class="ti ti-mood-smile"></i></div>
+    <div class="quick-tool"><i class="ti ti-bold"></i></div>
+    <div class="quick-tool"><i class="ti ti-link"></i></div>
+  </div>
+
+  <div class="submit-bar">
+    <button class="btn sm">存草稿</button>
+    <button class="btn sm">预览</button>
+    <button class="btn btn-primary block" style="margin-left:auto;width:auto;flex:0 0 auto;padding:0 20px"><i class="ti ti-send"></i>发布</button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.ed-type-h5').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.ed-type-h5').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

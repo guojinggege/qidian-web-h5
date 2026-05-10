@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑卡会员 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  body { background:
+    radial-gradient(ellipse at top, rgba(127,119,221,0.10), transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(255,215,0,0.05), transparent 60%),
+    var(--bg-base);
+  }
+  .vip-shell { max-width: 1080px; margin: 0 auto; padding: 48px 28px 80px; }
+
+  .vip-hero { text-align: center; margin-bottom: 56px; }
+  .vip-hero h1 {
+    font-size: 48px; font-weight: 500;
+    letter-spacing: -0.5px; line-height: 1.15;
+    margin: 12px 0 18px;
+  }
+  .vip-hero h1 .gold {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .vip-hero p { color: var(--text-2); font-size: 16px; max-width: 580px; margin: 0 auto; line-height: 1.65; }
+
+  .vip-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 64px; }
+
+  .benefits-section { margin-bottom: 64px; }
+  .benefits-section h2 { font-size: 22px; font-weight: 500; text-align: center; margin: 0 0 8px; }
+  .benefits-section .sub { text-align: center; color: var(--text-3); margin-bottom: 32px; }
+  .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .benefit {
+    padding: 24px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    text-align: center;
+    transition: transform .15s, border-color .15s;
+  }
+  .benefit:hover { transform: translateY(-2px); border-color: var(--border-2); }
+  .benefit i {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, rgba(255,215,0,0.18), rgba(229,170,0,0.10));
+    border-radius: 12px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 22px; color: #FFD700;
+    margin-bottom: 14px;
+  }
+  .benefit .name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .benefit .desc { font-size: 12px; color: var(--text-3); line-height: 1.5; }
+
+  .matrix-section { margin-bottom: 64px; }
+  .matrix-section h2 { font-size: 22px; font-weight: 500; text-align: center; margin: 0 0 32px; }
+  .matrix-table { background: var(--bg-card); border: 1px solid var(--border-1); border-radius: var(--r-lg); overflow: hidden; }
+  .matrix-table th { background: var(--bg-elev); text-align: center; font-weight: 500; padding: 14px; }
+  .matrix-table th.feature { text-align: left; padding-left: 24px; }
+  .matrix-table td { text-align: center; padding: 14px; }
+  .matrix-table td.feature { text-align: left; padding-left: 24px; color: var(--text-2); }
+  .matrix-table td.yes i { color: var(--success); font-size: 18px; }
+  .matrix-table td.no  { color: var(--text-4); }
+  .matrix-table th.featured { background: linear-gradient(180deg, rgba(127,119,221,0.20), rgba(127,119,221,0.10)); color: var(--brand-200); }
+
+  .testimonials { margin-bottom: 64px; }
+  .testimonials h2 { font-size: 22px; font-weight: 500; text-align: center; margin: 0 0 32px; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .testi {
+    padding: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+  }
+  .testi .stars { color: #FFD700; margin-bottom: 10px; }
+  .testi p { font-size: 13px; color: var(--text-2); line-height: 1.7; margin: 0 0 14px; }
+  .testi-user { display: flex; align-items: center; gap: 10px; }
+
+  .faq h2 { font-size: 22px; font-weight: 500; text-align: center; margin: 0 0 32px; }
+  .faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 18px 22px;
+    margin-bottom: 10px;
+  }
+  .faq-q { display: flex; justify-content: space-between; cursor: pointer; font-weight: 500; }
+  .faq-a { font-size: 13px; color: var(--text-2); margin-top: 10px; line-height: 1.7; }
+
+  .sticky-cta {
+    position: sticky; bottom: 16px;
+    background: linear-gradient(180deg, rgba(127,119,221,0.18), rgba(83,74,183,0.20));
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(127,119,221,0.50);
+    border-radius: var(--r-xl);
+    padding: 18px 24px;
+    display: flex; align-items: center; gap: 16px;
+    margin-top: 48px;
+    box-shadow: 0 12px 32px rgba(83,74,183,0.30);
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header"><div id="header"></div></header>
+  <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
+
+  <main class="app-main">
+    <div class="vip-shell">
+
+      <section class="vip-hero">
+        <span class="badge gold" style="font-size:11px"><i class="ti ti-crown"></i>QIDIAN BLACK CARD</span>
+        <h1>解锁 <span class="gold">真正完整的</span><br>奇点社区</h1>
+        <p>600+ 部独家短剧、玄学大师 8 折咨询、VIP 颜值专区、专属勋章和打赏分成 — 8 大权益，让你不再是"游客"。</p>
+      </section>
+
+      <section class="vip-tiers" id="tiers"></section>
+
+      <section class="benefits-section">
+        <h2>会员权益一览</h2>
+        <div class="sub">每一项都是真金白银能感知到的差别</div>
+        <div class="benefits-grid" id="benefitsGrid"></div>
+      </section>
+
+      <section class="matrix-section">
+        <h2>三档对比</h2>
+        <table class="table matrix-table">
+          <thead><tr>
+            <th class="feature">权益</th>
+            <th>月卡<br><span class="t-xs c-3">¥99/月</span></th>
+            <th class="featured">季卡 · 推荐<br><span class="t-xs c-3">¥249/3月</span></th>
+            <th>年卡<br><span class="t-xs c-3">¥899/年</span></th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="feature">短剧无限解锁</td><td class="yes"><i class="ti ti-check"></i></td><td class="yes"><i class="ti ti-check"></i></td><td class="yes"><i class="ti ti-check"></i></td></tr>
+            <tr><td class="feature">玄学咨询折扣</td><td>9 折</td><td>8.5 折</td><td>8 折</td></tr>
+            <tr><td class="feature">两性 VIP 专区</td><td class="no">—</td><td class="yes"><i class="ti ti-check"></i></td><td class="yes"><i class="ti ti-check"></i></td></tr>
+            <tr><td class="feature">帖子高级排版</td><td class="yes"><i class="ti ti-check"></i></td><td class="yes"><i class="ti ti-check"></i></td><td class="yes"><i class="ti ti-check"></i></td></tr>
+            <tr><td class="feature">置顶卡 (每月)</td><td class="no">—</td><td>3 张</td><td>15 张</td></tr>
+            <tr><td class="feature">打赏分成加成</td><td class="no">—</td><td>+5%</td><td>+10%</td></tr>
+            <tr><td class="feature">VIP 勋章</td><td>银</td><td>金</td><td>黑金</td></tr>
+            <tr><td class="feature">广告全免</td><td class="yes"><i class="ti ti-check"></i></td><td class="yes"><i class="ti ti-check"></i></td><td class="yes"><i class="ti ti-check"></i></td></tr>
+            <tr><td class="feature">专属客户经理</td><td class="no">—</td><td class="no">—</td><td class="yes"><i class="ti ti-check"></i></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="testimonials">
+        <h2>真实用户怎么说</h2>
+        <div class="testimonials-grid">
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <p>"在伦敦做 IT 5 年了，玄学频道的清玄居士给的事业方向直接帮我跳槽涨了 40% 工资。¥599 一次咨询比我请猎头便宜多了。"</p>
+            <div class="testi-user">
+              <div class="avatar md bg-grad-2 has-bg">伦</div>
+              <div>
+                <div class="t-sm f-medium">伦敦地铁打工人</div>
+                <div class="t-xs c-3">Lv.22 · 年卡用户</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <p>"短剧那600多部我已经追了快一半，每天上下班通勤的命根子。短剧频道的画质和原版的差距，懂的都懂。"</p>
+            <div class="testi-user">
+              <div class="avatar md bg-grad-5 has-bg">雪</div>
+              <div>
+                <div class="t-sm f-medium">雪梨咖啡馆老板</div>
+                <div class="t-xs c-3">Lv.26 · 季卡用户</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi">
+            <div class="stars">★★★★★</div>
+            <p>"作为创作者，分成 +10% 一年下来差距上万。加上专属客户经理，我提的功能建议两次都被采纳了。"</p>
+            <div class="testi-user">
+              <div class="avatar md bg-grad-6 has-bg">柏</div>
+              <div>
+                <div class="t-sm f-medium">柏林冷面摄影师</div>
+                <div class="t-xs c-3">Lv.35 · 年卡用户</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq">
+        <h2>常见问题</h2>
+        <div class="faq-item">
+          <div class="faq-q">订阅可以随时取消吗？<i class="ti ti-chevron-down"></i></div>
+          <div class="faq-a">可以。在"个人中心 → 黑卡会员"中随时取消，已支付时长内权益仍然保留，到期不再续费。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">支持哪些支付方式？<i class="ti ti-chevron-down"></i></div>
+          <div class="faq-a">海外用户：Stripe 信用卡 · Apple Pay · Google Pay · USDT/BTC/ETH 加密支付。大陆补充：支付宝 / 微信支付（境外商户接入）。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">玄学咨询折扣具体怎么算？<i class="ti ti-chevron-down"></i></div>
+          <div class="faq-a">下单时自动扣减。例如玄海道长 ¥299 单次咨询，年卡用户（8折）实付 ¥239.2。每月折扣次数不限。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">VIP 颜值专区的内容是什么？<i class="ti ti-chevron-down"></i></div>
+          <div class="faq-a">两性颜值频道下的 VIP 子分区，包含深度颜值审美讨论、海外华人男女深度访谈、关系学进阶内容。**完全无露骨/色情内容**，主打认知与审美升级。</div>
+        </div>
+      </section>
+
+      <div class="sticky-cta">
+        <i class="ti ti-crown" style="font-size:28px;color:#FFD700"></i>
+        <div class="grow">
+          <div class="t-md f-medium">现在开通季卡，立省 ¥48 · 日均不到 3 元</div>
+          <div class="t-sm c-3">超过 1.2 万 海外华人用户已经选择了黑卡</div>
+        </div>
+        <button class="btn btn-vip lg"><i class="ti ti-arrow-right"></i>立即开通</button>
+      </div>
+    </div>
+  </main>
+
+  <aside class="app-rightbar" style="display:none"></aside>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  QDC.renderHeader(QDC.$('#header'));
+  QDC.renderSidebar(QDC.$('#sidebar'));
+  document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
+  document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
+
+  document.getElementById('tiers').innerHTML = QD.vipTiers.map(t => `
+    <div class="tier-card ${t.featured ? 'featured' : ''}">
+      <div class="tier-name">${t.name}</div>
+      <div class="tier-price">
+        <span class="num">¥${t.price}</span>
+        <span class="unit">${t.unit}</span>
+      </div>
+      <div class="row gap-2"><span class="t-xs c-4" style="text-decoration:line-through">¥${t.old}</span><span class="badge danger t-xs">${t.save}</span></div>
+      <div class="divider"></div>
+      ${t.features.map(f => `<div class="tier-feature"><i class="ti ti-check"></i>${f}</div>`).join('')}
+      <button class="btn ${t.featured ? 'btn-vip' : 'btn-primary'} block lg" style="margin-top:8px">立即开通</button>
+    </div>
+  `).join('');
+
+  document.getElementById('benefitsGrid').innerHTML = QD.vipBenefits.map(b => `
+    <div class="benefit">
+      <i class="ti ${b.icon}"></i>
+      <div class="name">${b.name}</div>
+      <div class="desc">${b.desc}</div>
+    </div>
+  `).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .post-card { padding: 14px 16px; border-radius: 0; border-left: 0; border-right: 0; border-top: 0; }
+  .post-title { font-size: 16px; }
+  .live-trigger {
+    position: fixed; bottom: 80px; right: 50%; transform: translateX(232px);
+    width: 52px; height: 52px;
+    background: linear-gradient(180deg, #7F77DD, #534AB7);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    box-shadow: 0 6px 20px rgba(83,74,183,0.50);
+    z-index: 60;
+    cursor: pointer;
+  }
+  @media (max-width: 480px) { .live-trigger { right: 20px; transform: none; } }
+  .live-trigger i { font-size: 22px; animation: pulse 1.8s infinite; }
+  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.10); } }
+
+  .live-drawer {
+    position: fixed; bottom: 0; left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    width: 100%; max-width: 480px;
+    height: 75vh;
+    background: var(--bg-card);
+    border-top-left-radius: var(--r-xl);
+    border-top-right-radius: var(--r-xl);
+    border-top: 1px solid var(--border-2);
+    z-index: 70;
+    transition: transform 0.3s ease-out;
+    display: flex; flex-direction: column;
+  }
+  .live-drawer.open { transform: translateX(-50%) translateY(0); }
+  .live-drawer-handle { width: 36px; height: 4px; background: var(--text-4); border-radius: 2px; margin: 8px auto; }
+  .live-drawer-scrim {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.50);
+    z-index: 65;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .live-drawer-scrim.open { opacity: 1; pointer-events: auto; }
+</style>
+</head>
+<body>
+<div class="h5-shell">
+  <header class="h5-header">
+    <i class="ti ti-menu-2 c-2" style="font-size:20px"></i>
+    <div class="grow row gap-2 search-bar" style="height:34px;background:var(--bg-card)" onclick="location.href='search.html'">
+      <i class="ti ti-search"></i>
+      <span class="t-sm c-3">搜帖子、用户、频道...</span>
+    </div>
+    <i class="ti ti-bell c-2" style="font-size:20px;position:relative" onclick="location.href='messages.html'">
+      <span style="position:absolute;top:-2px;right:-4px;width:8px;height:8px;background:var(--brand-400);border-radius:50%"></span>
+    </i>
+  </header>
+
+  <nav class="h5-channel-tabs" id="chTabs"></nav>
+
+  <main id="feed"></main>
+
+  <div class="live-trigger" onclick="document.getElementById('drawer').classList.add('open');document.getElementById('drawerScrim').classList.add('open');">
+    <i class="ti ti-broadcast"></i>
+  </div>
+
+  <div class="h5-tabbar" id="tabbar"></div>
+</div>
+
+<div class="live-drawer-scrim" id="drawerScrim" onclick="document.getElementById('drawer').classList.remove('open');this.classList.remove('open');"></div>
+<div class="live-drawer" id="drawer">
+  <div class="live-drawer-handle"></div>
+  <div class="row gap-2" style="padding: 4px 16px 12px; border-bottom: 1px solid var(--border-1)">
+    <span class="live-dot">LIVE</span>
+    <span class="t-md f-medium">实时讨论房 · 奇点</span>
+    <span class="grow"></span>
+    <span class="t-sm c-3">142 在线</span>
+  </div>
+  <div class="live-room" style="flex:1;min-height:0">
+    <div class="live-room-body" id="liveBody"></div>
+    <div class="live-room-foot">
+      <input class="live-input" placeholder="说点什么...">
+      <button class="icon-btn"><i class="ti ti-send"></i></button>
+    </div>
+  </div>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  document.getElementById('chTabs').innerHTML = `
+    <div class="h5-channel-tab active">推荐</div>
+    <div class="h5-channel-tab">最新</div>
+    <div class="h5-channel-tab">关注</div>
+  ` + QD.channels.filter(c => c.subscribed).map(c => `
+    <div class="h5-channel-tab">${c.name}${c.unread > 0 ? `<span style="margin-left:4px;color:var(--brand-300)">·${c.unread}</span>` : ''}</div>
+  `).join('');
+
+  document.getElementById('feed').innerHTML = QD.posts.map(p => QDC.tplPostCard(p).replace('<article ', `<article onclick="location.href='post-detail.html?id=${p.id}'" `)).join('');
+
+  QDC.renderH5TabBar(document.getElementById('tabbar'), 'home');
+
+  QDC.startLiveRoom(document.querySelector('.live-room'), 'p001');
+</script>
+</body>
+</html>

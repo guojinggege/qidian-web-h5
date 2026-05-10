@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>海归霸总的复仇人生 · 奇点</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  body { background: black; }
+  .h5-shell { background: black; padding-bottom: 0; border: none; }
+
+  .player-h5 {
+    width: 100%;
+    height: 64vh;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 30%, transparent 60%, rgba(0,0,0,0.8) 100%),
+      linear-gradient(135deg, #D4A04A, #E55A4B);
+    position: relative;
+    overflow: hidden;
+  }
+  .player-top {
+    position: absolute; top: 0; left: 0; right: 0;
+    padding: 14px;
+    display: flex; align-items: center;
+    color: white;
+    background: linear-gradient(180deg, rgba(0,0,0,0.5), transparent);
+  }
+  .player-top i { font-size: 22px; }
+  .player-top .title { flex: 1; text-align: center; font-size: 14px; font-weight: 500; }
+
+  .player-overlay {
+    position: absolute; inset: 0;
+    background: rgba(14,14,18,0.78);
+    backdrop-filter: blur(10px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px;
+    text-align: center;
+    padding: 24px;
+  }
+  .player-overlay i.lock { font-size: 44px; color: #FFD700; }
+  .player-overlay h2 { font-size: 17px; font-weight: 500; margin: 0; }
+  .player-overlay p { color: var(--text-2); font-size: 12px; max-width: 280px; line-height: 1.5; margin: 0; }
+
+  /* TikTok-style right rail */
+  .rail-h5 {
+    position: absolute;
+    right: 12px;
+    bottom: 80px;
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    color: white;
+    z-index: 5;
+  }
+  .rail-act {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 3px;
+    font-size: 10px;
+  }
+  .rail-act .ico {
+    width: 42px; height: 42px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .rail-act.active .ico { color: #FFD700; }
+
+  .player-bottom-info {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    right: 80px;
+    color: white;
+    z-index: 4;
+  }
+  .player-bottom-info h3 { font-size: 16px; font-weight: 500; margin: 0 0 4px; }
+  .player-bottom-info .meta { font-size: 11px; color: rgba(255,255,255,0.7); }
+
+  /* Bottom Tabs */
+  .tabs-bottom {
+    background: var(--bg-base);
+    border-top: 1px solid var(--border-1);
+    display: flex;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .tabs-bottom .tab {
+    flex: 1; text-align: center;
+    padding: 12px 0;
+    color: var(--text-3);
+    font-size: 13px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+  .tabs-bottom .tab.active { color: var(--brand-300); border-bottom-color: var(--brand-400); }
+
+  .pane-h5 { display: none; padding: 14px 16px; min-height: 30vh; }
+  .pane-h5.active { display: block; }
+
+  .ep-grid-h5 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  .ep-h5 {
+    aspect-ratio: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: var(--text-2);
+    position: relative;
+  }
+  .ep-h5.active { background: var(--brand-bg); border-color: var(--brand-400); color: var(--brand-200); }
+  .ep-h5.locked::after { content: '\f4d4'; font-family: 'tabler-icons'; position: absolute; top: 1px; right: 2px; font-size: 8px; color: #FFD700; }
+</style>
+</head>
+<body>
+<div class="h5-shell">
+  <div class="player-h5">
+    <div class="player-top">
+      <i class="ti ti-arrow-left" onclick="history.back()"></i>
+      <div class="title">海归霸总的复仇人生</div>
+      <i class="ti ti-dots"></i>
+    </div>
+
+    <div class="player-overlay">
+      <i class="ti ti-crown lock"></i>
+      <h2>第 38 集为 VIP 专享</h2>
+      <p>开通黑卡 · 全 60 集立刻解锁</p>
+      <div class="row gap-2" style="margin-top: 4px">
+        <button class="btn sm">¥39 单集解锁</button>
+        <button class="btn sm btn-vip"><i class="ti ti-crown"></i>VIP 全解锁</button>
+      </div>
+      <div class="t-xs c-4">前 5 集免费 · 已看 5/60</div>
+    </div>
+
+    <div class="rail-h5">
+      <div class="rail-act active"><div class="ico"><i class="ti ti-arrow-big-up-filled"></i></div>1.8w</div>
+      <div class="rail-act"><div class="ico"><i class="ti ti-message-circle"></i></div>622</div>
+      <div class="rail-act"><div class="ico"><i class="ti ti-bookmark"></i></div>收藏</div>
+      <div class="rail-act"><div class="ico"><i class="ti ti-share-3"></i></div>分享</div>
+      <div class="rail-act"><div class="ico" style="background:rgba(255,215,0,0.2)"><i class="ti ti-coin" style="color:#FFD700"></i></div>打赏</div>
+    </div>
+
+    <div class="player-bottom-info">
+      <h3>第 38 集 · 真相揭穿</h3>
+      <div class="meta">4.2亿播放 · ★9.2 · 60 集</div>
+    </div>
+  </div>
+
+  <nav class="tabs-bottom">
+    <div class="tab active" data-pane="ep">选集 60</div>
+    <div class="tab" data-pane="cmt">评论 1.2k</div>
+    <div class="tab" data-pane="more">同类</div>
+  </nav>
+
+  <div class="pane-h5 active" id="epPane">
+    <div class="ep-grid-h5" id="eps"></div>
+  </div>
+
+  <div class="pane-h5" id="cmtPane">
+    <div class="row gap-2" style="padding-bottom: 14px; border-bottom: 1px solid var(--border-1); margin-bottom: 14px">
+      <div class="avatar md bg-grad-6 has-bg">星</div>
+      <div class="input" style="background: var(--bg-elev); flex: 1">说点什么...</div>
+      <button class="btn sm btn-primary">发送</button>
+    </div>
+    <div class="comment">
+      <div class="avatar md bg-grad-1 has-bg">硅</div>
+      <div class="comment-body">
+        <div class="comment-head"><span class="comment-name">硅谷郊狼</span><span class="badge t-xs">Lv.31</span><span class="badge gold t-xs">VIP</span><span class="dot-sep"></span><span>8分钟前</span></div>
+        <div class="comment-text">这一集编剧终于不水了，DNA报告甩出来的瞬间我直接拍腿</div>
+        <div class="comment-actions"><span><i class="ti ti-arrow-big-up"></i> 122</span><span><i class="ti ti-message-circle"></i> 回复</span></div>
+      </div>
+    </div>
+    <div class="comment">
+      <div class="avatar md bg-grad-3 has-bg">多</div>
+      <div class="comment-body">
+        <div class="comment-head"><span class="comment-name">多伦多冷锅串串</span><span class="badge t-xs">Lv.14</span><span class="dot-sep"></span><span>15分钟前</span></div>
+        <div class="comment-text">前妻这次跪得我一个东北汉子都看哭了</div>
+        <div class="comment-actions"><span><i class="ti ti-arrow-big-up"></i> 88</span><span><i class="ti ti-message-circle"></i> 回复</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane-h5" id="morePane">
+    <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px" id="moreList"></div>
+  </div>
+</div>
+
+<script src="../shared/data.js"></script>
+<script>
+  let html = '';
+  for (let i = 1; i <= 60; i++) {
+    const locked = i > 5; const active = i === 38;
+    html += `<div class="ep-h5 ${locked ? 'locked' : ''} ${active ? 'active' : ''}">${i}</div>`;
+  }
+  document.getElementById('eps').innerHTML = html;
+
+  document.getElementById('moreList').innerHTML = QD.dramas.slice(0, 6).map(d => `
+    <a class="drama-card" href="drama-watch.html?id=${d.id}">
+      <div class="drama-cover" style="background-image:${d.cover};aspect-ratio: 2/3">
+        <div class="episodes">${d.episodes}集</div>
+      </div>
+      <div class="drama-info" style="padding:6px 8px">
+        <div class="drama-title line-clamp-2" style="font-size:11px">${d.title}</div>
+      </div>
+    </a>
+  `).join('');
+
+  document.querySelectorAll('.tabs-bottom .tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tabs-bottom .tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.pane-h5').forEach(p => p.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById(t.dataset.pane + 'Pane').classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

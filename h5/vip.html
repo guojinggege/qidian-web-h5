@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>黑卡会员 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  body { background: radial-gradient(ellipse at top, rgba(255,215,0,0.08), transparent 60%), var(--bg-base); }
+  .h5-shell { padding-bottom: 100px; }
+
+  .vip-hero-h5 {
+    margin: 14px 16px 18px;
+    padding: 28px 22px;
+    background:
+      radial-gradient(circle at 80% 30%, rgba(255,215,0,0.20), transparent 50%),
+      linear-gradient(180deg, rgba(127,119,221,0.15), rgba(83,74,183,0.08));
+    border: 1px solid rgba(255,215,0,0.30);
+    border-radius: var(--r-xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .vip-hero-h5 .crown { font-size: 48px; color: #FFD700; margin-bottom: 8px; }
+  .vip-hero-h5 h1 { font-size: 22px; font-weight: 500; margin: 0 0 6px; }
+  .vip-hero-h5 .gold { background: linear-gradient(135deg, #FFD700, #FFA500); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .vip-hero-h5 p { color: var(--text-2); font-size: 12px; margin: 0; line-height: 1.6; }
+
+  .tier-list-h5 { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .tier-h5 {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 18px;
+    display: flex; align-items: center; gap: 14px;
+    position: relative;
+  }
+  .tier-h5.featured { border-color: var(--brand-400); background: linear-gradient(135deg, rgba(127,119,221,0.10), var(--bg-card) 60%); }
+  .tier-h5.featured::before {
+    content: '推荐'; position: absolute; top: -8px; right: 14px;
+    background: linear-gradient(180deg, #7F77DD, #534AB7);
+    color: white; padding: 2px 10px; border-radius: var(--r-pill); font-size: 11px;
+  }
+  .tier-h5 .name { font-size: 16px; font-weight: 500; }
+  .tier-h5 .price { font-size: 28px; font-weight: 500; font-family: ui-monospace, monospace; }
+  .tier-h5 .price .unit { font-size: 12px; color: var(--text-3); margin-left: 2px; }
+  .tier-h5 .old { font-size: 11px; color: var(--text-4); text-decoration: line-through; }
+  .tier-h5 .selector {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--text-4);
+    flex-shrink: 0;
+  }
+  .tier-h5.featured .selector { background: var(--brand-400); border-color: var(--brand-400); position: relative; }
+  .tier-h5.featured .selector::after {
+    content: ''; position: absolute; left: 5px; top: 1px;
+    width: 6px; height: 11px; border: solid white; border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .benefits-list { padding: 0 16px; margin-bottom: 24px; }
+  .benefits-list h3 { font-size: 14px; font-weight: 500; margin: 0 0 12px; display: flex; align-items: center; gap: 6px; }
+  .b-grid-h5 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .b-item-h5 {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-md);
+    padding: 14px 12px;
+    display: flex; gap: 10px;
+    align-items: flex-start;
+  }
+  .b-item-h5 i { font-size: 20px; color: #FFD700; flex-shrink: 0; }
+  .b-item-h5 .b-name { font-size: 13px; font-weight: 500; }
+  .b-item-h5 .b-desc { font-size: 11px; color: var(--text-3); margin-top: 2px; line-height: 1.4; }
+
+  .pay-bar {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px;
+    background: rgba(14,14,18,0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border-1);
+    padding: 12px 16px;
+    z-index: 60;
+  }
+  .pay-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .pay-method {
+    flex: 1;
+    padding: 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-md);
+    text-align: center;
+    font-size: 11px;
+  }
+  .pay-method.active { background: var(--brand-bg); border-color: var(--brand-400); color: var(--brand-200); }
+  .pay-method i { display: block; font-size: 18px; margin-bottom: 2px; }
+</style>
+</head>
+<body>
+<div class="h5-shell">
+  <header class="h5-header">
+    <i class="ti ti-arrow-left c-2" style="font-size:20px" onclick="history.back()"></i>
+    <div class="title">黑卡会员</div>
+    <i class="ti ti-share-3 c-2" style="font-size:20px"></i>
+  </header>
+
+  <div class="vip-hero-h5">
+    <i class="ti ti-crown crown"></i>
+    <h1>解锁<span class="gold">真正完整的</span>奇点</h1>
+    <p>600+ 部短剧无限看 · 玄学咨询 8 折 · 8 大专属权益</p>
+  </div>
+
+  <div class="tier-list-h5">
+    <div class="tier-h5">
+      <div class="selector"></div>
+      <div class="grow">
+        <div class="name">月卡</div>
+        <div class="t-xs c-3" style="margin:2px 0 4px">¥3.3 / 天 · 适合先体验</div>
+        <div class="price">¥99<span class="unit">/月</span> <span class="old">¥128</span></div>
+      </div>
+    </div>
+
+    <div class="tier-h5 featured">
+      <div class="selector"></div>
+      <div class="grow">
+        <div class="row gap-2"><span class="name">季卡</span><span class="badge brand t-xs">日均 ¥2.7</span></div>
+        <div class="t-xs c-3" style="margin:2px 0 4px">解锁全部权益 · 90% 用户选择</div>
+        <div class="price">¥249<span class="unit">/3月</span> <span class="old">¥297</span></div>
+      </div>
+    </div>
+
+    <div class="tier-h5">
+      <div class="selector"></div>
+      <div class="grow">
+        <div class="row gap-2"><span class="name">年卡</span><span class="badge gold t-xs">黑金勋章</span></div>
+        <div class="t-xs c-3" style="margin:2px 0 4px">¥2.5 / 天 · 一年无忧</div>
+        <div class="price">¥899<span class="unit">/年</span> <span class="old">¥1,188</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="benefits-list">
+    <h3><i class="ti ti-stars" style="color:#FFD700"></i>会员权益</h3>
+    <div class="b-grid-h5" id="benefitsList"></div>
+  </div>
+
+  <div class="benefits-list">
+    <h3>用户怎么说</h3>
+    <div class="card" style="display:flex;gap:10px;padding:14px">
+      <div class="avatar md bg-grad-2 has-bg">伦</div>
+      <div>
+        <div class="t-sm f-medium">伦敦地铁打工人 · Lv.22</div>
+        <div class="t-xs c-3" style="margin:2px 0 6px">★★★★★</div>
+        <div class="t-sm c-2" style="line-height:1.6">"清玄居士给我的事业方向建议直接帮我跳槽涨了40%工资。年卡这点钱比请猎头便宜多了。"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pay-bar">
+    <div class="pay-row">
+      <div class="pay-method active"><i class="ti ti-brand-apple"></i>Apple Pay</div>
+      <div class="pay-method"><i class="ti ti-credit-card"></i>信用卡</div>
+      <div class="pay-method"><i class="ti ti-currency-bitcoin"></i>加密币</div>
+      <div class="pay-method"><i class="ti ti-brand-alipay"></i>支付宝</div>
+    </div>
+    <button class="btn btn-vip block lg">
+      <i class="ti ti-crown"></i>立即开通季卡 · ¥249
+    </button>
+  </div>
+</div>
+
+<script src="../shared/data.js"></script>
+<script>
+  document.getElementById('benefitsList').innerHTML = QD.vipBenefits.map(b => `
+    <div class="b-item-h5">
+      <i class="ti ${b.icon}"></i>
+      <div>
+        <div class="b-name">${b.name}</div>
+        <div class="b-desc">${b.desc}</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.querySelectorAll('.pay-method').forEach(m => {
+    m.addEventListener('click', () => {
+      document.querySelectorAll('.pay-method').forEach(x => x.classList.remove('active'));
+      m.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

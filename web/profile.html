@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>过路的星辰 · 主页</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .pf-shell { max-width: 1080px; margin: 0 auto; padding: 0 24px 60px; }
+  .pf-cover {
+    height: 200px;
+    border-radius: 0 0 var(--r-xl) var(--r-xl);
+    background:
+      linear-gradient(135deg, rgba(127,119,221,0.35), rgba(74,219,204,0.25)),
+      radial-gradient(circle at 20% 30%, rgba(159,127,229,0.40), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(74,219,204,0.40), transparent 50%);
+    position: relative;
+    margin: 0 -24px 0;
+  }
+  .pf-cover .edit { position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.40); }
+  .pf-header {
+    display: flex; align-items: flex-end; gap: 24px;
+    padding: 0 0 24px;
+    border-bottom: 1px solid var(--border-1);
+    margin-top: -56px;
+    position: relative;
+  }
+  .pf-avatar {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--bg-base);
+    background: linear-gradient(135deg, #7F77DD, #534AB7);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 42px; font-weight: 500;
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 2px #FFD700;
+  }
+  .pf-flag { position: absolute; bottom: 4px; right: 4px; background: linear-gradient(135deg, #FFD700, #FFA500); padding: 4px 8px; border-radius: var(--r-pill); font-size: 11px; color: #1A1208; font-weight: 500; }
+
+  .pf-info { flex: 1; padding-bottom: 8px; }
+  .pf-name { font-size: 24px; font-weight: 500; }
+  .pf-tags { display: flex; gap: 6px; margin: 6px 0 8px; }
+  .pf-bio { color: var(--text-2); font-size: 13px; max-width: 540px; line-height: 1.6; }
+  .pf-meta { display: flex; gap: 16px; color: var(--text-3); font-size: 12px; margin-top: 10px; }
+
+  .pf-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 24px 0; }
+  .pf-stat {
+    padding: 16px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+  }
+  .pf-stat .num { font-size: 22px; font-weight: 500; font-family: ui-monospace, monospace; }
+  .pf-stat .lbl { font-size: 11px; color: var(--text-3); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .pf-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border-1); margin-bottom: 24px; }
+
+  .medal-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .medal {
+    aspect-ratio: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    padding: 12px;
+    text-align: center;
+  }
+  .medal i { font-size: 28px; }
+  .medal .m-name { font-size: 11px; color: var(--text-2); }
+  .medal.locked i, .medal.locked .m-name { color: var(--text-4); }
+  .medal.locked { opacity: 0.6; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header"><div id="header"></div></header>
+  <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
+
+  <main class="app-main">
+    <div class="pf-shell">
+      <div class="pf-cover"><button class="btn sm edit"><i class="ti ti-camera"></i>更换封面</button></div>
+
+      <header class="pf-header">
+        <div class="pf-avatar">星<span class="pf-flag">VIP · 金</span></div>
+        <div class="pf-info">
+          <div class="row gap-3">
+            <h1 class="pf-name">过路的星辰</h1>
+            <span class="badge">Lv.23</span>
+            <span class="badge gold"><i class="ti ti-crown"></i>黑卡金</span>
+          </div>
+          <div class="pf-tags">
+            <span class="ch-pill coral"><i class="ti ti-ball-basketball ico"></i>NBA铁粉</span>
+            <span class="ch-pill teal"><i class="ti ti-yin-yang ico"></i>玄学半信派</span>
+            <span class="ch-pill lime"><i class="ti ti-coin ico"></i>美股老韭菜</span>
+          </div>
+          <p class="pf-bio">北美程序员 · 摩羯座 · 半个NBA球迷 · 信玄学的理性人。每天通勤的地铁上写帖子，请勿见怪节奏慢。</p>
+          <div class="pf-meta">
+            <span><i class="ti ti-map-pin"></i> 美国 · 加州</span>
+            <span><i class="ti ti-calendar"></i> 注册于 2024-08</span>
+            <span><i class="ti ti-link"></i> 个人博客</span>
+          </div>
+        </div>
+        <div class="row gap-2">
+          <button class="btn"><i class="ti ti-mail"></i>私信</button>
+          <button class="btn btn-primary"><i class="ti ti-edit"></i>编辑资料</button>
+        </div>
+      </header>
+
+      <div class="pf-stats">
+        <div class="pf-stat"><div class="num">142</div><div class="lbl">帖子</div></div>
+        <div class="pf-stat"><div class="num">1,820</div><div class="lbl">粉丝</div></div>
+        <div class="pf-stat"><div class="num">332</div><div class="lbl">关注</div></div>
+        <div class="pf-stat"><div class="num">12,877</div><div class="lbl">获赞</div></div>
+        <div class="pf-stat"><div class="num">8,932</div><div class="lbl">奇点币</div></div>
+      </div>
+
+      <div class="pf-tabs">
+        <div class="tab active">帖子 · 142</div>
+        <div class="tab">评论 · 521</div>
+        <div class="tab">收藏 · 88</div>
+        <div class="tab">勋章 · 18</div>
+        <div class="tab">关注的频道</div>
+      </div>
+
+      <div id="feed"></div>
+
+      <div style="margin-top:32px">
+        <h3 class="t-md f-medium" style="margin: 0 0 14px">已获得的勋章</h3>
+        <div class="medal-grid">
+          <div class="medal"><i class="ti ti-trophy" style="color:#FFD700"></i><div class="m-name">百赞达人</div></div>
+          <div class="medal"><i class="ti ti-flame" style="color:var(--c-coral)"></i><div class="m-name">热议制造</div></div>
+          <div class="medal"><i class="ti ti-star" style="color:var(--brand-300)"></i><div class="m-name">每日签到 365</div></div>
+          <div class="medal"><i class="ti ti-yin-yang" style="color:var(--c-teal)"></i><div class="m-name">玄学初体验</div></div>
+          <div class="medal"><i class="ti ti-crown" style="color:#FFD700"></i><div class="m-name">黑卡老用户</div></div>
+          <div class="medal"><i class="ti ti-edit" style="color:var(--c-green)"></i><div class="m-name">100 帖里程碑</div></div>
+          <div class="medal locked"><i class="ti ti-lock"></i><div class="m-name">未解锁</div></div>
+          <div class="medal locked"><i class="ti ti-lock"></i><div class="m-name">未解锁</div></div>
+          <div class="medal locked"><i class="ti ti-lock"></i><div class="m-name">未解锁</div></div>
+          <div class="medal locked"><i class="ti ti-lock"></i><div class="m-name">未解锁</div></div>
+          <div class="medal locked"><i class="ti ti-lock"></i><div class="m-name">未解锁</div></div>
+          <div class="medal locked"><i class="ti ti-lock"></i><div class="m-name">未解锁</div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="app-rightbar" style="display:none"></aside>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  QDC.renderHeader(QDC.$('#header'));
+  QDC.renderSidebar(QDC.$('#sidebar'));
+  document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
+  document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
+
+  document.getElementById('feed').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:12px">
+      ${QD.posts.slice(0, 4).map(p => QDC.tplPostCard(p).replace('<article ', `<article onclick="location.href='post-detail.html?id=${p.id}'" `)).join('')}
+    </div>
+  `;
+</script>
+</body>
+</html>

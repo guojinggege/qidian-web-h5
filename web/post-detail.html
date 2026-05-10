@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>帖子详情 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .pd-shell {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 24px 40px;
+  }
+  .pd-main { min-width: 0; }
+  .pd-side { position: sticky; top: calc(var(--header-h) + 20px); height: calc(100vh - var(--header-h) - 40px); }
+  .pd-post {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+  .pd-title { font-size: 26px; font-weight: 500; line-height: 1.35; margin: 12px 0 16px; }
+  .pd-content { font-size: 15px; line-height: 1.8; color: var(--text-2); }
+  .pd-content p { margin: 0 0 14px; }
+  .pd-actions {
+    display: flex; gap: 8px; align-items: center;
+    padding: 14px 0; border-top: 1px solid var(--border-1); margin-top: 18px;
+  }
+  .pd-act {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 12px;
+    background: var(--bg-elev);
+    border-radius: var(--r-pill);
+    font-size: 12px;
+    color: var(--text-2);
+    cursor: pointer;
+  }
+  .pd-act:hover { background: var(--bg-hover); color: var(--text-1); }
+  .pd-act.active { background: var(--brand-bg); color: var(--brand-300); }
+  .comment-input {
+    display: flex; gap: 10px;
+    padding: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    margin-bottom: 16px;
+  }
+  .comment-input textarea {
+    flex: 1; min-height: 60px;
+    background: transparent; border: none; outline: none;
+    color: var(--text-1); font-size: 13px; line-height: 1.6;
+    resize: vertical;
+  }
+  .pd-side .live-room { height: 100%; background: var(--bg-card); border: 1px solid var(--border-1); border-radius: var(--r-lg); }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header"><div id="header"></div></header>
+  <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
+
+  <main class="app-main">
+    <div class="pd-shell">
+      <div class="pd-main" id="postMain"></div>
+      <aside class="pd-side">
+        <div class="live-room">
+          <div class="live-room-head">
+            <span class="live-dot">LIVE</span>
+            <span class="t-md f-medium">实时讨论房</span>
+            <span class="grow"></span>
+            <span class="t-sm c-3"><i class="ti ti-users"></i> 142 在线</span>
+          </div>
+          <div class="live-room-body" id="liveBody"></div>
+          <div class="live-room-foot">
+            <input class="live-input" placeholder="说点什么... ↵ 发送">
+            <button class="icon-btn"><i class="ti ti-mood-smile"></i></button>
+            <button class="icon-btn"><i class="ti ti-send"></i></button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <aside class="app-rightbar" style="display:none"></aside>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  QDC.renderHeader(QDC.$('#header'));
+  QDC.renderSidebar(QDC.$('#sidebar'));
+
+  // Override grid: use 2-col for post-detail page
+  document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
+  document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
+
+  const params = new URLSearchParams(location.search);
+  const post = QD.postById(params.get('id') || 'p001');
+  const ch = QD.channelById(post.channelId);
+  const author = QD.authorOf(post);
+  const postComments = QD.comments.filter(c => c.postId === post.id);
+
+  document.getElementById('postMain').innerHTML = `
+    <div class="row gap-2 t-sm c-3" style="margin-bottom:12px">
+      <a href="home.html" class="text-link"><i class="ti ti-arrow-left"></i> 返回</a>
+      <span class="dot-sep"></span>
+      ${QDC.tplChannelPill(ch)}
+      <span>${post.createdAt}</span>
+    </div>
+
+    <article class="pd-post">
+      <div class="row gap-3">
+        ${QDC.tplAvatar(author, 'lg')}
+        <div class="grow">
+          <div class="row gap-2">
+            <span class="f-medium">${author.name}</span>
+            <span class="badge">Lv.${author.level}</span>
+            ${author.vip ? '<span class="badge gold">VIP</span>' : ''}
+          </div>
+          <div class="t-sm c-3">2分钟前 · 阅读 ${QD.fmtNum(post.stats.view)}</div>
+        </div>
+        <button class="btn sm"><i class="ti ti-user-plus"></i>关注</button>
+      </div>
+
+      <h1 class="pd-title">${post.title}</h1>
+
+      <div class="pd-content">
+        <p>${post.excerpt}</p>
+        <p>14 世纪黑死病爆发后，欧洲医学界普遍相信"皮肤毛孔张开会让瘟疫入侵"，于是禁止洗澡成为主流医学建议。这种"医学共识"持续了约 400 年，直到 18 世纪末才被推翻。法国国王路易十四（1638-1715）一生只洗过 3 次澡，凡尔赛宫的"香水文化"其实是因为大家臭得受不了 — 整个宫廷到处都是排泄物，贵族们靠浓烈的香水互相遮掩。</p>
+        <p>更夸张的是：当时欧洲贵族认为"会出汗"是健康的表现，所以反复涂抹厚厚的脂粉来"密封"皮肤，导致铅中毒成了上层社会的常见病。Madame de Pompadour（蓬巴杜夫人）的死亡很可能就和长年涂抹含铅化妆品有关。</p>
+        <p>对比同时期的奥斯曼帝国、江户日本和明清中国 — 这三个文明圈都把"沐浴"视为礼仪和健康的核心实践。某种意义上，"欧洲中心论"的历史叙事掩盖了一个真相：欧洲在中世纪到近代早期，是世界主要文明圈中最"脏"的那个。</p>
+        <p style="color: var(--text-3); font-size: 13px; font-style: italic;">— 参考：Georges Vigarello《Concepts of Cleanliness》</p>
+      </div>
+
+      <div class="pd-actions">
+        <span class="pd-act active"><i class="ti ti-arrow-big-up"></i>${QD.fmtNum(post.stats.up)}</span>
+        <span class="pd-act"><i class="ti ti-arrow-big-down"></i>反对</span>
+        <span class="pd-act"><i class="ti ti-message-circle"></i>${post.stats.comments} 评论</span>
+        <span class="pd-act"><i class="ti ti-share-3"></i>${post.stats.share} 分享</span>
+        <span class="pd-act"><i class="ti ti-bookmark"></i>收藏</span>
+        <span class="pd-act"><i class="ti ti-coin" style="color:#FFD700"></i>打赏</span>
+        <span style="margin-left:auto"></span>
+        <span class="pd-act"><i class="ti ti-dots"></i></span>
+      </div>
+    </article>
+
+    <div class="comment-input">
+      ${QDC.tplAvatar({ name: QD.user.username, avatar: QD.user.avatar, vip: true }, 'md')}
+      <textarea placeholder="发表你的看法... ⌘+↵ 发送"></textarea>
+      <button class="btn btn-primary" style="align-self:flex-end">发送</button>
+    </div>
+
+    <div class="card" style="padding: 20px 24px">
+      <div class="row-between" style="margin-bottom: 14px">
+        <h3 class="t-md f-medium" style="margin:0">${post.stats.comments} 条评论</h3>
+        <div class="seg">
+          <div class="seg-item active">最热</div>
+          <div class="seg-item">最新</div>
+        </div>
+      </div>
+      <div>${postComments.map(c => QDC.tplComment(c)).join('')}</div>
+    </div>
+  `;
+
+  QDC.startLiveRoom(document.querySelector('.live-room'), post.id);
+</script>
+</body>
+</html>

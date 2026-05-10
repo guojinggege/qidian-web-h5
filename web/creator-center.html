@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>创作者中心 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .cc-shell { max-width: 1200px; margin: 0 auto; padding: 24px; }
+  .cc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .cc-head h1 { margin: 0; font-size: 24px; font-weight: 500; }
+
+  .cc-grid-top { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .cc-earnings {
+    background: linear-gradient(135deg, rgba(74,219,126,0.10), var(--bg-card) 60%);
+    border: 1px solid rgba(74,219,126,0.20);
+    border-radius: var(--r-lg);
+    padding: 24px 28px;
+  }
+  .cc-balance { font-size: 36px; font-weight: 500; font-family: ui-monospace, monospace; }
+  .cc-balance .unit { font-size: 16px; color: var(--text-3); margin-left: 4px; }
+  .stat-row { display: flex; gap: 32px; margin-top: 18px; }
+  .stat-cell .num { font-size: 18px; font-weight: 500; font-family: ui-monospace, monospace; }
+  .stat-cell .lbl { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+
+  .cc-withdraw {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 24px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+
+  .chart-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+  .chart-svg { width: 100%; height: 180px; }
+
+  .cc-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .kpi {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 18px 20px;
+  }
+  .kpi .num { font-size: 22px; font-weight: 500; font-family: ui-monospace, monospace; }
+  .kpi .lbl { font-size: 11px; color: var(--text-3); margin-top: 4px; }
+  .kpi .delta { font-size: 11px; margin-top: 6px; }
+  .kpi .delta.up { color: var(--success); }
+  .kpi .delta.down { color: var(--danger); }
+
+  .table-card { background: var(--bg-card); border: 1px solid var(--border-1); border-radius: var(--r-lg); overflow: hidden; }
+  .table-head { padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-1); }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header"><div id="header"></div></header>
+  <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
+
+  <main class="app-main">
+    <div class="cc-shell">
+
+      <div class="cc-head">
+        <h1>创作者中心</h1>
+        <span class="badge brand">Lv.23</span>
+        <span class="badge gold">月榜 #38</span>
+        <span style="margin-left:auto" class="t-sm c-3">最近 30 天数据 · 更新于 2 分钟前</span>
+      </div>
+
+      <div class="cc-grid-top">
+        <div class="cc-earnings">
+          <div class="t-sm c-3">本月收益（可提现）</div>
+          <div class="cc-balance">¥4,328.50 <span class="unit">CNY</span></div>
+          <div class="t-sm c-success" style="margin-top:6px"><i class="ti ti-trending-up"></i> 较上月 +28.4% · 高于 92% 的同等级创作者</div>
+          <div class="stat-row">
+            <div class="stat-cell"><div class="num">¥2,148</div><div class="lbl">打赏收入</div></div>
+            <div class="stat-cell"><div class="num">¥1,420</div><div class="lbl">VIP 分成</div></div>
+            <div class="stat-cell"><div class="num">¥760</div><div class="lbl">流量奖励</div></div>
+            <div class="stat-cell"><div class="num">¥0</div><div class="lbl">广告分成</div></div>
+          </div>
+        </div>
+
+        <div class="cc-withdraw">
+          <div class="t-md f-medium">提现</div>
+          <div class="field">
+            <span class="field-label">可提现金额</span>
+            <div class="t-xl f-medium">¥4,328.50</div>
+          </div>
+          <div class="field">
+            <span class="field-label">提现方式</span>
+            <div class="row gap-2"><span class="badge brand"><i class="ti ti-brand-paypal"></i>PayPal</span><span class="badge"><i class="ti ti-brand-stripe"></i>Stripe</span><span class="badge"><i class="ti ti-currency-bitcoin"></i>USDT</span></div>
+          </div>
+          <button class="btn btn-primary block">立即提现</button>
+          <div class="t-xs c-4">提现到账时间：2-5 个工作日 · 单次最低 ¥50</div>
+        </div>
+      </div>
+
+      <div class="cc-kpis">
+        <div class="kpi">
+          <div class="num">142</div>
+          <div class="lbl">发帖数</div>
+          <div class="delta up"><i class="ti ti-arrow-up-right"></i> +12 本月</div>
+        </div>
+        <div class="kpi">
+          <div class="num">328.2k</div>
+          <div class="lbl">总曝光</div>
+          <div class="delta up"><i class="ti ti-arrow-up-right"></i> +42.8%</div>
+        </div>
+        <div class="kpi">
+          <div class="num">18.2%</div>
+          <div class="lbl">互动率</div>
+          <div class="delta up"><i class="ti ti-arrow-up-right"></i> +2.1pt</div>
+        </div>
+        <div class="kpi">
+          <div class="num">1,820</div>
+          <div class="lbl">粉丝</div>
+          <div class="delta down"><i class="ti ti-arrow-down-right"></i> -3 (取关 5 / 新增 2)</div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="row-between" style="margin-bottom: 14px">
+          <div>
+            <div class="t-md f-medium">数据趋势 · 最近 30 天</div>
+            <div class="t-sm c-3">收益与曝光双轴对比</div>
+          </div>
+          <div class="seg">
+            <div class="seg-item">7 天</div>
+            <div class="seg-item active">30 天</div>
+            <div class="seg-item">90 天</div>
+            <div class="seg-item">全部</div>
+          </div>
+        </div>
+
+        <svg class="chart-svg" viewBox="0 0 800 180" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="gFill" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%"   stop-color="#7F77DD" stop-opacity="0.40"/>
+              <stop offset="100%" stop-color="#7F77DD" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="gFill2" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%"   stop-color="#4ADB7E" stop-opacity="0.30"/>
+              <stop offset="100%" stop-color="#4ADB7E" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- grid lines -->
+          <g stroke="rgba(255,255,255,0.06)" stroke-width="1">
+            <line x1="0" y1="30" x2="800" y2="30"/>
+            <line x1="0" y1="80" x2="800" y2="80"/>
+            <line x1="0" y1="130" x2="800" y2="130"/>
+          </g>
+          <!-- exposure area -->
+          <path d="M0,140 L40,128 L80,118 L120,135 L160,110 L200,98 L240,108 L280,82 L320,72 L360,90 L400,68 L440,58 L480,72 L520,48 L560,58 L600,38 L640,52 L680,32 L720,42 L760,28 L800,22 L800,180 L0,180 Z" fill="url(#gFill)" stroke="none"/>
+          <path d="M0,140 L40,128 L80,118 L120,135 L160,110 L200,98 L240,108 L280,82 L320,72 L360,90 L400,68 L440,58 L480,72 L520,48 L560,58 L600,38 L640,52 L680,32 L720,42 L760,28 L800,22" stroke="#7F77DD" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- earnings line -->
+          <path d="M0,158 L40,152 L80,148 L120,155 L160,140 L200,132 L240,138 L280,118 L320,112 L360,124 L400,108 L440,100 L480,110 L520,92 L560,98 L600,80 L640,90 L680,72 L720,82 L760,68 L800,62" stroke="#4ADB7E" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+
+        <div class="row gap-4" style="margin-top: 10px; font-size: 12px;">
+          <span><span style="display:inline-block;width:10px;height:2px;background:#7F77DD;vertical-align:middle"></span> 曝光量</span>
+          <span><span style="display:inline-block;width:10px;height:2px;background:#4ADB7E;vertical-align:middle"></span> 收益</span>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-head">
+          <div>
+            <div class="t-md f-medium">稿件管理</div>
+            <div class="t-sm c-3">最近 142 篇 · 仅显示前 5 篇</div>
+          </div>
+          <div class="row gap-2">
+            <div class="seg">
+              <div class="seg-item active">全部</div>
+              <div class="seg-item">已发布</div>
+              <div class="seg-item">审核中</div>
+              <div class="seg-item">草稿</div>
+            </div>
+            <button class="btn sm btn-primary"><i class="ti ti-plus"></i>新发布</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width:42%">标题</th>
+              <th>频道</th>
+              <th>状态</th>
+              <th>曝光</th>
+              <th>互动</th>
+              <th>收益</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="postsTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <aside class="app-rightbar" style="display:none"></aside>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  QDC.renderHeader(QDC.$('#header'));
+  QDC.renderSidebar(QDC.$('#sidebar'));
+  document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
+  document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
+
+  const statusMap = [
+    { name: '已发布', cls: 'success' },
+    { name: '审核中', cls: 'warning' },
+    { name: '草稿',   cls: '' },
+    { name: '已发布', cls: 'success' },
+    { name: '已发布', cls: 'success' },
+  ];
+  document.getElementById('postsTable').innerHTML = QD.posts.slice(0, 5).map((p, i) => {
+    const ch = QD.channelById(p.channelId);
+    const s = statusMap[i] || statusMap[0];
+    const earn = (p.stats.up * 0.5 + p.stats.comments * 1.2).toFixed(0);
+    return `
+      <tr>
+        <td><div class="ellipsis" style="max-width:380px"><b class="t-sm">${p.title}</b></div><div class="t-xs c-3">${p.createdAt}</div></td>
+        <td>${QDC.tplChannelPill(ch)}</td>
+        <td><span class="badge ${s.cls}">${s.name}</span></td>
+        <td class="t-sm">${QD.fmtNum(p.stats.view)}</td>
+        <td class="t-sm">${QD.fmtNum(p.stats.up + p.stats.comments)}</td>
+        <td class="c-success f-medium">¥${earn}</td>
+        <td><i class="ti ti-dots" style="cursor:pointer;color:var(--text-3)"></i></td>
+      </tr>
+    `;
+  }).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>帖子详情 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .h5-shell { padding-bottom: 80px; }
+  .pd-tab-switch {
+    display: flex;
+    padding: 0;
+    border-bottom: 1px solid var(--border-1);
+    background: var(--bg-base);
+    position: sticky; top: 48px; z-index: 40;
+  }
+  .pd-tab-switch .tab {
+    flex: 1; text-align: center;
+    padding: 12px 0;
+    font-size: 13px;
+    color: var(--text-3);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    position: relative;
+  }
+  .pd-tab-switch .tab.active { color: var(--brand-300); border-bottom-color: var(--brand-400); }
+  .pd-tab-switch .live-cnt {
+    background: var(--live);
+    color: white;
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: var(--r-pill);
+    margin-left: 4px;
+  }
+
+  .pd-body { padding: 18px 16px; }
+  .pd-title-m { font-size: 20px; font-weight: 500; line-height: 1.4; margin: 10px 0 14px; }
+  .pd-content-m { font-size: 14px; line-height: 1.75; color: var(--text-2); }
+  .pd-content-m p { margin: 0 0 12px; }
+  .pd-actions-m {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px;
+    background: rgba(14,14,18,0.95);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border-1);
+    padding: 10px 12px;
+    display: flex; gap: 10px; align-items: center;
+    z-index: 50;
+  }
+  .pd-actions-m .input-fake {
+    flex: 1;
+    height: 34px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-pill);
+    display: flex; align-items: center;
+    padding: 0 14px;
+    font-size: 12px;
+    color: var(--text-3);
+  }
+  .pd-actions-m .ico-act {
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    color: var(--text-2);
+    font-size: 10px;
+  }
+  .pd-actions-m .ico-act i { font-size: 20px; }
+  .pd-actions-m .ico-act.active { color: var(--brand-300); }
+
+  .pane { display: none; }
+  .pane.active { display: block; }
+
+  .live-pane { padding: 0; height: calc(100vh - 48px - 48px - 56px); }
+  .live-pane .live-room { height: 100%; }
+</style>
+</head>
+<body>
+<div class="h5-shell">
+  <header class="h5-header">
+    <i class="ti ti-arrow-left c-2" style="font-size:20px" onclick="history.back()"></i>
+    <div class="title">帖子详情</div>
+    <i class="ti ti-share-3 c-2" style="font-size:20px"></i>
+    <i class="ti ti-dots c-2" style="font-size:20px"></i>
+  </header>
+
+  <nav class="pd-tab-switch">
+    <div class="tab active" data-pane="post">帖子内容</div>
+    <div class="tab" data-pane="live">实时讨论 <span class="live-cnt">142</span></div>
+  </nav>
+
+  <div class="pane active" id="postPane">
+    <div class="pd-body" id="postBody"></div>
+
+    <div style="padding: 0 16px; border-top: 8px solid var(--bg-card)">
+      <div class="row-between" style="padding: 16px 0">
+        <span class="f-medium">评论 · <span id="cmtCnt">612</span></span>
+        <div class="seg">
+          <div class="seg-item active">最热</div>
+          <div class="seg-item">最新</div>
+        </div>
+      </div>
+      <div id="comments"></div>
+    </div>
+  </div>
+
+  <div class="pane live-pane" id="livePane">
+    <div class="live-room">
+      <div class="live-room-body" id="liveBody"></div>
+      <div class="live-room-foot">
+        <input class="live-input" placeholder="说点什么... ↵ 发送">
+        <button class="icon-btn"><i class="ti ti-send"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pd-actions-m">
+    <div class="input-fake">说点什么...</div>
+    <span class="ico-act active"><i class="ti ti-arrow-big-up-filled"></i><span>4.8k</span></span>
+    <span class="ico-act"><i class="ti ti-message-circle"></i><span>612</span></span>
+    <span class="ico-act"><i class="ti ti-bookmark"></i></span>
+    <span class="ico-act"><i class="ti ti-coin" style="color:#FFD700"></i></span>
+  </div>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/components.js"></script>
+<script>
+  const post = QD.postById('p001');
+  const ch = QD.channelById(post.channelId);
+  const author = QD.authorOf(post);
+
+  document.getElementById('postBody').innerHTML = `
+    <div class="row gap-2 t-sm c-3" style="margin-bottom:12px">
+      ${QDC.tplChannelPill(ch)}
+      <span>${post.createdAt}</span>
+      <span class="dot-sep"></span>
+      <span>阅读 ${QD.fmtNum(post.stats.view)}</span>
+    </div>
+
+    <div class="row gap-2" style="margin-bottom:8px">
+      ${QDC.tplAvatar(author, 'md')}
+      <div class="grow">
+        <div class="row gap-2"><span class="f-medium t-sm">${author.name}</span><span class="badge t-xs">Lv.${author.level}</span>${author.vip ? '<span class="badge gold t-xs">VIP</span>' : ''}</div>
+        <div class="t-xs c-3">北美程序员 · NBA铁粉</div>
+      </div>
+      <button class="btn sm"><i class="ti ti-user-plus"></i>关注</button>
+    </div>
+
+    <h1 class="pd-title-m">${post.title}</h1>
+
+    <div class="pd-content-m">
+      <p>${post.excerpt}</p>
+      <p>14 世纪黑死病爆发后，欧洲医学界普遍相信"皮肤毛孔张开会让瘟疫入侵"，这种"医学共识"持续了约 400 年，直到 18 世纪末才被推翻。法国国王路易十四一生只洗过 3 次澡。</p>
+      <p>更夸张的是：当时欧洲贵族认为"会出汗"是健康的表现，所以反复涂抹厚厚的脂粉来"密封"皮肤，导致铅中毒成了上层社会的常见病。</p>
+      <p>对比同时期的奥斯曼帝国、江户日本和明清中国 — 这三个文明圈都把"沐浴"视为礼仪和健康的核心实践。</p>
+      <p class="c-3" style="font-style:italic;font-size:12px">— 参考：Georges Vigarello《Concepts of Cleanliness》</p>
+    </div>
+  `;
+
+  const cmts = QD.comments.filter(c => c.postId === post.id);
+  document.getElementById('comments').innerHTML = cmts.map(c => QDC.tplComment(c)).join('');
+
+  document.querySelectorAll('.pd-tab-switch .tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.pd-tab-switch .tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById(t.dataset.pane + 'Pane').classList.add('active');
+      if (t.dataset.pane === 'live' && !window.__liveStarted) {
+        QDC.startLiveRoom(document.querySelector('.live-room'), post.id);
+        window.__liveStarted = true;
+      }
+    });
+  });
+</script>
+</body>
+</html>
