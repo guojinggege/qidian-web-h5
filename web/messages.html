@@ -113,9 +113,9 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/auth.js?v=12"></script>
-<script src="../shared/data.js?v=12"></script>
-<script src="../shared/components.js?v=12"></script>
+<script src="../shared/auth.js?v=13"></script>
+<script src="../shared/data.js?v=13"></script>
+<script src="../shared/components.js?v=13"></script>
 <script>
 (async () => {
   await QD.ready();
@@ -139,14 +139,16 @@
   document.getElementById('msgList').innerHTML = QD.notifications.map(n => {
     const t = typeMap[n.type] || typeMap.system;
     const from = n.from === 'sys' ? null : QD.authorById[n.from];
+    const target = n.targetUrl || '#';
     return `
-      <div class="msg-item ${!n.read ? 'unread' : ''}">
+      <div class="msg-item ${!n.read ? 'unread' : ''}" data-target="${target}" onclick="location.href='${target}'" style="cursor:pointer">
         <div class="icon-bubble ${t.cls}"><i class="ti ${t.icon}"></i></div>
         <div class="body">
           ${from ? `<div class="row gap-2" style="margin-bottom:2px"><span class="f-medium t-sm">${from.name}</span><span class="dot-sep"></span><span class="t-xs c-3">Lv.${from.level}</span></div>` : '<div class="row gap-2" style="margin-bottom:2px"><span class="f-medium t-sm">系统通知</span></div>'}
           <div class="t-sm c-2">${n.text}</div>
         </div>
         <div class="time">${n.time}</div>
+        <button class="btn sm" style="margin-left:8px" onclick="event.stopPropagation();location.href='${target}'">去查看</button>
       </div>
     `;
   }).join('');

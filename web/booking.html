@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>预约咨询 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .bk-shell { max-width: 720px; margin: 0 auto; padding: 24px 28px 60px; }
+  .bk-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-xl);
+    padding: 28px 32px;
+  }
+  .bk-title { font-size: 22px; font-weight: 500; margin: 0 0 6px; }
+  .bk-sub { color: var(--text-3); font-size: 13px; margin: 0 0 24px; }
+  .bk-form { display: flex; flex-direction: column; gap: 16px; }
+  .bk-form .field-label { font-size: 12px; color: var(--text-3); margin-bottom: 4px; display: block; }
+  .bk-form .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .price-card {
+    margin-top: 6px;
+    padding: 16px 18px;
+    background: linear-gradient(135deg, rgba(127,119,221,0.10), rgba(74,219,204,0.06));
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-lg);
+    display: flex; align-items: center; gap: 16px;
+  }
+  .price-card .label { font-size: 12px; color: var(--text-3); margin-bottom: 4px; }
+  .price-card .amount { font-size: 28px; font-weight: 500; font-family: ui-monospace, monospace; color: var(--brand-200); }
+  .price-card .vip { font-size: 11px; color: var(--text-4); margin-top: 4px; }
+
+  .toast-bk {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    color: var(--success);
+    padding: 12px 22px;
+    border-radius: var(--r-pill);
+    font-size: 13px;
+    box-shadow: var(--shadow-lg);
+    z-index: var(--z-toast);
+    opacity: 0; transition: opacity .2s; pointer-events: none;
+  }
+  .toast-bk.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header"><div id="header"></div></header>
+  <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
+
+  <main class="app-main">
+    <div class="bk-shell">
+      <div class="row gap-2 t-sm c-3" style="margin-bottom:14px">
+        <a href="divination-channel.html" class="text-link" onclick="location.href='divination-channel.html';return false;">
+          <i class="ti ti-arrow-left"></i> 返回玄学频道
+        </a>
+        <span class="dot-sep"></span>
+        <span>预约咨询</span>
+      </div>
+
+      <article class="bk-card">
+        <h1 class="bk-title">预约咨询</h1>
+        <p class="bk-sub">填写下方信息,大师将在 12 小时内回复确认</p>
+
+        <form class="bk-form" id="bkForm">
+          <div>
+            <label class="field-label">选择大师 <span style="color:var(--danger)">*</span></label>
+            <select class="select" id="bkMaster" required></select>
+          </div>
+
+          <div class="field-row">
+            <div>
+              <label class="field-label">服务类型 <span style="color:var(--danger)">*</span></label>
+              <select class="select" id="bkService" required>
+                <option value="八字精解|199">八字精解 ¥199</option>
+                <option value="流年运势|299">流年运势 ¥299</option>
+                <option value="紫微合盘|499">紫微合盘 ¥499</option>
+                <option value="风水勘察|999">风水勘察 ¥999</option>
+                <option value="塔罗指引|99">塔罗指引 ¥99</option>
+                <option value="大事择日|199">大事择日 ¥199</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label">期望日期 <span style="color:var(--danger)">*</span></label>
+              <input class="input" type="date" id="bkDate" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div>
+              <label class="field-label">期望时段 <span style="color:var(--danger)">*</span></label>
+              <select class="select" id="bkSlot" required>
+                <option value="09:00-11:00">上午 09:00-11:00</option>
+                <option value="14:00-16:00">下午 14:00-16:00</option>
+                <option value="19:00-21:00">晚上 19:00-21:00</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label">联系方式 <span style="color:var(--danger)">*</span></label>
+              <input class="input" type="text" id="bkContact" required placeholder="邮箱或微信号">
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label">留言 (可选, 最多 200 字)</label>
+            <textarea class="textarea" id="bkNote" maxlength="200" placeholder="请简单描述您想咨询的内容,大师会提前准备..."></textarea>
+            <div class="t-xs c-4" style="margin-top:4px"><span id="bkNoteLen">0</span>/200</div>
+          </div>
+
+          <div class="price-card">
+            <i class="ti ti-coin" style="font-size:28px;color:#FFD700"></i>
+            <div style="flex:1">
+              <div class="label">应付金额</div>
+              <div class="amount">¥<span id="bkPrice">199</span></div>
+              <div class="vip">黑卡会员 8 折 / 创作者额外 5% 折扣 (下单时自动结算)</div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary lg block" id="bkSubmit">
+            <i class="ti ti-calendar-plus"></i> 提交预约
+          </button>
+        </form>
+      </article>
+    </div>
+  </main>
+
+  <aside class="app-rightbar" style="display:none"></aside>
+</div>
+
+<div class="toast-bk" id="bkToast">✓ 预约提交成功! 大师将在 12 小时内联系您</div>
+
+<script src="../shared/auth.js?v=13"></script>
+<script src="../shared/data.js?v=13"></script>
+<script src="../shared/components.js?v=13"></script>
+<script>
+(async () => {
+  await QD.ready();
+  // 路由保护
+  const me = QDAuth.requireLogin(location.pathname + location.search);
+
+  QDC.renderHeader(QDC.$('#header'));
+  QDC.renderSidebar(QDC.$('#sidebar'));
+  document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
+  document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
+
+  const params = new URLSearchParams(location.search);
+  const presetMid = params.get('mid');
+  const presetPkg = params.get('pkg');
+
+  /* ---------- 填充大师下拉 ---------- */
+  const masterSel = document.getElementById('bkMaster');
+  masterSel.innerHTML = QD.masters.map(m =>
+    `<option value="${m.id}" ${m.id === presetMid ? 'selected' : ''}>${m.name} (${m.title})</option>`
+  ).join('');
+
+  /* ---------- 填充服务类型(根据 ?pkg=) ---------- */
+  const serviceSel = document.getElementById('bkService');
+  if (presetPkg) {
+    Array.from(serviceSel.options).forEach(opt => {
+      if (opt.value.startsWith(presetPkg + '|')) opt.selected = true;
+    });
+  }
+
+  /* ---------- 价格联动 ---------- */
+  function updatePrice() {
+    const [name, price] = serviceSel.value.split('|');
+    document.getElementById('bkPrice').textContent = price;
+  }
+  serviceSel.addEventListener('change', updatePrice);
+  updatePrice();
+
+  /* ---------- 日期默认明天 ---------- */
+  const tomorrow = new Date(Date.now() + 86400000);
+  document.getElementById('bkDate').value = tomorrow.toISOString().slice(0, 10);
+  document.getElementById('bkDate').min = tomorrow.toISOString().slice(0, 10);
+
+  /* ---------- 联系方式默认用邮箱 ---------- */
+  if (me && me.email) document.getElementById('bkContact').value = me.email;
+
+  /* ---------- 留言字数 ---------- */
+  const noteEl = document.getElementById('bkNote');
+  noteEl.addEventListener('input', () => {
+    document.getElementById('bkNoteLen').textContent = noteEl.value.length;
+  });
+
+  /* ---------- 提交 ---------- */
+  const form = document.getElementById('bkForm');
+  const submitBtn = document.getElementById('bkSubmit');
+  const toast = document.getElementById('bkToast');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const [serviceName, servicePrice] = serviceSel.value.split('|');
+    const masterId = masterSel.value;
+    const date = document.getElementById('bkDate').value;
+    const slot = document.getElementById('bkSlot').value;
+    const contact = document.getElementById('bkContact').value.trim();
+    const note = noteEl.value.trim();
+
+    if (!masterId || !serviceName || !date || !slot || !contact) {
+      alert('请填写必填项');
+      return;
+    }
+    if (contact.length < 3) {
+      alert('请填写有效联系方式');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    const booking = {
+      id: 'bk_' + Date.now().toString(36),
+      userId: me.id,
+      userEmail: me.email,
+      masterId,
+      masterName: (QD.masters.find(x => x.id === masterId) || {}).name,
+      serviceName,
+      price: Number(servicePrice),
+      date,
+      slot,
+      contact,
+      note,
+      status: 'pending',
+      createdAt: new Date().toISOString(),
+    };
+    try {
+      const list = JSON.parse(localStorage.getItem('qd-bookings') || '[]');
+      list.unshift(booking);
+      localStorage.setItem('qd-bookings', JSON.stringify(list));
+    } catch (err) {
+      alert('保存预约失败: ' + (err.message || err));
+      submitBtn.disabled = false;
+      return;
+    }
+    // toast
+    toast.classList.add('show');
+    setTimeout(() => {
+      location.href = 'profile.html';
+    }, 1600);
+  });
+})();
+</script>
+</body>
+</html>

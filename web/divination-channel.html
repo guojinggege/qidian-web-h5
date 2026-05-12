@@ -105,39 +105,48 @@
         <h1>问己之所惑，问命之所归</h1>
         <p>4 位认证大师 · 八字 / 紫微 / 风水 / 塔罗 / 奇门，平均回复 6 小时内。99% 用户表示「至少有一个细节准到害怕」。</p>
         <div class="row gap-2" style="margin-top:18px">
-          <button class="btn btn-primary lg"><i class="ti ti-message-plus"></i>免费问一句</button>
-          <button class="btn lg">查看大师档期</button>
+          <button class="btn btn-primary lg" id="btnFreeAsk"><i class="ti ti-message-plus"></i>免费问一问</button>
+          <button class="btn btn-vip lg" onclick="location.href='booking.html'"><i class="ti ti-calendar-plus"></i>立即预约</button>
         </div>
       </section>
 
       <section>
         <div class="xy-section-head"><h2>服务分类</h2></div>
         <div class="xy-services">
-          <div class="xy-service">
+          <div class="xy-service" onclick="document.getElementById('services-section').scrollIntoView({behavior:'smooth',block:'start'})">
             <i class="ti ti-yin-yang"></i>
             <div class="name">八字精批</div>
             <div class="desc">命盘解析 · 大运流年 · 五行旺衰</div>
             <div class="price">¥99 起 / 次</div>
           </div>
-          <div class="xy-service">
+          <div class="xy-service" onclick="document.getElementById('services-section').scrollIntoView({behavior:'smooth',block:'start'})">
             <i class="ti ti-zodiac-cancer"></i>
             <div class="name">紫微斗数</div>
             <div class="desc">命宫详解 · 12 宫位 · 人生主轴</div>
             <div class="price">¥199 起 / 次</div>
           </div>
-          <div class="xy-service">
+          <div class="xy-service" onclick="document.getElementById('services-section').scrollIntoView({behavior:'smooth',block:'start'})">
             <i class="ti ti-home"></i>
             <div class="name">风水堪舆</div>
             <div class="desc">住宅 · 办公室 · 远程视频堪测</div>
             <div class="price">¥599 起 / 次</div>
           </div>
-          <div class="xy-service">
+          <div class="xy-service" onclick="document.getElementById('services-section').scrollIntoView({behavior:'smooth',block:'start'})">
             <i class="ti ti-cards"></i>
             <div class="name">塔罗占卜</div>
             <div class="desc">情感 · 事业 · 财运 · 单问题</div>
             <div class="price">¥39 起 / 次</div>
           </div>
         </div>
+      </section>
+
+      <!-- 服务套餐: id 锚点供顶部服务分类滚动 -->
+      <section id="services-section" style="margin-top:32px">
+        <div class="xy-section-head">
+          <h2><i class="ti ti-gift" style="color:var(--c-teal)"></i> 服务套餐</h2>
+          <span class="t-sm c-3">含 6 个标准套餐 · 大师匹配后开始</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px" id="packageGrid"></div>
       </section>
 
       <section>
@@ -164,8 +173,110 @@
   <div class="modal" id="bookingModal"></div>
 </div>
 
-<script src="../shared/data.js?v=12"></script>
-<script src="../shared/components.js?v=12"></script>
+<!-- AI 大师聊天 Modal -->
+<style>
+  .ai-chat-scrim {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: var(--z-modal);
+    padding: 16px;
+  }
+  .ai-chat-scrim.show { display: flex; }
+  .ai-chat {
+    background: var(--bg-card);
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-xl);
+    width: 480px; max-width: 100%;
+    height: 600px; max-height: 90vh;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .ai-chat-head {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-1);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .ai-chat-head .avatar { width: 36px; height: 36px; background: linear-gradient(135deg, var(--c-teal), var(--brand-400)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; }
+  .ai-chat-head h3 { margin: 0; font-size: 14px; font-weight: 500; }
+  .ai-chat-head p { margin: 2px 0 0; font-size: 11px; color: var(--text-3); }
+  .ai-chat-head .counter {
+    margin-left: auto;
+    background: var(--bg-elev);
+    color: var(--text-3);
+    padding: 3px 10px;
+    border-radius: var(--r-pill);
+    font-size: 11px;
+  }
+  .ai-chat-body {
+    flex: 1; overflow-y: auto;
+    padding: 16px 20px;
+    display: flex; flex-direction: column;
+    gap: 10px;
+    background: var(--bg-base);
+  }
+  .ai-msg { display: flex; gap: 8px; max-width: 80%; }
+  .ai-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+  .ai-msg .bubble {
+    padding: 10px 14px;
+    border-radius: var(--r-lg);
+    font-size: 13px;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .ai-msg.assistant .bubble { background: var(--bg-card); color: var(--text-1); border: 1px solid var(--border-1); }
+  .ai-msg.user .bubble { background: linear-gradient(135deg, var(--brand-400), var(--brand-600)); color: white; }
+  .ai-msg.system .bubble { background: var(--warning-bg); color: var(--warning); border: 1px solid rgba(212,160,74,0.30); }
+  .ai-chat-input {
+    border-top: 1px solid var(--border-1);
+    padding: 12px 16px;
+    display: flex; gap: 8px;
+    background: var(--bg-card);
+  }
+  .ai-chat-input input {
+    flex: 1;
+    background: var(--bg-elev);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-pill);
+    padding: 8px 14px;
+    color: var(--text-1);
+    font-size: 13px;
+    outline: none;
+  }
+  .ai-chat-input input:disabled { opacity: 0.5; cursor: not-allowed; }
+  .ai-chat-close {
+    background: transparent; border: none;
+    color: var(--text-3);
+    cursor: pointer;
+    padding: 4px;
+    font-size: 18px;
+    margin-left: 6px;
+  }
+</style>
+<div class="ai-chat-scrim" id="aiChat">
+  <div class="ai-chat">
+    <div class="ai-chat-head">
+      <div class="avatar"><i class="ti ti-sparkles"></i></div>
+      <div>
+        <h3>免费问一问 · AI 大师</h3>
+        <p>先问问看,3 句话内 AI 大师免费解答</p>
+      </div>
+      <span class="counter" id="aiCounter">剩余 5/5</span>
+      <button class="ai-chat-close" id="aiClose"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="ai-chat-body" id="aiBody"></div>
+    <form class="ai-chat-input" id="aiForm">
+      <input id="aiInput" type="text" placeholder="说说你的困惑..." autocomplete="off" maxlength="200">
+      <button type="submit" class="btn btn-primary"><i class="ti ti-send"></i></button>
+    </form>
+  </div>
+</div>
+
+<script src="../shared/data.js?v=13"></script>
+<script src="../shared/components.js?v=13"></script>
 <script>
 (async () => {
   await QD.ready();
@@ -178,8 +289,9 @@
   // 大师按子频道分组渲染
   const fortuneSubs = QD.subChannelsOf('fortune');
   function masterCard(m) {
+    const detailUrl = `master-detail.html?mid=${m.id}`;
     return `
-      <div class="master-card-l" id="booking-${m.id}" style="cursor:pointer" onclick="openBooking('${m.id}')">
+      <div class="master-card-l" id="booking-${m.id}" style="cursor:pointer" onclick="location.href='${detailUrl}'">
         <div class="master-avatar-l ${m.avatar}">
           ${m.name.slice(0,1)}
           <span class="badge-deg">${m.badge}</span>
@@ -196,13 +308,34 @@
           <div class="row gap-2">
             <span class="t-md" style="color:#FFD700;font-family:ui-monospace,monospace">¥${m.price}</span>
             <span class="t-xs c-3">起 / 次</span>
-            <button class="btn sm btn-primary" style="margin-left:auto"
-                    onclick="event.stopPropagation();openBooking('${m.id}')">立即预约</button>
+            <button class="btn sm" style="margin-left:auto"
+                    onclick="event.stopPropagation();location.href='${detailUrl}'">查看档期</button>
+            <button class="btn sm btn-primary"
+                    onclick="event.stopPropagation();location.href='booking.html?mid=${m.id}'">立即预约</button>
           </div>
         </div>
       </div>
     `;
   }
+
+  /* ---------- 服务套餐渲染 ---------- */
+  const PACKAGES = [
+    { name: '八字精解', price: 199, desc: '命运全局梳理,事业财运感情三大方向', icon: 'ti-yin-yang' },
+    { name: '流年运势', price: 299, desc: '未来 12 个月详细推演', icon: 'ti-calendar' },
+    { name: '紫微合盘', price: 499, desc: '情感配对深度分析', icon: 'ti-zodiac-cancer' },
+    { name: '风水勘察', price: 999, desc: '线上图片勘察,室内布局调整', icon: 'ti-home' },
+    { name: '塔罗指引', price: 99,  desc: '10 分钟快速指引', icon: 'ti-cards' },
+    { name: '大事择日', price: 199, desc: '婚嫁开业搬家黄道吉日', icon: 'ti-bookmark' },
+  ];
+  const firstMasterId = (QD.masters[0] && QD.masters[0].id) || '';
+  document.getElementById('packageGrid').innerHTML = PACKAGES.map(p => `
+    <div class="xy-service" style="cursor:pointer" onclick="location.href='master-detail.html?mid=${firstMasterId}&pkg=${encodeURIComponent(p.name)}'">
+      <i class="ti ${p.icon}"></i>
+      <div class="name">${p.name}</div>
+      <div class="desc">${p.desc}</div>
+      <div class="price">¥${p.price} / 次</div>
+    </div>
+  `).join('');
 
   // 按子频道分组
   const groupsHtml = fortuneSubs.map(sub => {
@@ -302,6 +435,86 @@
     .slice(0, 3)
     .map(p => QDC.tplPostCard(p))
     .join('');
+
+  /* ============================================================
+     AI 大师聊天 modal
+  ============================================================ */
+  const AI_REPLIES = [
+    '缘分妙不可言,且看且行。',
+    '命数已现端倪,需静心观望。',
+    '时机未到,宜静不宜动。',
+    '卦象偏阴,近期慎言慎行。',
+    '可静下心来想想,答案在你心中。',
+    '本月气运渐起,可有所作为。',
+    '宜思宜行,先求安再求进。',
+    '事缓则圆,无需急于一时。',
+  ];
+  const MAX_TURNS = 5;
+  let aiTurnCount = 0;
+
+  const aiScrim = document.getElementById('aiChat');
+  const aiBody = document.getElementById('aiBody');
+  const aiInput = document.getElementById('aiInput');
+  const aiForm = document.getElementById('aiForm');
+  const aiCounter = document.getElementById('aiCounter');
+
+  function aiBubble(role, text) {
+    return `<div class="ai-msg ${role}"><div class="bubble">${QDC.escape(text)}</div></div>`;
+  }
+  function aiAppend(role, text) {
+    aiBody.insertAdjacentHTML('beforeend', aiBubble(role, text));
+    aiBody.scrollTop = aiBody.scrollHeight;
+  }
+  function aiUpdateCounter() {
+    aiCounter.textContent = `剩余 ${MAX_TURNS - aiTurnCount}/${MAX_TURNS}`;
+  }
+  function openAiChat() {
+    // 重置
+    aiTurnCount = 0;
+    aiInput.disabled = false;
+    aiInput.value = '';
+    aiBody.innerHTML = '';
+    aiAppend('assistant', '您好,有什么想了解的?可以问问最近的运势、感情、事业等...');
+    aiUpdateCounter();
+    aiScrim.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => aiInput.focus(), 100);
+  }
+  function closeAiChat() {
+    aiScrim.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+  function aiSubmit(e) {
+    e.preventDefault();
+    const text = aiInput.value.trim();
+    if (!text || aiTurnCount >= MAX_TURNS) return;
+    aiAppend('user', text);
+    aiInput.value = '';
+    aiTurnCount++;
+    aiUpdateCounter();
+    // 800ms 后 AI 回复
+    setTimeout(() => {
+      const reply = AI_REPLIES[Math.floor(Math.random() * AI_REPLIES.length)];
+      aiAppend('assistant', reply);
+      if (aiTurnCount >= MAX_TURNS) {
+        aiInput.disabled = true;
+        const firstMaster = QD.masters[0];
+        const link = firstMaster
+          ? `<a href="master-detail.html?mid=${firstMaster.id}" onclick="location.href='master-detail.html?mid=${firstMaster.id}';return false;" style="color:inherit;text-decoration:underline">前往大师页深入咨询 →</a>`
+          : '';
+        aiBody.insertAdjacentHTML('beforeend', `<div class="ai-msg system"><div class="bubble">今日免费问答已用完,${link}</div></div>`);
+        aiBody.scrollTop = aiBody.scrollHeight;
+      }
+    }, 800);
+  }
+
+  document.getElementById('btnFreeAsk').addEventListener('click', openAiChat);
+  document.getElementById('aiClose').addEventListener('click', closeAiChat);
+  aiScrim.addEventListener('click', e => { if (e.target === aiScrim) closeAiChat(); });
+  aiForm.addEventListener('submit', aiSubmit);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && aiScrim.classList.contains('show')) closeAiChat();
+  });
 })();
 </script>
 </body>

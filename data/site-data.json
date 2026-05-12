@@ -3501,7 +3501,8 @@
         "感情"
       ],
       "badge": "人气王",
-      "subChannelId": "fortune-ziwei"
+      "subChannelId": "fortune-ziwei",
+      "bio": "紫微斗数 35 年,中国传统命理大师班毕业。擅长事业财运推演与流年大运分析。年咨询量超 1000 单,满意度 98.7%。"
     },
     {
       "id": "ms02",
@@ -3517,7 +3518,8 @@
         "财运"
       ],
       "badge": "资深",
-      "subChannelId": "fortune-fengshui"
+      "subChannelId": "fortune-fengshui",
+      "bio": "风水勘察 25 年,师承江南玄学世家。曾为多家上市公司做办公风水调整。专长室内格局与户型择优。"
     },
     {
       "id": "ms03",
@@ -3532,7 +3534,8 @@
         "感情"
       ],
       "badge": "新晋",
-      "subChannelId": "fortune-tarot"
+      "subChannelId": "fortune-tarot",
+      "bio": "塔罗 12 年实战,牌阵设计师。擅长感情指引与人生抉择。咨询风格温和,擅长引导提问者自己找到答案。"
     },
     {
       "id": "ms04",
@@ -3547,7 +3550,8 @@
         "商业"
       ],
       "badge": "大师",
-      "subChannelId": "fortune-bazi"
+      "subChannelId": "fortune-bazi",
+      "bio": "紫微斗数 18 年,主攻命盘合参与桃花姻缘。著有《紫微入门》一书。咨询风格直接,适合有具体困惑的来访者。"
     }
   ],
   "notifications": [
@@ -3557,7 +3561,9 @@
       "from": "u01",
       "text": "点赞了你的帖子《为什么北美华人男生越来越喜欢留胡子？》",
       "time": "5分钟前",
-      "read": false
+      "read": false,
+      "postId": "p001",
+      "targetUrl": "post-detail.html?id=p001"
     },
     {
       "id": "n02",
@@ -3565,7 +3571,9 @@
       "from": "u04",
       "text": "回复了你的评论：「我觉得你说得有点道理但是……」",
       "time": "12分钟前",
-      "read": false
+      "read": false,
+      "postId": "p001",
+      "targetUrl": "post-detail.html?id=p001"
     },
     {
       "id": "n03",
@@ -3573,7 +3581,8 @@
       "from": "u07",
       "text": "关注了你",
       "time": "1小时前",
-      "read": false
+      "read": false,
+      "targetUrl": "profile.html?uid=u07"
     },
     {
       "id": "n04",
@@ -3581,7 +3590,9 @@
       "from": "u02",
       "text": "在帖子《海外华人圈最近这种清冷感》中 @了你",
       "time": "2小时前",
-      "read": true
+      "read": true,
+      "postId": "p003",
+      "targetUrl": "post-detail.html?id=p003"
     },
     {
       "id": "n05",
@@ -3589,7 +3600,10 @@
       "from": "sys",
       "text": "你的黑卡会员将在 28 天后到期，续费享 8 折优惠",
       "time": "1天前",
-      "read": true
+      "read": true,
+      "targetUrl": "notice-detail.html?id=n05",
+      "title": "黑卡会员即将到期",
+      "body": "亲爱的会员,\n\n您的黑卡会员将于 2026-06-09 到期 (剩余 28 天)。\n\n续费享 8 折优惠,立即续费仅需 ¥639/年 (原价 ¥799)。\n\n会员权益:\n• 全站无广告浏览\n• 玄学咨询 8 折优惠\n• 创作者收益分成翻倍\n• 专属客服通道\n• 高级数据看板\n\n点击下方按钮立即续费,保持你的会员体验不中断。"
     },
     {
       "id": "n06",
@@ -3597,7 +3611,10 @@
       "from": "sys",
       "text": "你的帖子获得了 8 个金币打赏（来自 3 位读者）",
       "time": "2天前",
-      "read": true
+      "read": true,
+      "targetUrl": "notice-detail.html?id=n06",
+      "title": "收到 8 个金币打赏",
+      "body": "恭喜!您的帖子收到了来自 3 位读者的金币打赏。\n\n详情:\n• 硅谷郊狼 → 5 个金币\n• 多伦多冷锅串串 → 2 个金币\n• 巴黎街头狗仔 → 1 个金币\n\n金币已入账,可在创作者中心查看完整收益明细。\n\n继续创作精彩内容,获得更多读者的认可与打赏。"
     },
     {
       "id": "n07",
@@ -3605,7 +3622,10 @@
       "from": "sys",
       "text": "社区新规：从本周起，玄学频道新增\"留言不公开\"选项",
       "time": "3天前",
-      "read": true
+      "read": true,
+      "targetUrl": "notice-detail.html?id=n07",
+      "title": "社区新规则:玄学频道新增\"留言不公开\"选项",
+      "body": "尊敬的用户,\n\n为更好地保护用户隐私,玄学频道从本周起新增\"留言不公开\"选项:\n\n1. 发帖时可选择\"仅大师可见\"\n2. 评论可设为\"匿名\"或\"仅楼主可见\"\n3. 私密咨询的对话记录默认加密\n\n此调整将于 2026-05-20 正式生效。所有现有内容默认保持公开,如需调整请到帖子编辑页修改。\n\n如有疑问,请联系客服。\n\n奇点社区运营团队"
     }
   ],
   "dms": [

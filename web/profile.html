@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>过路的星辰 · 主页</title>
+<title>个人主页 · 奇点社区</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
@@ -11,14 +11,12 @@
   .pf-cover {
     height: 200px;
     border-radius: 0 0 var(--r-xl) var(--r-xl);
-    background:
-      linear-gradient(135deg, rgba(127,119,221,0.35), rgba(74,219,204,0.25)),
-      radial-gradient(circle at 20% 30%, rgba(159,127,229,0.40), transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(74,219,204,0.40), transparent 50%);
+    background-size: cover;
+    background-position: center;
     position: relative;
     margin: 0 -24px 0;
   }
-  .pf-cover .edit { position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.40); }
+  .pf-cover .edit { position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.40); cursor: pointer; }
   .pf-header {
     display: flex; align-items: flex-end; gap: 24px;
     padding: 0 0 24px;
@@ -30,13 +28,12 @@
     width: 120px; height: 120px;
     border-radius: 50%;
     border: 4px solid var(--bg-base);
-    background: linear-gradient(135deg, #7F77DD, #534AB7);
     display: flex; align-items: center; justify-content: center;
     color: white; font-size: 42px; font-weight: 500;
     position: relative;
     flex-shrink: 0;
-    box-shadow: 0 0 0 2px #FFD700;
   }
+  .pf-avatar.has-vip { box-shadow: 0 0 0 2px #FFD700; }
   .pf-flag { position: absolute; bottom: 4px; right: 4px; background: linear-gradient(135deg, #FFD700, #FFA500); padding: 4px 8px; border-radius: var(--r-pill); font-size: 11px; color: #1A1208; font-weight: 500; }
 
   .pf-info { flex: 1; padding-bottom: 8px; }
@@ -71,6 +68,62 @@
   .medal .m-name { font-size: 11px; color: var(--text-2); }
   .medal.locked i, .medal.locked .m-name { color: var(--text-4); }
   .medal.locked { opacity: 0.6; }
+
+  /* ---------- Modal ---------- */
+  .qd-modal-scrim {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: var(--z-modal);
+    padding: 16px;
+  }
+  .qd-modal-scrim.show { display: flex; }
+  .qd-modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-xl);
+    width: 480px; max-width: 100%;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .qd-modal-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border-1);
+  }
+  .qd-modal-head h3 { margin: 0; font-size: 16px; font-weight: 500; }
+  .qd-modal-body { padding: 22px; max-height: 70vh; overflow-y: auto; }
+  .qd-modal-foot {
+    padding: 14px 22px;
+    border-top: 1px solid var(--border-1);
+    display: flex; gap: 10px; justify-content: flex-end;
+  }
+  .qd-modal .preview {
+    margin: 10px 0 14px;
+    aspect-ratio: 16/9;
+    background: var(--bg-elev) center/cover no-repeat;
+    border: 1px dashed var(--border-2);
+    border-radius: var(--r-md);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-4);
+    font-size: 12px;
+  }
+  .avatar-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin-top: 4px; }
+  .avatar-pick {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform .1s;
+  }
+  .avatar-pick:hover { transform: scale(1.05); }
+  .avatar-pick.active { border-color: var(--brand-400); box-shadow: 0 0 0 2px var(--bg-card); }
+  .field-group { display: flex; flex-direction: column; gap: 12px; }
+  .field-group .field-label { font-size: 12px; color: var(--text-3); margin-bottom: 4px; display: block; }
+  .or-divider { display: flex; align-items: center; gap: 10px; margin: 14px 0 12px; color: var(--text-4); font-size: 11px; }
+  .or-divider::before, .or-divider::after { content: ''; flex: 1; height: 1px; background: var(--border-1); }
 </style>
 </head>
 <body>
@@ -80,31 +133,31 @@
 
   <main class="app-main">
     <div class="pf-shell">
-      <div class="pf-cover"><button class="btn sm edit"><i class="ti ti-camera"></i>更换封面</button></div>
+      <div class="pf-cover" id="pfCover"><button class="btn sm edit" id="btnCover"><i class="ti ti-camera"></i>更换封面</button></div>
 
       <header class="pf-header">
-        <div class="pf-avatar">星<span class="pf-flag">VIP · 金</span></div>
+        <div class="pf-avatar" id="pfAvatar"></div>
         <div class="pf-info">
           <div class="row gap-3">
-            <h1 class="pf-name">过路的星辰</h1>
-            <span class="badge">Lv.23</span>
-            <span class="badge gold"><i class="ti ti-crown"></i>黑卡金</span>
+            <h1 class="pf-name" id="pfName">—</h1>
+            <span class="badge" id="pfLevel">Lv.1</span>
+            <span class="badge gold" id="pfVipBadge" style="display:none"><i class="ti ti-crown"></i>黑卡金</span>
+            <span class="badge gold" id="pfCreatorBadge" style="display:none"><i class="ti ti-crown"></i>创作者</span>
           </div>
           <div class="pf-tags">
             <span class="ch-pill coral"><i class="ti ti-ball-basketball ico"></i>NBA铁粉</span>
             <span class="ch-pill teal"><i class="ti ti-yin-yang ico"></i>玄学半信派</span>
             <span class="ch-pill lime"><i class="ti ti-coin ico"></i>美股老韭菜</span>
           </div>
-          <p class="pf-bio">北美程序员 · 摩羯座 · 半个NBA球迷 · 信玄学的理性人。每天通勤的地铁上写帖子，请勿见怪节奏慢。</p>
+          <p class="pf-bio" id="pfBio">—</p>
           <div class="pf-meta">
-            <span><i class="ti ti-map-pin"></i> 美国 · 加州</span>
-            <span><i class="ti ti-calendar"></i> 注册于 2024-08</span>
-            <span><i class="ti ti-link"></i> 个人博客</span>
+            <span><i class="ti ti-mail"></i> <span id="pfEmail">—</span></span>
+            <span><i class="ti ti-calendar"></i> 注册于 <span id="pfJoinedAt">—</span></span>
           </div>
         </div>
         <div class="row gap-2">
           <button class="btn"><i class="ti ti-mail"></i>私信</button>
-          <button class="btn btn-primary"><i class="ti ti-edit"></i>编辑资料</button>
+          <button class="btn btn-primary" id="btnEdit"><i class="ti ti-edit"></i>编辑资料</button>
         </div>
       </header>
 
@@ -149,9 +202,68 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/auth.js?v=12"></script>
-<script src="../shared/data.js?v=12"></script>
-<script src="../shared/components.js?v=12"></script>
+<!-- 更换封面 Modal -->
+<div class="qd-modal-scrim" id="coverModal">
+  <div class="qd-modal">
+    <div class="qd-modal-head">
+      <h3><i class="ti ti-camera"></i> 更换封面</h3>
+      <button class="icon-btn" data-close><i class="ti ti-x"></i></button>
+    </div>
+    <div class="qd-modal-body">
+      <div class="field-group">
+        <div>
+          <label class="field-label">图片 URL</label>
+          <input class="input" id="coverUrl" type="url" placeholder="https://example.com/cover.jpg">
+        </div>
+        <div class="or-divider">或</div>
+        <div>
+          <label class="field-label">本地上传 (≤ 2MB)</label>
+          <input class="input" id="coverFile" type="file" accept="image/*">
+        </div>
+        <div class="preview" id="coverPreview"><span>预览</span></div>
+      </div>
+    </div>
+    <div class="qd-modal-foot">
+      <button class="btn" data-close>取消</button>
+      <button class="btn btn-primary" id="coverSave"><i class="ti ti-check"></i> 保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 编辑资料 Modal -->
+<div class="qd-modal-scrim" id="editModal">
+  <div class="qd-modal">
+    <div class="qd-modal-head">
+      <h3><i class="ti ti-edit"></i> 编辑资料</h3>
+      <button class="icon-btn" data-close><i class="ti ti-x"></i></button>
+    </div>
+    <div class="qd-modal-body">
+      <div class="field-group">
+        <div>
+          <label class="field-label">头像</label>
+          <div class="avatar-grid" id="avatarGrid"></div>
+        </div>
+        <div>
+          <label class="field-label">用户名</label>
+          <input class="input" id="editName" type="text" minlength="2" maxlength="20" required>
+        </div>
+        <div>
+          <label class="field-label">简介 (最多 100 字)</label>
+          <textarea class="textarea" id="editBio" maxlength="100" style="min-height:80px"></textarea>
+          <div class="t-xs c-4" style="margin-top:4px"><span id="bioLen">0</span>/100</div>
+        </div>
+      </div>
+    </div>
+    <div class="qd-modal-foot">
+      <button class="btn" data-close>取消</button>
+      <button class="btn btn-primary" id="editSave"><i class="ti ti-check"></i> 保存</button>
+    </div>
+  </div>
+</div>
+
+<script src="../shared/auth.js?v=13"></script>
+<script src="../shared/data.js?v=13"></script>
+<script src="../shared/components.js?v=13"></script>
 <script>
 (async () => {
   await QD.ready();
@@ -163,11 +275,184 @@
   document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
   document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
 
+  const DEFAULT_COVER = `linear-gradient(135deg, rgba(127,119,221,0.35), rgba(74,219,204,0.25)),
+    radial-gradient(circle at 20% 30%, rgba(159,127,229,0.40), transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(74,219,204,0.40), transparent 50%)`;
+  const AVATARS = ['bg-grad-1','bg-grad-2','bg-grad-3','bg-grad-4','bg-grad-5','bg-grad-6','bg-grad-7','bg-grad-8'];
+
+  /* ---------- 渲染顶部头部信息 ---------- */
+  function renderProfileHeader() {
+    const u = QDAuth.getCurrentUser();
+    if (!u) return;
+    // Cover
+    const coverEl = document.getElementById('pfCover');
+    if (u.coverImage) {
+      coverEl.style.background = `url("${u.coverImage}") center/cover no-repeat`;
+    } else {
+      coverEl.style.background = DEFAULT_COVER;
+    }
+    // Avatar
+    const avatarEl = document.getElementById('pfAvatar');
+    avatarEl.className = 'pf-avatar ' + (u.avatar || 'bg-grad-6');
+    avatarEl.classList.toggle('has-vip', !!u.isCreator);
+    avatarEl.innerHTML = (u.username || '?').slice(0, 1) +
+      (u.isCreator ? '<span class="pf-flag">Creator</span>' : '');
+    // Texts
+    document.getElementById('pfName').textContent = u.username;
+    document.getElementById('pfBio').textContent = u.bio || '这个用户还没写简介';
+    document.getElementById('pfEmail').textContent = u.email || '';
+    document.getElementById('pfJoinedAt').textContent = u.createdAt
+      ? new Date(u.createdAt).toISOString().slice(0, 10)
+      : '今天';
+    document.title = u.username + ' · 个人主页';
+    document.getElementById('pfCreatorBadge').style.display = u.isCreator ? 'inline-flex' : 'none';
+  }
+  renderProfileHeader();
+
+  /* ---------- Feed ---------- */
   document.getElementById('feed').innerHTML = `
     <div style="display:flex;flex-direction:column;gap:12px">
       ${QD.posts.slice().sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 4).map(p => QDC.tplPostCard(p)).join('')}
     </div>
   `;
+
+  /* ---------- Modal helpers ---------- */
+  const coverModal = document.getElementById('coverModal');
+  const editModal  = document.getElementById('editModal');
+  function openModal(el) { el.classList.add('show'); document.body.style.overflow = 'hidden'; }
+  function closeModal(el) { el.classList.remove('show'); document.body.style.overflow = ''; }
+  // 公共关闭: data-close / 点击 scrim / ESC
+  document.querySelectorAll('.qd-modal-scrim').forEach(scrim => {
+    scrim.addEventListener('click', e => {
+      if (e.target === scrim || e.target.closest('[data-close]')) closeModal(scrim);
+    });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.qd-modal-scrim.show').forEach(closeModal);
+  });
+
+  // 更新 localStorage 当前用户
+  function updateCurrentUser(patch) {
+    const u = QDAuth.getCurrentUser();
+    if (!u) return;
+    const newU = Object.assign({}, u, patch);
+    try {
+      localStorage.setItem('qd-current-user', JSON.stringify(newU));
+    } catch (err) {
+      alert('保存失败: ' + (err.message || err));
+      return false;
+    }
+    // 同时把同一邮箱的 users 数组里也更新一份
+    try {
+      const users = JSON.parse(localStorage.getItem('qd-users') || '[]');
+      const idx = users.findIndex(x => x.email === u.email);
+      if (idx >= 0) {
+        Object.assign(users[idx], patch);
+        localStorage.setItem('qd-users', JSON.stringify(users));
+      }
+    } catch (e) {}
+    return true;
+  }
+
+  /* ---------- 更换封面 ---------- */
+  let coverPending = '';   // 待保存的 cover 值 (URL or dataURL)
+  const coverPreview = document.getElementById('coverPreview');
+  const coverUrl = document.getElementById('coverUrl');
+  const coverFile = document.getElementById('coverFile');
+  function refreshCoverPreview() {
+    if (coverPending) {
+      coverPreview.style.backgroundImage = `url("${coverPending}")`;
+      coverPreview.innerHTML = '';
+    } else {
+      coverPreview.style.backgroundImage = '';
+      coverPreview.innerHTML = '<span>预览</span>';
+    }
+  }
+  coverUrl.addEventListener('input', () => {
+    coverPending = coverUrl.value.trim();
+    refreshCoverPreview();
+  });
+  coverFile.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      alert(`文件 ${file.name} 体积 ${(file.size/1024/1024).toFixed(1)}MB 超过 2MB 上限`);
+      coverFile.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      coverPending = ev.target.result;
+      coverUrl.value = '';
+      refreshCoverPreview();
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.getElementById('btnCover').addEventListener('click', () => {
+    const u = QDAuth.getCurrentUser();
+    coverPending = u && u.coverImage ? u.coverImage : '';
+    coverUrl.value = (coverPending && coverPending.startsWith('http')) ? coverPending : '';
+    coverFile.value = '';
+    refreshCoverPreview();
+    openModal(coverModal);
+  });
+
+  document.getElementById('coverSave').addEventListener('click', () => {
+    if (!coverPending) {
+      alert('请先选择图片 URL 或上传一张');
+      return;
+    }
+    if (updateCurrentUser({ coverImage: coverPending })) {
+      closeModal(coverModal);
+      renderProfileHeader();
+    }
+  });
+
+  /* ---------- 编辑资料 ---------- */
+  function renderAvatarGrid(currentAvatar) {
+    const grid = document.getElementById('avatarGrid');
+    grid.innerHTML = AVATARS.map(a => `
+      <div class="avatar-pick ${a} ${a === currentAvatar ? 'active' : ''}" data-av="${a}"></div>
+    `).join('');
+    grid.querySelectorAll('.avatar-pick').forEach(el => {
+      el.addEventListener('click', () => {
+        grid.querySelectorAll('.avatar-pick').forEach(x => x.classList.remove('active'));
+        el.classList.add('active');
+      });
+    });
+  }
+
+  document.getElementById('btnEdit').addEventListener('click', () => {
+    const u = QDAuth.getCurrentUser();
+    if (!u) return;
+    renderAvatarGrid(u.avatar || 'bg-grad-6');
+    document.getElementById('editName').value = u.username || '';
+    document.getElementById('editBio').value = u.bio || '';
+    document.getElementById('bioLen').textContent = (u.bio || '').length;
+    openModal(editModal);
+  });
+
+  document.getElementById('editBio').addEventListener('input', e => {
+    document.getElementById('bioLen').textContent = e.target.value.length;
+  });
+
+  document.getElementById('editSave').addEventListener('click', () => {
+    const name = document.getElementById('editName').value.trim();
+    const bio = document.getElementById('editBio').value.trim();
+    const picked = document.querySelector('.avatar-pick.active');
+    const avatar = picked ? picked.dataset.av : 'bg-grad-6';
+    if (name.length < 2 || name.length > 20) {
+      alert('用户名长度 2-20 字');
+      return;
+    }
+    if (updateCurrentUser({ username: name, bio, avatar })) {
+      closeModal(editModal);
+      renderProfileHeader();
+      // 刷新 header (右上角用户名/头像)
+      QDC.renderHeader(QDC.$('#header'));
+    }
+  });
 })();
 </script>
 </body>

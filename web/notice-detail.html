@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>系统通知 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .nd-shell { max-width: 820px; margin: 0 auto; padding: 24px 28px 60px; }
+  .nd-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 28px 32px;
+  }
+  .nd-icon {
+    width: 48px; height: 48px;
+    border-radius: var(--r-md);
+    background: var(--bg-elev);
+    color: var(--text-2);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .nd-icon.reward { background: rgba(255,215,0,0.14); color: #FFD700; }
+  .nd-icon.system { background: var(--brand-bg); color: var(--brand-300); }
+  .nd-title { font-size: 22px; font-weight: 500; margin: 0 0 6px; }
+  .nd-meta { color: var(--text-3); font-size: 12px; margin-bottom: 22px; }
+  .nd-body { font-size: 14px; line-height: 1.8; color: var(--text-2); white-space: pre-wrap; }
+  .nd-foot {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-1);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header"><div id="header"></div></header>
+  <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
+
+  <main class="app-main">
+    <div class="nd-shell" id="ndShell"></div>
+  </main>
+
+  <aside class="app-rightbar" style="display:none"></aside>
+</div>
+
+<script src="../shared/auth.js?v=13"></script>
+<script src="../shared/data.js?v=13"></script>
+<script src="../shared/components.js?v=13"></script>
+<script>
+(async () => {
+  await QD.ready();
+
+  QDC.renderHeader(QDC.$('#header'));
+  QDC.renderSidebar(QDC.$('#sidebar'));
+  document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
+  document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
+
+  const id = new URLSearchParams(location.search).get('id');
+  const n = id ? (QD.notifications || []).find(x => x.id === id) : null;
+  const shell = document.getElementById('ndShell');
+
+  if (!n) {
+    document.title = '通知不存在 · 奇点社区';
+    shell.innerHTML = `
+      <div class="nd-card" style="text-align:center;padding:60px 32px">
+        <i class="ti ti-mood-sad" style="font-size:56px;color:var(--text-4);display:block;margin-bottom:14px"></i>
+        <h2 style="margin:0 0 8px;font-weight:500">通知不存在</h2>
+        <p class="c-3" style="margin:0 0 22px">${id ? 'ID <code>' + QDC.escape(id) + '</code> 找不到对应通知' : '缺少 id 参数'}</p>
+        <a class="btn btn-primary" href="messages.html"><i class="ti ti-arrow-left"></i> 返回消息中心</a>
+      </div>
+    `;
+    return;
+  }
+
+  const iconClass = n.type === 'reward' ? 'reward' : 'system';
+  const icon = n.type === 'reward' ? 'ti-coin' : 'ti-bell';
+  const title = n.title || (n.type === 'reward' ? '收到打赏' : '系统通知');
+  const body = n.body || n.text || '';
+
+  document.title = title + ' · 奇点社区';
+  shell.innerHTML = `
+    <div class="row gap-2 t-sm c-3" style="margin-bottom:14px">
+      <a href="messages.html" class="text-link" onclick="location.href='messages.html';return false;"><i class="ti ti-arrow-left"></i> 返回消息中心</a>
+      <span class="dot-sep"></span>
+      <span>${n.type === 'reward' ? '收益通知' : '系统通知'}</span>
+    </div>
+
+    <article class="nd-card">
+      <div class="nd-icon ${iconClass}"><i class="ti ${icon}"></i></div>
+      <h1 class="nd-title">${QDC.escape(title)}</h1>
+      <div class="nd-meta">${QDC.escape(n.time || '')} · ID ${QDC.escape(n.id)}</div>
+      <div class="nd-body">${QDC.escape(body)}</div>
+
+      <div class="nd-foot">
+        <a class="btn" href="messages.html" onclick="location.href='messages.html';return false;">
+          <i class="ti ti-arrow-left"></i> 返回消息中心
+        </a>
+        ${n.type === 'reward' ? '<a class="btn btn-primary" href="creator-center.html" onclick="location.href=\'creator-center.html\';return false;"><i class="ti ti-chart-bar"></i> 去创作者中心</a>' : ''}
+        ${n.type === 'system' && n.title && n.title.includes('黑卡') ? '<a class="btn btn-vip" href="vip.html" onclick="location.href=\'vip.html\';return false;"><i class="ti ti-crown"></i> 立即续费</a>' : ''}
+      </div>
+    </article>
+  `;
+})();
+</script>
+</body>
+</html>

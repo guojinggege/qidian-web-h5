@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大师详情 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  .md-shell { max-width: 900px; margin: 0 auto; padding: 24px 28px 60px; }
+  .md-hero {
+    display: flex; gap: 28px;
+    padding: 32px;
+    background:
+      radial-gradient(circle at 0 0, rgba(74,219,204,0.10), transparent 50%),
+      var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-xl);
+    margin-bottom: 22px;
+  }
+  .md-avatar {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 40px; font-weight: 500;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 2px var(--c-teal), 0 0 32px rgba(74,219,204,0.30);
+  }
+  .md-info h1 { margin: 0 0 4px; font-size: 24px; font-weight: 500; }
+  .md-info .title { color: var(--text-2); font-size: 14px; margin: 0 0 10px; }
+  .md-info .stats { display: flex; gap: 18px; color: var(--text-3); font-size: 12px; margin-bottom: 14px; }
+  .md-info .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .md-info .actions { display: flex; gap: 10px; }
+
+  .md-section { margin-bottom: 28px; }
+  .md-section h2 { font-size: 18px; font-weight: 500; margin: 0 0 14px; display: flex; align-items: center; gap: 8px; }
+  .md-bio {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 20px 24px;
+    color: var(--text-2);
+    line-height: 1.8;
+    font-size: 14px;
+  }
+
+  .md-packages { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .md-pkg {
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: border-color .15s, transform .1s;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .md-pkg:hover { border-color: var(--c-teal); transform: translateY(-2px); }
+  .md-pkg i.ti { font-size: 28px; color: var(--c-teal); flex-shrink: 0; }
+  .md-pkg .pkg-info { flex: 1; }
+  .md-pkg .pkg-name { font-weight: 500; font-size: 14px; }
+  .md-pkg .pkg-desc { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+  .md-pkg .pkg-price { color: #FFD700; font-family: ui-monospace, monospace; font-weight: 500; font-size: 16px; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header"><div id="header"></div></header>
+  <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
+
+  <main class="app-main">
+    <div class="md-shell" id="mdShell"></div>
+  </main>
+
+  <aside class="app-rightbar" style="display:none"></aside>
+</div>
+
+<script src="../shared/auth.js?v=13"></script>
+<script src="../shared/data.js?v=13"></script>
+<script src="../shared/components.js?v=13"></script>
+<script>
+(async () => {
+  await QD.ready();
+
+  QDC.renderHeader(QDC.$('#header'));
+  QDC.renderSidebar(QDC.$('#sidebar'));
+  document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
+  document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
+
+  const mid = new URLSearchParams(location.search).get('mid');
+  const m = mid ? (QD.masters || []).find(x => x.id === mid) : (QD.masters || [])[0];
+  const shell = document.getElementById('mdShell');
+
+  if (!m) {
+    document.title = '大师不存在 · 奇点社区';
+    shell.innerHTML = `
+      <div style="padding:80px 20px;text-align:center;color:var(--text-2);background:var(--bg-card);border:1px dashed var(--border-2);border-radius:var(--r-lg)">
+        <i class="ti ti-mood-sad" style="font-size:56px;color:var(--text-4);display:block;margin-bottom:14px"></i>
+        <h2 style="margin:0 0 8px;font-weight:500">大师不存在</h2>
+        <p class="c-3" style="margin:0 0 22px">${mid ? 'ID <code>' + QDC.escape(mid) + '</code> 找不到对应大师' : '缺少 mid 参数'}</p>
+        <a class="btn btn-primary" href="divination-channel.html" onclick="location.href='divination-channel.html';return false;"><i class="ti ti-arrow-left"></i> 返回玄学频道</a>
+      </div>
+    `;
+    return;
+  }
+
+  document.title = m.name + ' · 玄学大师 · 奇点社区';
+  const subName = (QD.subChannelById && QD.subChannelById(m.subChannelId)) ?
+    QD.subChannelById(m.subChannelId).name : '';
+
+  const PACKAGES = [
+    { name: '八字精解', price: 199, desc: '命运全局梳理,事业财运感情三大方向', icon: 'ti-yin-yang' },
+    { name: '流年运势', price: 299, desc: '未来 12 个月详细推演', icon: 'ti-calendar' },
+    { name: '紫微合盘', price: 499, desc: '情感配对深度分析', icon: 'ti-zodiac-cancer' },
+    { name: '风水勘察', price: 999, desc: '线上图片勘察,室内布局调整', icon: 'ti-home' },
+    { name: '塔罗指引', price: 99,  desc: '10 分钟快速指引', icon: 'ti-cards' },
+    { name: '大事择日', price: 199, desc: '婚嫁开业搬家黄道吉日', icon: 'ti-bookmark' },
+  ];
+
+  shell.innerHTML = `
+    <div class="row gap-2 t-sm c-3" style="margin-bottom:14px">
+      <a href="divination-channel.html" class="text-link" onclick="location.href='divination-channel.html';return false;">
+        <i class="ti ti-arrow-left"></i> 返回玄学频道
+      </a>
+      <span class="dot-sep"></span>
+      <span class="ch-pill teal"><i class="ti ti-yin-yang ico"></i>玄学命理</span>
+      ${subName ? `<span class="dot-sep"></span><span>r/${m.subChannelId} ${QDC.escape(subName)}</span>` : ''}
+    </div>
+
+    <section class="md-hero">
+      <div class="md-avatar ${m.avatar}">${QDC.escape(m.name.slice(0,1))}</div>
+      <div class="md-info">
+        <h1>${QDC.escape(m.name)} <span class="badge gold" style="margin-left:6px;font-size:11px">${QDC.escape(m.badge || '')}</span></h1>
+        <p class="title">${QDC.escape(m.title || '')}</p>
+        <div class="stats">
+          <span><i class="ti ti-star" style="color:#FFD700"></i> ${m.rating}</span>
+          <span><i class="ti ti-users"></i> ${QD.fmtNum(m.orders)} 单</span>
+          <span><i class="ti ti-coin" style="color:#FFD700"></i> ¥${m.price} 起</span>
+        </div>
+        <div class="tags">
+          ${(m.tags || []).map(t => `<span class="master-tag">#${QDC.escape(t)}</span>`).join('')}
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary lg" onclick="location.href='booking.html?mid=${m.id}'">
+            <i class="ti ti-calendar-plus"></i> 预约咨询
+          </button>
+          <button class="btn" onclick="location.href='booking.html?mid=${m.id}'">
+            <i class="ti ti-message"></i> 立即聊聊
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="md-section">
+      <h2><i class="ti ti-info-circle" style="color:var(--c-teal)"></i> 大师简介</h2>
+      <div class="md-bio">${QDC.escape(m.bio || '资深玄学顾问,丰富经验')}</div>
+    </section>
+
+    <section class="md-section">
+      <h2><i class="ti ti-gift" style="color:var(--c-teal)"></i> 服务套餐</h2>
+      <div class="md-packages">
+        ${PACKAGES.map(p => `
+          <div class="md-pkg" onclick="location.href='booking.html?mid=${m.id}&pkg=${encodeURIComponent(p.name)}'">
+            <i class="ti ${p.icon}"></i>
+            <div class="pkg-info">
+              <div class="pkg-name">${p.name}</div>
+              <div class="pkg-desc">${p.desc}</div>
+            </div>
+            <div class="pkg-price">¥${p.price}</div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <section class="md-section">
+      <h2><i class="ti ti-clock" style="color:var(--c-teal)"></i> 预约档期</h2>
+      <div class="md-bio" style="color:var(--text-3)">
+        平均回复时间: <b style="color:var(--text-1)">6 小时内</b><br>
+        本周空闲时段: 周二/周四/周六 19:00-21:00<br>
+        如急需,可付加急费 ¥99 (24 小时内回复)。
+      </div>
+    </section>
+  `;
+})();
+</script>
+</body>
+</html>
