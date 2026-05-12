@@ -92,7 +92,7 @@
   .master-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: var(--bg-elev); border-radius: var(--r-pill); font-size: 11px; color: var(--text-2); }
 </style>
 </head>
-<body>
+<body data-channel="fortune">
 <div class="app-shell">
   <header class="app-header"><div id="header"></div></header>
   <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
@@ -159,85 +159,150 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<!-- Reservation modal -->
-<div class="scrim" id="scrim" style="display:none" onclick="if(event.target.id==='scrim')this.style.display='none'">
-  <div class="modal">
-    <div class="row-between" style="margin-bottom:14px">
-      <div class="modal-title">预约咨询 · 玄海道长</div>
-      <button class="icon-btn" onclick="document.getElementById('scrim').style.display='none'"><i class="ti ti-x"></i></button>
-    </div>
-
-    <div class="row gap-3" style="margin-bottom:18px;padding:14px;background:var(--bg-elev);border-radius:var(--r-md)">
-      <div class="avatar lg bg-grad-7 has-bg">玄</div>
-      <div class="grow">
-        <div class="f-medium">玄海道长</div>
-        <div class="t-sm c-3">紫微斗数 · 35年经验 · ★4.98 (12,842 单)</div>
-      </div>
-      <div class="badge gold">人气王</div>
-    </div>
-
-    <div class="col gap-3">
-      <div class="field">
-        <span class="field-label">服务类型</span>
-        <div class="row gap-2" style="flex-wrap:wrap">
-          <span class="badge brand">紫微全盘 ¥299</span>
-          <span class="badge">单问题 ¥99</span>
-          <span class="badge">流年运程 ¥499</span>
-          <span class="badge">VIP 8 折</span>
-        </div>
-      </div>
-      <div class="field">
-        <span class="field-label">出生信息</span>
-        <input class="input" placeholder="阳历 1992-08-15 12:30 / 男 / 江苏">
-      </div>
-      <div class="field">
-        <span class="field-label">困惑陈述</span>
-        <textarea class="textarea" placeholder="最近想换工作但是几个offer都犹豫，想问问哪个方向适合我..."></textarea>
-      </div>
-      <div class="field row-between" style="margin-top:4px">
-        <span class="t-sm c-3">实付金额（黑卡 8 折）</span>
-        <span class="t-xl f-medium" style="color:#FFD700">¥239</span>
-      </div>
-      <button class="btn btn-primary lg block">立即支付 · 6 小时内回复</button>
-      <div class="t-xs c-4" style="text-align:center">支付即同意《玄学咨询服务条款》，咨询结果仅供参考</div>
-    </div>
-  </div>
+<!-- Reservation modal: 内容由 openBooking() 动态填充 -->
+<div class="scrim" id="scrim" style="display:none" onclick="if(event.target.id==='scrim')closeBooking()">
+  <div class="modal" id="bookingModal"></div>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));
   document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
   document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
 
-  document.getElementById('mastersGrid').innerHTML = QD.masters.map((m, i) => `
-    <div class="master-card-l">
-      <div class="master-avatar-l ${m.avatar}">
-        ${m.name.slice(0,1)}
-        <span class="badge-deg">${m.badge}</span>
+  // 大师按子频道分组渲染
+  const fortuneSubs = QD.subChannelsOf('fortune');
+  function masterCard(m) {
+    return `
+      <div class="master-card-l" id="booking-${m.id}" style="cursor:pointer" onclick="openBooking('${m.id}')">
+        <div class="master-avatar-l ${m.avatar}">
+          ${m.name.slice(0,1)}
+          <span class="badge-deg">${m.badge}</span>
+        </div>
+        <div>
+          <div class="row gap-2" style="margin-bottom:4px">
+            <span class="f-medium t-md">${m.name}</span>
+            <span class="badge">★ ${m.rating}</span>
+          </div>
+          <div class="t-sm c-3" style="margin-bottom:8px">${m.title} · ${QD.fmtNum(m.orders)} 单</div>
+          <div class="row gap-2" style="margin-bottom:12px">
+            ${m.tags.map(t => `<span class="master-tag">#${t}</span>`).join('')}
+          </div>
+          <div class="row gap-2">
+            <span class="t-md" style="color:#FFD700;font-family:ui-monospace,monospace">¥${m.price}</span>
+            <span class="t-xs c-3">起 / 次</span>
+            <button class="btn sm btn-primary" style="margin-left:auto"
+                    onclick="event.stopPropagation();openBooking('${m.id}')">立即预约</button>
+          </div>
+        </div>
       </div>
-      <div>
-        <div class="row gap-2" style="margin-bottom:4px">
-          <span class="f-medium t-md">${m.name}</span>
-          <span class="badge">★ ${m.rating}</span>
-        </div>
-        <div class="t-sm c-3" style="margin-bottom:8px">${m.title} · ${QD.fmtNum(m.orders)} 单</div>
-        <div class="row gap-2" style="margin-bottom:12px">
-          ${m.tags.map(t => `<span class="master-tag">#${t}</span>`).join('')}
-        </div>
-        <div class="row gap-2">
-          <span class="t-md" style="color:#FFD700;font-family:ui-monospace,monospace">¥${m.price}</span>
-          <span class="t-xs c-3">起 / 次</span>
-          <button class="btn sm btn-primary" style="margin-left:auto" onclick="document.getElementById('scrim').style.display='flex'">立即预约</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }
 
+  // 按子频道分组
+  const groupsHtml = fortuneSubs.map(sub => {
+    const matched = QD.masters.filter(m => m.subChannelId === sub.id);
+    if (!matched.length) return '';
+    return `
+      <div style="margin-bottom:24px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <i class="ti ${sub.icon}" style="color:var(--c-teal);font-size:16px"></i>
+          <span class="t-md f-medium">r/${sub.id} ${sub.name}</span>
+          <span class="t-xs c-3">· ${sub.desc}</span>
+        </div>
+        <div class="masters-grid" style="margin-bottom:0">
+          ${matched.map(masterCard).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+  // 无 subChannelId 的大师兜底放到末尾
+  const orphans = QD.masters.filter(m => !m.subChannelId || !fortuneSubs.some(s => s.id === m.subChannelId));
+  const orphansHtml = orphans.length ? `
+    <div style="margin-bottom:24px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <span class="t-md f-medium c-3">未分类</span>
+      </div>
+      <div class="masters-grid" style="margin-bottom:0">${orphans.map(masterCard).join('')}</div>
+    </div>
+  ` : '';
+  document.getElementById('mastersGrid').outerHTML = `<div id="mastersGrid">${groupsHtml}${orphansHtml}</div>`;
+
+  // 全局 helpers 给 onclick 用
+  window.openBooking = function(masterId) {
+    const m = QD.masters.find(x => x.id === masterId);
+    if (!m) return;
+    const discounted = Math.round(m.price * 0.8);
+    document.getElementById('bookingModal').innerHTML = `
+      <div class="row-between" style="margin-bottom:14px">
+        <div class="modal-title">预约咨询 · ${m.name}</div>
+        <button class="icon-btn" onclick="closeBooking()"><i class="ti ti-x"></i></button>
+      </div>
+
+      <div class="row gap-3" style="margin-bottom:18px;padding:14px;background:var(--bg-elev);border-radius:var(--r-md)">
+        <div class="avatar lg ${m.avatar} has-bg">${m.name.slice(0,1)}</div>
+        <div class="grow">
+          <div class="f-medium">${m.name}</div>
+          <div class="t-sm c-3">${m.title} · ★${m.rating} (${QD.fmtNum(m.orders)} 单)</div>
+        </div>
+        <div class="badge gold">${m.badge}</div>
+      </div>
+
+      <div class="col gap-3">
+        <div class="field">
+          <span class="field-label">服务类型</span>
+          <div class="row gap-2" style="flex-wrap:wrap">
+            <span class="badge brand">${m.tags[0] || '咨询'} ¥${m.price}</span>
+            <span class="badge">单问题 ¥99</span>
+            <span class="badge">流年运程 ¥${m.price * 2}</span>
+            <span class="badge">VIP 8 折</span>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-label">出生信息</span>
+          <input class="input" placeholder="阳历 1992-08-15 12:30 / 男 / 江苏">
+        </div>
+        <div class="field">
+          <span class="field-label">困惑陈述</span>
+          <textarea class="textarea" placeholder="最近想换工作但是几个offer都犹豫..."></textarea>
+        </div>
+        <div class="field row-between" style="margin-top:4px">
+          <span class="t-sm c-3">实付金额（黑卡 8 折）</span>
+          <span class="t-xl f-medium" style="color:#FFD700">¥${discounted}</span>
+        </div>
+        <button class="btn btn-primary lg block">立即支付 · 6 小时内回复</button>
+        <div class="t-xs c-4" style="text-align:center">支付即同意《玄学咨询服务条款》，咨询结果仅供参考</div>
+      </div>
+    `;
+    document.getElementById('scrim').style.display = 'flex';
+    location.hash = 'booking-' + masterId;
+  };
+  window.closeBooking = function() {
+    document.getElementById('scrim').style.display = 'none';
+    // 清掉 hash 避免重复触发
+    history.replaceState(null, '', location.pathname + location.search);
+  };
+
+  // hash 跳转自动打开 modal: #booking-ms01
+  if (location.hash.startsWith('#booking-')) {
+    const masterId = location.hash.slice('#booking-'.length);
+    openBooking(masterId);
+  }
+
+  // 帖子流：按 createdAt 倒序（新帖优先）
   const fortunePosts = QD.posts.filter(p => p.channelId === 'fortune');
-  document.getElementById('feed').innerHTML = fortunePosts.concat(QD.posts.slice(0,1)).slice(0,3).map(p => QDC.tplPostCard(p).replace('<article ', `<article onclick="location.href='post-detail.html?id=${p.id}'" `)).join('');
+  document.getElementById('feed').innerHTML = (fortunePosts.length ? fortunePosts : QD.posts.slice(0,3))
+    .slice()
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 3)
+    .map(p => QDC.tplPostCard(p))
+    .join('');
+})();
 </script>
 </body>
 </html>

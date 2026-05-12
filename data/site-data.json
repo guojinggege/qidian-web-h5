@@ -1,0 +1,3803 @@
+{
+  "_meta": {
+    "version": 1,
+    "updatedAt": "2026-05-12T08:00:00Z",
+    "note": "奇点社区 Mock 数据。所有 ISO 时间均 UTC；createdAtText 是渲染用的相对时间字符串。"
+  },
+  "channels": [
+    {
+      "id": "qd",
+      "slug": "qd",
+      "name": "奇点",
+      "icon": "ti-sparkles",
+      "color": "purple",
+      "desc": "今天，你的世界观被刷新了吗？",
+      "members": 482911,
+      "online": 3210,
+      "unread": 12,
+      "subscribed": true,
+      "level": "主频道"
+    },
+    {
+      "id": "sport",
+      "slug": "sport",
+      "name": "体育竞技",
+      "icon": "ti-ball-basketball",
+      "color": "coral",
+      "desc": "NBA · 足球 · 电竞 · 综合",
+      "members": 318422,
+      "online": 5840,
+      "unread": 28,
+      "subscribed": true,
+      "level": "S"
+    },
+    {
+      "id": "drama",
+      "slug": "drama",
+      "name": "短剧",
+      "icon": "ti-device-tv",
+      "color": "amber",
+      "desc": "海外华人爽剧 · 霸总 · 穿越",
+      "members": 182331,
+      "online": 1240,
+      "unread": 7,
+      "subscribed": true,
+      "level": "A"
+    },
+    {
+      "id": "game",
+      "slug": "game",
+      "name": "游戏二次元",
+      "icon": "ti-device-gamepad-2",
+      "color": "green",
+      "desc": "游戏攻略 · 二次元 · Steam",
+      "members": 251007,
+      "online": 4310,
+      "unread": 18,
+      "subscribed": true,
+      "level": "S"
+    },
+    {
+      "id": "movie",
+      "slug": "movie",
+      "name": "影视文化",
+      "icon": "ti-movie",
+      "color": "blue",
+      "desc": "电影 · 剧集 · 动漫 · 读书",
+      "members": 142655,
+      "online": 922,
+      "unread": 4,
+      "subscribed": true,
+      "level": "A"
+    },
+    {
+      "id": "fortune",
+      "slug": "fortune",
+      "name": "玄学命理",
+      "icon": "ti-yin-yang",
+      "color": "teal",
+      "desc": "八字 · 风水 · 塔罗 · 紫微",
+      "members": 88312,
+      "online": 412,
+      "unread": 2,
+      "subscribed": false,
+      "level": "A"
+    },
+    {
+      "id": "gender",
+      "slug": "gender",
+      "name": "两性颜值",
+      "icon": "ti-heart",
+      "color": "pink",
+      "desc": "颜值审美 · 情感 · VIP专区",
+      "members": 421120,
+      "online": 6021,
+      "unread": 33,
+      "subscribed": true,
+      "level": "S"
+    },
+    {
+      "id": "pickup",
+      "slug": "pickup",
+      "name": "泡妞学",
+      "icon": "ti-flame",
+      "color": "rose",
+      "desc": "男性成长 · 海外华人婚恋",
+      "members": 78421,
+      "online": 588,
+      "unread": 9,
+      "subscribed": false,
+      "level": "B"
+    },
+    {
+      "id": "money",
+      "slug": "money",
+      "name": "财经搞钱",
+      "icon": "ti-coin",
+      "color": "lime",
+      "desc": "美股 · 加密 · 海外职场",
+      "members": 165088,
+      "online": 1820,
+      "unread": 5,
+      "subscribed": true,
+      "level": "A"
+    },
+    {
+      "id": "asmr",
+      "slug": "asmr",
+      "name": "ASMR",
+      "icon": "ti-headphones",
+      "color": "sky",
+      "desc": "助眠 · 白噪音 · 解压",
+      "members": 52341,
+      "online": 290,
+      "unread": 0,
+      "subscribed": false,
+      "level": "C"
+    },
+    {
+      "id": "funny",
+      "slug": "funny",
+      "name": "搞笑",
+      "icon": "ti-mood-happy",
+      "color": "violet",
+      "desc": "段子 · 表情包 · 生活笑料",
+      "members": 392111,
+      "online": 4221,
+      "unread": 16,
+      "subscribed": true,
+      "level": "S"
+    }
+  ],
+  "subChannels": [
+    {
+      "id": "qd-fact",
+      "parentId": "qd",
+      "name": "冷知识",
+      "desc": "你以为你知道的,可能都是错的",
+      "icon": "ti-bulb",
+      "color": "purple"
+    },
+    {
+      "id": "qd-history",
+      "parentId": "qd",
+      "name": "历史",
+      "desc": "从古至今的真实剧本",
+      "icon": "ti-history",
+      "color": "purple"
+    },
+    {
+      "id": "qd-science",
+      "parentId": "qd",
+      "name": "科学",
+      "desc": "硬核到掉头发的解读",
+      "icon": "ti-atom",
+      "color": "purple"
+    },
+    {
+      "id": "qd-brain",
+      "parentId": "qd",
+      "name": "脑洞",
+      "desc": "凌晨三点的奇思妙想",
+      "icon": "ti-bulb-filled",
+      "color": "purple"
+    },
+    {
+      "id": "sport-nba",
+      "parentId": "sport",
+      "name": "NBA",
+      "desc": "篮球之神的现代演绎",
+      "icon": "ti-basketball",
+      "color": "coral"
+    },
+    {
+      "id": "sport-soccer",
+      "parentId": "sport",
+      "name": "足球",
+      "desc": "绿茵场上的世界语",
+      "icon": "ti-ball-football",
+      "color": "coral"
+    },
+    {
+      "id": "sport-esports",
+      "parentId": "sport",
+      "name": "电竞",
+      "desc": "电子竞技,菜是原罪",
+      "icon": "ti-device-gamepad",
+      "color": "coral"
+    },
+    {
+      "id": "sport-mixed",
+      "parentId": "sport",
+      "name": "综合",
+      "desc": "MMA/网球/F1 都在这里",
+      "icon": "ti-trophy",
+      "color": "coral"
+    },
+    {
+      "id": "drama-domineering",
+      "parentId": "drama",
+      "name": "霸总",
+      "desc": "撞翻总裁的早晨",
+      "icon": "ti-crown",
+      "color": "amber"
+    },
+    {
+      "id": "drama-revenge",
+      "parentId": "drama",
+      "name": "复仇",
+      "desc": "重生回 18 岁那年",
+      "icon": "ti-flame",
+      "color": "amber"
+    },
+    {
+      "id": "drama-tragic",
+      "parentId": "drama",
+      "name": "虐恋",
+      "desc": "be 美学最高殿堂",
+      "icon": "ti-heart-broken",
+      "color": "amber"
+    },
+    {
+      "id": "drama-mystic",
+      "parentId": "drama",
+      "name": "玄学",
+      "desc": "前世今生大乱炖",
+      "icon": "ti-yin-yang",
+      "color": "amber"
+    },
+    {
+      "id": "game-console",
+      "parentId": "game",
+      "name": "主机游戏",
+      "desc": "PS5/Switch/Xbox 神仙打架",
+      "icon": "ti-device-gamepad-2",
+      "color": "green"
+    },
+    {
+      "id": "game-anime",
+      "parentId": "game",
+      "name": "二次元",
+      "desc": "搞史团/原批/赛博痴汉聚集地",
+      "icon": "ti-stars",
+      "color": "green"
+    },
+    {
+      "id": "game-steam",
+      "parentId": "game",
+      "name": "Steam",
+      "desc": "钱包警告,夏促又来了",
+      "icon": "ti-shopping-cart",
+      "color": "green"
+    },
+    {
+      "id": "game-mobile",
+      "parentId": "game",
+      "name": "手游",
+      "desc": "氪佬非佬殊途同归",
+      "icon": "ti-device-mobile",
+      "color": "green"
+    },
+    {
+      "id": "movie-film",
+      "parentId": "movie",
+      "name": "电影",
+      "desc": "院线/流媒体/小众都在聊",
+      "icon": "ti-movie",
+      "color": "blue"
+    },
+    {
+      "id": "movie-us",
+      "parentId": "movie",
+      "name": "美剧",
+      "desc": "HBO/Apple/Netflix 高质量",
+      "icon": "ti-device-tv",
+      "color": "blue"
+    },
+    {
+      "id": "movie-cn",
+      "parentId": "movie",
+      "name": "国剧",
+      "desc": "好剧不只在过去",
+      "icon": "ti-device-tv-old",
+      "color": "blue"
+    },
+    {
+      "id": "movie-anime",
+      "parentId": "movie",
+      "name": "动漫",
+      "desc": "番剧/老番/剧场版",
+      "icon": "ti-camera",
+      "color": "blue"
+    },
+    {
+      "id": "gender-look",
+      "parentId": "gender",
+      "name": "颜值",
+      "desc": "拍照穿搭分享区",
+      "icon": "ti-camera",
+      "color": "pink"
+    },
+    {
+      "id": "gender-emotion",
+      "parentId": "gender",
+      "name": "情感",
+      "desc": "亲密关系里的暗流",
+      "icon": "ti-heart",
+      "color": "pink"
+    },
+    {
+      "id": "gender-marriage",
+      "parentId": "gender",
+      "name": "婚恋",
+      "desc": "结不结/怎么结/结了之后",
+      "icon": "ti-rings-wedding",
+      "color": "pink"
+    },
+    {
+      "id": "gender-vip",
+      "parentId": "gender",
+      "name": "VIP 专区",
+      "desc": "实战派的私房话",
+      "icon": "ti-crown",
+      "color": "pink"
+    },
+    {
+      "id": "money-side",
+      "parentId": "money",
+      "name": "副业",
+      "desc": "下班后多赚一份钱",
+      "icon": "ti-coin",
+      "color": "lime"
+    },
+    {
+      "id": "money-stock",
+      "parentId": "money",
+      "name": "美股",
+      "desc": "牛市熊市都得活下来",
+      "icon": "ti-chart-line",
+      "color": "lime"
+    },
+    {
+      "id": "money-property",
+      "parentId": "money",
+      "name": "房产",
+      "desc": "湾区/纽约/伦敦/香港",
+      "icon": "ti-building",
+      "color": "lime"
+    },
+    {
+      "id": "money-startup",
+      "parentId": "money",
+      "name": "创业",
+      "desc": "从 0 到 1 那点事",
+      "icon": "ti-rocket",
+      "color": "lime"
+    },
+    {
+      "id": "funny-joke",
+      "parentId": "funny",
+      "name": "段子",
+      "desc": "看完笑出腹肌",
+      "icon": "ti-mood-smile",
+      "color": "violet"
+    },
+    {
+      "id": "funny-meme",
+      "parentId": "funny",
+      "name": "梗图",
+      "desc": "互联网梗仓库",
+      "icon": "ti-photo",
+      "color": "violet"
+    },
+    {
+      "id": "funny-video",
+      "parentId": "funny",
+      "name": "视频",
+      "desc": "短到不会浪费时间",
+      "icon": "ti-video",
+      "color": "violet"
+    },
+    {
+      "id": "funny-life",
+      "parentId": "funny",
+      "name": "日常",
+      "desc": "生活就是个连续剧",
+      "icon": "ti-coffee",
+      "color": "violet"
+    },
+    {
+      "id": "fortune-bazi",
+      "parentId": "fortune",
+      "name": "八字",
+      "desc": "你的人生算法",
+      "icon": "ti-calculator",
+      "color": "teal"
+    },
+    {
+      "id": "fortune-fengshui",
+      "parentId": "fortune",
+      "name": "风水",
+      "desc": "环境对你比你想的影响更大",
+      "icon": "ti-mountain",
+      "color": "teal"
+    },
+    {
+      "id": "fortune-tarot",
+      "parentId": "fortune",
+      "name": "塔罗",
+      "desc": "西方占卜的诗意",
+      "icon": "ti-cards",
+      "color": "teal"
+    },
+    {
+      "id": "fortune-ziwei",
+      "parentId": "fortune",
+      "name": "紫微",
+      "desc": "命盘里藏着的剧本",
+      "icon": "ti-star",
+      "color": "teal"
+    },
+    {
+      "id": "pickup-approach",
+      "parentId": "pickup",
+      "name": "搭讪",
+      "desc": "破冰的艺术",
+      "icon": "ti-message-circle",
+      "color": "rose"
+    },
+    {
+      "id": "pickup-date",
+      "parentId": "pickup",
+      "name": "约会",
+      "desc": "约会进阶手册",
+      "icon": "ti-mood-heart",
+      "color": "rose"
+    },
+    {
+      "id": "pickup-self",
+      "parentId": "pickup",
+      "name": "自我提升",
+      "desc": "成为更好的自己",
+      "icon": "ti-arrow-up-right",
+      "color": "rose"
+    },
+    {
+      "id": "pickup-case",
+      "parentId": "pickup",
+      "name": "实战案例",
+      "desc": "前辈们的脚印",
+      "icon": "ti-bookmark",
+      "color": "rose"
+    },
+    {
+      "id": "asmr-sleep",
+      "parentId": "asmr",
+      "name": "助眠",
+      "desc": "30 分钟睡到天亮",
+      "icon": "ti-moon",
+      "color": "sky"
+    },
+    {
+      "id": "asmr-relax",
+      "parentId": "asmr",
+      "name": "解压",
+      "desc": "白噪音和耳语",
+      "icon": "ti-leaf",
+      "color": "sky"
+    },
+    {
+      "id": "asmr-trigger",
+      "parentId": "asmr",
+      "name": "触发音",
+      "desc": "敲击/翻书/雨声",
+      "icon": "ti-rain",
+      "color": "sky"
+    },
+    {
+      "id": "asmr-rp",
+      "parentId": "asmr",
+      "name": "角色扮演",
+      "desc": "理发店/医院/化妆",
+      "icon": "ti-mask",
+      "color": "sky"
+    }
+  ],
+  "user": {
+    "id": "u_self",
+    "username": "过路的星辰",
+    "avatar": "bg-grad-6",
+    "level": 23,
+    "vip": {
+      "active": true,
+      "tier": "gold",
+      "expiresAt": "2026-08-12"
+    },
+    "stats": {
+      "posts": 142,
+      "followers": 1820,
+      "following": 332,
+      "likes": 12877,
+      "coins": 8932
+    },
+    "bio": "北美程序员 · 摩羯座 · 半个NBA球迷 · 信玄学的理性人",
+    "location": "美国 · 加州"
+  },
+  "authors": [
+    {
+      "id": "u01",
+      "name": "硅谷郊狼",
+      "avatar": "bg-grad-1",
+      "level": 31,
+      "vip": "gold"
+    },
+    {
+      "id": "u02",
+      "name": "湾区F2太太",
+      "avatar": "bg-grad-4",
+      "level": 18
+    },
+    {
+      "id": "u03",
+      "name": "雪梨咖啡馆老板",
+      "avatar": "bg-grad-5",
+      "level": 26,
+      "vip": "silver"
+    },
+    {
+      "id": "u04",
+      "name": "多伦多冷锅串串",
+      "avatar": "bg-grad-3",
+      "level": 14
+    },
+    {
+      "id": "u05",
+      "name": "伦敦地铁打工人",
+      "avatar": "bg-grad-2",
+      "level": 22
+    },
+    {
+      "id": "u06",
+      "name": "东京霓虹猎人",
+      "avatar": "bg-grad-7",
+      "level": 19,
+      "vip": "gold"
+    },
+    {
+      "id": "u07",
+      "name": "曼谷别再喝椰",
+      "avatar": "bg-grad-8",
+      "level": 28
+    },
+    {
+      "id": "u08",
+      "name": "柏林冷面摄影师",
+      "avatar": "bg-grad-6",
+      "level": 35,
+      "vip": "gold"
+    },
+    {
+      "id": "u09",
+      "name": "新加坡组屋叔",
+      "avatar": "bg-grad-1",
+      "level": 12
+    },
+    {
+      "id": "u10",
+      "name": "巴黎街头狗仔",
+      "avatar": "bg-grad-4",
+      "level": 21
+    },
+    {
+      "id": "u11",
+      "name": "芝加哥风味",
+      "avatar": "bg-grad-5",
+      "level": 9
+    },
+    {
+      "id": "u12",
+      "name": "香港中环外卖",
+      "avatar": "bg-grad-3",
+      "level": 17,
+      "vip": "silver"
+    }
+  ],
+  "posts": [
+    {
+      "id": "p001",
+      "channelId": "qd",
+      "authorId": "u08",
+      "type": "text",
+      "title": "中世纪欧洲为什么洗澡反而被认为是不健康的？看完这段历史你会笑出声",
+      "excerpt": "14世纪黑死病爆发后，欧洲医学界普遍相信\"皮肤毛孔张开会让瘟疫入侵\"，于是禁止洗澡成为主流医学建议。法国国王路易十四一生只洗过3次澡，凡尔赛宫的\"香水文化\"其实是因为大家臭得受不了……",
+      "body": "14 世纪黑死病爆发后，欧洲医学界普遍相信\"皮肤毛孔张开会让瘟疫入侵\"，于是禁止洗澡成为主流医学建议。这种\"医学共识\"持续了约 400 年，直到 18 世纪末才被推翻。法国国王路易十四（1638-1715）一生只洗过 3 次澡，凡尔赛宫的\"香水文化\"其实是因为大家臭得受不了 — 整个宫廷到处都是排泄物，贵族们靠浓烈的香水互相遮掩。\n\n更夸张的是：当时欧洲贵族认为\"会出汗\"是健康的表现，所以反复涂抹厚厚的脂粉来\"密封\"皮肤，导致铅中毒成了上层社会的常见病。Madame de Pompadour（蓬巴杜夫人）的死亡很可能就和长年涂抹含铅化妆品有关。\n\n对比同时期的奥斯曼帝国、江户日本和明清中国 — 这三个文明圈都把\"沐浴\"视为礼仪和健康的核心实践。某种意义上，\"欧洲中心论\"的历史叙事掩盖了一个真相：欧洲在中世纪到近代早期，是世界主要文明圈中最\"脏\"的那个。\n\n— 参考：Georges Vigarello《Concepts of Cleanliness》",
+      "tags": [
+        "冷知识",
+        "世界史"
+      ],
+      "stats": {
+        "up": 4821,
+        "down": 32,
+        "comments": 612,
+        "share": 188,
+        "view": 84210,
+        "liveOnline": 142
+      },
+      "createdAt": "2026-05-12T07:58:00Z",
+      "createdAtText": "2分钟前",
+      "hot": true,
+      "subChannelId": "qd-history"
+    },
+    {
+      "id": "p002",
+      "channelId": "sport",
+      "authorId": "u01",
+      "type": "video",
+      "title": "约基奇这个不看人传球，整个联盟现在已经没人能防了",
+      "excerpt": "今天打太阳的G3，约老师在篮下吸引3个人包夹之后，反手一个No-look直接喂给底角的KCP……",
+      "body": "今天 G3 第三节末段，约基奇背身单打 KD，太阳防守端立刻包夹。在被三人贴防的瞬间，约老师不带头部转向、不看后场的情况下，反手把球甩到底角的 KCP 手里。KCP 接球毫无防守干扰，干拔三分命中。\n\n这球之所以经典，不在于难度本身，而在于它揭示了约基奇的真实威胁：他不需要看，就能感知防守者位置和队友走位。这是只有 Magic Johnson、Larry Bird 这一类型球员才有的空间智能。\n\n现在的联盟，防约基奇的策略基本破产。包夹？他传球。单防？他强吃。无限换防？他错位虐打。下赛季掘金如果保持健康，依旧是西部最大威胁。\n\nNBA 视频源：https://www.nba.com（仅供参考引用）",
+      "thumb": "linear-gradient(135deg,#E55A4B,#D4A04A)",
+      "tags": [
+        "NBA",
+        "掘金"
+      ],
+      "stats": {
+        "up": 3128,
+        "down": 89,
+        "comments": 422,
+        "share": 76,
+        "view": 52310,
+        "liveOnline": 88
+      },
+      "createdAt": "2026-05-12T07:48:00Z",
+      "createdAtText": "12分钟前",
+      "subChannelId": "sport-nba"
+    },
+    {
+      "id": "p003",
+      "channelId": "gender",
+      "authorId": "u02",
+      "type": "gallery",
+      "title": "海外华人圈最近这种\"清冷感\"风格的女生，是不是有点过头了？",
+      "excerpt": "直接上图，大家自己评。我个人觉得这种打扮太刻意，反而失去了那种真正的松弛感……",
+      "body": "最近在湾区、纽约、伦敦的华人圈，一种叫\"清冷感\"的审美开始流行：素颜白皮、薄薄一层粉底、淡色口红、束发或低马尾、ins 极简风穿搭。\n\n问题来了：这种风格的本意是\"高级感\"和\"高端审美\"，但当所有人都开始模仿的时候，它就变成了一种刻意的表演。原本松弛的人也开始紧绷地维持\"清冷\"的人设。\n\n我个人觉得，真正的松弛感来自内在状态，而不是外在打扮。一个真正清冷的人，可以穿任何风格而依然清冷。但你看现在的现象：每个人都在用同一套滤镜拍照，背景是同一家咖啡馆，穿同一品牌的米白色羊绒衫。\n\n所以这到底是审美升级，还是新型的群体焦虑？欢迎评论区讨论。",
+      "thumbs": [
+        "linear-gradient(135deg,#E55A8A,#C77FE5)",
+        "linear-gradient(135deg,#9F7FE5,#7F77DD)",
+        "linear-gradient(135deg,#4A9FE5,#4ADBCC)"
+      ],
+      "tags": [
+        "颜值审美",
+        "讨论"
+      ],
+      "stats": {
+        "up": 2208,
+        "down": 412,
+        "comments": 1822,
+        "share": 38,
+        "view": 38120,
+        "liveOnline": 312
+      },
+      "createdAt": "2026-05-12T07:32:00Z",
+      "createdAtText": "28分钟前",
+      "vipLocked": false,
+      "subChannelId": "gender-look"
+    },
+    {
+      "id": "p004",
+      "channelId": "money",
+      "authorId": "u05",
+      "type": "text",
+      "title": "在伦敦做Quant 5年，劝退一下想跳金融的弟弟们 — 没你想的那么香",
+      "excerpt": "看到群里又有几个MIT毕业的小伙伴跳来Quant，我想说几个真实数据。第一年的all-in package确实漂亮，但是……",
+      "body": "上周群里又有 3 个 MIT 应届毕业生说要去 Quant，我决定写点真实的。\n\n第一年的 all-in package（基本工资 + 签字费 + 第一年 bonus 担保）确实能到 25-40 万英镑，但请看清这几点：第一，签字费要分 3-4 年才能拿到手，提前离职要还的；第二，bonus 担保只有第一年，从第二年开始全看业绩；第三，伦敦的税让你的实拿大概只剩 55%。\n\n更现实的问题是工作强度：每天 9 小时盯盘、3 小时复盘、2-3 小时学新东西。出差和加班是常态。我见过两个同事在 30 岁前心律不齐住院。\n\n如果你只是想赚钱，去 Big Tech 同样起步 20-25 万英镑（含 RSU），工作强度小 40%，工作 5 年的总财富积累不会差多少。如果你真的喜欢市场，那 Quant 才是对的。\n\n别为了\"觉得很酷\"去 Quant。",
+      "tags": [
+        "职场",
+        "伦敦",
+        "金融"
+      ],
+      "stats": {
+        "up": 1840,
+        "down": 22,
+        "comments": 388,
+        "share": 122,
+        "view": 28400,
+        "liveOnline": 41
+      },
+      "createdAt": "2026-05-12T07:00:00Z",
+      "createdAtText": "1小时前",
+      "subChannelId": "money-stock"
+    },
+    {
+      "id": "p005",
+      "channelId": "fortune",
+      "authorId": "u06",
+      "type": "text",
+      "title": "【免费分析】1992年8月15日午时生人，最近事业财运卡点在哪？",
+      "excerpt": "请玄海大师在线给个方向。这两年换了3次工作都不顺，最近的offer要不要接……",
+      "body": "出生信息：1992-08-15 午时（11:00-13:00），男，江苏出生，目前在加拿大多伦多。\n\n背景：2023 年从硅谷大厂跳到多伦多 startup，结果公司一年就裁员。2024 年又跳了一家加密公司，半年解散。2025 年初接的咨询工作不温不火。\n\n最近有个新的 offer：温哥华一家做 AI 的中型公司，给 25% 涨幅 + RSU。但我担心又是个不稳定的选择。\n\n请玄海大师在线点个方向：是该接这个 offer，还是再等等？我自己看八字感觉这两年正好行印星运，照理应该是事业开运的时候，为什么实际表现这么差？\n\n（已订阅 VIP，可以付费深聊）",
+      "tags": [
+        "八字",
+        "事业"
+      ],
+      "stats": {
+        "up": 421,
+        "down": 4,
+        "comments": 88,
+        "share": 12,
+        "view": 6210,
+        "liveOnline": 28
+      },
+      "createdAt": "2026-05-12T06:00:00Z",
+      "createdAtText": "2小时前",
+      "subChannelId": "fortune-bazi"
+    },
+    {
+      "id": "p006",
+      "channelId": "game",
+      "authorId": "u04",
+      "type": "video",
+      "title": "黑神话悟空一周年，今年TGA还有戏吗？冷静分析一下",
+      "excerpt": "从销量、口碑、文化输出三个维度过一遍，再对比一下今年的几个候选作品……",
+      "body": "黑神话悟空发售已经一年了。我们来冷静评估它在 TGA 的真实机会。\n\n销量维度：全平台 2400 万套，全球收入 12 亿美元，远超同年所有 GOTY 候选。这一项绝对加分。\n\n口碑维度：Steam 92% 好评，Metacritic 81 分。和最近 5 年的 GOTY 得主对比，分数偏低。但游戏的文化深度、美术表现是公认的天花板。\n\n文化输出维度：登顶 30+ 国 Steam 榜首，海外玩家自发学习西游记的现象级传播。这一项历史上没有任何东方游戏做到过。\n\n竞争对手：今年还有 Hades 2、Persona 6、GTA 6 demo。GTA 6 如果上市，黑神话基本就是陪跑了。\n\n我的预测：最佳叙事 / 最佳美术应该能拿，年度 GOTY 50-50。",
+      "thumb": "linear-gradient(135deg,#4ADB7E,#B8DB4A)",
+      "tags": [
+        "黑神话",
+        "TGA"
+      ],
+      "stats": {
+        "up": 2911,
+        "down": 188,
+        "comments": 488,
+        "share": 92,
+        "view": 41200,
+        "liveOnline": 122
+      },
+      "createdAt": "2026-05-12T05:00:00Z",
+      "createdAtText": "3小时前",
+      "subChannelId": "game-console"
+    },
+    {
+      "id": "p007",
+      "channelId": "funny",
+      "authorId": "u11",
+      "type": "text",
+      "title": "我妈说我这种35岁还在写代码的，在国内属于\"高级闲人\"",
+      "excerpt": "她说\"你们写代码的就是把简单事情搞复杂，然后说自己很累\"。我想了一晚上，觉得她说得也不是完全没道理……",
+      "body": "周末和我妈视频。她问我加班加成什么样，我说今天又是 11 点回家。她沉默了 5 秒，问：\"你们写代码的，到底是在写啥？\"\n\n我开始解释：写功能要测试、要 code review、要做架构设计、要写文档、要参加站会、要处理 bug……\n\n她听完，淡淡说了一句：\"所以你们就是把简单的事情搞复杂，然后说自己很累？\"\n\n我想反驳，但卡住了。她又补了一句：\"我们厂里以前生产线，机器坏了就修，修不好换。你们这个职业怎么搞得跟做手术似的。\"\n\n我想了一晚上。说实话，她说得也不是完全没道理。我们这一代码农，是不是真的把太多精力花在了\"显得很专业\"上？\n\n来分享一下你妈对你工作的精准吐槽。",
+      "tags": [
+        "段子",
+        "生活"
+      ],
+      "stats": {
+        "up": 6422,
+        "down": 51,
+        "comments": 1244,
+        "share": 421,
+        "view": 92340,
+        "liveOnline": 88
+      },
+      "createdAt": "2026-05-12T03:00:00Z",
+      "createdAtText": "5小时前",
+      "hot": true,
+      "subChannelId": "funny-life"
+    },
+    {
+      "id": "p008",
+      "channelId": "drama",
+      "authorId": "u03",
+      "type": "video",
+      "title": "《海归霸总的复仇人生》— 第38集刚更，前妻这次终于跪下来了",
+      "excerpt": "剧透警告。这一集编剧终于不水了，霸总在董事会上甩出DNA报告的那一刻，全场鸦雀无声……",
+      "body": "剧透警告。第 38 集刚刚更新，编剧终于不水了。\n\n这一集的高潮在董事会上：前妻林雅诗带着所谓\"小儿子\"质问陆景行，要求恢复继承权。陆景行什么都没说，从西装内袋里掏出一份 DNA 报告，拍在桌上。\n\n全场鸦雀无声。10 秒之后，林雅诗腿一软，跪在了地上。\n\n这一段的张力来自前 37 集的铺垫：从陆景行被陷害破产，到一夜之间发现儿子不是自己的，到 7 年蛰伏重返巅峰。所有积压都在这一刻释放。\n\n演员的表演也很在线，特别是男主的微表情控制：从面无表情到嘴角一抽，再到眼里闪过一丝快意，三秒钟演完了一个男人 7 年的所有情绪。\n\nVIP 用户可以解锁全集 60 集。",
+      "thumb": "linear-gradient(135deg,#D4A04A,#E55A4B)",
+      "tags": [
+        "短剧",
+        "VIP"
+      ],
+      "stats": {
+        "up": 1822,
+        "down": 312,
+        "comments": 622,
+        "share": 88,
+        "view": 24210,
+        "liveOnline": 199
+      },
+      "createdAt": "2026-05-12T00:00:00Z",
+      "createdAtText": "8小时前",
+      "vipLocked": true,
+      "subChannelId": "drama-revenge"
+    },
+    {
+      "id": "p009",
+      "channelId": "qd",
+      "authorId": "u01",
+      "type": "text",
+      "title": "为什么古罗马人吃饭要躺着？真相比电影里演的更荒谬",
+      "excerpt": "你以为古罗马贵族躺着吃饭是为了优雅？真相恰恰相反 — 他们躺着吃，是因为站着吃在当时被认为是\"奴隶才会做的事\"……",
+      "body": "你看的所有古罗马题材电影里，贵族都躺在 triclinium（三人卧榻）上一边吃一边聊天。这不是导演为了视觉好看，这是真的。\n\n但躺着吃饭的真实原因，比你想象的更荒谬。第一，古罗马人认为\"站立或坐着吃饭\"是体力劳动者和奴隶才会做的事。所以为了显示自己不需要劳动，贵族阶层一定要躺着吃，证明自己\"有时间慢慢享受\"。\n\n第二，躺着吃确实不利于消化。古罗马医生 Galen 就批评过这种习俗，但贵族听不进去 — 因为消化不良在他们看来是\"贵族病\"，是身份象征。\n\n第三，最离谱的是：女性最初是不被允许躺着吃的，因为这被视为\"不端庄\"。直到帝国晚期，贵族女性才争取到了\"躺着吃饭\"的权利。\n\n所以下次看到罗马题材电影里贵族躺着大快朵颐，你知道那不是优雅，那是阶级炫耀的最早形式之一。",
+      "tags": [
+        "冷知识",
+        "古罗马"
+      ],
+      "stats": {
+        "up": 2841,
+        "down": 22,
+        "comments": 322,
+        "share": 88,
+        "view": 41200,
+        "liveOnline": 62
+      },
+      "createdAt": "2026-05-12T07:30:00Z",
+      "createdAtText": "30分钟前",
+      "subChannelId": "qd-history"
+    },
+    {
+      "id": "p010",
+      "channelId": "qd",
+      "authorId": "u04",
+      "type": "text",
+      "title": "蜂蜜永远不会过期，考古队真在金字塔里挖出过3000年的蜂蜜",
+      "excerpt": "1922年图坦卡蒙墓出土的陶罐里，考古学家发现了密封完好的蜂蜜 — 3300年过去，那罐蜂蜜居然还能吃……",
+      "body": "1922 年 Howard Carter 团队进入图坦卡蒙墓时，发现了上百个密封陶罐。其中一个陶罐里装着金色粘稠液体。化验之后，结果震惊了整个考古界：是蜂蜜，3300 年前的，仍然没有变质。\n\n为什么蜂蜜不会过期？三个原因合在一起。第一，含水量极低（约 17%）。第二，pH 值极低（3.2-4.5），酸度足以抑制大多数细菌。第三，蜜蜂分泌的葡萄糖氧化酶持续产生微量过氧化氢，相当于天然抑菌剂。\n\n这三个条件构成一个微生物完全无法生存的极端环境。只要密封不接触水分，蜂蜜可以存放 thousands of years 而不腐败。\n\n但有个前提：必须是\"纯蜂蜜\"。你超市买的工业蜂蜜如果勾兑了水或玉米糖浆，照样会变质。\n\n顺便说：那罐图坦卡蒙的蜂蜜被博物馆作为文物保存了，没人真的吃过。但理论上来说，是可以吃的。",
+      "tags": [
+        "冷知识",
+        "食物",
+        "考古"
+      ],
+      "stats": {
+        "up": 5612,
+        "down": 18,
+        "comments": 488,
+        "share": 322,
+        "view": 78200,
+        "liveOnline": 84
+      },
+      "createdAt": "2026-05-12T06:45:00Z",
+      "createdAtText": "1小时15分钟前",
+      "hot": true,
+      "subChannelId": "qd-fact"
+    },
+    {
+      "id": "p011",
+      "channelId": "qd",
+      "authorId": "u10",
+      "type": "text",
+      "title": "维京人其实非常爱干净 — 周六洗澡这件事在中世纪欧洲是异类",
+      "excerpt": "和中世纪基督教欧洲拒绝洗澡形成强烈对比，维京人每周六定期洗澡、修剪胡须、梳理头发。英文里 \"Saturday\" 这个词的词源就和\"洗澡日\"有关……",
+      "body": "中世纪欧洲基督徒拒绝洗澡（参见 p001 的讨论），但同时期的维京人完全是另一个画风。\n\n考古证据显示，维京人在 8-11 世纪保持着非常稳定的卫生习惯。他们每周六定期洗澡，称为 laugardagr（古诺斯语\"洗澡日\"）。这个词演化成了现代北欧语言里星期六的称呼：丹麦语 lørdag、瑞典语 lördag、挪威语 lørdag，全部源于此。\n\n更让英国教士们崩溃的是：维京定居者带去英国的洗澡习惯，让英国本地女性纷纷被吸引。中世纪英国教士 John of Wallingford 在 1180 年的记录中愤怒地抱怨：\"维京人靠每周六洗澡、每天梳头、定期换衣服，让我们英国良家妇女失去了贞洁\"。\n\n所以中世纪欧洲的卫生史，远比\"普遍肮脏\"要复杂。维京人 + 奥斯曼人 + 阿拉伯人都比基督教欧洲洁净得多。某种意义上，欧洲的\"卫生黑暗时代\"是基督教文化主导的特殊现象。",
+      "tags": [
+        "冷知识",
+        "维京",
+        "卫生史"
+      ],
+      "stats": {
+        "up": 1912,
+        "down": 32,
+        "comments": 244,
+        "share": 128,
+        "view": 32100,
+        "liveOnline": 41
+      },
+      "createdAt": "2026-05-12T05:30:00Z",
+      "createdAtText": "2小时30分钟前",
+      "subChannelId": "qd-history"
+    },
+    {
+      "id": "p012",
+      "channelId": "qd",
+      "authorId": "u07",
+      "type": "text",
+      "title": "为什么我们看到的银河系总是带蓝紫色？真相是肉眼根本看不到颜色",
+      "excerpt": "所有那些震撼的银河系照片都是\"假的\" — 不是骗你，是因为人眼在低光环境下完全感受不到颜色，那些蓝紫色都是相机长曝光叠加出来的……",
+      "body": "你在 Instagram 或者天文摄影网站看到的银河系照片，那种深蓝、紫红、橙黄的炫目色彩 — 全是人眼无法看到的。\n\n这不是后期 PS 骗你。这是人眼的生理结构问题。\n\n人眼里有两种感光细胞：视杆细胞（rod cells）负责低光环境下的视觉但只能感知明暗，无法分辨颜色；视锥细胞（cone cells）能感知颜色但需要足够的光强才能激活。当你在黑暗环境下看银河时，光线强度远低于视锥细胞的激活阈值，所以大脑只能接收到\"明暗信息\"，完全无法处理颜色。\n\n相机不一样。它的传感器对低光的颜色仍然敏感，再通过长曝光（30 秒到数小时）累积光子，最终把肉眼看不到的颜色记录下来。\n\n所以下次有人发银河照片说\"昨晚去观星，太美了\"，你可以礼貌地告诉他：\"你看到的实际是灰色的雾，那些颜色是后期合成的\"。\n\n但是知道这个事实之后，反而觉得人类用相机超越生理极限\"看见\"宇宙更浪漫。",
+      "tags": [
+        "冷知识",
+        "天文",
+        "视觉"
+      ],
+      "stats": {
+        "up": 4288,
+        "down": 51,
+        "comments": 412,
+        "share": 244,
+        "view": 62800,
+        "liveOnline": 92
+      },
+      "createdAt": "2026-05-12T04:30:00Z",
+      "createdAtText": "3小时30分钟前",
+      "subChannelId": "qd-science"
+    },
+    {
+      "id": "p013",
+      "channelId": "drama",
+      "authorId": "u12",
+      "type": "video",
+      "title": "《前妻总裁夜夜跪下求我回家》大结局，编剧给了一个最毒的处理",
+      "excerpt": "看完 88 集了，第 88 集大结局编剧给了一个我没想到的处理方式 — 男主没接受跪下的前妻，但也没复仇，他选择了一种更狠的方式……",
+      "body": "终于追完了 88 集。大结局编剧给的处理方式让我意外。\n\n前 87 集都在铺垫：女主从最初的高高在上、抛弃男主，到男主东山再起，到女主家族破产、来求复合。一路看下来，所有人都期待第 88 集会有一场酣畅淋漓的复仇戏。\n\n但编剧给的处理是：男主既没有原谅，也没有报复。他只是淡淡地说了一句\"我不认识你了\"，然后转身离开，全程没有看女主一眼。\n\n这个处理之所以\"毒\"，是因为它准确捕捉了\"成熟的失望\"的本质。真正过去了的关系，不是恨，是漠然。男主已经不需要靠羞辱女主来证明自己 — 他的生活已经完整到女主不再是任何参考系。\n\n这种处理在国产剧里非常少见。大多数复仇短剧最后一定要安排一场\"扇耳光 + 跪地求饶\"的大快人心戏。但《前妻总裁》选择了更高级的处理。\n\n9.4 分给得不冤。",
+      "thumb": "linear-gradient(135deg,#E55A8A,#C77FE5)",
+      "tags": [
+        "短剧",
+        "霸总",
+        "大结局"
+      ],
+      "stats": {
+        "up": 3422,
+        "down": 122,
+        "comments": 822,
+        "share": 244,
+        "view": 51200,
+        "liveOnline": 188
+      },
+      "createdAt": "2026-05-12T07:15:00Z",
+      "createdAtText": "45分钟前",
+      "hot": true,
+      "subChannelId": "drama-domineering"
+    },
+    {
+      "id": "p014",
+      "channelId": "drama",
+      "authorId": "u02",
+      "type": "video",
+      "title": "5部海外华人爽剧排行榜 — 第一名让我熬夜追到凌晨3点",
+      "excerpt": "盘点近一个月在北美华人圈最火的5部短剧，从第5名说起。每一部都有它独特的爽点……",
+      "body": "近一个月在北美华人圈最火的 5 部短剧，按播放量倒序：\n\n第 5 名：《我在硅谷躺平十年后突然成了天才》— 36 集。主打知识分子爽剧，主角因为公司算法 bug 被认成天才，结果阴差阳错真的成了。文化梗多，工程师看会笑。\n\n第 4 名：《海归霸总的复仇人生》— 60 集，9.2 分。第 38 集 DNA 报告那一段炸裂全网。\n\n第 3 名：《穿越成王思聪的我决定先开除自己》— 50 集。最离谱的设定但意外好笑，主角穿越后第一件事就是把现实生活里的自己开除了。\n\n第 2 名：《玄学大师我，重生救国回到了2008》— 72 集。带点民族主义但拍得很好看，玄学元素融入历史，悬念结构扎实。\n\n第 1 名：《前妻总裁夜夜跪下求我回家》— 88 集。详细见我另一篇评测 p013。这个我熬夜追完的，凌晨 3 点才睡。\n\n以上 5 部 VIP 全部解锁，月卡用户可以全看。",
+      "thumb": "linear-gradient(135deg,#9F7FE5,#7F77DD)",
+      "tags": [
+        "短剧",
+        "推荐",
+        "排行榜"
+      ],
+      "stats": {
+        "up": 2188,
+        "down": 88,
+        "comments": 322,
+        "share": 122,
+        "view": 28400,
+        "liveOnline": 62
+      },
+      "createdAt": "2026-05-12T05:00:00Z",
+      "createdAtText": "3小时前",
+      "subChannelId": "drama-domineering"
+    },
+    {
+      "id": "p015",
+      "channelId": "drama",
+      "authorId": "u03",
+      "type": "text",
+      "title": "为什么海外华人这么爱看霸总短剧？我想了一年，觉得有个文化心理在底层",
+      "excerpt": "在北美开咖啡馆 5 年，我观察到一个有趣的现象：海外华人对霸总爽剧的热情远远超过国内观众。这背后有个不太被讨论的文化心理……",
+      "body": "在北美开咖啡馆 5 年，店里有不少华人客户。我观察到一个有趣的现象：海外华人（特别是 30-45 岁女性）对霸总爽剧的热情远超国内观众。\n\n刚开始我以为是\"思乡\"或者\"文化怀旧\"。但聊多了之后，发现是另一个原因。\n\n海外华人有一个普遍的隐性压力：在主流社会里，无论事业多成功，都很难成为\"叙事的主角\"。媒体里的精英、电影里的英雄、社会的注意力，大部分给了白人 / 本地人。海外华人即使很成功，也常常处于\"配角\"或\"符号化\"状态。\n\n而霸总短剧给了什么？它给了一个完全由华人主导、华人审美、华人价值观为中心的世界。在这个世界里，华人是绝对的主角，被仰望、被需要、被嫉妒。这种\"叙事主体性\"在现实生活中极度稀缺。\n\n所以短剧不是\"低俗\"，而是一种心理补偿。它让你在通勤地铁上的 15 分钟里，重新成为世界的中心。\n\n这是为什么短剧赛道是出海中文内容的\"刚需\"，不是\"消遣\"。",
+      "tags": [
+        "短剧",
+        "文化分析",
+        "海外华人"
+      ],
+      "stats": {
+        "up": 4188,
+        "down": 142,
+        "comments": 622,
+        "share": 388,
+        "view": 58200,
+        "liveOnline": 122
+      },
+      "createdAt": "2026-05-12T02:00:00Z",
+      "createdAtText": "6小时前",
+      "subChannelId": "drama-domineering"
+    },
+    {
+      "id": "p016",
+      "channelId": "drama",
+      "authorId": "u06",
+      "type": "video",
+      "title": "《玄学大师我，重生救国回到了2008》— 这个设定我赌它能拍出年度爆款",
+      "excerpt": "一个玄学大师重生回到 2008 年汶川地震前 24 小时，他要做的不是个人复仇，而是用预知能力做一件\"对的事\" — 这种设定我赌它会火……",
+      "body": "刚追完前 10 集。这个剧的设定让我意外：玄学大师在 2025 年寿终正寝，灵魂被一道天光击中，重生回到了 2008 年 5 月 11 日的成都 — 距离汶川地震还有 24 小时。\n\n大多数重生爽剧的主角都会用预知能力炒股、买房、追女神。但这个剧的主角不一样。他第一件事是冲进电信局，匿名打了一通电话给地震预警系统的研发部门，留了三个关键数据。第二件事是赶到都江堰，劝退了 600 多个游客（编出理由说有泥石流）。第三件事是把家里所有的存款全部捐给了贫困地区的学校。\n\n这种\"用预知能力做对的事\"的处理，让剧从普通爽剧升华到了\"使命感叙事\"。配合九霄真人级别的玄学场景设定（天罡北斗、奇门遁甲），观感非常爆。\n\n第 11 集开始进入\"民族叙事\"的部分。我赌这个剧最终评分会到 9.5+，年度爆款。",
+      "thumb": "linear-gradient(135deg,#4ADBCC,#4A9FE5)",
+      "tags": [
+        "短剧",
+        "玄学",
+        "重生"
+      ],
+      "stats": {
+        "up": 2611,
+        "down": 88,
+        "comments": 412,
+        "share": 188,
+        "view": 41200,
+        "liveOnline": 88
+      },
+      "createdAt": "2026-05-11T22:00:00Z",
+      "createdAtText": "10小时前",
+      "subChannelId": "drama-mystic"
+    },
+    {
+      "id": "p017",
+      "channelId": "sport",
+      "authorId": "u05",
+      "type": "text",
+      "title": "曼城被淘汰之后，瓜帅是不是真该考虑退一下了？",
+      "excerpt": "曼城已经连续 3 个赛季在欧冠半决赛或决赛掉链子。这不再是单场失误，而是系统性问题。瓜帅的传控体系是不是已经被现代欧洲足球破解了……",
+      "body": "曼城又一次倒在欧冠了。本赛季半决赛被皇马 3-1 双杀，结束。\n\n这是瓜帅连续第 3 个赛季在欧冠后半段被淘汰。2024 年决赛输皇马，2025 年半决赛输 PSG，2026 年半决赛输皇马。\n\n问题已经不再是\"运气不好\"。这是系统性问题。\n\n瓜帅的传控体系建立在\"控球 = 安全 + 主动权\"的假设上。但现代欧洲顶级球队（皇马、拜仁、PSG 后期）已经学会了\"放弃部分中场控球，靠 transition 一击致命\"。曼城拼命传球到对方禁区附近，反而成了对方反击的肉。\n\n更深层的问题：瓜帅依然在用 2010 年巴萨的足球哲学打 2026 年的比赛。但中场的精度要求、防守反击的速度、定位球的战术多样性都已经升级了。\n\n我个人觉得，瓜帅在曼城做满 10 年是一个完美的句号。再续约就是不识时务了。下赛季他应该去南美或者退休一年。曼城需要换一种打法。",
+      "tags": [
+        "足球",
+        "曼城",
+        "欧冠"
+      ],
+      "stats": {
+        "up": 2422,
+        "down": 388,
+        "comments": 822,
+        "share": 122,
+        "view": 41200,
+        "liveOnline": 142
+      },
+      "createdAt": "2026-05-12T06:30:00Z",
+      "createdAtText": "1小时30分钟前",
+      "subChannelId": "sport-soccer"
+    },
+    {
+      "id": "p018",
+      "channelId": "sport",
+      "authorId": "u04",
+      "type": "text",
+      "title": "克莱跳槽小牛之后，库里这个赛季还能进总决赛吗？",
+      "excerpt": "勇士王朝在 2024 年克莱跳槽小牛之后基本解体了。库里今年 38 岁、追梦伤病不断、维金斯个人风格不合。这个组合还能打进总决赛吗……",
+      "body": "勇士本赛季西部第 6，季后赛首轮 1-3 落后掘金。基本完了。\n\n问题不是\"勇士不强\"，而是\"勇士不再是勇士\"。克莱跳槽小牛之后，勇士失去了最关键的拼图：一个完美互补的 catch-and-shoot 射手 + 防守端的随时切换。\n\n库里今年 38 岁，依然是顶级控卫，但他需要一个能让对方注意力分散的搭档。维金斯不行 — 维金斯需要球，会占用库里的进攻空间。波杰姆斯基年轻但还不能扛大旗。\n\n更现实的问题是：勇士的整个体系建立在\"克莱 + 库里\"的双侧射手威胁上。失去克莱之后，对手可以放心地把所有防守注意力放到库里身上，库里的高位挡拆就再也打不出当年的威力。\n\n下一步勇士只有两条路：要么交易得到一个克莱级别的 3D 球员，要么彻底重建。但库里只剩 2-3 年的巅峰期，重建意味着浪费这 2-3 年。\n\n所以本赛季基本是勇士最后的窗口。可惜窗口已经关上了。",
+      "tags": [
+        "NBA",
+        "勇士",
+        "库里"
+      ],
+      "stats": {
+        "up": 1822,
+        "down": 211,
+        "comments": 588,
+        "share": 88,
+        "view": 32100,
+        "liveOnline": 88
+      },
+      "createdAt": "2026-05-12T04:00:00Z",
+      "createdAtText": "4小时前",
+      "subChannelId": "sport-nba"
+    },
+    {
+      "id": "p019",
+      "channelId": "sport",
+      "authorId": "u10",
+      "type": "text",
+      "title": "F1 摩纳哥站维斯塔潘连冠，本赛季冠军已无悬念",
+      "excerpt": "摩纳哥站维斯塔潘 pole-to-win，本赛季 8 站积分领先勒克莱尔 96 分。从积分差距和剩余赛程来看，2026 年的世界冠军基本已经锁定……",
+      "body": "摩纳哥站红牛维斯塔潘 pole-to-win，全场无悬念。这是他本赛季第 6 场胜利。\n\n积分榜：维斯塔潘 224 分，勒克莱尔 128 分，差距 96 分。本赛季还剩 15 站。\n\n从数学角度，勒克莱尔仍有理论可能反超，但需要维斯塔潘连续多站退赛 + 自己每站都领奖台。这种概率在维斯塔潘历史上没出现过。\n\n更现实的问题是 RB22 这辆车。本赛季初大家觉得法拉利的 SF-26 终于追上来了，但摩纳哥站维斯塔潘 pole 圈速比第二快了 0.4 秒，这是巨大的差距。意味着红牛的工程团队又找到了什么新的赛车 setup 优势。\n\n汉密尔顿这边法拉利的处境也不乐观。年初承诺的\"复兴法拉利\"看起来更像是\"陪跑维斯塔潘\"。\n\n本赛季的真正悬念可能不是冠军归属，而是\"维斯塔潘能拿到多少分历史纪录\"。",
+      "tags": [
+        "F1",
+        "维斯塔潘",
+        "摩纳哥"
+      ],
+      "stats": {
+        "up": 1212,
+        "down": 88,
+        "comments": 322,
+        "share": 62,
+        "view": 24800,
+        "liveOnline": 51
+      },
+      "createdAt": "2026-05-12T01:00:00Z",
+      "createdAtText": "7小时前",
+      "subChannelId": "sport-mixed"
+    },
+    {
+      "id": "p020",
+      "channelId": "sport",
+      "authorId": "u11",
+      "type": "text",
+      "title": "Counter-Strike 2 这个 patch 之后老司机彻底疯了",
+      "excerpt": "刚发布的 CS2 May 2026 patch 调整了 AK 后坐力曲线和 AWP 的 quick scope 机制。老 1.6 / CSGO 玩家集体疯狂，新生代玩家完全不懂在炸什么……",
+      "body": "刚发布的 CS2 May 2026 patch 主要做了两件事：\n\n第一，调整 AK-47 的后坐力曲线。前 3 颗子弹的散布缩小了 12%，但第 5-7 颗子弹的散布扩大了 18%。意味着\"短点射\"更准了，但\"打长枪\"更难了。\n\n第二，AWP 的 quick scope 机制被改了。开镜 0.1 秒内开火的精度从 100% 降到 75%。意味着传统的\"瞬狙\"流派受到打击，AWP 玩家需要重新学习。\n\n老 1.6 / CSGO 玩家集体疯狂。论坛上一片\"V 社毁掉了 CS\"。但新生代玩家完全不懂在炸什么 — 因为他们从来没体验过 CSGO 时代那个非常稳定的 AK 后坐力。\n\n我个人觉得这两个改动是好的。CS 这个游戏的精髓是\"精度 vs. 节奏\"的对抗。AK 鼓励短点射、AWP 鼓励耐心选位，这些都符合 CS 的设计哲学。\n\n但 V 社的沟通方式还是有问题。如此重大的改动应该提前 2 周公告，让玩家有时间适应。",
+      "tags": [
+        "CS2",
+        "电竞",
+        "Valve"
+      ],
+      "stats": {
+        "up": 922,
+        "down": 188,
+        "comments": 422,
+        "share": 38,
+        "view": 18200,
+        "liveOnline": 42
+      },
+      "createdAt": "2026-05-11T23:00:00Z",
+      "createdAtText": "9小时前",
+      "subChannelId": "sport-esports"
+    },
+    {
+      "id": "p021",
+      "channelId": "fortune",
+      "authorId": "u09",
+      "type": "text",
+      "title": "1988 戊辰龙在 2026 的事业财运总结 — 上半年大动，下半年要稳",
+      "excerpt": "1988年戊辰龙今年走偏财大运。上半年有变动（跳槽、搬家、换城市），下半年要避免冲动决策。具体分析见正文……",
+      "body": "1988 年戊辰龙，本命属土，今年丙午年走偏财大运。具体分析：\n\n上半年（1 月 - 6 月）：午火生戊土，事业运强劲，特别是技术行业、传媒行业、餐饮行业的戊辰人会有明显机会。这段时间适合跳槽、搬家、换城市、开始新的副业。\n\n但注意：上半年的好运是\"动\"出来的。如果你选择安稳不动，机会就会过去。本月（5 月）是关键节点，6 月前完成决策最佳。\n\n下半年（7 月 - 12 月）：丑土与午火相刑，财运转入波动期。这段时间最容易踩坑的是\"冲动投资\" — 看到上半年顺利就以为可以扩大杠杆。下半年戊辰人最适合的是\"守\"：守住已有的资产、不加新的杠杆、不做大额借贷。\n\n感情运：上半年单身的戊辰有机会，但要主动出击。下半年感情运转弱，已有关系容易出现摩擦，要多沟通。\n\n建议宜忌：\n- 宜：北方出行、戊午时辰开会决策、深色衣物\n- 忌：南方搬家、午时刚过的下午做大决定、过于鲜艳的红色",
+      "tags": [
+        "八字",
+        "戊辰龙",
+        "2026年运"
+      ],
+      "stats": {
+        "up": 1622,
+        "down": 22,
+        "comments": 488,
+        "share": 122,
+        "view": 22100,
+        "liveOnline": 62
+      },
+      "createdAt": "2026-05-12T07:00:00Z",
+      "createdAtText": "1小时前",
+      "subChannelId": "fortune-bazi"
+    },
+    {
+      "id": "p022",
+      "channelId": "fortune",
+      "authorId": "u02",
+      "type": "text",
+      "title": "塔罗占卜：最近30天该不该跳槽？三张牌给你方向",
+      "excerpt": "用我擅长的 Celtic Cross 简化版给关注我的伙伴们做了一个集体塔罗。三张关键位置：现在 / 障碍 / 结果，每张牌的含义见正文……",
+      "body": "今天用 Celtic Cross 简化版（三张牌）给关注我的伙伴们做了一个集体塔罗，针对\"最近 30 天该不该跳槽\"。\n\n第一张：现在的位置 — The Tower（高塔）正位。\n含义：你现在所处的工作环境正在经历或即将经历重大变动。这不是你能控制的，而是结构性的崩塌或重组。这张牌很少出现在\"稳定状态\"的占卜里。\n\n第二张：障碍 — The Hermit（隐士）逆位。\n含义：你内心深处不太敢做决定。逆位的隐士暗示\"过度内省导致的 paralysis\"。你一直在分析、在权衡，但迟迟没有行动。\n\n第三张：结果 — The Star（星星）正位。\n含义：如果你勇敢迈出那一步，最终的结果是\"指引和希望\"。Star 是塔罗里最好的牌之一，特别是它出现在\"结果\"位置时，几乎确定结果是积极的。\n\n所以三张牌一起读：你现在所处的位置正在崩塌（高塔），但你迟迟不敢决定（隐士逆位），如果你能突破这个犹豫，最终的方向是好的（星星）。\n\n简单结论：30 天内大胆做决定。不要被自己的反复分析锁死。",
+      "tags": [
+        "塔罗",
+        "事业",
+        "决策"
+      ],
+      "stats": {
+        "up": 2188,
+        "down": 88,
+        "comments": 322,
+        "share": 188,
+        "view": 32100,
+        "liveOnline": 88
+      },
+      "createdAt": "2026-05-12T05:00:00Z",
+      "createdAtText": "3小时前",
+      "subChannelId": "fortune-tarot"
+    },
+    {
+      "id": "p023",
+      "channelId": "fortune",
+      "authorId": "u01",
+      "type": "text",
+      "title": "海外华人风水实操：北美公寓格局怎么避开\"穿心煞\"",
+      "excerpt": "北美公寓一个常见问题是开门正对窗户的\"穿心煞\"。这个煞气在国内的传统讲究里被认为会影响财运和健康。海外华人怎么处理？四个实操方法……",
+      "body": "我自己在湾区租 condo 已经 8 年，期间搬过 3 次家。每次搬家前我都会请清玄居士远程看下平面图。其中一个反复出现的问题是\"穿心煞\"。\n\n什么是穿心煞？指家里大门一打开，能直接看到对面的窗户（或者落地玻璃），气流从门进、从窗出，财气和健康气都留不住。\n\n北美公寓特别容易出现这个问题，因为开发商喜欢做\"长走廊\"户型，进门就是一条通到底的视线。\n\n四个实操解决方案：\n\n第一，玄关屏风。在大门内侧 1-1.5 米处放一个 1.5 米高的木质屏风或者高大的绿植（如琴叶榕）。最简单。\n\n第二，挂帘。在大门内侧 1 米处挂一个长帘（不一定要透明），阻断直接视线。租房不方便钉钉子的，可以用张力杆。\n\n第三，地毯转折。在玄关到客厅之间铺一块 1.5×1 米的地毯，颜色和走廊地板形成强烈对比，制造\"心理上的转折\"。\n\n第四，灯光分区。玄关和走廊用不同色温的灯，气场上做出分区。\n\n这些方法都是\"软装解决法\"，不动结构。但根据我和清玄居士的经验，住进去 3-6 个月之后，对住户的感受确实有变化。可以理性看待 — 但也不妨试试。",
+      "tags": [
+        "风水",
+        "海外华人",
+        "公寓"
+      ],
+      "stats": {
+        "up": 1422,
+        "down": 122,
+        "comments": 388,
+        "share": 122,
+        "view": 18800,
+        "liveOnline": 51
+      },
+      "createdAt": "2026-05-12T03:00:00Z",
+      "createdAtText": "5小时前",
+      "subChannelId": "fortune-fengshui"
+    },
+    {
+      "id": "p024",
+      "channelId": "fortune",
+      "authorId": "u06",
+      "type": "text",
+      "title": "为什么紫微比八字更适合现代人？我研究 10 年的结论",
+      "excerpt": "玄学命理两大流派 — 子平八字和紫微斗数 — 各有所长。我研究 10 年后的结论：紫微更适合现代人，特别是海外华人……",
+      "body": "玄学命理在中文世界里有两大主流：子平八字（生辰八字）和紫微斗数。我研究了 10 年之后的结论：紫微更适合现代人，特别是海外华人。\n\n几个原因：\n\n第一，紫微基于具体出生时间（精确到分钟），八字基于天干地支（精确到时辰，2 小时）。在现代医院出生记录精确的环境下，紫微的输入精度更高。\n\n第二，紫微的 12 宫体系对应现代生活的多个领域：命宫、夫妻、子女、财帛、疾厄、迁移、奴仆、官禄、田宅、福德、父母、兄弟。每个宫都有明确的现代对应。八字的五行旺衰更抽象。\n\n第三，紫微对\"迁移宫\"和\"奴仆宫\"（人际、社交、合作）的分析非常细致。这两个宫对海外华人特别重要 — 出国本身就是迁移的极致，海外生活的成功很大程度取决于人际网络。\n\n第四，紫微对\"贵人\"的判断有一套完整的逻辑（左辅、右弼、文昌、文曲），可以告诉你\"哪一年会遇到对你帮助最大的人\"。\n\n但八字也有自己的优势：在\"先天体质\"和\"夫妻和合\"的判断上，八字的五行生克更精准。所以传统上婚配看八字、人生轨迹看紫微，是有道理的分工。\n\n如果只能学一种，我建议从紫微开始。",
+      "tags": [
+        "紫微",
+        "八字",
+        "命理"
+      ],
+      "stats": {
+        "up": 1822,
+        "down": 211,
+        "comments": 412,
+        "share": 188,
+        "view": 22400,
+        "liveOnline": 62
+      },
+      "createdAt": "2026-05-12T00:00:00Z",
+      "createdAtText": "8小时前",
+      "subChannelId": "fortune-ziwei"
+    },
+    {
+      "id": "p100",
+      "channelId": "qd",
+      "subChannelId": "qd-fact",
+      "authorId": "u11",
+      "type": "text",
+      "title": "为什么蚊子叮你比叮别人多? 血型只是其中之一",
+      "excerpt": "在野外被叮成包不是运气问题。研究表明影响蚊子选择目标的因素至少 6 个,血型只排第 3。",
+      "body": "你以为蚊子挑你是因为血甜? 真相残酷:\n\n第 1 影响因素是 CO2 排放量 — 你呼吸越急促/体型越大,蚊子越能在 50 米外锁定你。第 2 是体温和乳酸,运动后特别明显。第 3 才是血型,O 型确实比 A 型受叮率高 80%(2004 年东京医科大学研究)。\n\n剩下 3 个:皮肤菌群组成、酒精摄入、衣服颜色(深色尤其黑色更招蚊)。\n\n所以下次野餐:穿浅色 + 喷 DEET + 别喝啤酒,基本能减 70% 被叮率。",
+      "tags": [
+        "冷知识",
+        "生物"
+      ],
+      "stats": {
+        "up": 324,
+        "down": 17,
+        "comments": 24,
+        "share": 65,
+        "view": 3888,
+        "liveOnline": 50
+      },
+      "createdAt": "2025-04-21T18:46:40Z",
+      "createdAtText": "20天3小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p101",
+      "channelId": "qd",
+      "subChannelId": "qd-science",
+      "authorId": "u04",
+      "type": "text",
+      "title": "薛定谔的猫到底死没死? 三句话讲清楚真正的争论",
+      "excerpt": "99% 的人对薛定谔的猫的理解都是错的。它根本不是要论证猫是死活叠加,而是用来反讽哥本哈根诠释的荒谬。",
+      "body": "薛定谔 1935 年提出这个思想实验,不是支持量子叠加,而是嘲讽:\n\"如果哥本哈根诠释成立,那么宏观物体也该有叠加态 — 这显然荒谬。\"\n\n现代物理学界主流答案是:猫从来不在叠加态。退相干(decoherence)发生在宏观尺度的极短时间内,环境本身就是观测者。\n\n所以猫要么死要么活,只是你不打开盒子不知道是哪个。这跟你扔一枚硬币不看也不知道是正反一个道理 — 没什么神秘。\n\n真正神秘的是电子和光子级别的纠缠态,那才是量子力学的核心。",
+      "tags": [
+        "科学",
+        "物理",
+        "量子"
+      ],
+      "stats": {
+        "up": 4587,
+        "down": 29,
+        "comments": 573,
+        "share": 16,
+        "view": 77979,
+        "liveOnline": 22
+      },
+      "createdAt": "2025-04-19T22:46:40Z",
+      "createdAtText": "21天23小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p102",
+      "channelId": "qd",
+      "subChannelId": "qd-brain",
+      "authorId": "u02",
+      "type": "text",
+      "title": "如果地球突然停转 1 秒钟会发生什么? 凌晨 3 点的脑洞",
+      "excerpt": "昨晚失眠,想了一晚上这个问题。结论是不止 1 秒,你的体感会以为停了一个世纪。",
+      "body": "地球赤道线速度大约 1670 km/h。如果地球突然停转 1 秒:\n\n1. 海水靠惯性向东冲过去,赤道地区一瞬间被 1670 km/h 的海啸扫平。\n2. 大气层也会以同样速度向东刮,地表的空气变成超音速龙卷风。\n3. 所有没固定在地面的东西(人/车/建筑)以 1670 km/h 向东抛出。\n\n所以 1 秒钟会让 90% 以上的人类生命终结。\n\n更细思极恐的是:这跟你打游戏时 \"Pause\" 不一样,因为月亮还在轨道上运行,引力潮汐会撕扯地球内部 — 大概率引发全球地震带连锁反应。\n\n凌晨 3 点想到这里我睡不着了。",
+      "tags": [
+        "脑洞",
+        "物理"
+      ],
+      "stats": {
+        "up": 337,
+        "down": 47,
+        "comments": 28,
+        "share": 174,
+        "view": 3707,
+        "liveOnline": 194
+      },
+      "createdAt": "2025-05-04T05:46:40Z",
+      "createdAtText": "7天16小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p103",
+      "channelId": "qd",
+      "subChannelId": "qd-brain",
+      "authorId": "u10",
+      "type": "text",
+      "title": "为什么我们没有第 6 根手指? 进化的\"够用\"哲学",
+      "excerpt": "每次看到机器人 6 指手都会想:为什么人类是 5 指? 答案不是\"上帝的设计\",是 4 亿年前的随机意外。",
+      "body": "5 指起源可以追溯到泥盆纪 (3.8 亿年前) 的鱼石螈 (Acanthostega) — 它原本有 8 根指,后来在进化压力下慢慢减少。\n\n5 指赢的原因不是因为 5 最好,而是因为在那个分支上恰好定型了。生物界的\"够用就行\"哲学:能抓住树枝,能撑地行走,5 指够了,基因就锁死了。\n\n有趣对比:熊猫有 6 指(第 6 个是腕骨突起,用来撕竹子),袋鼠的脚是 4 趾。所以\"5 指\"不是宇宙必然,是历史偶然。\n\n如果重启进化 10 亿年,人类可能是 4 指 7 指甚至 12 指。这就是为什么我个人觉得外星人 95% 不会是 5 指。",
+      "tags": [
+        "脑洞",
+        "进化论",
+        "解剖"
+      ],
+      "stats": {
+        "up": 2398,
+        "down": 50,
+        "comments": 171,
+        "share": 48,
+        "view": 19184,
+        "liveOnline": 193
+      },
+      "createdAt": "2025-05-04T07:46:40Z",
+      "createdAtText": "7天14小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p104",
+      "channelId": "sport",
+      "subChannelId": "sport-soccer",
+      "authorId": "u05",
+      "type": "text",
+      "title": "梅西去美职联,究竟是养老还是降维打击?",
+      "excerpt": "梅西加盟迈阿密国际已经 2 年。美职联水平真的承接得住他吗?  数据说话:本赛季 28 场 22 球 + 18 助攻。",
+      "body": "看了梅西在 MLS 全部 67 场比赛,几个事实:\n\n1. 数据维度:他每 90 分钟 1.1 进球 + 0.8 助攻,这个数据在欧冠时代是世界第一档,在 MLS 是降维打击。\n2. 防守密度:MLS 平均每 90 分钟跑动 110 km,五大联赛 117 km;速度上 MLS 球员平均比英超慢 0.8 m/s。\n3. 但梅西打得明显比在巴萨末期更轻松,体测数据(高强度跑次数)反而提升了。\n\n所以这个问题答案两边都对:对梅西本人是养老 + 续命; 对 MLS 是历史性事件 — 1 个梅西就让 MLS 全球转播收视上涨 35%。",
+      "tags": [
+        "足球",
+        "梅西",
+        "MLS"
+      ],
+      "stats": {
+        "up": 1883,
+        "down": 8,
+        "comments": 134,
+        "share": 31,
+        "view": 24479,
+        "liveOnline": 112
+      },
+      "createdAt": "2025-05-03T17:46:40Z",
+      "createdAtText": "8天4小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p105",
+      "channelId": "sport",
+      "subChannelId": "sport-esports",
+      "authorId": "u11",
+      "type": "text",
+      "title": "上分到铂金的中级玩家最容易卡在哪里? 我打过 1000 把后的总结",
+      "excerpt": "从青铜爬到铂金大概 200-300 把,从铂金往上的卡点完全不同。如果你不知道为什么卡,看这篇。",
+      "body": "我打 LOL 排位 1000+ 把,从青铜爬到大师。铂金阶段是最难突破的卡点,核心问题不是技术:\n\n1. 你以为你的对线弱,实际上是地图意识弱。打完一波团战不知道下一个目标是什么。\n2. 你以为你的英雄不熟,实际上是版本理解不够。版本强势英雄 3-5 个,练熟就能上分。\n3. 你以为是队友带不动,实际上是你的 carry 阈值不够 — 你在劣势局帮不了忙。\n\n破解方法:\n- 看自己 replay 找\"无意义站位\"那 30 秒\n- 关注主播 OP.GG / lolking 的版本榜\n- 一周专精一个英雄(50 把以上),不要全英雄池\n\n按这个走,菜到铂金的人 2 个月能上钻 4。",
+      "tags": [
+        "电竞",
+        "LOL",
+        "上分"
+      ],
+      "stats": {
+        "up": 2286,
+        "down": 48,
+        "comments": 163,
+        "share": 125,
+        "view": 18288,
+        "liveOnline": 152
+      },
+      "createdAt": "2025-04-14T10:46:40Z",
+      "createdAtText": "27天11小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p106",
+      "channelId": "sport",
+      "subChannelId": "sport-mixed",
+      "authorId": "u06",
+      "type": "text",
+      "title": "MMA 选手为什么不能不练柔术? UFC 现役冠军 9 个有 8 个练",
+      "excerpt": "看 UFC 5 年的人都知道:打到决赛圈,2 个会站立技术的选手中如果有 1 个还会地面,后者赢面 70%+。",
+      "body": "现役 12 位 UFC 冠军里有 11 位 BJJ 紫带以上 (Ngannou 是唯一例外但他离开了 UFC)。这不是巧合。\n\nMMA 的真相是:站立击打的\"上限\"低于\"下限\"。意思是,即使你是世界级拳击手,只要被熟练的柔术选手抱摔成功一次,基本就被锁死。\n\nKhabib 是最极致的例子 — 他的柔术 + 摔跤组合让全世界站立打击高手在他面前都束手无策。\n\n所以 MMA 的训练哲学是:\n1. 站立有一项足够\"打\"\n2. 摔跤有一项足够\"防摔\"或\"摔倒对方\"\n3. 地面 BJJ 必须能保住命\n\n这就是为什么 BJJ 在 UFC 圈是\"必修课\"。",
+      "tags": [
+        "MMA",
+        "UFC",
+        "柔术"
+      ],
+      "stats": {
+        "up": 765,
+        "down": 42,
+        "comments": 63,
+        "share": 166,
+        "view": 9180,
+        "liveOnline": 107
+      },
+      "createdAt": "2025-04-12T09:46:40Z",
+      "createdAtText": "29天12小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p107",
+      "channelId": "drama",
+      "subChannelId": "drama-revenge",
+      "authorId": "u03",
+      "type": "text",
+      "title": "复仇短剧的三幕剧公式,你看过几个就明白了",
+      "excerpt": "看了 50 部复仇短剧后,我发现 90% 都用同一个三幕公式。这不是抄袭,是\"爽点\"的最优解。",
+      "body": "复仇短剧三幕公式:\n\n第一幕(1-15 集):主角被陷害/背叛/破产/失去亲人。痛苦堆到顶点,观众\"愤怒\"分泌到极限。\n\n第二幕(15-40 集):主角蛰伏 + 觉醒 + 反杀第一波小角色。这段最容易拉胯,水文最多。但只要节奏不烂,观众就跟。\n\n第三幕(40-最终集):主角清算最大 boss。DNA 报告/录音证据/翻盘瞬间是固定钩子。最后大 boss 跪下求饶,主角说一句\"我不认识你\"漠然走人。\n\n《海归霸总的复仇人生》《前妻总裁夜夜跪》《重生后我成了财阀千金》— 全是这个公式。\n\n为什么有效? 因为这三幕完美对应人类心理的\"愤怒-期待-释放\",像一个完整的爽点曲线。",
+      "tags": [
+        "短剧",
+        "复仇",
+        "三幕剧"
+      ],
+      "stats": {
+        "up": 495,
+        "down": 20,
+        "comments": 38,
+        "share": 28,
+        "view": 5445,
+        "liveOnline": 74
+      },
+      "createdAt": "2025-04-19T19:46:40Z",
+      "createdAtText": "22天2小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p108",
+      "channelId": "drama",
+      "subChannelId": "drama-tragic",
+      "authorId": "u08",
+      "type": "text",
+      "title": "be 结局的短剧能爆的三个共同点",
+      "excerpt": "be 美学(bad ending)的短剧赛道很卷。为什么有些 be 让人哭着追到完结,有些却让人骂街?",
+      "body": "我专门研究了 20 部 be 短剧,发现爆款 vs 失败的共同点很清晰:\n\n1. **be 必须是因果链的自然终点**,不是为虐而虐。男主死,得有伏笔;女主走,得有充分理由。最差的写法是 \"突然得绝症\"。\n\n2. **be 之前必须有 hee 的高光时刻**。观众的眼泪是从落差里来的。开局就苦的 be,根本破不了圈。\n\n3. **be 之后必须给\"意义\"**。让观众觉得这场虐恋\"值得\"。哪怕意义是\"我记住你了\" 这样简单的一句话。\n\n《想见你》《半生缘》《1988》— 三个截然不同的故事,但都满足这三条。\n\n反例《XX 总裁的虐妻》— 后半段全是降智操作,豆瓣评分 3.2。",
+      "tags": [
+        "短剧",
+        "be美学",
+        "虐恋"
+      ],
+      "stats": {
+        "up": 3834,
+        "down": 12,
+        "comments": 294,
+        "share": 102,
+        "view": 49842,
+        "liveOnline": 105
+      },
+      "createdAt": "2025-04-29T13:46:40Z",
+      "createdAtText": "12天8小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p109",
+      "channelId": "drama",
+      "subChannelId": "drama-tragic",
+      "authorId": "u12",
+      "type": "text",
+      "title": "《半生缘》改编网剧首播,世均还是顾曼桢",
+      "excerpt": "张爱玲《半生缘》新版网剧昨晚开播 4 集。看完只有一个感觉:这不是 \"改编\",是 \"再造\"。",
+      "body": "世均的纠结比小说更\"现代化\" — 编剧让他在 21 世纪重新做了一次选择。\n\n顾曼桢的形象也变了。原著里她是\"被命运推着走\",新版里她有更多主动 — 比如第 3 集那段\"如果我能再活一次\"的内心独白。\n\n张爱玲忠粉肯定要骂街。但作为追剧的我,我觉得这才是 2026 年观众想看的版本。\n\n演员选得也对 — 男主 30+ 还带书生气,女主清冷但不疏离。最关键是镜头语言克制,没像近年某些华语剧那样用滤镜把整个 30 年代拍成春晚舞美。\n\n看到第 4 集结尾,鸡皮疙瘩起来了。预订年度。",
+      "tags": [
+        "短剧",
+        "张爱玲",
+        "半生缘"
+      ],
+      "stats": {
+        "up": 704,
+        "down": 12,
+        "comments": 58,
+        "share": 144,
+        "view": 12672,
+        "liveOnline": 201
+      },
+      "createdAt": "2025-05-02T23:46:40Z",
+      "createdAtText": "8天22小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p110",
+      "channelId": "drama",
+      "subChannelId": "drama-mystic",
+      "authorId": "u06",
+      "type": "text",
+      "title": "为什么玄学 + 重生题材的短剧最近批量出现?",
+      "excerpt": "过去 6 个月,玄学 + 重生 = 短剧赛道增速最快的细分。原因不是观众口味变了,是审查空间在变。",
+      "body": "玄学 + 重生题材的兴起有 3 个驱动:\n\n1. **审查相对宽松**。重生回过去做\"对的事\"在政策上比\"穿越改变历史\"安全 — 因为目的论是积极的。\n\n2. **海外华人共鸣强**。\"如果我能重新选择留学/移民/创业\"是这群人的高频内心独白。短剧给了一个想象出口。\n\n3. **玄学元素降低了\"重生\"的尴尬感**。奇门遁甲、紫微推演、塔罗洗牌 — 这些视觉道具让\"为什么能重生\"这个解释不那么生硬。\n\n爆款代表:《玄学大师我,重生救国回到了 2008》《八字测算后我决定重生改命》《紫微推演:这一生我要不一样》\n\n这个赛道至少还能火 18 个月。",
+      "tags": [
+        "短剧",
+        "玄学",
+        "重生",
+        "市场分析"
+      ],
+      "stats": {
+        "up": 2331,
+        "down": 16,
+        "comments": 179,
+        "share": 183,
+        "view": 37296,
+        "liveOnline": 98
+      },
+      "createdAt": "2025-04-27T09:46:40Z",
+      "createdAtText": "14天12小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p111",
+      "channelId": "game",
+      "subChannelId": "game-console",
+      "authorId": "u01",
+      "type": "text",
+      "title": "PS5 Pro 入手指南:现在买不亏?",
+      "excerpt": "PS5 Pro 上市半年,我做了一个深度评测。给在观望的人一个结论:大部分人不需要买。",
+      "body": "PS5 Pro 跟 PS5 的硬件差异:\n- GPU 算力 +45%\n- Ray tracing 加速 2.4 倍\n- 升级了 DLSS 等价的 AI 上采样\n\n实际效果:在《Spider-Man 2》《Final Fantasy XVI》《Stellar Blade》这种 first-party 大作里,4K + 60fps 终于成现实(原 PS5 是 30fps 才行)。\n\n但代价是:$700 USD,$200 比 PS5 贵。\n\n谁该买:\n✅ 你有 4K 120Hz 电视 / 显示器\n✅ 你主要玩 first-party 3A\n✅ 你预算充足\n\n谁不该买:\n❌ 你只玩独立游戏或第三方多平台游戏\n❌ 你的电视是 1080p 或 4K 60Hz\n❌ 你打算 1 年内换电脑\n\n我个人是第一类,买了不后悔。但身边 5 个朋友我劝退了 3 个。",
+      "tags": [
+        "游戏",
+        "PS5",
+        "主机"
+      ],
+      "stats": {
+        "up": 1996,
+        "down": 22,
+        "comments": 142,
+        "share": 110,
+        "view": 15968,
+        "liveOnline": 83
+      },
+      "createdAt": "2025-04-17T20:46:40Z",
+      "createdAtText": "24天1小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p112",
+      "channelId": "game",
+      "subChannelId": "game-anime",
+      "authorId": "u04",
+      "type": "text",
+      "title": "《葬送的芙莉莲》第二季最让你破防的细节",
+      "excerpt": "芙莉莲 S2 第 8 集播完。看到这一幕我直接关弹幕坐了 5 分钟没说话。",
+      "body": "芙莉莲是个活了上千年的精灵。S2 第 8 集她回到 70 年前和勇者一行人冒险过的小镇。\n\n镇上的孩子已经变成老人。她在墓地里找到当年送过糖的小女孩的墓碑 — 那个小女孩已经 86 岁去世。\n\n芙莉莲在墓前蹲下来,小声说:\"对不起,我又来晚了。\"\n\n这一段没有 BGM,没有特写,只有镜头慢慢拉远。\n\n《芙莉莲》最大的\"杀伤力\"就在这里 — 它把\"时间差\"这个抽象概念拍成了具体的悲伤。一个活了千年的存在,会以怎样的心情看待短暂的人类生命?\n\n这部番把\"看似日常,但每一帧都有时间维度\"的感觉拍出来了。日本动画的天花板,毫无争议。",
+      "tags": [
+        "动漫",
+        "芙莉莲",
+        "番剧"
+      ],
+      "stats": {
+        "up": 2697,
+        "down": 33,
+        "comments": 299,
+        "share": 109,
+        "view": 48546,
+        "liveOnline": 179
+      },
+      "createdAt": "2025-04-12T03:46:40Z",
+      "createdAtText": "29天18小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p113",
+      "channelId": "game",
+      "subChannelId": "game-anime",
+      "authorId": "u11",
+      "type": "text",
+      "title": "Frieren 这么好看,为什么国内讨论不如海外?",
+      "excerpt": "《葬送的芙莉莲》在 MyAnimeList 评分 9.3,登顶史上第二。但国内 B 站讨论度只能算中等。怪谁?",
+      "body": "这部番在海外是\"现象级\",在国内是\"小众佳作\"。差距原因我想了想:\n\n1. **节奏太慢**。中文观众习惯的是 1 集就有一个明确高潮。芙莉莲是 4-5 集才积累一次情绪释放。\n\n2. **共鸣门槛高**。\"时间无情\"是 30+ 岁观众更能 get 的母题。20 岁玩家更喜欢\"高燃打怪升级\"。\n\n3. **缺少 meme 友好的场景**。互联网传播靠 meme,芙莉莲整部番没有\"中二燃台词\"或\"经典名场面截图\"。\n\n所以这部番的命运很像电影界的《一一》— 在外面被封神,在国内只是\"小圈子神作\"。\n\n这倒也不是坏事。有些作品就该被\"懂的人\"喜欢。",
+      "tags": [
+        "动漫",
+        "芙莉莲",
+        "文化分析"
+      ],
+      "stats": {
+        "up": 2140,
+        "down": 36,
+        "comments": 164,
+        "share": 75,
+        "view": 34240,
+        "liveOnline": 206
+      },
+      "createdAt": "2025-05-03T17:46:40Z",
+      "createdAtText": "8天4小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p114",
+      "channelId": "game",
+      "subChannelId": "game-steam",
+      "authorId": "u05",
+      "type": "text",
+      "title": "Steam 夏促这 10 款独立游戏值得入,我都通关了",
+      "excerpt": "夏促打折券花完之前,推荐一波我玩过的独立游戏。冷门好玩,价格都在 $20 以内。",
+      "body": "按类型分:\n\n**Roguelite**\n1. Hades II - 50% off,神作续作\n2. Balatro - 25% off,扑克 + 肉鸽\n\n**叙事冒险**\n3. Citizen Sleeper - 60% off,赛博朋克叙事\n4. Pentiment - 35% off,中世纪绘本风\n\n**横版**\n5. Hollow Knight - 50% off,买就完事\n6. UFO 50 - 30% off,50 个怀旧小游戏合集\n\n**解谜**\n7. Blue Prince - 25% off,豪宅探索\n8. The Talos Principle 2 - 40% off,哲学解谜\n\n**模拟**\n9. Dwarf Fortress - 它本身就便宜,买\n10. Stellaris - 史低,银河大战略\n\n总价 < $150 USD,够玩半年。",
+      "tags": [
+        "Steam",
+        "独立游戏",
+        "打折"
+      ],
+      "stats": {
+        "up": 3391,
+        "down": 10,
+        "comments": 339,
+        "share": 138,
+        "view": 37301,
+        "liveOnline": 141
+      },
+      "createdAt": "2025-04-13T03:46:40Z",
+      "createdAtText": "28天18小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p115",
+      "channelId": "game",
+      "subChannelId": "game-steam",
+      "authorId": "u09",
+      "type": "text",
+      "title": "Steam Deck OLED 用 1 年,真实体验",
+      "excerpt": "2025 年 8 月入手 Steam Deck OLED,正好用了 1 年。从 honeymoon 到日常,这个掌机变成了什么?",
+      "body": "日常使用频率排行:\n\n1. **晚上躺床上**(每周 5-6 次) - 远程串流 PC 上的 Cyberpunk / Elden Ring。OLED 屏的黑色对比度太爽了,看 Cyberpunk 夜之城像电影。\n\n2. **出差飞机上**(每月 2-3 次) - 本地玩独立游戏。Hades II 一局 30 分钟,刚好不耽误睡觉。\n\n3. **客厅外接**(每周 1-2 次) - 4K HDMI 输出到电视。性能能跑《Helldivers 2》Medium 1080p 60fps。\n\n缺点:\n- 散热风扇老叫\n- 重量 640g 久了手酸\n- Linux 兼容性偶尔翻车,EA Origin 系列要折腾\n\n但整体还是值得。任天堂 Switch 2 来了之后我也没卖掉。",
+      "tags": [
+        "Steam Deck",
+        "掌机",
+        "体验"
+      ],
+      "stats": {
+        "up": 1372,
+        "down": 45,
+        "comments": 105,
+        "share": 116,
+        "view": 13720,
+        "liveOnline": 167
+      },
+      "createdAt": "2025-05-10T18:46:40Z",
+      "createdAtText": "1天3小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p116",
+      "channelId": "game",
+      "subChannelId": "game-mobile",
+      "authorId": "u07",
+      "type": "text",
+      "title": "原神 5.0 版本更新,值得回归吗?",
+      "excerpt": "原神 5.0 加了\"纳塔\"新地图 + 火元素七国主线。看了 1 周的 KOL 测评后,我的真实建议给\"已弃坑老玩家\"。",
+      "body": "我是 1.5 入坑、3.x 弃坑的老玩家。这次 5.0 我花了 2 个晚上重玩,给一些客观信息:\n\n**适合回归的人**:\n✅ 你喜欢\"探索 + 解谜\",纳塔地图设计是开服以来最好的\n✅ 你不抽卡,主线足够你玩 20 小时\n✅ 你有原神微信好友(老朋友帮你跨过等级墙)\n\n**不适合回归的人**:\n❌ 你期待\"重新爆款\"的氛围 — 已经没那个热度了\n❌ 你之前为了池子留服,现在没新角色让你心动\n❌ 你时间紧 — 每日委托 30 分钟,做不完心理负担\n\n开放世界探索做得仍然是手游天花板。但\"日常黏性\"和 2020 年已经不能比。",
+      "tags": [
+        "原神",
+        "手游",
+        "回归"
+      ],
+      "stats": {
+        "up": 3954,
+        "down": 37,
+        "comments": 329,
+        "share": 10,
+        "view": 47448,
+        "liveOnline": 189
+      },
+      "createdAt": "2025-04-29T02:46:40Z",
+      "createdAtText": "12天19小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p117",
+      "channelId": "game",
+      "subChannelId": "game-mobile",
+      "authorId": "u02",
+      "type": "text",
+      "title": "为什么国产手游越来越像\"活动列表\"",
+      "excerpt": "《原神》《崩坏星穹》《绝区零》《无限暖暖》 — 玩过的都知道,打开第一件事不是玩,是看 4 个签到 + 8 个活动 + 限时 boss。这是怎么变成这样的?",
+      "body": "\"活动驱动\"模式来自 2017 年的《阴阳师》,真正普及是 2020 年原神之后。\n\n表面原因:留存率。让你每天上线签到,DAU 数据就好看。\n\n深层原因:商业化深度。每周一个活动 → 每两周一个池子 → 每月一个新角色。这是给 KPI 团队 + 充值用户的双重刺激体系。\n\n副作用 1:游戏本身的\"自由感\"消失。你不再是\"想玩才玩\",是\"不玩这周亏了\"。\n\n副作用 2:玩家变成\"打卡员\"。打开手机第一反应是\"今天列表\"。\n\n副作用 3:游戏的\"叙事深度\"被牺牲 — 因为活动开发挤压了主线开发人力。\n\n反例是《空洞骑士》《茶杯头》这种独立游戏 — 没活动,只有游戏。但移动端基本绝迹。",
+      "tags": [
+        "手游",
+        "商业化",
+        "产品分析"
+      ],
+      "stats": {
+        "up": 2305,
+        "down": 23,
+        "comments": 164,
+        "share": 36,
+        "view": 41490,
+        "liveOnline": 90
+      },
+      "createdAt": "2025-04-20T04:46:40Z",
+      "createdAtText": "21天17小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p118",
+      "channelId": "movie",
+      "subChannelId": "movie-film",
+      "authorId": "u08",
+      "type": "text",
+      "title": "诺兰新作《奥本海默 2》会拍什么?",
+      "excerpt": "诺兰宣布新片之后,影迷已经开始\"基于已有线索做考据\"。一个普遍预测是 — 这次拍冷战中后期的 KGB vs CIA。",
+      "body": "从公开信息看几个线索:\n\n1. **主演 Cillian Murphy 再次确认** — 这意味着角色与奥本海默有连续性。\n\n2. **编剧团队加入 William Goldenberg** — 他写过《Argo》《Zero Dark Thirty》,都是冷战谍战题材。\n\n3. **拍摄地点包括莫斯科 + 维也纳** — 这两个城市在冷战期是\"间谍之都\"。\n\n4. **预算 $180M,比第一部 $100M 更大**。\n\n所有线索指向:1960-1980 年代美苏核外交背景下的谍战 + 心理博弈。诺兰风格,加上奥本海默时代的延伸,这个组合理论上能再拿 1 个奥斯卡。\n\n预计 2026 年 12 月上映。",
+      "tags": [
+        "电影",
+        "诺兰",
+        "奥本海默"
+      ],
+      "stats": {
+        "up": 2277,
+        "down": 34,
+        "comments": 189,
+        "share": 35,
+        "view": 22770,
+        "liveOnline": 175
+      },
+      "createdAt": "2025-04-27T21:46:40Z",
+      "createdAtText": "14天0小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p119",
+      "channelId": "movie",
+      "subChannelId": "movie-film",
+      "authorId": "u10",
+      "type": "text",
+      "title": "戛纳金棕榈过了 1 个月,你看过几部?",
+      "excerpt": "今年戛纳金棕榈结果出来了。除了主竞赛单元,还有 \"一种关注\" \"导演双周\" 都有不少冷门佳作。",
+      "body": "今年戛纳推荐 5 部冷门 + 1 部金棕榈:\n\n1. **《Anatomy of a Fall》导演新作** — 已在上海电影节展映,看完直接预订年度最佳。\n\n2. **《Aki Kaurismäki 新作》** — 北欧冷幽默之王,这次拍移民议题。\n\n3. **《一个韩国家庭》** — 出乎意料的细腻,可能是今年韩影 top3。\n\n4. **巴拉圭电影《Eami》** — 关于原住民的诗意叙事,90 分钟全程沉浸。\n\n5. **法国 Cesar 黑马《Vincent must die》** — 黑色喜剧 + 社会寓言。\n\n6. **金棕榈本届得主** — 反响两极,值得自己判断。\n\n以上 6 部里如果只看 1 部,推 #1。如果你不爱看节奏慢的,看 #5。",
+      "tags": [
+        "电影",
+        "戛纳",
+        "推荐"
+      ],
+      "stats": {
+        "up": 1749,
+        "down": 50,
+        "comments": 194,
+        "share": 49,
+        "view": 22737,
+        "liveOnline": 153
+      },
+      "createdAt": "2025-04-21T05:46:40Z",
+      "createdAtText": "20天16小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p120",
+      "channelId": "movie",
+      "subChannelId": "movie-us",
+      "authorId": "u05",
+      "type": "text",
+      "title": "《最后生还者》第二季,游戏党失望了吗?",
+      "excerpt": "游戏《The Last of Us Part II》是我心目中游戏叙事的天花板。HBO 第二季把它改编成 7 集剧集。游戏党的失望 + 路人的好评 — 同时存在。",
+      "body": "第二季最大的争议是 — 把 Ellie 复仇线压缩成 4 集 + Abby 视角压缩成 3 集。游戏原版是 25 小时,改成 7 小时必然要砍。\n\n游戏党失望点:\n- Joel 死亡场景没有游戏的那种压抑感\n- Abby 的健身桥段被砍 — 那段在游戏里是关键的\"换位思考\" trigger\n- Seattle 三天的非线性叙事被强行线性化\n\n但路人好评:\n- 演员演技顶级,Bella Ramsey 撑住了所有情绪\n- 视觉风格统一,后启示录美学一流\n- 配乐还是 Gustavo Santaolalla,情感杀伤力没差\n\n所以问题不在改编质量,在媒介天花板。25 小时游戏的细腻 → 7 小时剧集 → 必然损失。建议把它当独立剧集看,不要带游戏滤镜。",
+      "tags": [
+        "美剧",
+        "HBO",
+        "游戏改编"
+      ],
+      "stats": {
+        "up": 124,
+        "down": 33,
+        "comments": 10,
+        "share": 12,
+        "view": 1612,
+        "liveOnline": 43
+      },
+      "createdAt": "2025-04-12T05:46:40Z",
+      "createdAtText": "29天16小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p121",
+      "channelId": "movie",
+      "subChannelId": "movie-us",
+      "authorId": "u06",
+      "type": "text",
+      "title": "HBO 这部新剧怎么没人讨论 - 太可惜",
+      "excerpt": "《The Penguin》(企鹅人)。豆瓣 8.9,IMDb 8.7,但中文讨论度极低。我一周追完,觉得是 2025 年度被低估最严重的剧。",
+      "body": "这剧是《The Batman》(罗伯特帕丁森那部)的衍生剧,但完全独立 — 看不看蝙蝠侠都不影响。\n\n讲的是企鹅人 Oz Cobb 从街头小混混爬上犯罪头目的过程。8 集每一集都是教科书级别的叙事。\n\n为什么没人讨论:\n1. 罪案题材的高潮密度低于动作片,需要耐心\n2. 没有著名英雄角色出场,粉丝向流量低\n3. 中文字幕首发慢,错过了讨论热度的关键 48 小时\n\n但这剧的演技 + 叙事 + 美术,完全是 Sopranos / Breaking Bad 同等水准。Colin Farrell 凭这部肯定拿艾美奖。\n\n如果你喜欢《Better Call Saul》或《Boardwalk Empire》,这部是必追。",
+      "tags": [
+        "美剧",
+        "HBO",
+        "犯罪"
+      ],
+      "stats": {
+        "up": 2081,
+        "down": 38,
+        "comments": 260,
+        "share": 28,
+        "view": 22891,
+        "liveOnline": 36
+      },
+      "createdAt": "2025-04-13T12:46:40Z",
+      "createdAtText": "28天9小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p122",
+      "channelId": "movie",
+      "subChannelId": "movie-cn",
+      "authorId": "u01",
+      "type": "text",
+      "title": "《漫长的季节》之后,导演辛爽下部作品",
+      "excerpt": "辛爽导演 2023 年的《漫长的季节》之后沉默了 2 年。最近爆出他在拍新作 — 这次是个让人意外的题材。",
+      "body": "辛爽的新剧《天堂动物园》已经开机。题材是 1990 年代东北一个私人动物园的兴衰,折射改革开放中后期普通人的命运。\n\n看到这个题材,熟悉辛爽风格的人马上 get 到 — 又是\"以小见大\"+ \"时代里小人物的史诗感\"。\n\n几个让我期待的点:\n\n1. **主演阵容回归** — 范伟、秦昊、陈明昊三位都签了。范伟的\"东北市井感\"是无人能替的。\n\n2. **跨越 30 年** — 从 1988 年到 2018 年,跨越改革开放最戏剧性的 30 年。\n\n3. **辛爽的镜头美学** — 《漫长的季节》里那种\"金黄色调的怀旧感\"会再现。\n\n开播时间预估 2026 Q4。这是我今年最期待的国剧。",
+      "tags": [
+        "国剧",
+        "辛爽",
+        "漫长的季节"
+      ],
+      "stats": {
+        "up": 4483,
+        "down": 10,
+        "comments": 320,
+        "share": 176,
+        "view": 44830,
+        "liveOnline": 136
+      },
+      "createdAt": "2025-04-15T19:46:40Z",
+      "createdAtText": "26天2小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p123",
+      "channelId": "movie",
+      "subChannelId": "movie-cn",
+      "authorId": "u04",
+      "type": "text",
+      "title": "为什么国剧的\"高级感\"集中在悬疑赛道?",
+      "excerpt": "《漫长的季节》《沉默的真相》《隐秘的角落》《尘封十三载》— 国剧\"高级感\"的代名词,清一色是悬疑。这背后是题材限制还是市场偏好?",
+      "body": "答案是两者兼有,但题材限制是主因。\n\n国产剧\"高级感\"= 不流水化 + 不工业糖精 + 演技 + 美术 + 叙事克制。这些是 IP 改编流量剧做不到的。\n\n那为什么集中在悬疑?\n\n1. **悬疑审查相对宽松**。情节有\"罪与罚\"框架,主线是\"破案\",政治风险低。\n\n2. **悬疑允许复杂人性**。审查偏好\"善有善报\",但悬疑题材里的\"灰色人物\"能被接受 — 因为最后还是要\"恶有恶报\"。\n\n3. **题材天然适合\"慢\"**。看悬疑的观众预期就是\"慢慢推进\",这给了导演叙事空间。\n\n4. **市场已验证**。前面几部爆款让平台敢投钱 + 用好演员。\n\n反例:家庭剧、爱情剧、年代剧都被工业流水线打死,只有悬疑还活着。",
+      "tags": [
+        "国剧",
+        "悬疑",
+        "市场分析"
+      ],
+      "stats": {
+        "up": 4442,
+        "down": 29,
+        "comments": 317,
+        "share": 62,
+        "view": 75514,
+        "liveOnline": 153
+      },
+      "createdAt": "2025-05-06T13:46:40Z",
+      "createdAtText": "5天8小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p124",
+      "channelId": "movie",
+      "subChannelId": "movie-anime",
+      "authorId": "u11",
+      "type": "text",
+      "title": "《海贼王》连载 25 年,Boss 还没出场",
+      "excerpt": "尾田 2017 年说过:\"再用 5 年就能完结。\" 2026 年的现在,主要 Boss 还没正式登场。海贼王是不是已经成了\"永动机\"?",
+      "body": "现状梳理一下:\n\n- 1997 年开始连载,2026 年第 29 个年头\n- 总章数已超过 1100 话,单行本 110+ 本\n- 五皇之一 凯多 已倒,但\"世界政府最高层\"还没出手\n- 真正的 Boss \"伊姆\"露面 0 次\n\n所以\"完结时间\"已经成为粉丝的内部 meme。最早 2017 年说 5 年,2022 年说 3 年,2024 年说\"我自己也不知道\"。\n\n商业逻辑很清楚:海贼王每年带来 $5-7 亿美元收入(漫画 + 动画 + 周边),完结意味着这个收入大幅下滑。除非尾田主动停笔,集英社不会推动他完结。\n\n所以我们这一代海贼粉的命运很可能是 — 看不到完结。\n\n但即使如此,海贼王仍然是动漫史最重要的作品之一。",
+      "tags": [
+        "动漫",
+        "海贼王",
+        "尾田"
+      ],
+      "stats": {
+        "up": 2673,
+        "down": 43,
+        "comments": 243,
+        "share": 103,
+        "view": 48114,
+        "liveOnline": 127
+      },
+      "createdAt": "2025-04-19T15:46:40Z",
+      "createdAtText": "22天6小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p125",
+      "channelId": "movie",
+      "subChannelId": "movie-anime",
+      "authorId": "u02",
+      "type": "text",
+      "title": "为什么 90% 的新番在第 4 集就掉头?",
+      "excerpt": "每个新番季我都会列追番清单,15-20 部。坚持到完结的不超过 3 部。这不是因为我\"耐心差\",是行业问题。",
+      "body": "日本动画产业的结构性问题:\n\n1. **第 1-3 集是宣传期** — 制作预算和质量集中,目的就是吸引追番。\n\n2. **第 4 集开始降本** — 中间集预算只有 1-3 集的 60-70%,作画质量直线下降。\n\n3. **第 8-10 集是\"原画师周转难\"周** — 业内称为\"作画崩坏期\"。\n\n4. **最后 2 集\"勉强收尾\"** — 通常用大量回忆杀和静态画面省成本。\n\n为什么是这个模式?\n\n- 制作委员会模式下,投资方追求的是\"第 1 集开播热度\"\n- 真实利润来自周边和 BD 销量,跟\"作画质量\"关系不大\n- 监督导演权力小,无法在制作阶段坚持质量\n\n少数例外:京阿尼、MAPPA(部分作品)、ufotable。但这是 5% 的特例。",
+      "tags": [
+        "动漫",
+        "行业分析",
+        "作画崩坏"
+      ],
+      "stats": {
+        "up": 2150,
+        "down": 23,
+        "comments": 238,
+        "share": 13,
+        "view": 19350,
+        "liveOnline": 165
+      },
+      "createdAt": "2025-04-27T18:46:40Z",
+      "createdAtText": "14天3小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p126",
+      "channelId": "gender",
+      "subChannelId": "gender-look",
+      "authorId": "u08",
+      "type": "text",
+      "title": "海外华人的健身房文化和国内有什么不同",
+      "excerpt": "在湾区/纽约/伦敦健身 5 年,回国偶尔去本土健身房 — 文化差异比想象中大。",
+      "body": "海外华人健身房 vs 国内:\n\n**衣着**:海外允许极简短裤背心,国内偏好运动品牌成套搭配。\n\n**社交**:海外健身房几乎是\"绝对沉默\" — 戴耳机不主动搭话。国内人均\"健身房社交\"+ 微信号互加。\n\n**训练目标**:海外华人男 75% 练 strength + bulk(变壮);国内 60% 练 cardio + 减脂(变瘦)。\n\n**教练**:海外私教文化稀薄,80% 自学 + 训练伙伴。国内私教渗透率高,但课程深度参差。\n\n**周末安排**:海外周末健身后必去 brunch + farmer market,健身是一种 lifestyle 标签。国内健身后多是聚餐,健身是单纯\"对外形的工具\"。\n\n这种差异背后是更深的\"健康观\":国内\"我去健身=为了好看\",海外华人则更接近\"我去健身=因为这是我的生活方式\"。",
+      "tags": [
+        "健身",
+        "海外华人",
+        "文化对比"
+      ],
+      "stats": {
+        "up": 178,
+        "down": 5,
+        "comments": 22,
+        "share": 66,
+        "view": 3204,
+        "liveOnline": 32
+      },
+      "createdAt": "2025-04-23T14:46:40Z",
+      "createdAtText": "18天7小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p127",
+      "channelId": "gender",
+      "subChannelId": "gender-emotion",
+      "authorId": "u12",
+      "type": "text",
+      "title": "异地恋撑过 2 年的伴侣,3 个共同点",
+      "excerpt": "我和女友异地 3 年,周围有 10+ 对异地朋友,有完美收官的也有惨烈分手的。统计了一下,撑过 2 年的伴侣,有 3 个共同点。",
+      "body": "不是\"沟通频率高\",\"信任强\"这种鸡汤层面。真正的共同点更具体:\n\n1. **共同未来的明确锚点**。\"什么时候回到同一个城市\"必须是双方都能 commit 的具体日期。不是\"以后\",是\"2027 年 6 月毕业后\"。\n\n没有这个锚点的异地,99% 撑不过 18 个月。\n\n2. **见面频率 ≥ 每 6 周一次**。再忙都要见。心理学研究表明,长期分离 > 8 周,情感连接会进入\"陌生人模式\"。\n\n3. **不依赖每天聊天数量,但依赖\"信息真实度\"**。撑下来的伴侣很少\"分享你今天吃了什么早餐\",而是\"我今天遇到一个让我心动的男生,但我用规则拒绝了\"。\n\n这种\"高真实度低频率\"反而比\"低真实度高频率\"更稳。\n\n以上是观察,不是建议。每对关系不同。",
+      "tags": [
+        "情感",
+        "异地恋",
+        "观察"
+      ],
+      "stats": {
+        "up": 700,
+        "down": 19,
+        "comments": 58,
+        "share": 179,
+        "view": 7700,
+        "liveOnline": 139
+      },
+      "createdAt": "2025-04-14T11:46:40Z",
+      "createdAtText": "27天10小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p128",
+      "channelId": "gender",
+      "subChannelId": "gender-emotion",
+      "authorId": "u04",
+      "type": "text",
+      "title": "为什么我们总是被\"回避型\"吸引",
+      "excerpt": "心理学里有个反直觉的现象:焦虑型依恋的人,总会反复爱上回避型。两个人都痛苦,但就是分不开。",
+      "body": "这不是巧合。心理学家 Levine 在《Attached》里解释过这个机制:\n\n焦虑型 + 回避型的吸引,本质是\"激活系统\"的相互强化:\n\n焦虑型对\"不确定性\"过度敏感 → 回避型的疏离感正好持续激活\"我能否赢得 ta 的爱\"这个内心剧本。\n\n回避型对\"亲密感\"过度警觉 → 焦虑型的紧迫感正好让 Ta 找到\"保持距离\"的借口。\n\n所以这种关系是\"互相喂养病症\"。每一方都在用对方来重复自己的旧伤口。\n\n安全型从来不进入这种动力 — 因为安全型不需要这种\"博弈\"。\n\n破解方法:\n1. 自己变成安全型(需要 2-3 年的心理工作)\n2. 选择安全型的伴侣\n3. 接受这种关系不会真正稳定,然后做选择\n\n我自己花了 4 年才走出焦虑型 → 安全型。",
+      "tags": [
+        "心理学",
+        "依恋",
+        "回避型"
+      ],
+      "stats": {
+        "up": 4797,
+        "down": 17,
+        "comments": 399,
+        "share": 129,
+        "view": 71955,
+        "liveOnline": 119
+      },
+      "createdAt": "2025-05-06T22:46:40Z",
+      "createdAtText": "4天23小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p129",
+      "channelId": "gender",
+      "subChannelId": "gender-marriage",
+      "authorId": "u05",
+      "type": "text",
+      "title": "海外华人 35+ 还没结婚,真实的心理压力",
+      "excerpt": "我 37 岁,在伦敦,目前单身。父母每周一通电话变成 \"怎么还不结婚\" 的 round 100。这种压力,只有海外华人懂。",
+      "body": "海外华人 35+ 单身的压力来自三个完全不同的源头:\n\n1. **父母的传统压力**\n父母不在身边,但每次视频都是同一个话题。他们不能理解\"海外圈子小\"\"文化合适的对象少\"。他们的逻辑是:\"你都 37 岁了,还有什么挑的?\"\n\n2. **同龄海外华人的隐性压力**\n看到朋友圈别的华人晒娃,自己第一反应不是高兴,是\"我怎么还没\"。这种压力比父母的还重。\n\n3. **西方主流的\"无所谓\"压力**\n本地同事 40 岁单身没人催,反而觉得\"独立\"。但你内化的还是中国家庭文化里\"成家立业\"的逻辑。这种文化撕裂是最痛的。\n\n我的处理方法是 — 做了 2 年心理咨询,接受了\"我不一定要走传统路径\"。但说实话,每年回国一次还是会经历一波煎熬。\n\n这不是答案,是一个 37 岁海外华人男的真实状态。",
+      "tags": [
+        "婚恋",
+        "海外华人",
+        "心理压力"
+      ],
+      "stats": {
+        "up": 3651,
+        "down": 28,
+        "comments": 365,
+        "share": 127,
+        "view": 51114,
+        "liveOnline": 201
+      },
+      "createdAt": "2025-05-08T00:46:40Z",
+      "createdAtText": "3天21小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p130",
+      "channelId": "gender",
+      "subChannelId": "gender-marriage",
+      "authorId": "u03",
+      "type": "text",
+      "title": "婚前财产协议在加州/纽约怎么落地",
+      "excerpt": "婚前财产协议(prenup)在海外华人圈是个敏感话题 — 既被认为\"破坏感情\",又确实有实际需要。",
+      "body": "加州 vs 纽约的 prenup 差异:\n\n**加州**:\n- \"Community Property\" 州 — 婚后所得默认 50/50\n- prenup 必须双方各自请律师 + 至少签字前 7 天审阅\n- 律师费一般 $3,000-$8,000\n\n**纽约**:\n- \"Equitable Distribution\" 州 — 婚后所得按公平原则分,但不强制 50/50\n- prenup 要求相对宽松,但需充分披露财产\n- 律师费 $5,000-$15,000\n\n**通用规则**(适合海外华人):\n1. 双方必须有\"独立法律建议\"(independent counsel) — 同一律师不行\n2. 婚前财产必须做\"详细列表\" — 包括国内房产、股票、加密货币\n3. 婚后\"赠与\" + \"继承\" 默认不算共同财产 — 但要 prenup 明确写\n4. 不能完全切断 spousal support — 法院会无效化\n\n一句话总结:prenup 不是\"不信任\",是\"现代亲密关系的契约化\"。",
+      "tags": [
+        "婚恋",
+        "prenup",
+        "法律"
+      ],
+      "stats": {
+        "up": 926,
+        "down": 48,
+        "comments": 115,
+        "share": 94,
+        "view": 12964,
+        "liveOnline": 219
+      },
+      "createdAt": "2025-04-21T01:46:40Z",
+      "createdAtText": "20天20小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p131",
+      "channelId": "gender",
+      "subChannelId": "gender-vip",
+      "authorId": "u01",
+      "type": "text",
+      "title": "颜值审美的本质 - 进化心理学说了什么",
+      "excerpt": "\"好看\"到底是什么? 进化心理学有一套相对统一的解释 — 不是文化构建,是生物学共识。",
+      "body": "进化心理学里\"美\"的核心:\n\n1. **对称性**\n面孔左右越对称,基因健康度越高的概率越大。这点在所有文化里都一致(已通过 100+ 项跨文化研究验证)。\n\n2. **平均化**\n一群随机面孔合成的\"平均脸\",会比任何单一面孔被评价更美。这反映\"基因多样性 + 缺陷少\"。\n\n3. **特征比例**\n女性 — 腰臀比 0.7 左右最受欢迎,这反映生育健康。\n男性 — 肩腰比 1.6 左右最受欢迎,反映 testosterone 水平。\n\n4. **皮肤光泽**\n反映健康 + 年龄 + 营养。是所有动物界共通的\"健康信号\"。\n\n这就是为什么 \"美\" 在跨文化研究中惊人一致 — 它本质是基因健康度的视觉信号。\n\n文化建构的部分(化妆/穿搭/审美潮流)只是在\"基础美\"之上的修饰层,不改底层逻辑。",
+      "tags": [
+        "颜值",
+        "进化心理学",
+        "审美"
+      ],
+      "stats": {
+        "up": 1678,
+        "down": 10,
+        "comments": 139,
+        "share": 116,
+        "view": 25170,
+        "liveOnline": 61
+      },
+      "createdAt": "2025-05-04T15:46:40Z",
+      "createdAtText": "7天6小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p132",
+      "channelId": "gender",
+      "subChannelId": "gender-vip",
+      "authorId": "u06",
+      "type": "text",
+      "title": "海外华人女性的择偶逻辑变化",
+      "excerpt": "在加州/纽约/伦敦观察了 5 年海外华人女性的择偶模式,变化很明显。这是不是好事,需要分开看。",
+      "body": "海外华人女性择偶变化(2020-2026):\n\n**变化 1**:对\"亚裔男 vs 白男\"的偏好,亚裔男比例从 70% 上升到 80%。原因是 BLM 之后对\"种族认同\"的强化 + 亚裔男变得更主动健身、更注重 grooming。\n\n**变化 2**:对\"留学生 vs H1B vs 永居\"的偏好,从\"永居 > H1B\" 变成\"永居 ≈ H1B\"。原因是远程工作让\"地点\"不那么 critical。\n\n**变化 3**:对\"事业 vs 顾家\"的偏好,从\"事业第一\" 变成 \"双高(事业 + 顾家)\"。这是更高要求,但确实是趋势。\n\n**变化 4**:对\"是否要孩子\"的态度,从\"默认要\"变成\"双方明确讨论\"。这是健康的进步。\n\n个人观察:海外华人女性的择偶决定,比国内同龄人理性 30%,但相应也\"延迟决定\" 3-5 年。利弊各有。",
+      "tags": [
+        "婚恋",
+        "海外华人",
+        "择偶"
+      ],
+      "stats": {
+        "up": 3750,
+        "down": 8,
+        "comments": 267,
+        "share": 20,
+        "view": 60000,
+        "liveOnline": 181
+      },
+      "createdAt": "2025-05-04T19:46:40Z",
+      "createdAtText": "7天2小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p133",
+      "channelId": "money",
+      "subChannelId": "money-side",
+      "authorId": "u10",
+      "type": "text",
+      "title": "海外华人下班后做什么副业 ROI 高?",
+      "excerpt": "在湾区/伦敦/温哥华 5 年,做了 3 个副业,失败 2 个成功 1 个。说说海外华人哪些副业 ROI 最高。",
+      "body": "我做过的:\n\n1. **跨境电商**(失败)— 2022 年做美国电商,$30K 投入,3 个月学习成本太高,放弃。\n\n2. **TikTok 内容**(失败)— 2023 年做英文 finance 类账号,3000 followers 后没耐心继续。\n\n3. **代码外包**(成功)— 2024 年至今,用 Upwork 接小项目,每月稳定 $3,000-$5,000。\n\n海外华人 ROI 高的副业 5 个:\n\n1. **专业服务外包**(我做的这种)— 杠杆你的本职技能,门槛高但稳定\n2. **YouTube 中文教育内容** — 海外华人观众粘性极强\n3. **Notion / Figma 模板店** — 一次性产品,长尾收入\n4. **跨境代购**(仍然有效)— 比国内代购难,但客单价高\n5. **本地华人服务**(房产经纪 / 移民咨询)— 高客单价低频次\n\n避坑:不要做需要\"持续创意\"的副业(写作 / 短视频),海外工作 + 副业时间冲突太大。",
+      "tags": [
+        "副业",
+        "海外华人",
+        "ROI"
+      ],
+      "stats": {
+        "up": 884,
+        "down": 12,
+        "comments": 63,
+        "share": 112,
+        "view": 9724,
+        "liveOnline": 139
+      },
+      "createdAt": "2025-04-15T21:46:40Z",
+      "createdAtText": "26天0小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p134",
+      "channelId": "money",
+      "subChannelId": "money-side",
+      "authorId": "u04",
+      "type": "text",
+      "title": "我用了 1 年时间把副业做到主业 3 倍",
+      "excerpt": "本职是伦敦 IT 公司打工,年薪 £70K。副业是给国内创业公司做技术咨询,一年做到 £210K + 不交英国税。",
+      "body": "完整流程拆解:\n\n**月 1-3**:在 LinkedIn 上写中文行业内容(英国/欧洲科技公司视角)。3 个月攒 5000 中文粉丝。\n\n**月 4-6**:开始有国内创业者咨询。前 5 个不收费,纯做案例 + 客户证言。\n\n**月 7-12**:从 0 → £210K。\n\n关键 4 个心法:\n\n1. **不要从\"接小活\"开始**。直接定位 \"海外咨询\" 高客单价。客户 ≠ 数量,但单价 5 倍。\n\n2. **个人 brand 优先**。先有 3000 真粉,再开始报价。否则没有定价权。\n\n3. **税务结构**。我注册了一家英国 limited company,业务通过它收款。比 self-employed 更灵活。\n\n4. **每周 10 小时上限**。副业再赚钱也不能损害主业 — 这是失业风险的最大对冲。\n\n副业到底能不能做大,关键不是\"花多少时间\",而是\"杠杆能不能复利\"。",
+      "tags": [
+        "副业",
+        "咨询",
+        "实战"
+      ],
+      "stats": {
+        "up": 600,
+        "down": 2,
+        "comments": 66,
+        "share": 107,
+        "view": 8400,
+        "liveOnline": 82
+      },
+      "createdAt": "2025-04-14T09:46:40Z",
+      "createdAtText": "27天12小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p135",
+      "channelId": "money",
+      "subChannelId": "money-stock",
+      "authorId": "u05",
+      "type": "text",
+      "title": "Tesla 股价砍半之后,定投还是清仓?",
+      "excerpt": "Tesla 从 2024 年高点 $415 跌到 $180,砍了 56%。基本面没崩,情绪面崩了。这种时候定投还是清仓?",
+      "body": "我的真实仓位:Tesla 持有 5 年,平均成本 $220。现在 $180 已经浮亏。\n\n几个事实:\n\n**基本面**:\n- 2025 Q4 营收 $24.7B,同比 +12%(慢但还增长)\n- gross margin 16.8%,比 2022 年高点 26% 降了 9 pt\n- FSD v13 已经升级,Robotaxi 业务 2026 上线\n\n**情绪面**:\n- 马斯克政治化让 50% 用户对品牌反感\n- 中国 BYD 在低端市场快速吃份额\n- 美国 EV 补贴可能取消\n\n**我的选择**:继续定投,但仓位 cap 在投资组合的 8%。\n\n理由:\n1. P/E 现在 80,从 200+ 跌下来 — 估值合理化\n2. 2026 年 Robotaxi 是大变量 — 如果 work,股价能翻倍\n3. 我能承受 -30% 的额外下跌\n\n但如果你不能承受 -50% 浮亏,清仓没毛病。这不是\"理性 vs 不理性\",是\"风险承受\"问题。",
+      "tags": [
+        "美股",
+        "Tesla",
+        "投资"
+      ],
+      "stats": {
+        "up": 2456,
+        "down": 44,
+        "comments": 223,
+        "share": 191,
+        "view": 39296,
+        "liveOnline": 139
+      },
+      "createdAt": "2025-04-16T07:46:40Z",
+      "createdAtText": "25天14小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p136",
+      "channelId": "money",
+      "subChannelId": "money-property",
+      "authorId": "u01",
+      "type": "text",
+      "title": "湾区买 first home 现在还是好时机吗?",
+      "excerpt": "2026 年 5 月,湾区房市基本盘:中位数 $1.4M,30y 固定 mortgage rate 6.8%。我自己刚 closed 一套,分享决策过程。",
+      "body": "我刚 closed 一套 South Bay $1.6M 的 SFH(独立屋)。决策过程透明分享:\n\n**为什么现在买**:\n1. 我 35 岁,稳定就业 5 年,需要\"长期 anchor\"\n2. 现金充足:down payment + 6 个月 emergency + 装修 reserve\n3. 婚后需要稳定环境(老婆已怀孕)\n4. 我不打算 5 年内离开湾区\n\n**关键风险评估**:\n- mortgage payment $9,200/月(比租房贵 $2,500)\n- 但 mortgage interest + property tax 可抵税,实际差距 $1,500\n- 房子未来 7 年内即使不涨,我也不亏(等价于 rent)\n\n**不该买的情况**:\n❌ 你没有 5 年以上稳定计划\n❌ down payment 把你逼到 emergency fund 见底\n❌ 你在 cash-out 自己的所有股票来凑 down payment\n❌ 你期待房价短期(2-3年)再涨 30%\n\n房产是\"生活稳定的工具\",不是\"暴富工具\"。这个底层认识是买不买的关键。",
+      "tags": [
+        "房产",
+        "湾区",
+        "first home"
+      ],
+      "stats": {
+        "up": 599,
+        "down": 5,
+        "comments": 49,
+        "share": 199,
+        "view": 9584,
+        "liveOnline": 95
+      },
+      "createdAt": "2025-05-02T15:46:40Z",
+      "createdAtText": "9天6小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p137",
+      "channelId": "money",
+      "subChannelId": "money-property",
+      "authorId": "u05",
+      "type": "text",
+      "title": "伦敦海外华人买房,zone 2 还是 zone 3?",
+      "excerpt": "伦敦买房 5 年前我选了 Z3 的 Brentford,5 年后 Z2 的 Putney 涨幅是它的 2.4 倍。Z2 vs Z3 怎么选?",
+      "body": "伦敦买房 zone 选择,海外华人最常纠结的 4 个 zone:\n\n**Zone 1**(£1500-2500/sqft)\n- 工作便利度 ★★★★★\n- 投资属性 ★★★\n- 适合:在 City 工作的 single,buy-to-let 投资者\n\n**Zone 2**(£900-1500/sqft)\n- 工作便利度 ★★★★\n- 投资属性 ★★★★★\n- 居住舒适度 ★★★★\n- 适合:大部分海外华人核心区域\n\n**Zone 3**(£500-900/sqft)\n- 工作便利度 ★★★\n- 投资属性 ★★★\n- 居住舒适度 ★★★★\n- 适合:首次置业 + 预算紧 + 长期居住\n\n**Zone 4-5**(< £500/sqft)\n- 适合:Investment 投资 + 远程工作的人\n\n**我现在的总结**:\n- 第一次买:Z2 北边或南边(Clapham / Wimbledon / Crouch End)\n- 已经有一套:Z3 west(Ealing / Chiswick),做投资 + 自住\n- 不要买 Z3-4 的 ex-council estate,流动性差",
+      "tags": [
+        "房产",
+        "伦敦",
+        "海外华人"
+      ],
+      "stats": {
+        "up": 4239,
+        "down": 12,
+        "comments": 302,
+        "share": 22,
+        "view": 67824,
+        "liveOnline": 145
+      },
+      "createdAt": "2025-04-23T06:46:40Z",
+      "createdAtText": "18天15小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p138",
+      "channelId": "money",
+      "subChannelId": "money-startup",
+      "authorId": "u03",
+      "type": "text",
+      "title": "海外华人创业,SaaS 还是 e-commerce?",
+      "excerpt": "我两个都试过。SaaS 做了 18 个月小成功($8K MRR),e-commerce 做了 6 个月失败($30K 亏损)。给观望的人分享对比。",
+      "body": "海外华人创业 SaaS vs e-commerce 真实对比:\n\n**初始成本**\n- SaaS:$2K-5K(域名 + 基础架构 + 设计 + 头 6 个月)\n- E-commerce:$30K-100K(库存 + 物流 + 广告 + 头 3 个月)\n\n**学习曲线**\n- SaaS:技术学习曲线陡,但只需学 1 次\n- E-commerce:运营学习曲线持续,品类变了要重学\n\n**单位经济学(unit economics)**\n- SaaS:边际成本几乎 0,做大后利润率 70%+\n- E-commerce:边际成本固定,利润率 15-25%\n\n**适合海外华人**\n- SaaS:✅ 杠杆你的技术 + 中文行业 know-how\n- E-commerce:❌ 必须深入北美/欧洲消费市场,文化壁垒高\n\n**我的选择**:全部精力 SaaS,继续做我的小工具。E-commerce 经验给了我一个客户视角 — 也算值。\n\n如果你有 W2 工作 + 想做副业:做 SaaS。\n如果你有 $200K+ 起步资金 + 长期 commit:可以试 E-commerce。",
+      "tags": [
+        "创业",
+        "SaaS",
+        "电商"
+      ],
+      "stats": {
+        "up": 676,
+        "down": 27,
+        "comments": 52,
+        "share": 38,
+        "view": 7436,
+        "liveOnline": 160
+      },
+      "createdAt": "2025-05-06T19:46:40Z",
+      "createdAtText": "5天2小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p139",
+      "channelId": "money",
+      "subChannelId": "money-startup",
+      "authorId": "u11",
+      "type": "text",
+      "title": "做 indie hacker 第 6 个月,MRR $3,000",
+      "excerpt": "辞职做 indie hacker 半年。从 0 到 MRR $3K。不是炸裂的成绩但是真实的,把过程透明分享一下。",
+      "body": "半年时间线:\n\n**月 1**:验证 idea。做了 5 个 landing page,每个挂 2 天看转化。最后选了一个 dev tool 方向。\n\n**月 2-3**:MVP 上线。技术栈 Next.js + Supabase + Stripe。开发 + 设计 80 小时,$0 启动资金。\n\n**月 4**:Product Hunt 发布。当天 200+ users,第 1 个付费客户。\n\n**月 5**:MRR 从 $400 → $1,800。主要靠 SEO 和口碑。\n\n**月 6(本月)**:MRR $3,000,churn rate 2.5%。\n\n几个心得:\n\n1. **不要再做\"另一个 to-do app\"**。竞争太烈。要做 niche 工具。\n\n2. **冷启动比你想象的难**。Product Hunt 之后 3 周才有第二个付费。\n\n3. **subscription 价格不要太低**。我从 $5 改到 $19,churn 反而降了。低价用户最难伺候。\n\n4. **每天写 build log**。建立粉丝群,这是长期资产。\n\n目标:12 个月 MRR $10K。还得啃。",
+      "tags": [
+        "创业",
+        "indie hacker",
+        "SaaS"
+      ],
+      "stats": {
+        "up": 791,
+        "down": 39,
+        "comments": 71,
+        "share": 152,
+        "view": 14238,
+        "liveOnline": 148
+      },
+      "createdAt": "2025-04-22T20:46:40Z",
+      "createdAtText": "19天1小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p140",
+      "channelId": "funny",
+      "subChannelId": "funny-joke",
+      "authorId": "u11",
+      "type": "text",
+      "title": "程序员段子大赛:我妈以为我是黑客",
+      "excerpt": "我妈每次看我对着黑屏幕敲代码,都觉得我在干\"非法的事\"。今年春节回家,她终于鼓起勇气问我:你是不是黑客?",
+      "body": "春节晚饭,我妈喝了二两白酒,突然问我:\n\n\"儿子,你跟妈说实话,你是不是黑客?\"\n\n我说:\"妈,我是码农,跟黑客差远了。\"\n\n她不信:\"那你天天对着黑屏幕,一行一行打字干啥? 隔壁老李说他儿子也码农,人家是 word 表格 + ppt,清清楚楚。\"\n\n我:\"......老李儿子是文员。\"\n\n她:\"那你倒是给我演示一下,你打的代码是干啥的!\"\n\n我打开 IDE,跑了一个 hello world。\n\n她看了 5 秒,说:\"就这? 我家孙子大班的电脑课也教过这个。\"\n\n沉默 10 秒后我深吸一口气,默默关掉 IDE,打开了 Word。",
+      "tags": [
+        "段子",
+        "程序员",
+        "春节"
+      ],
+      "stats": {
+        "up": 2693,
+        "down": 27,
+        "comments": 299,
+        "share": 41,
+        "view": 32316,
+        "liveOnline": 186
+      },
+      "createdAt": "2025-05-03T15:46:40Z",
+      "createdAtText": "8天6小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p141",
+      "channelId": "funny",
+      "subChannelId": "funny-joke",
+      "authorId": "u02",
+      "type": "text",
+      "title": "婚姻段子:老婆说她不在乎钱",
+      "excerpt": "结婚 5 年,老婆经常说:\"老公,你赚多少我都不在乎,我只要你心里有我就行。\" 现实总是非常 spotify-ironic。",
+      "body": "结婚 5 周年,我们坐在 Costco 餐区吃 $1.5 的热狗。我老婆突然深情地说:\n\n\"老公,我不在乎钱,只在乎你心里有我。\"\n\n我感动得快哭了。\n\n3 分钟后:\"对了,你说去年那个 Gucci 包要不要分期再买一个? 还有上次看上的 iPhone 16 Pro Max 1TB?\"\n\n我:\"......刚才不是说不在乎钱?\"\n\n她:\"我不在乎你的钱啊,我说的是 family 的钱。\"\n\n我:\"......我不就是 family 吗?\"\n\n她:\"family 是个整体,不是个人,这怎么能划等号呢?\"\n\n我看着 $1.5 的热狗,沉默地咬了一口。\n\n老婆又说:\"宝贝,你看,我连热狗都跟你一起吃,我多爱你啊。\"",
+      "tags": [
+        "段子",
+        "婚姻",
+        "日常"
+      ],
+      "stats": {
+        "up": 714,
+        "down": 41,
+        "comments": 89,
+        "share": 152,
+        "view": 10710,
+        "liveOnline": 40
+      },
+      "createdAt": "2025-04-27T11:46:40Z",
+      "createdAtText": "14天10小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p142",
+      "channelId": "funny",
+      "subChannelId": "funny-meme",
+      "authorId": "u06",
+      "type": "text",
+      "title": "最近这个 meme 你刷到几次? \"我不是,我没有\"",
+      "excerpt": "这个 meme 起源于一句网络流行语,现在已经发展出至少 30 种变体。它的传播路径完美演示了\"互联网梗的生命周期\"。",
+      "body": "\"我不是,我没有,别瞎说\" 这个梗:\n\n**起源**:2024 年 8 月,某综艺嘉宾被问敏感问题时的反应。原片只有 2 秒。\n\n**第一波**(2024.8-9):简单的截图配文,用于自嘲。\n\n**第二波**(2024.10-12):变体梗出现 — \"我不是,我没有,你别问\"、\"我不是 X,我没有 Y\"。\n\n**第三波**(2025.1-3):跨平台跨语境扩散。游戏圈用、职场圈用、感情圈用。\n\n**第四波**(2025.4 至今):梗已经\"过气\"但仍被广泛使用,进入 \"long tail\" 阶段。\n\n一个 meme 完整生命周期约 6-9 个月。这个梗算是\"长寿明星\"。\n\n这就是为什么互联网营销人喜欢蹭\"过气梗\" — 因为新梗追不上,过气梗反而是\"全民可懂\"的安全选项。",
+      "tags": [
+        "meme",
+        "网络文化",
+        "传播学"
+      ],
+      "stats": {
+        "up": 2292,
+        "down": 6,
+        "comments": 254,
+        "share": 70,
+        "view": 29796,
+        "liveOnline": 109
+      },
+      "createdAt": "2025-05-05T05:46:40Z",
+      "createdAtText": "6天16小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p143",
+      "channelId": "funny",
+      "subChannelId": "funny-meme",
+      "authorId": "u07",
+      "type": "text",
+      "title": "中文互联网梗:从\"笑死\"到\"乐\"的演化",
+      "excerpt": "\"哈哈哈\" → \"笑死\" → \"乐\" → \"?\" 中文互联网\"笑\"的演化,完全可以写一本社会学论文。",
+      "body": "中文\"笑\"梗时间线:\n\n**2010-2015**:\"哈哈哈\" / \"233\"\n- 表达直接,情绪饱满\n\n**2015-2018**:\"笑死\" / \"笑出腹肌\"\n- 出现夸张化趋势\n\n**2018-2020**:\"我裂开了\" / \"我傻了\"\n- 加入了\"破碎\"的元素,自嘲化\n\n**2020-2022**:\"绝了\" / \"服了\"\n- 从\"自己笑\"变成\"对方厉害\",带有惊讶感\n\n**2022-2024**:\"乐\" / \"蚌\"\n- 最简化,1-2 个字。\"懒得解释\",但能懂\n\n**2024-2026**:\"?\" / \"...\"\n- 用标点表达。情绪被消解,只剩\"姿态\"\n\n这条演化曲线背后的逻辑是 — 中文互联网年轻一代的情绪表达越来越\"克制\"。从\"我哈哈哈\"到\"我懒得反应\"。\n\n这不是\"语言变穷\",是\"防御机制\"。社交化越深,表达情绪的代价越大,人就越倾向于用最少的字给最大的语义模糊度。",
+      "tags": [
+        "网络文化",
+        "语言演化",
+        "社会学"
+      ],
+      "stats": {
+        "up": 2598,
+        "down": 35,
+        "comments": 216,
+        "share": 10,
+        "view": 46764,
+        "liveOnline": 185
+      },
+      "createdAt": "2025-04-27T04:46:40Z",
+      "createdAtText": "14天17小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p144",
+      "channelId": "funny",
+      "subChannelId": "funny-video",
+      "authorId": "u04",
+      "type": "text",
+      "title": "B 站这条 30 秒视频,我看了 10 遍还在笑",
+      "excerpt": "昨天 B 站首页推送的一个 30 秒视频,我前后看了 10 多遍。不是因为有多搞笑,是因为它精准踩中了\"中年人的悲剧\"。",
+      "body": "视频内容(30 秒):\n\n一个 35 岁左右的程序员,在公司年会上被领导点名表演。他拿过麦克风,深吸一口气,准备开始 rap。\n\n第 1 秒:他开口的瞬间,膝盖突然弯了一下。\n\n第 5 秒:他扶着膝盖,假装在做 hip-hop 律动。\n\n第 10 秒:他放弃 rap,改唱\"老男孩\"。\n\n第 20 秒:全场大笑,但他眼里有真实的悲伤。\n\n第 28 秒:他强笑着说:\"对不起,膝盖最近有点问题。\"\n\n第 30 秒:视频结束。评论区 1.2 万条,清一色:\"破防了。\"\n\n这就是中文互联网最高级的\"悲喜剧\"叙事 — 用 30 秒说完一代人的命运。",
+      "tags": [
+        "视频",
+        "B站",
+        "悲喜剧"
+      ],
+      "stats": {
+        "up": 968,
+        "down": 9,
+        "comments": 107,
+        "share": 35,
+        "view": 11616,
+        "liveOnline": 205
+      },
+      "createdAt": "2025-05-02T00:46:40Z",
+      "createdAtText": "9天21小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p145",
+      "channelId": "funny",
+      "subChannelId": "funny-video",
+      "authorId": "u08",
+      "type": "text",
+      "title": "YouTube short 算法逻辑,创作者怎么应对",
+      "excerpt": "YouTube Shorts 在 2025 年算法大改之后,创作者抱怨\"流量更难\"。其实算法逻辑更简单了,只是大家没适应。",
+      "body": "YouTube Shorts 2025 算法核心 4 条:\n\n**1. 完播率 > 一切**\n2 秒内勾住 + 整体 80%+ 完播 = 推流。其他 metric 没用。\n\n**2. 重复观看率**\n用户主动重看 3 次以上,算法判定 \"高密度内容\",大力推。这就是为什么\"loop 视频\"开始流行。\n\n**3. 评论密度 > 评论数**\n100 人评论 1 句 < 10 人评论 5 句。互动深度才是算法看的。\n\n**4. 跨视频留存**\n看了你视频 1,马上看你视频 2 的概率,决定你账号的\"流量天花板\"。\n\n创作者应对策略:\n\n✅ 视频开头 1 秒必须有\"信息钩子\"(不是悬念,是直接信息)\n✅ 长度 8-15 秒最佳。太短不完播,太长不重复\n✅ 评论区\"主动留 hook\"(回复 1-2 条引发讨论)\n✅ 系列化(让用户连看 3 个)\n\n按这个走,涨粉概率比\"高质量但孤立\"的视频高 5 倍。",
+      "tags": [
+        "YouTube",
+        "算法",
+        "短视频"
+      ],
+      "stats": {
+        "up": 1845,
+        "down": 15,
+        "comments": 141,
+        "share": 183,
+        "view": 23985,
+        "liveOnline": 177
+      },
+      "createdAt": "2025-05-03T12:46:40Z",
+      "createdAtText": "8天9小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p146",
+      "channelId": "funny",
+      "subChannelId": "funny-life",
+      "authorId": "u10",
+      "type": "text",
+      "title": "海外华人才懂的日常:排队 vs queue 的精神分裂",
+      "excerpt": "在英国排队 5 年,回国排队 5 分钟就要崩溃。这种\"双重排队人格\"只有海外华人懂。",
+      "body": "英国排队规则(隐性):\n- 距离前一个 1.2 米(神圣的距离感)\n- 全程不说话,玩手机最佳\n- 插队 = 社会性死亡\n- 看到混乱 = 默默叹气然后离开\n\n中国排队规则(实然):\n- 距离前一个 30cm 都嫌远\n- 边排边大声打电话\n- 插队 = 灵活,被插 = 阴阳怪气\n- 看到混乱 = 加入并贡献新乱源\n\n海外华人回国的 culture shock:\n\n- 第 1 天:本能保持 1.2 米,被插队 5 次\n- 第 3 天:开始压缩距离到 50cm\n- 第 7 天:学会\"贴近不动声色挤进去\"\n- 第 14 天:已经能边插队边发朋友圈\"国内人真没素质\"\n\n这种\"双重排队人格\"切换太快,经常让我在两种文化里都觉得自己是异类。\n\n最痛苦的是:回英国第一天,我也会下意识贴近前面那个人。然后看到他僵硬地转过来 — 我才反应过来 — 我已经\"被毒回去了\"。",
+      "tags": [
+        "日常",
+        "海外华人",
+        "文化冲击"
+      ],
+      "stats": {
+        "up": 2177,
+        "down": 7,
+        "comments": 155,
+        "share": 170,
+        "view": 17416,
+        "liveOnline": 123
+      },
+      "createdAt": "2025-04-25T06:46:40Z",
+      "createdAtText": "16天15小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p147",
+      "channelId": "fortune",
+      "subChannelId": "fortune-fengshui",
+      "authorId": "u09",
+      "type": "text",
+      "title": "公寓格局优化,\"明厨暗厕\"到底要不要",
+      "excerpt": "风水的\"明厨暗厕\"原则在现代公寓里基本不可能完美满足。但有 3 个简单替代方案,效果不差。",
+      "body": "\"明厨暗厕\"传统讲究:\n- 厨房光线好 + 通风(明)\n- 厕所避光 + 远离客厅(暗)\n\n现代公寓的问题:\n- 一房一厅小户型,厨房客厅一体\n- 厕所往往挨着客厅\n- 没有\"暗厕\"的物理空间\n\n3 个替代方案(我用了 5 年,效果实测过):\n\n**方案 1:厕所门帘**\n- 在厕所门外加一个深色门帘,价格 ¥80\n- 视觉上\"暗化\"厕所,从客厅看不到\n\n**方案 2:厨房光线增强**\n- 加 LED 灯条到吊柜底,亮度提升 30%\n- 心理上的\"明\"感更强\n\n**方案 3:植物隔断**\n- 在客厅与厕所之间放一盆 1.5m 高的琴叶榕\n- 物理 + 风水双重\"挡煞\"\n\n这三个加起来 ¥800 内,基本能满足\"明厨暗厕\"的核心需求。",
+      "tags": [
+        "风水",
+        "公寓",
+        "明厨暗厕"
+      ],
+      "stats": {
+        "up": 2852,
+        "down": 42,
+        "comments": 203,
+        "share": 75,
+        "view": 28520,
+        "liveOnline": 56
+      },
+      "createdAt": "2025-05-10T21:46:40Z",
+      "createdAtText": "1天0小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p148",
+      "channelId": "fortune",
+      "subChannelId": "fortune-tarot",
+      "authorId": "u02",
+      "type": "text",
+      "title": "塔罗师怎么避免变成\"情绪垃圾桶\"",
+      "excerpt": "做了 3 年塔罗师,接待客户 800+ 单。最大的挑战不是占卜技术,是怎么不让自己被客户情绪击穿。",
+      "body": "塔罗师的职业风险:\n\n**风险 1**:被客户的负能量\"灌\"。每次咨询都有人哭/愤怒/绝望。一天 5 个客户,你的能量场会被掏空。\n\n**风险 2**:产生\"救世主情结\"。客户哭着说\"只有你能救我\",你会上瘾。但塔罗师不是心理咨询师,边界要清楚。\n\n**风险 3**:开始\"预设\"客户的命运。重复看到太多失败的关系,自己也会变愤世嫉俗。\n\n我的 4 个边界守则:\n\n1. **每天最多 4 单**。超过会精神疲惫,占卜准确度下降。\n2. **每周 1 天完全不开牌**。彻底恢复能量。\n3. **不接\"情绪极度激烈\"的客户**。直接转介心理咨询师。\n4. **每 3 个月找资深塔罗师做\"清理\"**。我们这行有个传统 — 互相\"洗牌\"清场。\n\n这是个看似\"灵性\"实则\"情绪重劳动\"的职业。新人如果不守边界,2 年内就 burnout。",
+      "tags": [
+        "塔罗",
+        "职业",
+        "边界"
+      ],
+      "stats": {
+        "up": 3623,
+        "down": 9,
+        "comments": 301,
+        "share": 27,
+        "view": 28984,
+        "liveOnline": 191
+      },
+      "createdAt": "2025-04-23T23:46:40Z",
+      "createdAtText": "17天22小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p149",
+      "channelId": "fortune",
+      "subChannelId": "fortune-ziwei",
+      "authorId": "u06",
+      "type": "text",
+      "title": "紫微的 14 主星,你的命宫在哪一颗?",
+      "excerpt": "紫微斗数的 14 主星,每一颗都对应一种基本人格原型。把命宫主星搞清楚,基本能猜中一个人 70% 的人生剧本。",
+      "body": "紫微 14 主星速查:\n\n**紫微星** — 领袖型。命宫紫微的人天生有\"被看见\"的诉求,适合做决策者。\n\n**天机星** — 智囊型。聪明但不擅长执行,适合做军师。\n\n**太阳星** — 阳光型。喜欢被认可,但情绪外露。\n\n**武曲星** — 财星。务实理性,擅长做赚钱的事情。\n\n**天同星** — 享受型。命宫天同的人天生\"乐天派\",适合做品味相关。\n\n**廉贞星** — 双面型。又有政治家的圆滑又有艺术家的敏锐。\n\n**天府星** — 守成型。适合管理已有的资产/团队。\n\n**太阴星** — 内敛型。心思细腻,适合做内容/咨询。\n\n**贪狼星** — 桃花型。社交达人,但情感复杂。\n\n**巨门星** — 口才型。适合做表达类工作(销售/律师/老师)。\n\n**天相星** — 辅佐型。命宫天相的人适合做\"二把手\"。\n\n**天梁星** — 老者型。年纪轻轻就有\"长者气\",适合做顾问。\n\n**七杀星** — 冒险型。一辈子在挑战。\n\n**破军星** — 破立型。先破后立,人生波澜大。\n\n你的命宫是哪颗? 评论区报一下。",
+      "tags": [
+        "紫微",
+        "14主星",
+        "命理"
+      ],
+      "stats": {
+        "up": 3144,
+        "down": 11,
+        "comments": 262,
+        "share": 118,
+        "view": 50304,
+        "liveOnline": 47
+      },
+      "createdAt": "2025-04-24T20:46:40Z",
+      "createdAtText": "17天1小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p150",
+      "channelId": "pickup",
+      "subChannelId": "pickup-approach",
+      "authorId": "u11",
+      "type": "text",
+      "title": "搭讪的 90% 是在第一句话之前发生的",
+      "excerpt": "研究行为心理学 5 年。搭讪成功率不取决于\"开场白\",取决于开场白之前的 30 秒。这 30 秒发生了什么?",
+      "body": "搭讪心理学:\n\n开场白前 30 秒的 4 件事:\n\n**1. 视觉过滤(0-3 秒)**\n对方看到你的第一眼,大脑在 3 秒内完成评估:身高/穿着/精神状态。如果这一关 fail,后面再厉害的开场白也无效。\n\n**2. 微表情读取(3-15 秒)**\n你走过去的过程,你的\"步态\"和\"目光\"已经传递了 80% 的信息。自信的人 vs 不自信的人,在这一阶段被识别。\n\n**3. 空间博弈(15-25 秒)**\n你站的位置 vs 她的位置,决定了她的心理空间是否被侵犯。专业搭讪手知道\"45 度侧站\"的奥义。\n\n**4. 情绪同步(25-30 秒)**\n你的能量频率 vs 她当时的状态。她在加班解压,你来欢乐风 — 错误。她在喝咖啡放松,你来严肃 — 错误。\n\n所以,真正的高手训练不是\"开场白库\",是这 30 秒的\"全感官 calibration\"。",
+      "tags": [
+        "搭讪",
+        "心理学",
+        "行为分析"
+      ],
+      "stats": {
+        "up": 3051,
+        "down": 17,
+        "comments": 339,
+        "share": 178,
+        "view": 54918,
+        "liveOnline": 41
+      },
+      "createdAt": "2025-04-30T20:46:40Z",
+      "createdAtText": "11天1小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p151",
+      "channelId": "pickup",
+      "subChannelId": "pickup-approach",
+      "authorId": "u04",
+      "type": "text",
+      "title": "海外华人怎么破跨文化的搭讪心理障碍",
+      "excerpt": "在伦敦/纽约/温哥华生活 5 年,我观察到海外华人男的\"搭讪心理障碍\"比国内严重很多。原因不是技术,是文化。",
+      "body": "海外华人搭讪的 3 个独特心理障碍:\n\n**障碍 1:\"被拒绝 = 种族/文化降维\"的自我催眠**\n你被一个白人女拒绝,会下意识归因到\"她不喜欢亚裔\"。这是错的 — 大部分拒绝跟种族无关,但这个心理框架让你怕。\n\n**障碍 2:中文 vs 英文的\"角色断裂\"**\n中文是你的本性表达,英文是你的\"另一个版本\"。搭讪用英文,你感觉不是 \"真正的自己\"。\n\n**障碍 3:本地圈子的\"传统男士 stereotype\"**\n海外华人男 + 搭讪 = 容易被本地 social standard 标签为 \"creepy\"。这种标签恐惧让你不敢主动。\n\n破解方法(我亲测有效):\n\n1. **从\"亚洲女搭讪\"开始**。降低文化障碍\n2. **白天/咖啡馆/书店场景**。不要 club 不要街头\n3. **从\"事实问题\"开始**(\"你这书我也在读,讲讲感受?\")\n4. **接受 80% 拒绝率**。这是基线,不是个人问题\n\n3 个月练 50 次,你的\"搭讪心理障碍\"会彻底松动。",
+      "tags": [
+        "搭讪",
+        "海外华人",
+        "心理障碍"
+      ],
+      "stats": {
+        "up": 1386,
+        "down": 13,
+        "comments": 154,
+        "share": 113,
+        "view": 13860,
+        "liveOnline": 21
+      },
+      "createdAt": "2025-04-24T08:46:40Z",
+      "createdAtText": "17天13小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p152",
+      "channelId": "pickup",
+      "subChannelId": "pickup-date",
+      "authorId": "u07",
+      "type": "text",
+      "title": "第 3 次约会的 turning point 怎么处理",
+      "excerpt": "第 3 次约会在情感心理学里是分水岭。前 2 次双方都演\"最好版本\",第 3 次开始,真实的人开始显形。",
+      "body": "第 3 次约会的 3 个观察重点:\n\n**1. 她开始\"提要求\"**\n\"你能不能不要那么忙\"  \"下次能不能去我喜欢的餐厅\"\n\n这是好信号 — 她在 commit 这段关系。如果第 3 次还在演\"我什么都好\",反而要警惕。\n\n**2. 她开始展示\"轻度负面\"**\n抱怨工作/家人/朋友。如果她从来不抱怨,只展示\"完美自己\",她还在防御。\n\n**3. 你们的对话开始\"沉默\"**\n好的关系到第 3 次会有自然的沉默 — 而不是尴尬的填话。如果到第 3 次还在拼命找话题,亲密度还没建立。\n\n第 3 次约会该做什么:\n\n✅ 引入\"半私人\"场景(她的城市 + 你提议地点)\n✅ 谈一次\"过去的事\"(展示你的 emotional depth)\n✅ 创造 1 个 \"physical break point\"(走累了找个地方坐 / 一起做点傻事)\n✅ 主动 commit 下一次(\"下周末我们去 XX 看话剧\")\n\n搞砸第 3 次,关系基本就停了。",
+      "tags": [
+        "约会",
+        "心理学",
+        "关系发展"
+      ],
+      "stats": {
+        "up": 3492,
+        "down": 49,
+        "comments": 249,
+        "share": 71,
+        "view": 62856,
+        "liveOnline": 83
+      },
+      "createdAt": "2025-04-12T11:46:40Z",
+      "createdAtText": "29天10小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p153",
+      "channelId": "pickup",
+      "subChannelId": "pickup-date",
+      "authorId": "u02",
+      "type": "text",
+      "title": "为什么 50% 的男生第 1 次约会就败了",
+      "excerpt": "从女性视角观察:第 1 次约会其实 50% 的男生就败给了\"自己的紧张\"。原因不是技术,是预期管理。",
+      "body": "我做过随机调查(50+ 女性,30-35 岁海外华人):\n\n**Q: 第 1 次约会,什么让你\"决定不再见\"?**\n\n排名前 5 的原因:\n1. 太紧张/讲话太快(28%)\n2. 一直谈自己的工作/成就(24%)\n3. 没有提问/没有兴趣(18%)\n4. 太\"用力\"/太想表现(12%)\n5. 时间太长 / 太疲惫(8%)\n\n**Q: 什么让你\"想再见\"?**\n\n排名前 5:\n1. 他听我说话(35%)\n2. 他自然 / 不演(28%)\n3. 他有趣 / 让我笑(15%)\n4. 他展示 emotional depth(12%)\n5. 物理吸引力(6%)\n\n注意 #5 — 物理吸引力 ONLY 占 6%。但 50% 的男生把 80% 的精力放在 \"怎么显得我很有吸引力\" 上。\n\n这就是预期错配。真正的 win:你让她觉得\"跟你在一起轻松\",不是\"我对你印象深刻\"。",
+      "tags": [
+        "约会",
+        "女性视角",
+        "心理"
+      ],
+      "stats": {
+        "up": 3253,
+        "down": 32,
+        "comments": 232,
+        "share": 64,
+        "view": 26024,
+        "liveOnline": 66
+      },
+      "createdAt": "2025-04-19T18:46:40Z",
+      "createdAtText": "22天3小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p154",
+      "channelId": "pickup",
+      "subChannelId": "pickup-self",
+      "authorId": "u05",
+      "type": "text",
+      "title": "30 岁开始健身,1 年身体变化对比",
+      "excerpt": "30 岁那年我 175cm / 78kg / body fat 22%,典型中年开始膨胀。30 岁 → 31 岁,严格健身 12 个月的变化,数据 + 体感记录。",
+      "body": "12 个月变化(月度记录):\n\n**月 1-3**(适应期):\n- 体重 78 → 76 kg\n- Body fat 22% → 19%\n- 最大变化:精神状态\n\n**月 4-6**(突破期):\n- 体重 76 → 74 kg\n- Body fat 19% → 15%\n- 最大变化:衣服开始穿不下\n\n**月 7-9**(瓶颈期):\n- 体重稳定 74 kg\n- Body fat 15% → 12%(每月只降 1pt)\n- 最大变化:身体线条出来\n\n**月 10-12**(整合期):\n- 体重 74 → 75 kg(增肌期)\n- Body fat 稳定 12%\n- 最大变化:有了\"自信的姿态\"\n\n关键 5 个 lesson:\n\n1. 饮食 70% > 训练 30%\n2. 睡眠是隐藏第三轴\n3. 第 4 个月会\"看起来反而变胖\" — 那是肌肉初成型\n4. 镜子比体重秤准\n5. 找一个比你强 30% 的训练伙伴\n\n1 年后:30+ 海外华人的自信感,直线上升。",
+      "tags": [
+        "健身",
+        "自我提升",
+        "一年记录"
+      ],
+      "stats": {
+        "up": 2620,
+        "down": 16,
+        "comments": 187,
+        "share": 14,
+        "view": 28820,
+        "liveOnline": 183
+      },
+      "createdAt": "2025-04-27T10:46:40Z",
+      "createdAtText": "14天11小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p155",
+      "channelId": "pickup",
+      "subChannelId": "pickup-self",
+      "authorId": "u09",
+      "type": "text",
+      "title": "为什么自我提升的核心是\"被需要\"",
+      "excerpt": "心理学有一个反直觉的观察:做自我提升做得最持久的人,不是最有动力的,是最\"被需要\"的。",
+      "body": "自我提升的最大谎言:\"我要变好,为了我自己。\"\n\n这句话很 Instagram-friendly,但心理学证据指向相反。\n\nStanford 行为科学家 BJ Fogg 研究:\n\n**坚持健身 5 年以上的人**,80% 的动机都不是\"为了自己变好\",而是\"为了让某个具体的人/角色高兴\"。\n\n这个\"具体的人\"可以是:\n- 我的孩子 → 我健康 → 陪他长大\n- 我的伴侣 → 我有魅力 → 关系稳定\n- 我的妈妈 → 我有出息 → 她安心\n\n反例:那些只为\"自我感觉良好\"开始健身的人,80% 在 6 个月内放弃。\n\n这跟\"做自己\" 不矛盾 — 它说明人类是关系性动物。\"被需要\" 是最持久的能量来源。\n\n所以下次你坚持不下去的时候,不要再问\"我为什么变好\"。\n\n问:\"我变好,是为了让谁开心?\"\n\n答案出来的瞬间,坚持就会变容易。",
+      "tags": [
+        "自我提升",
+        "心理学",
+        "动机"
+      ],
+      "stats": {
+        "up": 688,
+        "down": 24,
+        "comments": 49,
+        "share": 172,
+        "view": 8256,
+        "liveOnline": 145
+      },
+      "createdAt": "2025-05-01T13:46:40Z",
+      "createdAtText": "10天8小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p156",
+      "channelId": "pickup",
+      "subChannelId": "pickup-case",
+      "authorId": "u05",
+      "type": "text",
+      "title": "一个北美程序员的 2 年情感历程",
+      "excerpt": "我从来不分享自己,但 2 年来太多兄弟问我\"怎么走过来的\"。今天破一次例。这是一个 32 岁北美华人男的 2 年。",
+      "body": "故事时间线:\n\n**2024.1**:32 岁,单身 5 年。在湾区一家中厂当 senior engineer。每周末除了 LeetCode 就是 Netflix。极度孤独但不愿承认。\n\n**2024.3**:认识 X。她是隔壁公司 PM。第一次约会我超级紧张,讲了 2 小时自己的工作。她没回二次约会的信息。\n\n**2024.4-9**:深度自我反省。开始去咨询师 (每 2 周 1 次)。开始健身 (从 165 → 175lbs)。开始 cold approach (尴尬的 50 次)。\n\n**2024.10**:认识 Y。这次是 mutual friend 介绍的。第 3 次约会她说:\"你跟 6 个月前我朋友描述的那个人不一样,你现在更松弛。\" 我才意识到自己变了。\n\n**2024.12-2025.3**:跟 Y 在一起 3 个月。她说:\"我喜欢你,但我们价值观差距太大。\" 分手。\n\n**2025.4-12**:再次单身 8 个月。但这次不是孤独,是\"安顿\"。\n\n**2026.1**:认识 Z。现在已经 5 个月,跟她在一起我第一次感觉到\"轻松\"。\n\n所以 2 年的总结是:不是找到对的人,是先变成 \"对的自己\"。",
+      "tags": [
+        "案例",
+        "情感",
+        "成长"
+      ],
+      "stats": {
+        "up": 2832,
+        "down": 18,
+        "comments": 354,
+        "share": 53,
+        "view": 25488,
+        "liveOnline": 163
+      },
+      "createdAt": "2025-04-15T04:46:40Z",
+      "createdAtText": "26天17小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p157",
+      "channelId": "pickup",
+      "subChannelId": "pickup-case",
+      "authorId": "u12",
+      "type": "text",
+      "title": "学长分享:从 PUA 走向真诚的转折点",
+      "excerpt": "我从 2019 年开始接触 PUA。2024 年彻底放弃。今天分享中间发生的 5 年,以及为什么我从\"技术派\"走向\"真诚派\"。",
+      "body": "5 年时间线:\n\n**2019**:被一个 mentor 带入 PUA。学了\"开场白\"、\"否定\"、\"推拉\"。前 6 个月效率确实提升,从 0 到 3 个女朋友。\n\n**2020-2021**:PUA 进阶。学\"框架\"、\"高价值展示\"、\"心锚\"。这阶段开始感觉不对 — 我赢了游戏,但每段关系都是 3 个月以内的快感而非深度。\n\n**2022**:认识 K。她聪明 + 真诚。我用 PUA 技巧 win 了她,3 个月后她发现\"你不爱我,你在跑技术\"。分手。\n\n这是转折点。我看着她离开,第一次问自己:\"我到底在追什么?\"\n\n**2023**:全部退出 PUA 群。开始系统读心理学 + 沟通学 + 哲学。开始做 therapy。\n\n**2024**:真正的转变。意识到 PUA 是一种\"恐惧驱动\" — 怕被拒绝、怕不够好。真诚才是\"安全驱动\" — 知道自己 enough。\n\n**2025-2026**:目前的关系稳定 18 个月。没用任何技术。\n\n结论给学弟:PUA 是 \"scaffolding\"(脚手架),不是房子。学完之后必须自己拆掉。否则你成为永远的演员。",
+      "tags": [
+        "案例",
+        "PUA",
+        "成长"
+      ],
+      "stats": {
+        "up": 1008,
+        "down": 24,
+        "comments": 84,
+        "share": 194,
+        "view": 14112,
+        "liveOnline": 216
+      },
+      "createdAt": "2025-05-03T20:46:40Z",
+      "createdAtText": "8天1小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p158",
+      "channelId": "asmr",
+      "subChannelId": "asmr-sleep",
+      "authorId": "u02",
+      "type": "text",
+      "title": "30 分钟雨声助眠合集,后半夜醒来就能续上",
+      "excerpt": "失眠 3 年,试过 50+ ASMR 频道。最有效的是雨声 — 但不是任何雨声。这个频道的 30 分钟合集是我的\"重启键\"。",
+      "body": "我的失眠特点:入睡难,半夜 3 点醒,然后睡不着。\n\n试过的方法:\n- ❌ 数羊(完全无效)\n- ❌ 冥想 app(我太焦虑,反而越听越精神)\n- ⚠️ 白噪音(有效但单调)\n- ✅ 雨声(最有效)\n\n但不是所有\"雨声\"都有效。我筛选 50+ 频道之后,关键 3 个标准:\n\n1. **雨声的\"层次感\"**\n不要纯雨声,要有\"远雷 + 近雨 + 室内\"三层。这种\"立体感\"最容易让大脑放下。\n\n2. **音量曲线\"前 5 分钟渐强 + 整体平稳\"**\n不要从一开始就大,大脑会抗拒。\n\n3. **没有 BGM 干扰**\n很多频道会偷偷加 background music。这是骗外行的。真正 ASMR 派别都是 pure ambient。\n\n推荐:YouTube 频道 \"Calmed By Nature\"。30 分钟 → 60 分钟 → 8 小时,全程纯雨声。半夜醒来续上 5 分钟就能续睡。",
+      "tags": [
+        "ASMR",
+        "助眠",
+        "雨声"
+      ],
+      "stats": {
+        "up": 1067,
+        "down": 14,
+        "comments": 97,
+        "share": 73,
+        "view": 18139,
+        "liveOnline": 26
+      },
+      "createdAt": "2025-04-22T05:46:40Z",
+      "createdAtText": "19天16小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p159",
+      "channelId": "asmr",
+      "subChannelId": "asmr-sleep",
+      "authorId": "u08",
+      "type": "text",
+      "title": "为什么白噪音 + ASMR 双轨入睡最有效",
+      "excerpt": "神经科学最新研究:白噪音覆盖\"环境噪音\", ASMR 触发\"放松神经\", 两个组合的入睡效率比单一好 40%。",
+      "body": "神经机制简单解读:\n\n**白噪音的作用**\n- 大脑的\"环境监控系统\" 持续在 background 工作\n- 它会扫描所有声音,寻找\"威胁信号\"\n- 单一频谱的白噪音会让这个系统进入\"全频饱和\"状态\n- 结果:监控系统降功率,大脑可以\"睡过去\"\n\n**ASMR 的作用**\n- 触发\"tingle response\"(轻微的快感酥麻)\n- 引发副交感神经系统(parasympathetic) 激活\n- 心率下降,血压下降,呼吸变慢\n- 准备进入深度睡眠\n\n**两者组合**\n- 白噪音处理外部环境\n- ASMR 处理内部状态\n- 双轨 → 全维度放松\n\n**实操建议**\n- 用 2 个设备:1 个手机播白噪音(全房), 1 个耳机播 ASMR(贴耳)\n- 白噪音音量 30-40dB(轻微背景), ASMR 50-60dB(舒服听感)\n- ASMR 选 60 分钟以内的,白噪音选 8 小时以上的\n\n试过 1 周,入睡时间从 35 分钟降到 12 分钟。",
+      "tags": [
+        "ASMR",
+        "白噪音",
+        "神经科学"
+      ],
+      "stats": {
+        "up": 4530,
+        "down": 14,
+        "comments": 348,
+        "share": 101,
+        "view": 81540,
+        "liveOnline": 125
+      },
+      "createdAt": "2025-05-11T05:46:40Z",
+      "createdAtText": "16小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p160",
+      "channelId": "asmr",
+      "subChannelId": "asmr-relax",
+      "authorId": "u11",
+      "type": "text",
+      "title": "上班压力大,试过这个\"5 分钟解压音频\"吗",
+      "excerpt": "在公司中场休息,塞耳机听 5 分钟特定 ASMR,精神状态立刻 reset。这不是迷信,是有神经科学支持的。",
+      "body": "\"5 分钟午间解压\" 的科学依据:\n\n**前 90 秒**: 副交感神经激活\n- 听到\"软声\"(soft scratch / soft whisper)\n- 大脑判定\"安全环境\"\n- 心率从 90 降到 75\n\n**90 秒-3 分钟**: 皮质醇下降\n- 副交感持续\n- 应激激素 cortisol 开始下降\n- 这是真实的生理变化,可测量\n\n**3-5 分钟**: 前额叶 reset\n- 大脑的\"决策中心\" 短暂关闭\n- 一种迷你\"无我状态\"\n- 这是为什么 5 分钟之后你感觉\"清空\"\n\n**实操推荐**\n\n午休不需要打盹,听 5 分钟特定 ASMR 就够:\n\n1. **\"轻刷麦克风\"**(soft brushing)— 最常见\n2. **\"翻书声\"**(page turning)— 高度有效\n3. **\"敲玻璃\"**(glass tapping)— 适合在嘈杂办公室,因为它\"穿透感\"强\n\n避免:\n❌ 任何带 BGM 的 — 会触发情绪\n❌ 角色扮演型 — 会触发故事性思考\n❌ 过长 — 5 分钟刚好,长了反而困\n\n试 1 周,下午精神状态会有明显改善。",
+      "tags": [
+        "ASMR",
+        "解压",
+        "上班"
+      ],
+      "stats": {
+        "up": 2691,
+        "down": 48,
+        "comments": 207,
+        "share": 84,
+        "view": 24219,
+        "liveOnline": 144
+      },
+      "createdAt": "2025-04-20T11:46:40Z",
+      "createdAtText": "21天10小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p161",
+      "channelId": "asmr",
+      "subChannelId": "asmr-relax",
+      "authorId": "u06",
+      "type": "text",
+      "title": "ASMR 听腻了? 试试\"自然声\"",
+      "excerpt": "听了 3 年 ASMR,最近开始切到\"自然声\"频道。发现自然声比人工 ASMR 更\"治愈\" — 但这两种不一样,各有适用场景。",
+      "body": "人工 ASMR vs 自然声:\n\n**人工 ASMR**(刷子/麦克风/敲击)\n- 优点:触发感强,直接 tingle\n- 缺点:听久了\"敏感度\"下降\n- 适合:急需放松、压力大\n\n**自然声**(海浪/森林/篝火)\n- 优点:无尽变化,不会\"听腻\"\n- 缺点:tingle 触发弱\n- 适合:工作背景 / 长时间陪伴\n\n**自然声 top 5 推荐**:\n\n1. **海浪声**(白噪谱最完美)— 心率下降最快\n2. **篝火声**(暖色调心理触发)— 配合阅读最好\n3. **森林声**(鸟 + 风 + 树叶)— 早晨醒来的最佳 BGM\n4. **山雨声**(中等强度)— 工作专注的最佳背景\n5. **海边咖啡店声**(混合声)— 写作的金牌 BGM\n\n个人偏好:工作日的早 9 点到下午 5 点,我用\"森林 + 海浪\"循环;晚上 9 点之后切到\"篝火\"。\n\n这种\"声音环境\"切换,让我每天精神状态稳定度提升至少 30%。",
+      "tags": [
+        "ASMR",
+        "自然声",
+        "治愈"
+      ],
+      "stats": {
+        "up": 3416,
+        "down": 37,
+        "comments": 262,
+        "share": 40,
+        "view": 40992,
+        "liveOnline": 64
+      },
+      "createdAt": "2025-04-28T11:46:40Z",
+      "createdAtText": "13天10小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p162",
+      "channelId": "asmr",
+      "subChannelId": "asmr-trigger",
+      "authorId": "u04",
+      "type": "text",
+      "title": "最容易触发 ASMR 的 5 种声音排行",
+      "excerpt": "基于 ASMR 社区 10 万人的调查 + 我自己的体验, 最有效的 5 种触发声音排行。如果你\"对 ASMR 无感\",可能是没找到你的触发点。",
+      "body": "ASMR 触发声音 top 5(综合票数):\n\n**#1 软刷麦克风(soft brushing)** - 78% 用户有效\n经典中的经典。柔毛刷在麦克风上轻刷,频率约 60Hz, 触发 tingle 最稳定。\n\n**#2 翻书声(page turning)** - 65% 用户有效\n意外的\"高效触发\"。可能因为\"翻书\" = \"学习时安静的环境\",大脑有 conditioned response。\n\n**#3 轻语(whisper)** - 60% 用户有效\n靠近耳朵的低语。需要好耳机才能感受 binaural(双耳分离)效果。\n\n**#4 敲击(tapping)** - 55% 用户有效\n敲玻璃/敲木头/敲塑料,各有不同触发点。我个人对\"敲木头\"最敏感。\n\n**#5 嘴部声音(mouth sounds)** - 40% 用户有效\n争议最大。一部分人极度敏感,一部分人 misophonia(听觉厌恶)。\n\n**关键提示**\n\n如果以上 5 个对你都无效,你可能不是\"对 ASMR 无感\",而是没找到 #6-10 的小众触发音。\n继续探索:玻璃声、玩具拆封声、纸张折叠声、织物摩擦声等。",
+      "tags": [
+        "ASMR",
+        "触发音",
+        "top"
+      ],
+      "stats": {
+        "up": 1545,
+        "down": 21,
+        "comments": 128,
+        "share": 111,
+        "view": 26265,
+        "liveOnline": 155
+      },
+      "createdAt": "2025-04-29T00:46:40Z",
+      "createdAtText": "12天21小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p163",
+      "channelId": "asmr",
+      "subChannelId": "asmr-trigger",
+      "authorId": "u10",
+      "type": "text",
+      "title": "翻书声 vs 敲击声,你更喜欢哪个",
+      "excerpt": "ASMR 社区里\"翻书声 vs 敲击声\"是经典派系之争。两个派系的\"信徒\"互相不理解。我两边都用,说说差异。",
+      "body": "翻书声派别:\n- 喜欢\"缓慢 + 节奏\"\n- 喜欢联想到\"学习 + 阅读\"的环境\n- 倾向于 INTJ / INFJ / INTP 等内向思考型\n- 适合的活动:工作 / 阅读 / 学习\n\n敲击声派别:\n- 喜欢\"清脆 + 精准\"\n- 喜欢联想到\"工匠 + 创作\"的能量\n- 倾向于 ISTP / INTP / ISTJ 等内向感知型\n- 适合的活动:创作 / 编程 / 设计\n\n我个人:\n- 早上 9-12 点:翻书声(进入工作状态)\n- 下午 1-3 点:敲玻璃声(攻坚)\n- 晚上 9 点后:翻书声(收尾)\n\n**为什么两派不能互相理解?**\n\n大脑对\"节奏型\"vs\"间歇型\"的偏好,可能跟基因里的多巴胺受体类型有关。研究还在进行中。\n\n但有一点确定:听对了 ASMR 类型,你的\"专注质量\"会比硬撑高 40%。",
+      "tags": [
+        "ASMR",
+        "翻书",
+        "敲击"
+      ],
+      "stats": {
+        "up": 1841,
+        "down": 40,
+        "comments": 167,
+        "share": 175,
+        "view": 31297,
+        "liveOnline": 97
+      },
+      "createdAt": "2025-05-02T12:46:40Z",
+      "createdAtText": "9天9小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    },
+    {
+      "id": "p164",
+      "channelId": "asmr",
+      "subChannelId": "asmr-rp",
+      "authorId": "u07",
+      "type": "text",
+      "title": "理发店 ASMR 为什么这么火",
+      "excerpt": "\"理发店 ASMR\" 是整个 role-play 类目里最火的子分类。Bilibili 单个视频 200 万播放是常态。原因不是\"理发声\",是更深的心理机制。",
+      "body": "理发店 ASMR 受欢迎的 5 层原因:\n\n**1. 多感官触发**\n- 剪刀声 + 喷水声 + 触摸声 + 轻语\n- 现实理发的 4 种 ASMR triggers 在 30 分钟内集中出现\n\n**2. \"被照顾\"的心理回归**\n- 理发是少数允许成年人\"被另一个成人抚摸/打理\"的合法场景\n- 这种\"被照顾感\"成年男性极度稀缺\n\n**3. \"时间感安全\"的设定**\n- 你知道 30 分钟内不会被打扰\n- 这种\"安全的时间锚点\"对焦虑人群极有疗愈感\n\n**4. 童年回归**\n- 第一次理发是 3-5 岁,被父母抱着\n- 大脑对\"理发店环境\"有深层的安全联想\n\n**5. ASMR creator 的扮演水平**\n- 顶尖的\"理发店 RP\" creator 完全像真实理发师\n- 包括\"小心翼翼摆动你的头\"这种动作配音\n\n**推荐 top 3 频道**(国际/国内):\n1. Gibi ASMR(英文,顶级)\n2. ASMR Glow(法语口音)\n3. 朱古力 ASMR(中文,北京口音)\n\n如果你从来没试过,这个类目可能是 ASMR 入门的最佳路径。",
+      "tags": [
+        "ASMR",
+        "理发店",
+        "RP"
+      ],
+      "stats": {
+        "up": 1870,
+        "down": 49,
+        "comments": 155,
+        "share": 51,
+        "view": 28050,
+        "liveOnline": 183
+      },
+      "createdAt": "2025-04-27T00:46:40Z",
+      "createdAtText": "14天21小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": true
+    },
+    {
+      "id": "p165",
+      "channelId": "asmr",
+      "subChannelId": "asmr-rp",
+      "authorId": "u01",
+      "type": "text",
+      "title": "化妆 ASMR 主播怎么做出\"临场感\"",
+      "excerpt": "化妆 ASMR 是 role-play 里技术含量最高的子类目。一个化妆师 30 分钟主播,所有动作 + 音效 + 配音都要精确还原。",
+      "body": "化妆 ASMR 主播的核心技术:\n\n**1. 设备分级**\n- 1 个 3Dio 双耳麦克风(关键)\n- 2 个领夹麦克风(备份 + 远场)\n- 1 个 boom 麦克风(高质量\"刷子声\")\n\n没有这套设备,做不出真正的化妆 ASMR。\n\n**2. 动作精确度**\n- 每个化妆动作要假装\"靠近你的脸\"\n- 麦克风距离要随动作调整\n- 这需要肌肉记忆 + 数百小时训练\n\n**3. 配音节奏**\n- 不能太快(失去 immersion)\n- 不能太慢(变成无聊)\n- 黄金节奏:\"4 秒说话 + 2 秒静音 + 化妆音\"\n\n**4. 心理同步**\n- 主播要进入\"我真的在给你化妆\"的状态\n- 不是\"演\",是\"想象\"\n- 优秀化妆 ASMR 主播都有戏剧背景\n\n**5. 后期混音**\n- ASMR 后期混音是隐藏功夫\n- 各个音轨的音量平衡 + EQ + reverb\n- 这部分占成片质量的 30%\n\n所以一个 30 分钟化妆 ASMR,实际制作要 5-8 小时。这也是为什么顶级化妆 ASMR creator 收入超普通直播主 5 倍。",
+      "tags": [
+        "ASMR",
+        "化妆",
+        "RP",
+        "幕后"
+      ],
+      "stats": {
+        "up": 2865,
+        "down": 45,
+        "comments": 358,
+        "share": 87,
+        "view": 31515,
+        "liveOnline": 72
+      },
+      "createdAt": "2025-04-25T00:46:40Z",
+      "createdAtText": "16天21小时前",
+      "images": [],
+      "coverImage": "",
+      "hot": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "c001",
+      "postId": "p001",
+      "authorId": "u01",
+      "text": "路易十四这个事我专门查过，确实是事实但被夸大了。当时贵族的\"擦浴\"其实算是另一种洗澡方式，只是不下水池而已。",
+      "time": "8分钟前",
+      "up": 142,
+      "down": 3,
+      "vipFlair": true,
+      "replies": [
+        {
+          "id": "c001a",
+          "authorId": "u05",
+          "text": "楼上专业，请问有信源吗想深入了解",
+          "time": "5分钟前",
+          "up": 22
+        },
+        {
+          "id": "c001b",
+          "authorId": "u01",
+          "text": "推荐看 Georges Vigarello 的《Concepts of Cleanliness》，专门研究欧洲卫生史的。",
+          "time": "3分钟前",
+          "up": 38
+        }
+      ]
+    },
+    {
+      "id": "c002",
+      "postId": "p001",
+      "authorId": "u07",
+      "text": "我老婆是法国人，她小时候奶奶辈确实习惯一周洗一次澡。文化惯性比想象中长很多。",
+      "time": "15分钟前",
+      "up": 88,
+      "down": 12
+    },
+    {
+      "id": "c003",
+      "postId": "p001",
+      "authorId": "u11",
+      "text": "想到一个冷笑话：所以法国香水产业是被瘟疫培养出来的？？这世界还真是离谱",
+      "time": "22分钟前",
+      "up": 311,
+      "down": 2,
+      "replies": [
+        {
+          "id": "c003a",
+          "authorId": "u04",
+          "text": "不止 香槟产业某种程度也是 因为水太脏只能喝酒",
+          "time": "18分钟前",
+          "up": 122
+        }
+      ]
+    },
+    {
+      "id": "c004",
+      "postId": "p001",
+      "authorId": "u12",
+      "text": "所以你看 Versailles 的金色装饰其实是用来掩盖屎尿味的，欧洲贵族的审美一半是被臭味逼出来的。我之前去参观时导游就这么讲。",
+      "time": "30分钟前",
+      "up": 612,
+      "down": 18
+    },
+    {
+      "id": "c005",
+      "postId": "p013",
+      "authorId": "u04",
+      "text": "DNA 报告那一段拍得真的好，男主的微表情控制太牛了",
+      "time": "10分钟前",
+      "up": 88,
+      "down": 2
+    },
+    {
+      "id": "c006",
+      "postId": "p013",
+      "authorId": "u11",
+      "text": "我哭了 真的是看完之后那种五味杂陈的感觉",
+      "time": "20分钟前",
+      "up": 62,
+      "down": 1
+    },
+    {
+      "id": "c007",
+      "postId": "p017",
+      "authorId": "u01",
+      "text": "瓜帅其实自己也累了 但俱乐部不放 这是经济问题不是足球问题",
+      "time": "15分钟前",
+      "up": 88,
+      "down": 8
+    },
+    {
+      "id": "c008",
+      "postId": "p021",
+      "authorId": "u04",
+      "text": "戊辰龙在这报到 上个月真的换了城市 这个解读太准了",
+      "time": "30分钟前",
+      "up": 42,
+      "down": 1
+    }
+  ],
+  "liveMessages": [
+    {
+      "id": "m01",
+      "postId": "p001",
+      "authorId": "u02",
+      "text": "快进到中世纪欧洲人闻到香水就高潮",
+      "time": "刚刚"
+    },
+    {
+      "id": "m02",
+      "postId": "p001",
+      "authorId": "u04",
+      "text": "所以路易十四是不是世界上第一个体味行为艺术家",
+      "time": "刚刚"
+    },
+    {
+      "id": "m03",
+      "postId": "p001",
+      "authorId": "u07",
+      "text": "我老婆补充一下：法国到现在很多老人也不爱天天洗澡",
+      "time": "1分钟前"
+    },
+    {
+      "id": "m04",
+      "postId": "p001",
+      "authorId": "u01",
+      "text": "楼上的发言精准！",
+      "time": "1分钟前"
+    },
+    {
+      "id": "m05",
+      "postId": "p001",
+      "authorId": "u05",
+      "text": "所以现在去伦敦地铁臭也算是文化继承？",
+      "time": "2分钟前"
+    },
+    {
+      "id": "m06",
+      "postId": "p001",
+      "authorId": "u08",
+      "text": "不行了大早上的笑出声了",
+      "time": "2分钟前"
+    },
+    {
+      "id": "m07",
+      "postId": "p001",
+      "authorId": "sys",
+      "text": "湾区F2太太 加入了直播间",
+      "time": "2分钟前",
+      "system": true
+    },
+    {
+      "id": "m08",
+      "postId": "p001",
+      "authorId": "u02",
+      "text": "我老公中世纪人，他怎么不举手发言一下",
+      "time": "3分钟前"
+    }
+  ],
+  "liveIncomingPool": [
+    {
+      "authorId": "u01",
+      "text": "其实奥斯曼帝国的浴室文化在同时期非常发达，欧洲人是异类"
+    },
+    {
+      "authorId": "u04",
+      "text": "人类的认知偏差真是跨越千年的稳定特征"
+    },
+    {
+      "authorId": "u06",
+      "text": "所以日本江户时代的钱汤算先进文明"
+    },
+    {
+      "authorId": "u10",
+      "text": "听说当时法国人是把香水当药用的"
+    },
+    {
+      "authorId": "u05",
+      "text": "伦敦还是臭 这个我作证"
+    },
+    {
+      "authorId": "u12",
+      "text": "不能再笑了 邻居以为我疯了"
+    },
+    {
+      "authorId": "u11",
+      "text": "楼主下次写什么？我蹲一篇关于厕所历史的"
+    },
+    {
+      "authorId": "u02",
+      "text": "提醒一下大家：我们现代人也不算多干净 想想键盘上的细菌"
+    },
+    {
+      "authorId": "u07",
+      "text": "+1 我的机械键盘里能种菜"
+    },
+    {
+      "authorId": "u08",
+      "text": "其实凡尔赛宫到处拉屎这件事 历史细节比你想象的离谱100倍"
+    },
+    {
+      "authorId": "u03",
+      "text": "建议出一个《人类卫生进化史》连载"
+    },
+    {
+      "authorId": "u09",
+      "text": "新加坡组屋公共走廊比凡尔赛干净多了 这话我说10遍"
+    },
+    {
+      "authorId": "sys",
+      "text": "柏林冷面摄影师 升级到了 Lv.36",
+      "system": true
+    },
+    {
+      "authorId": "u06",
+      "text": "楼上恭喜！请客发红包"
+    },
+    {
+      "authorId": "sys",
+      "text": "直播间已有 312 人在线",
+      "system": true
+    }
+  ],
+  "dramas": [
+    {
+      "id": "d01",
+      "title": "海归霸总的复仇人生",
+      "episodes": 60,
+      "vipFree": 5,
+      "cover": "linear-gradient(135deg,#E55A4B,#D4A04A)",
+      "tags": [
+        "复仇",
+        "霸总"
+      ],
+      "plays": 420000000,
+      "playsText": "4.2亿",
+      "rating": 9.2,
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "embedType": "mp4",
+      "description": "陆景行 7 年前被前妻林雅诗陷害破产，蛰伏归来要的不是复仇，而是真相。第 38 集 DNA 报告甩出的那一刻，整个家族的伪装崩塌。",
+      "subChannelId": "drama-revenge"
+    },
+    {
+      "id": "d02",
+      "title": "我在伦敦当外卖小哥的那些年",
+      "episodes": 42,
+      "vipFree": 8,
+      "cover": "linear-gradient(135deg,#4A9FE5,#9F7FE5)",
+      "tags": [
+        "现实",
+        "海外"
+      ],
+      "plays": 180000000,
+      "playsText": "1.8亿",
+      "rating": 8.8,
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "embedType": "mp4",
+      "description": "金融硕士毕业的男主在伦敦从事外卖工作，本以为是阶段性的过渡，没想到这段经历让他看到了伦敦最真实的一面。海外华人下沉视角的现实主义短剧。",
+      "subChannelId": "drama-domineering"
+    },
+    {
+      "id": "d03",
+      "title": "穿越成王思聪的我决定先开除自己",
+      "episodes": 50,
+      "vipFree": 6,
+      "cover": "linear-gradient(135deg,#D4A04A,#4ADB7E)",
+      "tags": [
+        "穿越",
+        "搞笑"
+      ],
+      "plays": 310000000,
+      "playsText": "3.1亿",
+      "rating": 8.5,
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      "embedType": "mp4",
+      "description": "普通程序员穿越成顶级富二代，第一件事就是把现实生活里的自己开除了。荒诞设定下的搞笑爽剧。",
+      "subChannelId": "drama-domineering"
+    },
+    {
+      "id": "d04",
+      "title": "前妻总裁夜夜跪下求我回家",
+      "episodes": 88,
+      "vipFree": 4,
+      "cover": "linear-gradient(135deg,#E55A8A,#C77FE5)",
+      "tags": [
+        "霸总",
+        "虐恋"
+      ],
+      "plays": 670000000,
+      "playsText": "6.7亿",
+      "rating": 9.4,
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+      "embedType": "mp4",
+      "description": "曾经高高在上的前妻林雅诗家族破产后跪在男主面前求复合。88 集大结局，男主选择了一种比复仇更狠的处理 — 漠然。",
+      "subChannelId": "drama-domineering"
+    },
+    {
+      "id": "d05",
+      "title": "我在硅谷躺平十年后突然成了天才",
+      "episodes": 36,
+      "vipFree": 6,
+      "cover": "linear-gradient(135deg,#4ADBCC,#4A9FE5)",
+      "tags": [
+        "职场",
+        "逆袭"
+      ],
+      "plays": 98000000,
+      "playsText": "9800万",
+      "rating": 8.9,
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+      "embedType": "mp4",
+      "description": "硅谷工程师躺平十年，因公司算法 bug 被识别为\"天才\"，阴差阳错真的成为传奇。文化梗满满的工程师爽剧。",
+      "subChannelId": "drama-domineering"
+    },
+    {
+      "id": "d06",
+      "title": "玄学大师我，重生救国回到了2008",
+      "episodes": 72,
+      "vipFree": 5,
+      "cover": "linear-gradient(135deg,#9F7FE5,#534AB7)",
+      "tags": [
+        "玄学",
+        "重生"
+      ],
+      "plays": 240000000,
+      "playsText": "2.4亿",
+      "rating": 9.0,
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+      "embedType": "mp4",
+      "description": "玄学大师重生回到 2008 年汶川地震前 24 小时，他没有选择复仇炒股，而是匿名预警地震、捐出所有家产。使命感叙事的玄学重生剧。",
+      "subChannelId": "drama-mystic"
+    }
+  ],
+  "films": [
+    {
+      "id": "f01",
+      "title": "九龙城寨之围城",
+      "cover": "linear-gradient(135deg,#E55A4B,#9F7FE5)",
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "embedType": "mp4",
+      "description": "八十年代香港九龙城寨的江湖恩怨。古天乐、洪金宝、任贤齐主演。打戏密集，情怀拉满。",
+      "plays": 88000000,
+      "playsText": "8800万",
+      "rating": 8.4,
+      "tags": [
+        "港片",
+        "动作"
+      ]
+    },
+    {
+      "id": "f02",
+      "title": "周处除三害",
+      "cover": "linear-gradient(135deg,#4A9FE5,#4ADBCC)",
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "embedType": "mp4",
+      "description": "阮经天饰演的通缉犯陈桂林决定在死前\"做对一件事\"，扫除两个排名比他更靠前的恶人。台湾犯罪片的天花板。",
+      "plays": 62000000,
+      "playsText": "6200万",
+      "rating": 8.8,
+      "tags": [
+        "犯罪",
+        "台湾电影"
+      ]
+    },
+    {
+      "id": "f03",
+      "title": "热辣滚烫",
+      "cover": "linear-gradient(135deg,#D4A04A,#E55A4B)",
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      "embedType": "mp4",
+      "description": "贾玲从 100 公斤减到 50 公斤为角色付出的代价，远超过表演本身。\"赢一次\"的女性叙事在春节档大爆。",
+      "plays": 124000000,
+      "playsText": "1.24亿",
+      "rating": 7.9,
+      "tags": [
+        "励志",
+        "国产"
+      ]
+    },
+    {
+      "id": "f04",
+      "title": "鸣龙少年",
+      "cover": "linear-gradient(135deg,#4ADB7E,#B8DB4A)",
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+      "embedType": "mp4",
+      "description": "校园教育题材剧集，张若昀饰演奇葩教师带领差班逆袭。比《天才基本法》更接地气，比《人生若如初见》更有节奏。",
+      "plays": 84000000,
+      "playsText": "8400万",
+      "rating": 8.2,
+      "tags": [
+        "剧集",
+        "教育"
+      ]
+    },
+    {
+      "id": "f05",
+      "title": "繁花",
+      "cover": "linear-gradient(135deg,#E55A8A,#C77FE5)",
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+      "embedType": "mp4",
+      "description": "王家卫拍的上海九十年代股票市场风云，胡歌、马伊琍、唐嫣主演。每一帧都是 4K 王家卫美学。",
+      "plays": 156000000,
+      "playsText": "1.56亿",
+      "rating": 9.1,
+      "tags": [
+        "剧集",
+        "王家卫"
+      ]
+    },
+    {
+      "id": "f06",
+      "title": "宇宙探索编辑部",
+      "cover": "linear-gradient(135deg,#9F7FE5,#4ADBCC)",
+      "playUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+      "embedType": "mp4",
+      "description": "一群中年男性主导的中国小制作电影居然能拍出这种水平。荒诞、深邃、又出奇地真诚。豆瓣 8.6。",
+      "plays": 22000000,
+      "playsText": "2200万",
+      "rating": 8.6,
+      "tags": [
+        "独立电影",
+        "国产"
+      ]
+    }
+  ],
+  "masters": [
+    {
+      "id": "ms01",
+      "name": "玄海道长",
+      "title": "紫微斗数 · 35年经验",
+      "rating": 4.98,
+      "orders": 12842,
+      "price": 299,
+      "avatar": "bg-grad-7",
+      "tags": [
+        "八字",
+        "紫微",
+        "感情"
+      ],
+      "badge": "人气王",
+      "subChannelId": "fortune-ziwei"
+    },
+    {
+      "id": "ms02",
+      "name": "清玄居士",
+      "title": "易经 · 风水堪舆",
+      "rating": 4.95,
+      "orders": 8120,
+      "price": 599,
+      "avatar": "bg-grad-5",
+      "tags": [
+        "风水",
+        "事业",
+        "财运"
+      ],
+      "badge": "资深",
+      "subChannelId": "fortune-fengshui"
+    },
+    {
+      "id": "ms03",
+      "name": "云水居",
+      "title": "塔罗 · 海外华人婚恋",
+      "rating": 4.92,
+      "orders": 6488,
+      "price": 199,
+      "avatar": "bg-grad-4",
+      "tags": [
+        "塔罗",
+        "感情"
+      ],
+      "badge": "新晋",
+      "subChannelId": "fortune-tarot"
+    },
+    {
+      "id": "ms04",
+      "name": "九霄真人",
+      "title": "奇门遁甲 · 高净值咨询",
+      "rating": 5.0,
+      "orders": 1240,
+      "price": 899,
+      "avatar": "bg-grad-6",
+      "tags": [
+        "奇门",
+        "商业"
+      ],
+      "badge": "大师",
+      "subChannelId": "fortune-bazi"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "n01",
+      "type": "like",
+      "from": "u01",
+      "text": "点赞了你的帖子《为什么北美华人男生越来越喜欢留胡子？》",
+      "time": "5分钟前",
+      "read": false
+    },
+    {
+      "id": "n02",
+      "type": "comment",
+      "from": "u04",
+      "text": "回复了你的评论：「我觉得你说得有点道理但是……」",
+      "time": "12分钟前",
+      "read": false
+    },
+    {
+      "id": "n03",
+      "type": "follow",
+      "from": "u07",
+      "text": "关注了你",
+      "time": "1小时前",
+      "read": false
+    },
+    {
+      "id": "n04",
+      "type": "mention",
+      "from": "u02",
+      "text": "在帖子《海外华人圈最近这种清冷感》中 @了你",
+      "time": "2小时前",
+      "read": true
+    },
+    {
+      "id": "n05",
+      "type": "system",
+      "from": "sys",
+      "text": "你的黑卡会员将在 28 天后到期，续费享 8 折优惠",
+      "time": "1天前",
+      "read": true
+    },
+    {
+      "id": "n06",
+      "type": "reward",
+      "from": "sys",
+      "text": "你的帖子获得了 8 个金币打赏（来自 3 位读者）",
+      "time": "2天前",
+      "read": true
+    },
+    {
+      "id": "n07",
+      "type": "system",
+      "from": "sys",
+      "text": "社区新规：从本周起，玄学频道新增\"留言不公开\"选项",
+      "time": "3天前",
+      "read": true
+    }
+  ],
+  "dms": [
+    {
+      "id": "dm01",
+      "userId": "u01",
+      "last": "那篇关于Quant的讨论我也想加入，能拉我进群吗",
+      "time": "3分钟前",
+      "unread": 2
+    },
+    {
+      "id": "dm02",
+      "userId": "u06",
+      "last": "东京周末有玄学线下会，要不要一起？",
+      "time": "1小时前",
+      "unread": 1
+    },
+    {
+      "id": "dm03",
+      "userId": "u04",
+      "last": "多伦多串串配方我发你了",
+      "time": "昨天",
+      "unread": 0
+    },
+    {
+      "id": "dm04",
+      "userId": "u11",
+      "last": "哈哈哈那段你妈说的我笑了一整天",
+      "time": "2天前",
+      "unread": 0
+    }
+  ],
+  "searchSuggestions": [
+    "约基奇 不看人传球",
+    "北美 程序员 35岁",
+    "玄海道长 八字",
+    "海归霸总 第38集",
+    "NBA 季后赛 G3",
+    "伦敦 Quant 跳槽",
+    "清冷感 颜值",
+    "黑神话 TGA"
+  ],
+  "hotSearches": [
+    {
+      "q": "约基奇G3绝杀",
+      "delta": "+412%"
+    },
+    {
+      "q": "海归霸总38集",
+      "delta": "NEW"
+    },
+    {
+      "q": "伦敦Quant真实收入",
+      "delta": "+88%"
+    },
+    {
+      "q": "玄海道长在线答疑",
+      "delta": "热"
+    },
+    {
+      "q": "清冷感是不是骗局",
+      "delta": "+22%"
+    },
+    {
+      "q": "黑神话TGA预测",
+      "delta": "+15%"
+    }
+  ],
+  "banners": [
+    {
+      "id": "b01",
+      "title": "中世纪欧洲为什么不洗澡？这段史料笑到全社区炸锅",
+      "subtitle": "今日热议 · 全网在线 32.1k",
+      "statValue": "+22.4w",
+      "statLabel": "今日热议",
+      "date": "2026-05-12T08:00:00Z",
+      "linkedPostId": "p001",
+      "gradient": "linear-gradient(135deg, rgba(127,119,221,0.15), rgba(74,219,204,0.05) 80%)"
+    },
+    {
+      "id": "b02",
+      "title": "《前妻总裁夜夜跪下求我回家》大结局 — 编剧给了最毒处理",
+      "subtitle": "短剧爆款 · 全集 88 集 VIP 解锁",
+      "statValue": "+6.7亿",
+      "statLabel": "本周播放",
+      "date": "2026-05-12T07:00:00Z",
+      "linkedPostId": "p013",
+      "gradient": "linear-gradient(135deg, rgba(229,90,138,0.15), rgba(199,127,229,0.05) 80%)"
+    },
+    {
+      "id": "b03",
+      "title": "玄海道长本周事业问卦特惠 · 紫微全盘 8 折",
+      "subtitle": "玄学命理 · 平均回复 6 小时内",
+      "statValue": "★4.98",
+      "statLabel": "12,842 单",
+      "date": "2026-05-12T06:00:00Z",
+      "linkedPostId": "p021",
+      "gradient": "linear-gradient(135deg, rgba(74,219,204,0.15), rgba(159,127,229,0.05) 80%)"
+    }
+  ],
+  "vipTiers": [
+    {
+      "id": "month",
+      "name": "月卡",
+      "price": 99,
+      "old": 128,
+      "unit": "/月",
+      "featured": false,
+      "save": "省 ¥29",
+      "features": [
+        "全部短剧无限解锁",
+        "玄学频道首次咨询 9 折",
+        "帖子高级排版",
+        "VIP专属勋章 · 银"
+      ]
+    },
+    {
+      "id": "season",
+      "name": "季卡",
+      "price": 249,
+      "old": 297,
+      "unit": "/3月",
+      "featured": true,
+      "save": "日均 ¥2.7",
+      "features": [
+        "全部短剧无限解锁",
+        "玄学频道咨询 8.5 折",
+        "帖子高级排版+置顶卡",
+        "VIP专属勋章 · 金",
+        "两性颜值VIP专区解锁",
+        "创作者打赏分成 +5%"
+      ]
+    },
+    {
+      "id": "year",
+      "name": "年卡",
+      "price": 899,
+      "old": 1188,
+      "unit": "/年",
+      "featured": false,
+      "save": "省 ¥289",
+      "features": [
+        "全部短剧无限解锁",
+        "玄学频道咨询 8 折",
+        "帖子高级排版+置顶卡",
+        "VIP专属勋章 · 黑金",
+        "两性颜值VIP专区解锁",
+        "创作者打赏分成 +10%",
+        "专属客户经理"
+      ]
+    }
+  ],
+  "vipBenefits": [
+    {
+      "icon": "ti-device-tv",
+      "name": "全部短剧无限看",
+      "desc": "600+部独家海外华人爽剧无限解锁"
+    },
+    {
+      "icon": "ti-yin-yang",
+      "name": "玄学咨询折扣",
+      "desc": "玄海等大师付费咨询最低 8 折"
+    },
+    {
+      "icon": "ti-heart",
+      "name": "颜值VIP专区",
+      "desc": "解锁仅限会员的两性深度内容"
+    },
+    {
+      "icon": "ti-edit",
+      "name": "高级排版+置顶卡",
+      "desc": "帖子可使用富文本/分栏/封面图"
+    },
+    {
+      "icon": "ti-coin",
+      "name": "打赏分成翻倍",
+      "desc": "创作者可额外获得 5-10% 收益分成"
+    },
+    {
+      "icon": "ti-badge",
+      "name": "专属勋章",
+      "desc": "银/金/黑金三档身份标识"
+    },
+    {
+      "icon": "ti-shield-check",
+      "name": "广告全免",
+      "desc": "完整去除信息流与开屏广告"
+    },
+    {
+      "icon": "ti-user-star",
+      "name": "专属客户经理",
+      "desc": "年卡专享 · 7×24 中文响应"
+    }
+  ]
+}

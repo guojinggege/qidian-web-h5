@@ -27,6 +27,24 @@
   .pd-title { font-size: 26px; font-weight: 500; line-height: 1.35; margin: 12px 0 16px; }
   .pd-content { font-size: 15px; line-height: 1.8; color: var(--text-2); }
   .pd-content p { margin: 0 0 14px; }
+  .pd-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .pd-images img {
+    width: 100%;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    border-radius: var(--r-md);
+    background: var(--bg-elev);
+    display: block;
+  }
+  .pd-images img:only-child {
+    aspect-ratio: auto;
+    max-height: 540px;
+  }
   .pd-actions {
     display: flex; gap: 8px; align-items: center;
     padding: 14px 0; border-top: 1px solid var(--border-1); margin-top: 18px;
@@ -89,9 +107,12 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));
 
@@ -100,29 +121,63 @@
   document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
 
   const params = new URLSearchParams(location.search);
-  const post = QD.postById(params.get('id') || 'p001');
+  const id = params.get('id');
+  const post = id ? QD.postById(id) : null;
+
+  // 帖子不存在
+  if (!post) {
+    document.title = '帖子不存在 · 奇点社区';
+    document.getElementById('postMain').innerHTML = `
+      <div style="padding: 80px 20px; text-align: center; background: var(--bg-card); border: 1px dashed var(--border-2); border-radius: var(--r-lg)">
+        <i class="ti ti-mood-sad" style="font-size: 56px; color: var(--text-4); display: block; margin-bottom: 14px"></i>
+        <h2 style="margin: 0 0 8px; font-weight: 500">帖子不存在</h2>
+        <p class="c-3" style="margin: 0 0 24px">${id ? 'ID <code>' + id + '</code> 找不到对应的帖子。' : '没有提供帖子 ID。'}</p>
+        <a class="btn btn-primary" href="home.html"><i class="ti ti-arrow-left"></i> 返回首页</a>
+      </div>
+    `;
+    // 隐藏右侧实时房
+    document.querySelector('.pd-side').style.display = 'none';
+    document.querySelector('.pd-shell').style.gridTemplateColumns = '1fr';
+    return;
+  }
+
   const ch = QD.channelById(post.channelId);
   const author = QD.authorOf(post);
   const postComments = QD.comments.filter(c => c.postId === post.id);
+  document.title = `${post.title} · 奇点社区`;
+
+  // post.body 多段渲染（按 \n\n 分段）
+  const bodyHtml = post.body
+    ? post.body.split(/\n\n+/).map(p => `<p>${QDC.escape(p.trim()).replace(/\n/g, '<br>')}</p>`).join('')
+    : `<p>${QDC.escape(post.excerpt || '')}</p>`;
+
+  // 图片渲染：images 数组里全是 URL/dataURL；格式异常时跳过
+  const images = Array.isArray(post.images) ? post.images.filter(u => typeof u === 'string') : [];
+  const imagesHtml = images.length
+    ? `<div class="pd-images">${images.map(u => `<img src="${u.replace(/"/g, '&quot;')}" loading="lazy" alt="">`).join('')}</div>`
+    : '';
+
+  const channelLink = QDC.channelPageUrl(ch && ch.id);
+  const authorLink  = `profile.html?uid=${author.id}`;
 
   document.getElementById('postMain').innerHTML = `
     <div class="row gap-2 t-sm c-3" style="margin-bottom:12px">
       <a href="home.html" class="text-link"><i class="ti ti-arrow-left"></i> 返回</a>
       <span class="dot-sep"></span>
-      ${QDC.tplChannelPill(ch)}
-      <span>${post.createdAt}</span>
+      <a href="${channelLink}" style="display:inline-flex">${QDC.tplChannelPill(ch)}</a>
+      <span>${QD.fmtTime(post.createdAt) || post.createdAtText || ''}</span>
     </div>
 
     <article class="pd-post">
       <div class="row gap-3">
-        ${QDC.tplAvatar(author, 'lg')}
+        <a href="${authorLink}" style="display:inline-flex">${QDC.tplAvatar(author, 'lg')}</a>
         <div class="grow">
           <div class="row gap-2">
-            <span class="f-medium">${author.name}</span>
+            <a href="${authorLink}" class="f-medium" style="color:inherit">${author.name}</a>
             <span class="badge">Lv.${author.level}</span>
             ${author.vip ? '<span class="badge gold">VIP</span>' : ''}
           </div>
-          <div class="t-sm c-3">2分钟前 · 阅读 ${QD.fmtNum(post.stats.view)}</div>
+          <div class="t-sm c-3">${QD.fmtTime(post.createdAt) || post.createdAtText || ''} · 阅读 ${QD.fmtNum(post.stats.view)}</div>
         </div>
         <button class="btn sm"><i class="ti ti-user-plus"></i>关注</button>
       </div>
@@ -130,11 +185,8 @@
       <h1 class="pd-title">${post.title}</h1>
 
       <div class="pd-content">
-        <p>${post.excerpt}</p>
-        <p>14 世纪黑死病爆发后，欧洲医学界普遍相信"皮肤毛孔张开会让瘟疫入侵"，于是禁止洗澡成为主流医学建议。这种"医学共识"持续了约 400 年，直到 18 世纪末才被推翻。法国国王路易十四（1638-1715）一生只洗过 3 次澡，凡尔赛宫的"香水文化"其实是因为大家臭得受不了 — 整个宫廷到处都是排泄物，贵族们靠浓烈的香水互相遮掩。</p>
-        <p>更夸张的是：当时欧洲贵族认为"会出汗"是健康的表现，所以反复涂抹厚厚的脂粉来"密封"皮肤，导致铅中毒成了上层社会的常见病。Madame de Pompadour（蓬巴杜夫人）的死亡很可能就和长年涂抹含铅化妆品有关。</p>
-        <p>对比同时期的奥斯曼帝国、江户日本和明清中国 — 这三个文明圈都把"沐浴"视为礼仪和健康的核心实践。某种意义上，"欧洲中心论"的历史叙事掩盖了一个真相：欧洲在中世纪到近代早期，是世界主要文明圈中最"脏"的那个。</p>
-        <p style="color: var(--text-3); font-size: 13px; font-style: italic;">— 参考：Georges Vigarello《Concepts of Cleanliness》</p>
+        ${bodyHtml}
+        ${imagesHtml}
       </div>
 
       <div class="pd-actions">
@@ -157,17 +209,30 @@
 
     <div class="card" style="padding: 20px 24px">
       <div class="row-between" style="margin-bottom: 14px">
-        <h3 class="t-md f-medium" style="margin:0">${post.stats.comments} 条评论</h3>
+        <h3 class="t-md f-medium" style="margin:0">${postComments.length} 条评论</h3>
         <div class="seg">
           <div class="seg-item active">最热</div>
           <div class="seg-item">最新</div>
         </div>
       </div>
-      <div>${postComments.map(c => QDC.tplComment(c)).join('')}</div>
+      <div>
+        ${postComments.length
+          ? postComments.map(c => QDC.tplComment(c)).join('')
+          : `<div style="padding: 32px 0; text-align: center; color: var(--text-3)">
+               <i class="ti ti-message-circle" style="font-size: 32px; display: block; margin-bottom: 8px; color: var(--text-4)"></i>
+               <div>暂无评论，做第一个发言的人</div>
+             </div>`
+        }
+      </div>
     </div>
   `;
 
+  // 实时房在线数：用 post.stats.liveOnline 替代写死的 142
+  const liveCount = document.querySelector('.live-room-head .c-3');
+  if (liveCount) liveCount.innerHTML = `<i class="ti ti-users"></i> ${post.stats.liveOnline} 在线`;
+
   QDC.startLiveRoom(document.querySelector('.live-room'), post.id);
+})();
 </script>
 </body>
 </html>

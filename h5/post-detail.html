@@ -125,9 +125,12 @@
   </div>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   const post = QD.postById('p001');
   const ch = QD.channelById(post.channelId);
   const author = QD.authorOf(post);
@@ -135,7 +138,7 @@
   document.getElementById('postBody').innerHTML = `
     <div class="row gap-2 t-sm c-3" style="margin-bottom:12px">
       ${QDC.tplChannelPill(ch)}
-      <span>${post.createdAt}</span>
+      <span>${QD.fmtTime(post.createdAt) || post.createdAtText || ''}</span>
       <span class="dot-sep"></span>
       <span>阅读 ${QD.fmtNum(post.stats.view)}</span>
     </div>
@@ -175,6 +178,7 @@
       }
     });
   });
+})();
 </script>
 </body>
 </html>

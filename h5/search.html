@@ -119,9 +119,12 @@
   </div>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   document.getElementById('suggestions').innerHTML = QD.searchSuggestions.map(s => `<span class="tag">${s}</span>`).join('');
   document.getElementById('hotList').innerHTML = QD.hotSearches.map((h, i) => `
     <div class="hot-row">
@@ -153,6 +156,7 @@
   document.querySelectorAll('.tag').forEach(t => t.addEventListener('click', () => { input.value = t.textContent; check(); }));
   document.querySelectorAll('.hot-row').forEach(r => r.addEventListener('click', () => { input.value = r.querySelector('.grow').textContent; check(); }));
   document.getElementById('clearBtn').addEventListener('click', () => { input.value = ''; check(); input.focus(); });
+})();
 </script>
 </body>
 </html>

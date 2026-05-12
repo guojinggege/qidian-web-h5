@@ -94,9 +94,12 @@
   <div class="h5-tabbar" id="tabbar"></div>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   function dramaCardH5(d) {
     return `
       <a class="drama-card" href="drama-watch.html?id=${d.id}">
@@ -134,6 +137,7 @@
   document.getElementById('allGrid').innerHTML = [...QD.dramas, ...QD.dramas].map(dramaCardH5).join('');
 
   QDC.renderH5TabBar(document.getElementById('tabbar'), 'channels');
+})();
 </script>
 </body>
 </html>

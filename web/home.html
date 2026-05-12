@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>奇点社区 · 首页</title>
+<title>奇点社区 · 首页热门</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
@@ -15,15 +15,22 @@
   .hot-banner {
     margin-bottom: 16px;
     padding: 18px 22px;
-    background: linear-gradient(135deg, rgba(127,119,221,0.15), rgba(74,219,204,0.05) 80%);
     border: 1px solid var(--border-2);
     border-radius: var(--r-lg);
     display: flex; align-items: center; gap: 16px;
+    cursor: pointer;
   }
   .hot-banner .num {
     font-size: 28px; font-weight: 500; color: var(--brand-300);
     font-family: ui-monospace, monospace;
   }
+  .empty-state {
+    padding: 60px 20px; text-align: center;
+    background: var(--bg-card); border-radius: var(--r-lg);
+    border: 1px dashed var(--border-2);
+    color: var(--text-3);
+  }
+  .empty-state i { font-size: 36px; color: var(--text-4); margin-bottom: 10px; display: block; }
 </style>
 </head>
 <body>
@@ -33,27 +40,15 @@
 
   <main class="app-main">
     <div class="main-pad">
-      <div class="hot-banner">
-        <div>
-          <div class="num">+22.4w</div>
-        </div>
-        <div class="grow">
-          <div class="row gap-2" style="margin-bottom:4px">
-            <span class="badge brand"><i class="ti ti-flame"></i>今日热议</span>
-            <span class="t-sm c-3">2026-05-10 · 全网在线 32.1k</span>
-          </div>
-          <div class="t-md">中世纪欧洲为什么不洗澡？这段史料笑到全社区炸锅</div>
-        </div>
-        <button class="btn btn-primary">立即查看</button>
-      </div>
+      <div id="bannerSlot"></div>
 
       <div class="feed-head">
-        <h1>推荐</h1>
-        <div class="seg">
-          <div class="seg-item active">推荐</div>
-          <div class="seg-item">最新</div>
-          <div class="seg-item">热门</div>
-          <div class="seg-item">关注</div>
+        <h1 id="feedTitle">推荐</h1>
+        <div class="seg" id="feedTabs">
+          <div class="seg-item active" data-mode="recommend">推荐</div>
+          <div class="seg-item" data-mode="latest">最新</div>
+          <div class="seg-item" data-mode="hot">热门</div>
+          <div class="seg-item" data-mode="following">关注</div>
         </div>
       </div>
 
@@ -66,18 +61,98 @@
   </aside>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
+  // 兼容旧链接：home.html?ch=xxx → 跳转到对应频道页
+  const legacyCh = new URLSearchParams(location.search).get('ch');
+  if (legacyCh && QDC.channelPageUrl) {
+    const dest = QDC.channelPageUrl(legacyCh);
+    if (dest && dest !== 'home.html') {
+      location.replace(dest);
+      return;
+    }
+  }
+
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));
 
-  // Feed
-  document.getElementById('feed').innerHTML = QD.posts.map(p => {
-    return QDC.tplPostCard(p).replace('<article ', `<article onclick="location.href='post-detail.html?id=${p.id}'" `);
-  }).join('');
+  /* ---------- 横幅：QD.banners[0] ---------- */
+  function renderBanner() {
+    const b = (QD.banners && QD.banners[0]) || null;
+    if (!b) { document.getElementById('bannerSlot').innerHTML = ''; return; }
+    const target = b.linkedPostId ? `post-detail.html?id=${b.linkedPostId}` : 'home.html';
+    document.getElementById('bannerSlot').innerHTML = `
+      <div class="hot-banner" style="background:${b.gradient}" onclick="location.href='${target}'">
+        <div><div class="num">${b.statValue}</div></div>
+        <div class="grow">
+          <div class="row gap-2" style="margin-bottom:4px">
+            <span class="badge brand"><i class="ti ti-flame"></i>${b.statLabel}</span>
+            <span class="t-sm c-3">${QD.fmtTime(b.date)} · 全网在线 ${QD.fmtNum(32100)}</span>
+          </div>
+          <div class="t-md">${b.title}</div>
+        </div>
+        <button class="btn btn-primary" onclick="event.stopPropagation();location.href='${target}'">立即查看</button>
+      </div>
+    `;
+  }
+  renderBanner();
 
-  // Right bar
+  /* ---------- Feed 排序（11 频道混合）---------- */
+  function getPostsForMode(mode) {
+    const posts = QD.posts.slice();
+    if (mode === 'recommend') {
+      return posts.sort((a, b) => b.stats.up - a.stats.up).slice(0, 10);
+    }
+    if (mode === 'latest') {
+      return posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 10);
+    }
+    if (mode === 'hot') {
+      return posts.sort((a, b) => {
+        if ((b.hot ? 1 : 0) !== (a.hot ? 1 : 0)) return (b.hot ? 1 : 0) - (a.hot ? 1 : 0);
+        return b.stats.up - a.stats.up;
+      }).slice(0, 10);
+    }
+    if (mode === 'following') {
+      const subs = new Set(QD.channels.filter(c => c.subscribed).map(c => c.id));
+      return posts.filter(p => subs.has(p.channelId))
+                  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                  .slice(0, 10);
+    }
+    return posts;
+  }
+
+  function renderFeed(mode) {
+    const list = getPostsForMode(mode);
+    const feed = document.getElementById('feed');
+    if (!list.length) {
+      feed.innerHTML = `
+        <div class="empty-state">
+          <i class="ti ti-mood-empty"></i>
+          <div>该分类暂时没有帖子</div>
+          <div class="t-sm c-4" style="margin-top:6px">换个分类看看</div>
+        </div>
+      `;
+      return;
+    }
+    feed.innerHTML = list.map(p => QDC.tplPostCard(p)).join('');
+  }
+  renderFeed('recommend');
+
+  document.querySelectorAll('#feedTabs .seg-item').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('#feedTabs .seg-item').forEach(x => x.classList.remove('active'));
+      tab.classList.add('active');
+      const titleMap = { recommend: '推荐', latest: '最新', hot: '热门', following: '关注' };
+      document.getElementById('feedTitle').textContent = titleMap[tab.dataset.mode];
+      renderFeed(tab.dataset.mode);
+    });
+  });
+
+  /* ---------- 右栏 ---------- */
   document.getElementById('rightbar').innerHTML = `
     <div class="rightbar-card">
       <div class="rightbar-title row-between">
@@ -96,7 +171,8 @@
     <div class="rightbar-card">
       <div class="rightbar-title"><i class="ti ti-trending-up"></i> 热搜榜</div>
       ${QD.hotSearches.map((h, i) => `
-        <div class="row gap-2" style="padding:8px 0; border-bottom:1px solid var(--border-1)">
+        <div class="row gap-2" style="padding:8px 0; border-bottom:1px solid var(--border-1); cursor:pointer"
+             onclick="location.href='search.html?q='+encodeURIComponent('${h.q.replace(/'/g, "\\'")}')">
           <span class="${i < 3 ? 'c-brand' : 'c-3'} t-sm f-medium" style="width:18px">${i+1}</span>
           <span class="grow ellipsis">${h.q}</span>
           <span class="badge ${h.delta.includes('NEW') ? 'brand' : h.delta === '热' ? 'danger' : ''} t-xs">${h.delta}</span>
@@ -115,6 +191,7 @@
   `;
 
   QDC.startLiveRoom(document.querySelector('.live-room'), 'p001');
+})();
 </script>
 </body>
 </html>

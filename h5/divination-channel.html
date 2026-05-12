@@ -160,9 +160,12 @@
   </div>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   document.getElementById('masterList').innerHTML = QD.masters.map(m => `
     <div class="master-h5" onclick="document.getElementById('scrim').classList.add('open')">
       <div class="master-avatar-h5 ${m.avatar}">${m.name.slice(0,1)}</div>
@@ -188,6 +191,7 @@
   document.getElementById('feed').innerHTML = (f.length ? f : QD.posts.slice(0,2)).map(p => QDC.tplPostCard(p).replace('<article ', `<article onclick="location.href='post-detail.html?id=${p.id}'" `)).join('');
 
   QDC.renderH5TabBar(document.getElementById('tabbar'), 'channels');
+})();
 </script>
 </body>
 </html>

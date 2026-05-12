@@ -124,9 +124,12 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));
   document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
@@ -142,14 +145,27 @@
     </div>
   `).join('');
 
-  // Show 2 sample posts with highlighted "约基奇"
-  const samples = QD.posts.filter(p => p.title.includes('约基奇'));
-  document.getElementById('feed').innerHTML = (samples.length ? samples : QD.posts.slice(0, 2)).map(p => {
+  // 读 URL 的 ?q= 关键词，搜索匹配的帖子并高亮
+  const q = (new URLSearchParams(location.search).get('q') || '约基奇').trim();
+  document.querySelector('.sr-search input').value = q;
+  document.querySelector('.sr-meta').innerHTML =
+    `为你找到 <span class="c-1 f-medium">${q ? '若干' : '0'}</span> 条相关结果 · 关键词「${QDC.escape(q)}」`;
+
+  const samples = q
+    ? QD.posts.filter(p => p.title.includes(q) || (p.excerpt || '').includes(q))
+    : [];
+  const list = samples.length ? samples : QD.posts.slice(0, 3);
+  document.getElementById('feed').innerHTML = list.map(p => {
     let html = QDC.tplPostCard(p);
-    html = html.replace(/约基奇/g, '<span class="hl">约基奇</span>');
-    html = html.replace(/不看人传球/g, '<span class="hl">不看人传球</span>');
-    return html.replace('<article ', `<article onclick="location.href='post-detail.html?id=${p.id}'" `);
+    if (q) {
+      // 简易高亮（仅针对显示文本，避免命中属性值）
+      const safeQ = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re = new RegExp(safeQ, 'g');
+      html = html.replace(re, `<span class="hl">${q}</span>`);
+    }
+    return html;
   }).join('');
+})();
 </script>
 </body>
 </html>

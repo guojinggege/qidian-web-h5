@@ -94,9 +94,12 @@
   <div class="h5-tabbar" id="tabbar"></div>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   document.getElementById('dmList').innerHTML = QD.dms.map(dm => {
     const u = QD.authorById[dm.userId];
     return `
@@ -126,6 +129,7 @@
   `).join('');
 
   QDC.renderH5TabBar(document.getElementById('tabbar'), 'messages');
+})();
 </script>
 </body>
 </html>

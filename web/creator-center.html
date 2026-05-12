@@ -205,9 +205,12 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));
   document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
@@ -226,7 +229,7 @@
     const earn = (p.stats.up * 0.5 + p.stats.comments * 1.2).toFixed(0);
     return `
       <tr>
-        <td><div class="ellipsis" style="max-width:380px"><b class="t-sm">${p.title}</b></div><div class="t-xs c-3">${p.createdAt}</div></td>
+        <td><div class="ellipsis" style="max-width:380px"><b class="t-sm">${p.title}</b></div><div class="t-xs c-3">${QD.fmtTime(p.createdAt) || p.createdAtText || ''}</div></td>
         <td>${QDC.tplChannelPill(ch)}</td>
         <td><span class="badge ${s.cls}">${s.name}</span></td>
         <td class="t-sm">${QD.fmtNum(p.stats.view)}</td>
@@ -236,6 +239,7 @@
       </tr>
     `;
   }).join('');
+})();
 </script>
 </body>
 </html>

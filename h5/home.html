@@ -91,9 +91,12 @@
   </div>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   document.getElementById('chTabs').innerHTML = `
     <div class="h5-channel-tab active">推荐</div>
     <div class="h5-channel-tab">最新</div>
@@ -107,6 +110,7 @@
   QDC.renderH5TabBar(document.getElementById('tabbar'), 'home');
 
   QDC.startLiveRoom(document.querySelector('.live-room'), 'p001');
+})();
 </script>
 </body>
 </html>

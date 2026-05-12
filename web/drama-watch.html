@@ -3,90 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>海归霸总的复仇人生 · 奇点社区</title>
+<title>视频播放 · 奇点社区</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
   .dw-shell { display: grid; grid-template-columns: 1fr 360px; gap: 16px; max-width: 1400px; margin: 0 auto; padding: 16px 20px 60px; }
   .dw-main { min-width: 0; }
-  .dw-player {
+  .dw-player-frame {
     width: 100%;
     aspect-ratio: 16/9;
-    background:
-      linear-gradient(135deg, rgba(0,0,0,0.4) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.6) 100%),
-      linear-gradient(135deg, #D4A04A, #E55A4B);
+    background: #000;
     border-radius: var(--r-lg);
-    position: relative;
     overflow: hidden;
+    position: relative;
   }
-  .dw-vip-overlay {
-    position: absolute; inset: 0;
-    background: rgba(14,14,18,0.78);
-    backdrop-filter: blur(12px);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 16px;
-    text-align: center;
-    padding: 20px;
+  .dw-player-frame video,
+  .dw-player-frame iframe {
+    width: 100%;
+    height: 100%;
+    max-height: 80vh;
+    border: none;
+    display: block;
   }
-  .dw-vip-overlay i { font-size: 56px; color: #FFD700; }
-  .dw-vip-overlay h2 { font-size: 22px; font-weight: 500; margin: 0; }
-  .dw-vip-overlay p { color: var(--text-2); font-size: 14px; max-width: 400px; line-height: 1.6; margin: 0; }
-
-  .dw-controls {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 16px 20px;
-    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.7));
-    display: flex; align-items: center; gap: 12px;
-    color: white;
-  }
-  .dw-progress { flex: 1; height: 4px; background: rgba(255,255,255,0.20); border-radius: 2px; position: relative; }
-  .dw-progress::after { content:''; position: absolute; left: 0; top: 0; bottom: 0; width: 34%; background: linear-gradient(90deg, var(--brand-300), var(--brand-500)); border-radius: 2px; }
-  .dw-controls .play { width: 36px; height: 36px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-
   .dw-info { padding: 22px 0; border-bottom: 1px solid var(--border-1); }
   .dw-info h1 { font-size: 24px; font-weight: 500; margin: 0 0 6px; }
-  .dw-meta { display: flex; gap: 14px; font-size: 12px; color: var(--text-3); margin-bottom: 14px; }
-  .dw-actions { display: flex; gap: 10px; }
+  .dw-meta { display: flex; gap: 14px; font-size: 12px; color: var(--text-3); margin-bottom: 14px; flex-wrap: wrap; }
+  .dw-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .dw-description { padding: 18px 0; color: var(--text-2); font-size: 14px; line-height: 1.7; border-bottom: 1px solid var(--border-1); }
 
-  .dw-bullets {
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 60%; pointer-events: none;
-    overflow: hidden;
-  }
-  .bullet {
-    position: absolute;
-    white-space: nowrap;
-    color: white;
-    font-size: 14px;
-    text-shadow: 0 0 4px rgba(0,0,0,0.6);
-    animation: slide 9s linear infinite;
-  }
-  @keyframes slide { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-
-  .dw-tabs { display: flex; gap: 0; margin: 20px 0 14px; border-bottom: 1px solid var(--border-1); }
-
-  .episode-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
-  .ep {
-    aspect-ratio: 1;
-    background: var(--bg-card);
-    border: 1px solid var(--border-1);
-    border-radius: var(--r-sm);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px;
-    color: var(--text-2);
-    cursor: pointer;
-    transition: all .15s;
-    position: relative;
-  }
-  .ep:hover { background: var(--bg-elev); border-color: var(--border-2); }
-  .ep.active { background: var(--brand-bg); border-color: var(--brand-400); color: var(--brand-200); font-weight: 500; }
-  .ep.locked::after { content: '\f4d4'; font-family: 'tabler-icons'; position: absolute; top: 2px; right: 2px; font-size: 9px; color: #FFD700; }
+  .dw-recommend { margin-top: 24px; }
+  .dw-recommend h3 { font-size: 16px; font-weight: 500; margin: 0 0 14px; display: flex; align-items: center; gap: 8px; }
+  .dw-rec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 
   .dw-side {
     position: sticky; top: calc(var(--header-h) + 16px);
     height: calc(100vh - var(--header-h) - 32px);
   }
+  .err-box {
+    padding: 80px 20px; text-align: center;
+    background: var(--bg-card); border: 1px dashed var(--border-2);
+    border-radius: var(--r-lg);
+  }
+  .err-box i { font-size: 56px; color: var(--text-4); display: block; margin-bottom: 14px; }
 </style>
 </head>
 <body>
@@ -96,72 +54,7 @@
 
   <main class="app-main">
     <div class="dw-shell">
-      <div class="dw-main">
-
-        <div class="dw-player">
-          <div class="dw-bullets">
-            <div class="bullet" style="top: 20%; animation-delay: 0s">前妻这次终于跪下来了哈哈哈</div>
-            <div class="bullet" style="top: 35%; animation-delay: -3s; color:#FFD700">这DNA报告甩得太爽</div>
-            <div class="bullet" style="top: 50%; animation-delay: -6s; color:#4ADBCC">编剧加鸡腿</div>
-          </div>
-
-          <div class="dw-vip-overlay">
-            <i class="ti ti-crown"></i>
-            <h2>第 38 集为 VIP 专享</h2>
-            <p>开通黑卡会员，立即解锁《海归霸总的复仇人生》60 集全集 + 600+ 部独家短剧</p>
-            <div class="row gap-2" style="margin-top: 6px">
-              <button class="btn">单集解锁 ¥39</button>
-              <button class="btn btn-vip lg"><i class="ti ti-crown"></i>开通季卡解锁全部</button>
-            </div>
-            <div class="t-xs c-4" style="margin-top: 6px">前 5 集免费试看 · 已看 5 / 60</div>
-          </div>
-
-          <div class="dw-controls">
-            <div class="play"><i class="ti ti-player-play-filled"></i></div>
-            <span class="t-sm">02:34</span>
-            <div class="dw-progress"></div>
-            <span class="t-sm">12:08</span>
-            <i class="ti ti-volume" style="font-size:18px"></i>
-            <i class="ti ti-settings" style="font-size:18px"></i>
-            <i class="ti ti-maximize" style="font-size:18px"></i>
-          </div>
-        </div>
-
-        <div class="dw-info">
-          <div class="row gap-2 t-sm c-3" style="margin-bottom:8px"><span class="ch-pill amber"><i class="ti ti-device-tv ico"></i>短剧</span><span>第 38 集 · 真相揭穿</span></div>
-          <h1>海归霸总的复仇人生</h1>
-          <div class="dw-meta">
-            <span><i class="ti ti-eye"></i> 4.2 亿播放</span>
-            <span><i class="ti ti-star" style="color:#FFD700"></i> 9.2 分</span>
-            <span><i class="ti ti-clock"></i> 60 集 · 完结</span>
-            <span><i class="ti ti-tag"></i> 复仇 · 霸总 · 海外</span>
-          </div>
-          <div class="dw-actions">
-            <button class="btn"><i class="ti ti-thumb-up"></i>1.8w 点赞</button>
-            <button class="btn"><i class="ti ti-share-3"></i>分享</button>
-            <button class="btn"><i class="ti ti-bookmark"></i>收藏</button>
-            <button class="btn"><i class="ti ti-flag"></i>举报</button>
-            <button class="btn btn-primary" style="margin-left:auto"><i class="ti ti-bell"></i>追剧 (1.2w 已追)</button>
-          </div>
-        </div>
-
-        <div class="dw-tabs">
-          <div class="tab active">选集 (60)</div>
-          <div class="tab">剧情简介</div>
-          <div class="tab">评论 (1.2w)</div>
-          <div class="tab">同类推荐</div>
-        </div>
-
-        <div class="episode-grid" id="episodes"></div>
-
-        <div style="margin-top: 32px">
-          <h3 class="t-md f-medium">弹幕评论 (1,287)</h3>
-          <div class="comment-input" style="background: var(--bg-card); border: 1px solid var(--border-1); border-radius: var(--r-lg); padding: 14px; display: flex; gap: 10px; margin: 12px 0">
-            <input class="input" placeholder="说点什么... 让弹幕飘过屏幕">
-            <button class="btn btn-primary">发送</button>
-          </div>
-        </div>
-      </div>
+      <div class="dw-main" id="main"></div>
 
       <aside class="dw-side">
         <div class="live-room" style="height: 100%; background: var(--bg-card); border: 1px solid var(--border-1); border-radius: var(--r-lg);">
@@ -169,7 +62,7 @@
             <span class="live-dot">LIVE</span>
             <span class="t-md f-medium">追剧实时房</span>
             <span class="grow"></span>
-            <span class="t-sm c-3">199 在线</span>
+            <span class="t-sm c-3" id="liveOnline">— 在线</span>
           </div>
           <div class="live-room-body" id="liveBody"></div>
           <div class="live-room-foot">
@@ -184,24 +77,139 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));
   document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
   document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
 
-  // 60 episodes - first 5 free, rest VIP, current = 38
-  let html = '';
-  for (let i = 1; i <= 60; i++) {
-    const locked = i > 5;
-    const active = i === 38;
-    html += `<div class="ep ${locked ? 'locked' : ''} ${active ? 'active' : ''}">${i}</div>`;
-  }
-  document.getElementById('episodes').innerHTML = html;
+  const params = new URLSearchParams(location.search);
+  const vid = params.get('vid') || params.get('id');  // 兼容旧的 ?id=
+  const type = params.get('type') || 'drama';
 
-  QDC.startLiveRoom(document.querySelector('.live-room'), 'p008');
+  const pool = type === 'film' ? (QD.films || []) : (QD.dramas || []);
+  const video = vid ? pool.find(v => v.id === vid) : pool[0];
+
+  // 视频不存在
+  if (!video) {
+    document.title = '视频不存在 · 奇点社区';
+    document.getElementById('main').innerHTML = `
+      <div class="err-box">
+        <i class="ti ti-video-off"></i>
+        <h2 style="margin:0 0 8px; font-weight:500">视频不存在</h2>
+        <p class="c-3" style="margin:0 0 24px">${vid ? '没找到 ID 为 <code>'+vid+'</code> 的视频。' : '缺少 vid 参数。'}</p>
+        <a class="btn btn-primary" href="drama-channel.html"><i class="ti ti-arrow-left"></i> 返回短剧频道</a>
+      </div>
+    `;
+    document.querySelector('.dw-side').style.display = 'none';
+    document.querySelector('.dw-shell').style.gridTemplateColumns = '1fr';
+    return;
+  }
+
+  document.title = `${video.title} · 奇点社区`;
+
+  /* ---------- 播放器渲染 ---------- */
+  function renderPlayer(v) {
+    const embed = v.embedType || 'mp4';
+    if (embed === 'mp4') {
+      return `<video src="${v.playUrl}" controls autoplay playsinline style="width:100%;max-height:80vh" poster=""></video>`;
+    }
+    if (embed === 'youtube') {
+      // playUrl 可能是 https://www.youtube.com/watch?v=XXX 或者纯 ID
+      const m = (v.playUrl || '').match(/(?:v=|youtu\.be\/|embed\/)([^&?/]+)/);
+      const id = m ? m[1] : v.playUrl;
+      return `<iframe src="https://www.youtube.com/embed/${id}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    }
+    if (embed === 'bilibili') {
+      // playUrl 可能是 BVxxx 或 bilibili.com/video/BVxxx
+      const m = (v.playUrl || '').match(/BV[A-Za-z0-9]+/);
+      const bvid = m ? m[0] : v.playUrl;
+      return `<iframe src="//player.bilibili.com/player.html?bvid=${bvid}&high_quality=1" allowfullscreen scrolling="no"></iframe>`;
+    }
+    return `<div class="err-box"><i class="ti ti-alert-triangle"></i>不支持的视频源类型: ${embed}</div>`;
+  }
+
+  /* ---------- 推荐：同类型其他视频 ---------- */
+  function renderRec(currentId) {
+    const others = pool.filter(v => v.id !== currentId).slice(0, 8);
+    if (!others.length) return '';
+    const typeBadge = type === 'film' ? '影视' : '短剧';
+    return `
+      <div class="dw-recommend">
+        <h3><i class="ti ti-thumb-up c-brand"></i> 同${typeBadge}推荐</h3>
+        <div class="dw-rec-grid">
+          ${others.map(v => `
+            <a class="drama-card" href="drama-watch.html?vid=${v.id}&type=${type}">
+              <div class="drama-cover" style="background-image:${v.cover};aspect-ratio:16/9">
+                ${v.episodes ? `<div class="episodes">${v.episodes}集</div>` : ''}
+              </div>
+              <div class="drama-info">
+                <div class="drama-title line-clamp-2">${v.title}</div>
+                <div class="drama-meta row gap-2">
+                  <span><i class="ti ti-eye"></i> ${v.playsText || QD.fmtNum(v.plays || 0)}</span>
+                  <span class="dot-sep"></span>
+                  <span><i class="ti ti-star" style="color:#FFD700"></i> ${v.rating}</span>
+                </div>
+              </div>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  const tagBadges = (video.tags || []).map(t => `<span class="badge">#${t}</span>`).join(' ');
+  const channelLabel = type === 'film' ? '影视' : '短剧';
+  const channelColor = type === 'film' ? 'blue' : 'amber';
+  const channelIcon  = type === 'film' ? 'ti-movie' : 'ti-device-tv';
+
+  document.getElementById('main').innerHTML = `
+    <div class="row gap-2 t-sm c-3" style="margin-bottom:10px">
+      <a href="${type === 'film' ? QDC.channelPageUrl('movie') : 'drama-channel.html'}" class="text-link">
+        <i class="ti ti-arrow-left"></i> 返回${channelLabel}
+      </a>
+      <span class="dot-sep"></span>
+      <span class="ch-pill ${channelColor}"><i class="ti ${channelIcon} ico"></i>${channelLabel}</span>
+    </div>
+
+    <div class="dw-player-frame">${renderPlayer(video)}</div>
+
+    <div class="dw-info">
+      <h1>${video.title}</h1>
+      <div class="dw-meta">
+        <span><i class="ti ti-eye"></i> ${video.playsText || QD.fmtNum(video.plays || 0)} 播放</span>
+        <span><i class="ti ti-star" style="color:#FFD700"></i> ${video.rating} 分</span>
+        ${video.episodes ? `<span><i class="ti ti-clock"></i> ${video.episodes} 集</span>` : ''}
+        <span>${tagBadges}</span>
+      </div>
+      <div class="dw-actions">
+        <button class="btn"><i class="ti ti-thumb-up"></i> 点赞</button>
+        <button class="btn"><i class="ti ti-share-3"></i> 分享</button>
+        <button class="btn"><i class="ti ti-bookmark"></i> 收藏</button>
+        <button class="btn"><i class="ti ti-flag"></i> 举报</button>
+        <button class="btn btn-primary" style="margin-left:auto">
+          <i class="ti ti-bell"></i> ${type === 'film' ? '想看' : '追剧'}
+        </button>
+      </div>
+    </div>
+
+    <div class="dw-description">${QDC.escape(video.description || '').replace(/\n/g, '<br>')}</div>
+
+    ${renderRec(video.id)}
+  `;
+
+  // 实时房在线人数：drama 可以借用关联 post 的 liveOnline；这里简化为固定值
+  document.getElementById('liveOnline').innerHTML = `<i class="ti ti-users"></i> ${(video.episodes || 12) * 3} 在线`;
+
+  // 实时房沿用 p008 / p013 等短剧相关帖子
+  const livePostId = type === 'drama' ? 'p008' : 'p001';
+  QDC.startLiveRoom(document.querySelector('.live-room'), livePostId);
+})();
 </script>
 </body>
 </html>

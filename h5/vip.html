@@ -170,8 +170,11 @@
   </div>
 </div>
 
-<script src="../shared/data.js"></script>
+<script src="../shared/data.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   document.getElementById('benefitsList').innerHTML = QD.vipBenefits.map(b => `
     <div class="b-item-h5">
       <i class="ti ${b.icon}"></i>
@@ -188,6 +191,7 @@
       m.classList.add('active');
     });
   });
+})();
 </script>
 </body>
 </html>

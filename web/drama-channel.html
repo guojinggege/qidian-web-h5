@@ -58,7 +58,7 @@
   .rank-num.top { color: var(--c-coral); }
 </style>
 </head>
-<body>
+<body data-channel="drama">
 <div class="app-shell">
   <header class="app-header"><div id="header"></div></header>
   <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
@@ -77,15 +77,7 @@
 
       <div class="dc-filters">
         <span class="t-sm c-3">分类:</span>
-        <div class="seg">
-          <div class="seg-item active">全部</div>
-          <div class="seg-item">霸总</div>
-          <div class="seg-item">复仇</div>
-          <div class="seg-item">穿越</div>
-          <div class="seg-item">虐恋</div>
-          <div class="seg-item">玄学</div>
-          <div class="seg-item">职场逆袭</div>
-        </div>
+        <div class="seg" id="subFilter"></div>
         <span style="margin-left:auto" class="t-sm c-3">排序:</span>
         <div class="seg">
           <div class="seg-item active">最热</div>
@@ -130,9 +122,12 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));
   document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
@@ -140,7 +135,7 @@
 
   function dramaCard(d) {
     return `
-      <a class="drama-card" href="drama-watch.html?id=${d.id}">
+      <a class="drama-card" href="drama-watch.html?vid=${d.id}&type=drama">
         <div class="drama-cover" style="background-image:${d.cover}">
           <div class="vip-lock"><i class="ti ti-crown"></i>VIP</div>
           <div class="episodes">${d.episodes}集 全</div>
@@ -152,8 +147,54 @@
       </a>
     `;
   }
-  document.getElementById('dramaGrid').innerHTML = QD.dramas.map(dramaCard).join('');
-  document.getElementById('allGrid').innerHTML = [...QD.dramas, ...QD.dramas].map(dramaCard).join('');
+
+  // 子频道筛选：用 QD.subChannels 中 parentId === 'drama' 的子频道
+  const dramaSubs = QD.subChannelsOf('drama');
+  const initialSub = new URLSearchParams(location.search).get('sub') || '';
+  let activeSub = dramaSubs.some(s => s.id === initialSub) ? initialSub : '';
+
+  // 渲染子频道 tab
+  function renderSubFilter() {
+    document.getElementById('subFilter').innerHTML = `
+      <div class="seg-item ${!activeSub ? 'active' : ''}" data-sub="">全部</div>
+      ${dramaSubs.map(s => {
+        const cnt = QD.dramas.filter(d => d.subChannelId === s.id).length;
+        return `<div class="seg-item ${activeSub === s.id ? 'active' : ''}" data-sub="${s.id}">${s.name}${cnt ? ' · ' + cnt : ''}</div>`;
+      }).join('')}
+    `;
+    document.querySelectorAll('#subFilter .seg-item').forEach(t => {
+      t.addEventListener('click', () => {
+        activeSub = t.dataset.sub;
+        renderSubFilter();
+        renderGrids();
+        // 同步 URL
+        const u = new URL(location.href);
+        if (activeSub) u.searchParams.set('sub', activeSub);
+        else u.searchParams.delete('sub');
+        history.replaceState(null, '', u.toString());
+      });
+    });
+  }
+
+  function filterDramas() {
+    return activeSub ? QD.dramas.filter(d => d.subChannelId === activeSub) : QD.dramas;
+  }
+  function renderGrids() {
+    const list = filterDramas();
+    const dg = document.getElementById('dramaGrid');
+    const ag = document.getElementById('allGrid');
+    if (!list.length) {
+      const subName = dramaSubs.find(s => s.id === activeSub)?.name || '该分类';
+      dg.innerHTML = `<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--text-3)"><i class="ti ti-mood-empty" style="font-size:36px;display:block;margin-bottom:8px"></i>${subName} 暂无视频</div>`;
+      ag.innerHTML = '';
+      return;
+    }
+    dg.innerHTML = list.map(dramaCard).join('');
+    ag.innerHTML = [...list, ...list].map(dramaCard).join('');
+  }
+
+  renderSubFilter();
+  renderGrids();
 
   function rankItem(d, i) {
     return `
@@ -170,6 +211,7 @@
   document.getElementById('rank1').innerHTML = QD.dramas.slice(0, 5).map(rankItem).join('');
   document.getElementById('rank2').innerHTML = [...QD.dramas].sort((a,b)=>b.rating-a.rating).slice(0, 5).map(rankItem).join('');
   document.getElementById('rank3').innerHTML = QD.dramas.slice().reverse().slice(0, 5).map(rankItem).join('');
+})();
 </script>
 </body>
 </html>

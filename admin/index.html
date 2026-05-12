@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奇点社区 · 后台管理</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  body { overflow-x: hidden; }
+  .ad-topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(14,14,18,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-1);
+    height: 56px;
+    display: flex; align-items: center; gap: 14px;
+    padding: 0 24px;
+  }
+  .ad-topbar .logo-mark {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--brand-300), var(--brand-600));
+    border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: white; font-size: 14px; font-weight: 500;
+  }
+  .ad-topbar h1 { margin: 0; font-size: 15px; font-weight: 500; }
+  .ad-topbar .badge-admin { background: var(--brand-bg); color: var(--brand-200); border: 1px solid rgba(127,119,221,0.30); padding: 2px 8px; border-radius: var(--r-pill); font-size: 11px; }
+  .ad-dirty-flag {
+    display: none;
+    align-items: center; gap: 6px;
+    color: var(--danger);
+    font-size: 12px;
+    padding: 4px 10px;
+    background: var(--danger-bg);
+    border-radius: var(--r-pill);
+  }
+  .ad-dirty-flag::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--danger);
+    box-shadow: 0 0 0 0 rgba(229,90,75,0.55);
+    animation: live-pulse 1.6s infinite;
+  }
+  body.dirty .ad-dirty-flag { display: inline-flex; }
+
+  .ad-preview-flag {
+    display: none;
+    align-items: center; gap: 6px;
+    color: var(--success);
+    font-size: 12px;
+    padding: 4px 10px;
+    background: var(--success-bg);
+    border-radius: var(--r-pill);
+    cursor: help;
+  }
+  .ad-preview-flag::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--success);
+  }
+  body.has-preview .ad-preview-flag { display: inline-flex; }
+
+  .ad-shell {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: calc(100vh - 56px);
+  }
+  .ad-side {
+    border-right: 1px solid var(--border-1);
+    padding: 16px 10px;
+    background: var(--bg-base);
+    position: sticky; top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+  }
+  .ad-tab {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px;
+    border-radius: var(--r-md);
+    color: var(--text-2);
+    cursor: pointer;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .ad-tab i { font-size: 16px; color: var(--text-3); }
+  .ad-tab:hover { background: var(--bg-card); color: var(--text-1); }
+  .ad-tab.active { background: var(--brand-bg); color: var(--brand-200); }
+  .ad-tab.active i { color: var(--brand-300); }
+  .ad-tab .count {
+    margin-left: auto; font-size: 11px; color: var(--text-4);
+    padding: 1px 6px; background: var(--bg-elev); border-radius: var(--r-pill);
+  }
+  .ad-tab.active .count { background: var(--brand-bg-strong); color: var(--brand-200); }
+
+  .ad-main { padding: 24px 28px 80px; max-width: 1080px; min-width: 0; }
+  .ad-section-title {
+    font-size: 22px; font-weight: 500; margin: 0 0 6px;
+  }
+  .ad-section-sub {
+    color: var(--text-3); font-size: 13px; margin: 0 0 22px;
+  }
+
+  .ad-toolbar {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 18px; flex-wrap: wrap;
+  }
+
+  /* List rows */
+  .ad-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-lg);
+    margin-bottom: 8px;
+  }
+  .ad-row.expanded { background: var(--bg-elev); border-color: var(--border-2); }
+  .ad-row-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--r-md);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .ad-row-body { flex: 1; min-width: 0; }
+  .ad-row-title { font-weight: 500; font-size: 14px; }
+  .ad-row-sub { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+  .ad-row-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .ad-row-actions .icon-btn { width: 28px; height: 28px; }
+  .ad-row-actions .icon-btn i { font-size: 14px; }
+
+  /* Form (edit panel) */
+  .ad-form {
+    padding: 18px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-lg);
+    margin: 8px 0 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .ad-form .full { grid-column: 1 / -1; }
+  .ad-form .field-label { display: block; font-size: 11px; color: var(--text-3); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .ad-form-foot {
+    grid-column: 1 / -1;
+    display: flex; gap: 10px; justify-content: flex-end;
+    padding-top: 8px; border-top: 1px solid var(--border-1);
+  }
+
+  /* Gradient picker */
+  .grad-picker { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .grad-swatch {
+    aspect-ratio: 2/1;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color .15s, transform .1s;
+  }
+  .grad-swatch:hover { transform: scale(1.02); }
+  .grad-swatch.active { border-color: var(--brand-400); box-shadow: 0 0 0 2px var(--bg-base); }
+
+  /* Channel color picker */
+  .color-picker { display: flex; gap: 6px; flex-wrap: wrap; }
+  .color-chip {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  .color-chip.active { border-color: var(--text-1); }
+
+  /* Tab inside Videos panel */
+  .seg-sub { margin-bottom: 14px; }
+
+  /* Compact table for hot/banners */
+  .ad-mini-row {
+    display: grid;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-1);
+    border-radius: var(--r-md);
+    margin-bottom: 6px;
+  }
+
+  /* Image upload area (帖子编辑表单内) */
+  .post-img-area .img-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .post-img-area .img-cell {
+    position: relative;
+    aspect-ratio: 1;
+    background: var(--bg-elev);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    border: 1px solid var(--border-1);
+  }
+  .post-img-area .img-cell > img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .post-img-area .img-cell .cover-badge {
+    position: absolute; top: 4px; left: 4px;
+    background: linear-gradient(135deg, #FFD700, #E5AA00);
+    color: #1A1208;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
+  }
+  .post-img-area .img-cell .img-actions {
+    position: absolute; top: 4px; right: 4px;
+    display: flex; gap: 4px;
+  }
+  .post-img-area .img-cell .img-actions button {
+    width: 22px; height: 22px;
+    border: none;
+    background: rgba(0,0,0,0.65);
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0;
+  }
+  .post-img-area .img-cell .img-actions button:hover { background: var(--brand-500); }
+  .post-img-area .img-cell .img-actions button i { font-size: 13px; }
+  .post-img-area .img-cell.img-add {
+    cursor: pointer;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 4px;
+    color: var(--text-3);
+    border-style: dashed;
+    border-color: var(--border-2);
+    background: transparent;
+  }
+  .post-img-area .img-cell.img-add:hover {
+    border-color: var(--brand-400);
+    color: var(--brand-300);
+  }
+  .post-img-area .img-cell.img-add i { font-size: 24px; }
+  .post-img-area .img-cell.img-add span { font-size: 11px; }
+
+  /* Notice */
+  .ad-notice {
+    padding: 10px 14px;
+    border-radius: var(--r-md);
+    margin-bottom: 16px;
+    font-size: 12px;
+    background: var(--info-bg);
+    color: var(--info);
+    border: 1px solid rgba(74,159,229,0.25);
+  }
+  .ad-notice.warn { background: var(--warning-bg); color: var(--warning); border-color: rgba(212,160,74,0.25); }
+
+  /* Loader */
+  .ad-loader { padding: 80px 20px; text-align: center; color: var(--text-3); }
+  .ad-loader i { font-size: 28px; display: block; margin-bottom: 8px; }
+
+  /* Toast */
+  .ad-toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--brand-400);
+    color: var(--text-1);
+    padding: 10px 18px;
+    border-radius: var(--r-pill);
+    box-shadow: var(--shadow-lg);
+    z-index: 200;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s;
+  }
+  .ad-toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<header class="ad-topbar">
+  <a class="row gap-2" href="../index.html" style="text-decoration:none">
+    <span class="logo-mark">奇</span>
+    <h1>奇点社区</h1>
+  </a>
+  <span class="badge-admin"><i class="ti ti-shield-lock"></i> Admin</span>
+  <span class="ad-dirty-flag">未保存修改</span>
+  <span class="ad-preview-flag" title="刷新前端任意页面即可看到改动 · 真正发布请点'导出 JSON'">✓ 本地预览已生效</span>
+  <span style="margin-left:auto" class="t-sm c-3" id="lastSaved">—</span>
+  <button class="btn" id="resetBtn"><i class="ti ti-refresh"></i> 重置</button>
+  <button class="btn btn-primary" id="exportBtn"><i class="ti ti-download"></i> 导出 JSON</button>
+</header>
+
+<div class="ad-shell">
+  <nav class="ad-side" id="sideNav">
+    <a class="ad-tab active" data-tab="channels"><i class="ti ti-hash"></i> 频道管理<span class="count" id="cnt-channels">—</span></a>
+    <a class="ad-tab" data-tab="posts"><i class="ti ti-message"></i> 帖子管理<span class="count" id="cnt-posts">—</span></a>
+    <a class="ad-tab" data-tab="videos"><i class="ti ti-device-tv"></i> 视频管理<span class="count" id="cnt-videos">—</span></a>
+    <a class="ad-tab" data-tab="hot"><i class="ti ti-flame"></i> 热搜榜<span class="count" id="cnt-hot">—</span></a>
+    <a class="ad-tab" data-tab="banners"><i class="ti ti-photo"></i> 横幅管理<span class="count" id="cnt-banners">—</span></a>
+    <a class="ad-tab" data-tab="users"><i class="ti ti-users"></i> 用户管理<span class="count" id="cnt-users">—</span></a>
+
+    <div style="margin-top:22px;padding:0 8px">
+      <a class="ad-tab" href="../index.html" style="color:var(--text-3);font-size:12px"><i class="ti ti-arrow-left"></i> 回到导航</a>
+      <a class="ad-tab" href="../web/home.html" target="_blank" style="color:var(--text-3);font-size:12px"><i class="ti ti-external-link"></i> 打开主站</a>
+    </div>
+  </nav>
+
+  <main class="ad-main" id="adminMain">
+    <div class="ad-loader"><i class="ti ti-loader-2" style="animation:spin 1s linear infinite"></i>加载中…</div>
+  </main>
+</div>
+
+<div class="ad-toast" id="toast"></div>
+
+<style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+
+<script>
+/* ============================================================
+   奇点社区 · 后台管理
+   单文件实现，所有数据存 window.adminState + localStorage
+============================================================ */
+
+const LS_KEY = 'qd-admin-state-v1';
+const DATA_URL = '../data/site-data.json';
+
+const PRESET_GRADIENTS = [
+  'linear-gradient(135deg,#E55A4B,#D4A04A)',
+  'linear-gradient(135deg,#4A9FE5,#9F7FE5)',
+  'linear-gradient(135deg,#D4A04A,#4ADB7E)',
+  'linear-gradient(135deg,#E55A8A,#C77FE5)',
+  'linear-gradient(135deg,#4ADBCC,#4A9FE5)',
+  'linear-gradient(135deg,#9F7FE5,#534AB7)',
+  'linear-gradient(135deg,#4ADB7E,#B8DB4A)',
+  'linear-gradient(135deg,#E55A4B,#9F7FE5)',
+  'linear-gradient(135deg,#FFD700,#E55A4B)',
+  'linear-gradient(135deg,#4ADBE5,#4A9FE5)',
+];
+
+const AVATAR_GRADIENTS = [
+  'bg-grad-1','bg-grad-2','bg-grad-3','bg-grad-4',
+  'bg-grad-5','bg-grad-6','bg-grad-7','bg-grad-8',
+];
+
+// 11 个频道色键（与 styles.css token 一致）
+const CHANNEL_COLORS = ['coral','amber','green','pink','purple','blue','teal','violet','lime','sky','rose'];
+
+// Tabler 图标候选
+const ICON_OPTIONS = [
+  'ti-sparkles','ti-ball-basketball','ti-device-tv','ti-device-gamepad-2','ti-movie','ti-yin-yang',
+  'ti-heart','ti-flame','ti-coin','ti-headphones','ti-mood-happy','ti-camera','ti-music',
+  'ti-book','ti-trophy','ti-star','ti-bolt','ti-rocket','ti-leaf','ti-paw','ti-cup','ti-globe',
+];
+
+/* ---------- State ---------- */
+let adminState = null;
+let isDirty = false;
+let activeTab = 'channels';
+let lastSavedAt = null;
+
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
+/* ---------- Persistence ---------- */
+async function loadState() {
+  const cached = localStorage.getItem(LS_KEY);
+  if (cached) {
+    try {
+      const parsed = JSON.parse(cached);
+      adminState = parsed.data;
+      lastSavedAt = parsed.savedAt;
+      isDirty = true; // 有缓存即视为未保存
+      updateDirtyUI();
+      return;
+    } catch (e) { console.warn('[admin] localStorage 解析失败，重新加载', e); }
+  }
+  await loadFromServer();
+}
+
+async function loadFromServer() {
+  const r = await fetch(DATA_URL, { cache: 'no-store' });
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  adminState = await r.json();
+  isDirty = false;
+  lastSavedAt = null;
+  updateDirtyUI();
+}
+
+function persist() {
+  isDirty = true;
+  lastSavedAt = new Date().toISOString();
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify({ data: adminState, savedAt: lastSavedAt }));
+  } catch (err) {
+    if (err && (err.name === 'QuotaExceededError' || err.code === 22 || err.code === 1014)) {
+      alert('⚠️ 本地存储已满（通常是 base64 图片太多）。\n\n请先点"导出 JSON"保存到文件备份，然后用"重置"清空 localStorage 再继续编辑。\n\n建议：长期使用请把图片改成 URL 引用而不是 base64 上传。');
+    } else {
+      console.error('[admin] persist 失败:', err);
+      alert('保存到 localStorage 失败：' + (err.message || err));
+    }
+  }
+  updateDirtyUI();
+  updateCounts();
+}
+
+function updateDirtyUI() {
+  document.body.classList.toggle('dirty', isDirty);
+  // 本地预览：只要 localStorage 中有草稿就生效（即 isDirty=true）
+  document.body.classList.toggle('has-preview', !!localStorage.getItem(LS_KEY));
+  $('#lastSaved').textContent = lastSavedAt
+    ? '已暂存 ' + new Date(lastSavedAt).toLocaleTimeString('zh-CN')
+    : '已同步服务器';
+}
+
+function updateCounts() {
+  $('#cnt-channels').textContent = adminState.channels.length;
+  $('#cnt-posts').textContent = adminState.posts.length;
+  $('#cnt-videos').textContent = (adminState.dramas?.length || 0) + (adminState.films?.length || 0);
+  $('#cnt-hot').textContent = adminState.hotSearches.length;
+  $('#cnt-banners').textContent = adminState.banners.length;
+  $('#cnt-users').textContent = adminState.authors.length;
+}
+
+/* ---------- Export / Reset ---------- */
+function exportJson() {
+  const blob = new Blob([JSON.stringify(adminState, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'site-data.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast('已下载 site-data.json，请替换 data/ 目录下同名文件');
+}
+
+async function reset() {
+  if (isDirty && !confirm('确定丢弃所有未保存的修改吗？此操作不可恢复。')) return;
+  localStorage.removeItem(LS_KEY);
+  $('#adminMain').innerHTML = '<div class="ad-loader"><i class="ti ti-loader-2" style="animation:spin 1s linear infinite"></i>重新加载…</div>';
+  await loadFromServer();
+  updateCounts();
+  switchTab(activeTab);
+  toast('已重置为服务器最新版本');
+}
+
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+/* ---------- 图片上传 helpers ---------- */
+function renderImageArea(post, container) {
+  if (!Array.isArray(post.images)) post.images = [];
+  if (typeof post.coverImage !== 'string') post.coverImage = post.images[0] || '';
+  const imgs = post.images;
+  container.innerHTML = `
+    <div class="img-grid">
+      ${imgs.map((url, idx) => `
+        <div class="img-cell" data-idx="${idx}">
+          <img src="${esc(url)}" alt="">
+          ${url === post.coverImage ? '<span class="cover-badge">封面</span>' : ''}
+          <div class="img-actions">
+            ${url !== post.coverImage ? `<button type="button" data-act="set-cover" title="设为封面"><i class="ti ti-star"></i></button>` : ''}
+            <button type="button" data-act="del" title="删除"><i class="ti ti-x"></i></button>
+          </div>
+        </div>
+      `).join('')}
+      ${imgs.length < 9 ? `
+        <div class="img-cell img-add" data-act="add" title="添加图片">
+          <i class="ti ti-plus"></i>
+          <span>添加图片</span>
+        </div>` : ''}
+    </div>
+    <div class="t-xs c-4" style="margin-top:6px">${imgs.length} / 9 张 · 本地上传单张 ≤ 2MB</div>
+  `;
+  container.querySelectorAll('[data-act="del"]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const cell = e.target.closest('.img-cell');
+      const idx = Number(cell.dataset.idx);
+      const removed = post.images.splice(idx, 1)[0];
+      if (removed === post.coverImage) post.coverImage = post.images[0] || '';
+      persist();
+      renderImageArea(post, container);
+    });
+  });
+  container.querySelectorAll('[data-act="set-cover"]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const cell = e.target.closest('.img-cell');
+      const idx = Number(cell.dataset.idx);
+      post.coverImage = post.images[idx];
+      persist();
+      renderImageArea(post, container);
+    });
+  });
+  const addBtn = container.querySelector('[data-act="add"]');
+  if (addBtn) addBtn.addEventListener('click', () => openImageAddMenu(post, container));
+}
+
+function openImageAddMenu(post, container) {
+  // 最简交互: 顺序问 URL → 取消则触发文件选择
+  const url = prompt('粘贴图片 URL (留空 / 取消则改用本地上传):', '');
+  if (url && url.trim()) {
+    addImage(post, url.trim(), container);
+    return;
+  }
+  // 触发本地文件选择
+  const fi = document.createElement('input');
+  fi.type = 'file';
+  fi.accept = 'image/*';
+  fi.style.display = 'none';
+  fi.onchange = ev => {
+    const file = ev.target.files && ev.target.files[0];
+    fi.remove();
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      alert(`文件 ${file.name} 体积 ${(file.size/1024/1024).toFixed(1)}MB，超过 2MB 上限。\n请用图片压缩工具处理后再上传。`);
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = e => addImage(post, e.target.result, container);
+    reader.onerror = () => alert('文件读取失败');
+    reader.readAsDataURL(file);
+  };
+  document.body.appendChild(fi);
+  fi.click();
+}
+
+function addImage(post, url, container) {
+  if (!Array.isArray(post.images)) post.images = [];
+  if (post.images.length >= 9) { alert('已达 9 张上限'); return; }
+  post.images.push(url);
+  if (!post.coverImage) post.coverImage = url;
+  persist();
+  renderImageArea(post, container);
+}
+
+/* ---------- Tab routing ---------- */
+function switchTab(name) {
+  activeTab = name;
+  $$('.ad-tab[data-tab]').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  const renderers = { channels: renderChannels, posts: renderPosts, videos: renderVideos, hot: renderHot, banners: renderBanners, users: renderUsers };
+  (renderers[name] || (() => {}))();
+}
+
+/* ============================================================
+   1) 频道管理
+============================================================ */
+function renderChannels() {
+  const main = $('#adminMain');
+  let editingId = null;
+
+  function paint() {
+    main.innerHTML = `
+      <h2 class="ad-section-title">频道管理</h2>
+      <p class="ad-section-sub">共 ${adminState.channels.length} 个频道。可编辑名称、描述、图标、颜色与统计数。<b>不可删除</b>，因为帖子/视频依赖 channelId。</p>
+      <div class="ad-notice"><i class="ti ti-info-circle"></i> 修改 <code>color</code> 会同时改变频道徽章和频道页 hero 配色。</div>
+      <div id="chList"></div>
+    `;
+
+    const list = $('#chList');
+    list.innerHTML = '';
+
+    const subChannels = adminState.subChannels || [];
+    adminState.channels.forEach(ch => {
+      const row = document.createElement('div');
+      row.className = 'ad-row';
+      if (editingId === ch.id) row.classList.add('expanded');
+      const mySubs = subChannels.filter(s => s.parentId === ch.id);
+      row.innerHTML = `
+        <div class="ad-row-icon" style="background:var(--c-${ch.color}-bg);color:var(--c-${ch.color})">
+          <i class="ti ${ch.icon}"></i>
+        </div>
+        <div class="ad-row-body">
+          <div class="ad-row-title">r/${ch.id} · ${esc(ch.name)} <span class="badge t-xs" style="margin-left:6px">${mySubs.length} 子频道</span></div>
+          <div class="ad-row-sub">${esc(ch.desc)} · ${(ch.members/10000).toFixed(1)}w 成员 · ${ch.online} 在线 · 等级 ${ch.level}</div>
+        </div>
+        <div class="ad-row-actions">
+          <button class="icon-btn" title="编辑"><i class="ti ti-edit"></i></button>
+        </div>
+      `;
+      row.querySelector('.icon-btn').addEventListener('click', () => {
+        editingId = editingId === ch.id ? null : ch.id;
+        paint();
+      });
+      list.appendChild(row);
+
+      // 子频道小卡片(4 张)
+      if (mySubs.length) {
+        const subWrap = document.createElement('div');
+        subWrap.style.cssText = 'display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:6px 12px 12px;margin:-8px 0 8px';
+        subWrap.innerHTML = mySubs.map(s => {
+          const cnt = adminState.posts.filter(p => p.subChannelId === s.id).length;
+          return `
+            <div style="background:var(--bg-card);border:1px solid var(--border-1);border-radius:var(--r-md);padding:8px 10px;display:flex;align-items:center;gap:8px">
+              <i class="ti ${s.icon}" style="color:var(--c-${s.color});font-size:14px"></i>
+              <div style="flex:1;min-width:0">
+                <div class="t-sm" style="font-weight:500">${esc(s.name)}</div>
+                <div class="t-xs c-4 ellipsis">${esc(s.desc)}</div>
+              </div>
+              <span class="badge t-xs">${cnt}</span>
+            </div>
+          `;
+        }).join('');
+        list.appendChild(subWrap);
+      }
+
+      if (editingId === ch.id) {
+        const form = document.createElement('form');
+        form.className = 'ad-form';
+        form.innerHTML = `
+          <div>
+            <label class="field-label">频道名</label>
+            <input class="input" name="name" value="${esc(ch.name)}" required>
+          </div>
+          <div>
+            <label class="field-label">等级</label>
+            <select class="select" name="level">
+              ${['S','A','B','C','主频道'].map(l => `<option ${l===ch.level?'selected':''}>${l}</option>`).join('')}
+            </select>
+          </div>
+          <div class="full">
+            <label class="field-label">描述</label>
+            <input class="input" name="desc" value="${esc(ch.desc)}">
+          </div>
+          <div>
+            <label class="field-label">图标 (Tabler)</label>
+            <select class="select" name="icon">
+              ${ICON_OPTIONS.map(i => `<option ${i===ch.icon?'selected':''}>${i}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label class="field-label">颜色 (token)</label>
+            <div class="color-picker" id="colorPicker">
+              ${CHANNEL_COLORS.map(c => `<div class="color-chip ${c===ch.color?'active':''}" data-color="${c}" style="background:var(--c-${c})"></div>`).join('')}
+            </div>
+            <input type="hidden" name="color" value="${ch.color}">
+          </div>
+          <div>
+            <label class="field-label">成员数</label>
+            <input class="input" name="members" type="number" min="0" value="${ch.members}">
+          </div>
+          <div>
+            <label class="field-label">当前在线</label>
+            <input class="input" name="online" type="number" min="0" value="${ch.online}">
+          </div>
+          <div>
+            <label class="field-label">未读数</label>
+            <input class="input" name="unread" type="number" min="0" value="${ch.unread}">
+          </div>
+          <div>
+            <label class="field-label">订阅状态</label>
+            <select class="select" name="subscribed">
+              <option value="true" ${ch.subscribed?'selected':''}>已订阅</option>
+              <option value="false" ${!ch.subscribed?'selected':''}>未订阅</option>
+            </select>
+          </div>
+          <div class="ad-form-foot">
+            <button type="button" class="btn" data-act="cancel">取消</button>
+            <button type="submit" class="btn btn-primary"><i class="ti ti-check"></i> 保存</button>
+          </div>
+        `;
+        // 颜色选择
+        form.querySelector('#colorPicker').addEventListener('click', e => {
+          const chip = e.target.closest('.color-chip');
+          if (!chip) return;
+          form.querySelectorAll('.color-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          form.elements.color.value = chip.dataset.color;
+        });
+        form.querySelector('[data-act="cancel"]').addEventListener('click', () => { editingId = null; paint(); });
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          const f = e.target.elements;
+          ch.name = f.name.value.trim();
+          ch.desc = f.desc.value.trim();
+          ch.icon = f.icon.value;
+          ch.color = f.color.value;
+          ch.members = Number(f.members.value) || 0;
+          ch.online = Number(f.online.value) || 0;
+          ch.unread = Number(f.unread.value) || 0;
+          ch.subscribed = f.subscribed.value === 'true';
+          ch.level = f.level.value;
+          persist();
+          editingId = null;
+          paint();
+          toast(`频道 ${ch.name} 已更新`);
+        });
+        list.appendChild(form);
+      }
+    });
+  }
+  paint();
+}
+
+/* ============================================================
+   2) 帖子管理
+============================================================ */
+function renderPosts() {
+  const main = $('#adminMain');
+  let filterCh = 'all';
+  let editingId = null;
+  let isNew = false;
+
+  function newPost() {
+    // 关键：以"顶部下拉的当前频道筛选值"作为新帖子的默认频道。
+    // - 用户选了具体频道 (movie / sport ...) → 新帖默认在该频道
+    // - 下拉是"全部" → 退回 channels[0] (奇点)
+    // 用户在表单里仍可手动改 channelId 下拉。
+    const defaultCh = filterCh === 'all' ? adminState.channels[0].id : filterCh;
+    const firstSub = (adminState.subChannels || []).find(s => s.parentId === defaultCh);
+    return {
+      id: 'p' + String(Date.now()).slice(-6),
+      channelId: defaultCh,
+      subChannelId: firstSub ? firstSub.id : '',
+      authorId: adminState.authors[0].id,
+      type: 'text',
+      title: '',
+      excerpt: '',
+      body: '',
+      tags: [],
+      images: [],
+      coverImage: '',
+      stats: { up: 0, down: 0, comments: 0, share: 0, view: 0, liveOnline: 0 },
+      createdAt: new Date().toISOString(),
+      createdAtText: '刚刚',
+      hot: false,
+    };
+  }
+
+  function paint() {
+    const list = filterCh === 'all'
+      ? adminState.posts
+      : adminState.posts.filter(p => p.channelId === filterCh);
+    main.innerHTML = `
+      <h2 class="ad-section-title">帖子管理</h2>
+      <p class="ad-section-sub">共 ${adminState.posts.length} 条帖子，当前筛选下 ${list.length} 条。</p>
+
+      <div class="ad-toolbar">
+        <label class="field-label" style="margin:0">频道筛选:</label>
+        <select class="select" id="chFilter" style="width:auto;min-width:140px">
+          <option value="all">全部 (${adminState.posts.length})</option>
+          ${adminState.channels.map(c => `<option value="${c.id}" ${filterCh===c.id?'selected':''}>${c.name} (${adminState.posts.filter(p=>p.channelId===c.id).length})</option>`).join('')}
+        </select>
+        <button class="btn btn-primary" id="newPostBtn" style="margin-left:auto"><i class="ti ti-plus"></i> 新建帖子</button>
+      </div>
+
+      <div id="postList"></div>
+    `;
+
+    $('#chFilter').addEventListener('change', e => { filterCh = e.target.value; editingId = null; isNew = false; paint(); });
+    $('#newPostBtn').addEventListener('click', () => {
+      isNew = true;
+      const np = newPost();
+      // 双保险：再读一次下拉实时值（防止 filterCh 闭包被异常修改）
+      const liveFilter = $('#chFilter').value;
+      if (liveFilter && liveFilter !== 'all') np.channelId = liveFilter;
+      adminState.posts.unshift(np);
+      editingId = np.id;
+      paint();
+    });
+
+    const listEl = $('#postList');
+    listEl.innerHTML = '';
+
+    if (!list.length) {
+      listEl.innerHTML = `<div style="padding:40px;text-align:center;color:var(--text-3);background:var(--bg-card);border:1px dashed var(--border-2);border-radius:var(--r-lg)"><i class="ti ti-mood-empty" style="font-size:32px;display:block;margin-bottom:8px"></i>该频道暂无帖子</div>`;
+      return;
+    }
+
+    list.forEach(p => {
+      const ch = adminState.channels.find(c => c.id === p.channelId);
+      const author = adminState.authors.find(a => a.id === p.authorId) || { name: 'Anon' };
+      const row = document.createElement('div');
+      row.className = 'ad-row';
+      if (editingId === p.id) row.classList.add('expanded');
+      row.innerHTML = `
+        <div class="ad-row-icon" style="background:var(--c-${ch?.color||'purple'}-bg);color:var(--c-${ch?.color||'purple'})">
+          <i class="ti ${p.type==='video'?'ti-video':p.type==='gallery'?'ti-photo':'ti-align-left'}"></i>
+        </div>
+        <div class="ad-row-body">
+          <div class="ad-row-title">${esc(p.title || '(无标题)')} ${p.hot?'<span class="badge danger t-xs">热</span>':''} ${p.vipLocked?'<span class="badge gold t-xs">VIP</span>':''}${!p.subChannelId?' <span class="badge danger t-xs">未分类</span>':''}</div>
+          <div class="ad-row-sub">${p.id} · ${ch?.name||p.channelId}${p.subChannelId ? ' / ' + (adminState.subChannels.find(s=>s.id===p.subChannelId)?.name || p.subChannelId) : ''} · ${esc(author.name)} · ${p.createdAtText||''}</div>
+        </div>
+        <div class="ad-row-actions">
+          <button class="icon-btn" data-act="edit"><i class="ti ti-edit"></i></button>
+          <button class="icon-btn" data-act="del"><i class="ti ti-trash"></i></button>
+        </div>
+      `;
+      row.querySelector('[data-act="edit"]').addEventListener('click', () => {
+        editingId = editingId === p.id ? null : p.id;
+        paint();
+      });
+      row.querySelector('[data-act="del"]').addEventListener('click', () => {
+        if (!confirm(`删除帖子「${p.title || p.id}」？`)) return;
+        adminState.posts = adminState.posts.filter(x => x.id !== p.id);
+        persist();
+        if (editingId === p.id) editingId = null;
+        paint();
+        toast('已删除');
+      });
+      listEl.appendChild(row);
+
+      if (editingId === p.id) {
+        const form = document.createElement('form');
+        form.className = 'ad-form';
+        form.innerHTML = `
+          <div class="full">
+            <label class="field-label">标题</label>
+            <input class="input" name="title" value="${esc(p.title)}" required>
+          </div>
+          <div class="full">
+            <label class="field-label">摘要 (Excerpt)</label>
+            <textarea class="textarea" name="excerpt" style="min-height:60px">${esc(p.excerpt)}</textarea>
+          </div>
+          <div class="full">
+            <label class="field-label">正文 (Body, 支持 \\n\\n 分段)</label>
+            <textarea class="textarea" name="body" style="min-height:140px">${esc(p.body)}</textarea>
+          </div>
+          <div>
+            <label class="field-label">频道</label>
+            <select class="select" name="channelId">
+              ${adminState.channels.map(c => `<option value="${c.id}" ${c.id===p.channelId?'selected':''}>${c.name}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label class="field-label">子频道 <span style="color:var(--danger)">*</span></label>
+            <select class="select" name="subChannelId" required>
+              <option value="">— 请选择 —</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">作者</label>
+            <select class="select" name="authorId">
+              ${adminState.authors.map(a => `<option value="${a.id}" ${a.id===p.authorId?'selected':''}>${a.name} (Lv.${a.level})</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label class="field-label">类型</label>
+            <select class="select" name="type">
+              <option value="text" ${p.type==='text'?'selected':''}>图文 (text)</option>
+              <option value="video" ${p.type==='video'?'selected':''}>视频 (video)</option>
+              <option value="gallery" ${p.type==='gallery'?'selected':''}>图集 (gallery)</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">热帖标记</label>
+            <select class="select" name="hot">
+              <option value="false" ${!p.hot?'selected':''}>普通</option>
+              <option value="true" ${p.hot?'selected':''}>热议</option>
+            </select>
+          </div>
+          <div class="full">
+            <label class="field-label">标签 (逗号分隔)</label>
+            <input class="input" name="tags" value="${esc((p.tags||[]).join(', '))}">
+          </div>
+          <div class="full">
+            <label class="field-label">图片 (最多 9 张 · 第一张默认为封面)</label>
+            <div class="post-img-area"></div>
+          </div>
+          <div class="ad-form-foot">
+            <span class="t-xs c-4" style="margin-right:auto">ID: <code>${p.id}</code></span>
+            <button type="button" class="btn" data-act="cancel">取消</button>
+            <button type="submit" class="btn btn-primary"><i class="ti ti-check"></i> 保存</button>
+          </div>
+        `;
+        // 渲染图片区
+        if (!Array.isArray(p.images)) p.images = [];
+        if (typeof p.coverImage !== 'string') p.coverImage = p.images[0] || '';
+        renderImageArea(p, form.querySelector('.post-img-area'));
+
+        // 子频道下拉联动
+        function refillSubSelect() {
+          const channelSelect = form.elements.channelId;
+          const subSelect = form.elements.subChannelId;
+          const channelId = channelSelect.value;
+          const subs = (adminState.subChannels || []).filter(s => s.parentId === channelId);
+          const currentSub = p.subChannelId;
+          // 如果当前帖子的 subChannelId 不属于新频道,清空
+          const valid = subs.some(s => s.id === currentSub);
+          subSelect.innerHTML = '<option value="">— 请选择 —</option>' +
+            subs.map(s => `<option value="${s.id}" ${(valid && currentSub === s.id) ? 'selected' : ''}>${s.name}</option>`).join('');
+          // 如果旧值无效,默认选第一个
+          if (!valid && subs.length) {
+            subSelect.value = subs[0].id;
+          }
+        }
+        refillSubSelect();
+        form.elements.channelId.addEventListener('change', refillSubSelect);
+
+        form.querySelector('[data-act="cancel"]').addEventListener('click', () => {
+          if (isNew && !p.title) {
+            // 新建但未填标题 → 撤销
+            adminState.posts = adminState.posts.filter(x => x.id !== p.id);
+          }
+          editingId = null; isNew = false;
+          paint();
+        });
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          const f = e.target.elements;
+          // 子频道必填校验
+          if (!f.subChannelId.value) {
+            alert('请选择子频道');
+            f.subChannelId.focus();
+            return;
+          }
+          p.title = f.title.value.trim();
+          p.excerpt = f.excerpt.value.trim();
+          p.body = f.body.value.trim();
+          p.channelId = f.channelId.value;
+          p.subChannelId = f.subChannelId.value;
+          p.authorId = f.authorId.value;
+          p.type = f.type.value;
+          p.hot = f.hot.value === 'true';
+          p.tags = f.tags.value.split(/[,，]/).map(t => t.trim()).filter(Boolean);
+          persist();
+          editingId = null; isNew = false;
+          paint();
+          toast('帖子已保存');
+        });
+        listEl.appendChild(form);
+      }
+    });
+  }
+  paint();
+}
+
+/* ============================================================
+   3) 视频管理 (短剧 / 影视)
+============================================================ */
+function renderVideos() {
+  const main = $('#adminMain');
+  let subTab = 'dramas';   // dramas | films
+  let editingId = null;
+  let isNew = false;
+
+  function detectEmbedType(url) {
+    if (!url) return 'mp4';
+    if (/youtube\.com|youtu\.be/.test(url)) return 'youtube';
+    if (/bilibili\.com|^BV/.test(url)) return 'bilibili';
+    return 'mp4';
+  }
+
+  function newVideo() {
+    const isDrama = subTab === 'dramas';
+    const prefix = isDrama ? 'd' : 'f';
+    return {
+      id: prefix + String(Date.now()).slice(-3),
+      title: '',
+      cover: PRESET_GRADIENTS[0],
+      playUrl: '',
+      embedType: 'mp4',
+      description: '',
+      plays: 0,
+      playsText: '0',
+      rating: 8.0,
+      tags: [],
+      ...(isDrama ? { episodes: 1, vipFree: 1 } : {}),
+    };
+  }
+
+  function paint() {
+    const collKey = subTab; // dramas | films
+    const list = adminState[collKey] || [];
+    main.innerHTML = `
+      <h2 class="ad-section-title">视频管理</h2>
+      <p class="ad-section-sub">短剧 ${adminState.dramas?.length||0} 部 · 影视 ${adminState.films?.length||0} 部。embedType 会按 playUrl 自动推断。</p>
+
+      <div class="seg seg-sub" id="videoSubTabs">
+        <div class="seg-item ${subTab==='dramas'?'active':''}" data-sub="dramas"><i class="ti ti-device-tv"></i> 短剧 (${adminState.dramas?.length||0})</div>
+        <div class="seg-item ${subTab==='films'?'active':''}" data-sub="films"><i class="ti ti-movie"></i> 影视 (${adminState.films?.length||0})</div>
+      </div>
+
+      <div class="ad-toolbar">
+        <button class="btn btn-primary" id="newVidBtn" style="margin-left:auto"><i class="ti ti-plus"></i> 新建${subTab==='dramas'?'短剧':'影视'}</button>
+      </div>
+
+      <div id="vidList"></div>
+    `;
+
+    $$('#videoSubTabs .seg-item').forEach(s => s.addEventListener('click', () => {
+      subTab = s.dataset.sub; editingId = null; isNew = false; paint();
+    }));
+    $('#newVidBtn').addEventListener('click', () => {
+      isNew = true;
+      const nv = newVideo();
+      (adminState[collKey] = adminState[collKey] || []).unshift(nv);
+      editingId = nv.id;
+      paint();
+    });
+
+    const listEl = $('#vidList');
+    listEl.innerHTML = '';
+    if (!list.length) {
+      listEl.innerHTML = `<div style="padding:40px;text-align:center;color:var(--text-3);background:var(--bg-card);border:1px dashed var(--border-2);border-radius:var(--r-lg)">还没有${subTab==='dramas'?'短剧':'影视'}</div>`;
+      return;
+    }
+
+    list.forEach(v => {
+      const row = document.createElement('div');
+      row.className = 'ad-row';
+      if (editingId === v.id) row.classList.add('expanded');
+      row.innerHTML = `
+        <div class="ad-row-icon" style="background:${v.cover};width:48px;height:48px;border-radius:var(--r-sm)"></div>
+        <div class="ad-row-body">
+          <div class="ad-row-title">${esc(v.title || '(无标题)')} <span class="badge t-xs">${v.embedType}</span></div>
+          <div class="ad-row-sub">${v.id} · ${v.episodes?(v.episodes+'集 · '):''}${v.playsText||v.plays} · ★${v.rating}</div>
+        </div>
+        <div class="ad-row-actions">
+          <a class="icon-btn" target="_blank" href="../web/drama-watch.html?vid=${v.id}&type=${subTab==='dramas'?'drama':'film'}" title="预览"><i class="ti ti-external-link"></i></a>
+          <button class="icon-btn" data-act="edit"><i class="ti ti-edit"></i></button>
+          <button class="icon-btn" data-act="del"><i class="ti ti-trash"></i></button>
+        </div>
+      `;
+      row.querySelector('[data-act="edit"]').addEventListener('click', () => {
+        editingId = editingId === v.id ? null : v.id;
+        paint();
+      });
+      row.querySelector('[data-act="del"]').addEventListener('click', () => {
+        if (!confirm(`删除${subTab==='dramas'?'短剧':'影视'}「${v.title || v.id}」？`)) return;
+        adminState[collKey] = adminState[collKey].filter(x => x.id !== v.id);
+        persist();
+        if (editingId === v.id) editingId = null;
+        paint();
+        toast('已删除');
+      });
+      listEl.appendChild(row);
+
+      if (editingId === v.id) {
+        const form = document.createElement('form');
+        form.className = 'ad-form';
+        form.innerHTML = `
+          <div class="full">
+            <label class="field-label">标题</label>
+            <input class="input" name="title" value="${esc(v.title)}" required>
+          </div>
+          <div class="full">
+            <label class="field-label">播放 URL (mp4 / youtube / bilibili)</label>
+            <input class="input" name="playUrl" value="${esc(v.playUrl)}" placeholder="https://example.com/video.mp4">
+            <div class="field-hint" id="embedHint" style="margin-top:4px;font-size:11px;color:var(--text-4)">将自动推断为: <b id="embedDetected">${v.embedType}</b></div>
+          </div>
+          <div class="full">
+            <label class="field-label">封面渐变</label>
+            <div class="grad-picker">
+              ${PRESET_GRADIENTS.map(g => `<div class="grad-swatch ${g===v.cover?'active':''}" data-grad="${esc(g)}" style="background:${g}"></div>`).join('')}
+            </div>
+            <input type="hidden" name="cover" value="${esc(v.cover)}">
+          </div>
+          <div class="full">
+            <label class="field-label">剧情简介</label>
+            <textarea class="textarea" name="description" style="min-height:80px">${esc(v.description)}</textarea>
+          </div>
+          ${subTab==='dramas' ? `
+          <div>
+            <label class="field-label">集数</label>
+            <input class="input" name="episodes" type="number" min="1" value="${v.episodes||1}">
+          </div>
+          <div>
+            <label class="field-label">免费试看集数</label>
+            <input class="input" name="vipFree" type="number" min="0" value="${v.vipFree||0}">
+          </div>` : ''}
+          <div>
+            <label class="field-label">评分 (0-10)</label>
+            <input class="input" name="rating" type="number" min="0" max="10" step="0.1" value="${v.rating}">
+          </div>
+          <div>
+            <label class="field-label">播放量 (数字)</label>
+            <input class="input" name="plays" type="number" min="0" value="${v.plays||0}">
+          </div>
+          <div class="full">
+            <label class="field-label">标签 (逗号分隔)</label>
+            <input class="input" name="tags" value="${esc((v.tags||[]).join(', '))}">
+          </div>
+          <div class="ad-form-foot">
+            <span class="t-xs c-4" style="margin-right:auto">ID: <code>${v.id}</code></span>
+            <button type="button" class="btn" data-act="cancel">取消</button>
+            <button type="submit" class="btn btn-primary"><i class="ti ti-check"></i> 保存</button>
+          </div>
+        `;
+        // 自动推断 embedType
+        form.querySelector('[name="playUrl"]').addEventListener('input', e => {
+          const t = detectEmbedType(e.target.value);
+          form.querySelector('#embedDetected').textContent = t;
+        });
+        // 封面渐变选择
+        form.querySelector('.grad-picker').addEventListener('click', e => {
+          const sw = e.target.closest('.grad-swatch');
+          if (!sw) return;
+          form.querySelectorAll('.grad-swatch').forEach(x => x.classList.remove('active'));
+          sw.classList.add('active');
+          form.elements.cover.value = sw.dataset.grad;
+        });
+        form.querySelector('[data-act="cancel"]').addEventListener('click', () => {
+          if (isNew && !v.title) {
+            adminState[collKey] = adminState[collKey].filter(x => x.id !== v.id);
+          }
+          editingId = null; isNew = false; paint();
+        });
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          const f = e.target.elements;
+          v.title = f.title.value.trim();
+          v.playUrl = f.playUrl.value.trim();
+          v.embedType = detectEmbedType(v.playUrl);
+          v.cover = f.cover.value;
+          v.description = f.description.value.trim();
+          v.rating = Number(f.rating.value) || 0;
+          v.plays = Number(f.plays.value) || 0;
+          v.playsText = formatPlays(v.plays);
+          v.tags = f.tags.value.split(/[,，]/).map(t => t.trim()).filter(Boolean);
+          if (subTab === 'dramas') {
+            v.episodes = Number(f.episodes.value) || 1;
+            v.vipFree = Number(f.vipFree.value) || 0;
+          }
+          persist();
+          editingId = null; isNew = false;
+          paint();
+          toast('视频已保存');
+        });
+        listEl.appendChild(form);
+      }
+    });
+  }
+
+  function formatPlays(n) {
+    if (n >= 100000000) return (n/100000000).toFixed(1).replace(/\.0$/,'') + '亿';
+    if (n >= 10000) return (n/10000).toFixed(0) + '万';
+    return String(n);
+  }
+
+  paint();
+}
+
+/* ============================================================
+   4) 热搜榜
+============================================================ */
+function renderHot() {
+  const main = $('#adminMain');
+  const MAX = 10;
+  function paint() {
+    main.innerHTML = `
+      <h2 class="ad-section-title">热搜榜</h2>
+      <p class="ad-section-sub">最多 ${MAX} 条。当前 ${adminState.hotSearches.length} 条。</p>
+      <div id="hotList"></div>
+      ${adminState.hotSearches.length < MAX ? `<button class="btn btn-primary" id="addHotBtn" style="margin-top:10px"><i class="ti ti-plus"></i> 添加</button>` : `<div class="ad-notice warn">已达上限 ${MAX} 条</div>`}
+    `;
+
+    const list = $('#hotList');
+    adminState.hotSearches.forEach((h, idx) => {
+      const row = document.createElement('div');
+      row.className = 'ad-mini-row';
+      row.style.gridTemplateColumns = '40px 1fr 120px 36px';
+      row.innerHTML = `
+        <span class="t-md f-medium c-3" style="font-family:ui-monospace,monospace">#${idx+1}</span>
+        <input class="input" data-i="${idx}" data-k="q" value="${esc(h.q)}" placeholder="关键词">
+        <input class="input" data-i="${idx}" data-k="delta" value="${esc(h.delta)}" placeholder="+xx% / NEW / 热">
+        <button class="icon-btn" data-del="${idx}"><i class="ti ti-trash"></i></button>
+      `;
+      list.appendChild(row);
+    });
+
+    list.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('input', e => {
+        const i = Number(e.target.dataset.i);
+        const k = e.target.dataset.k;
+        adminState.hotSearches[i][k] = e.target.value;
+        persist();
+      });
+    });
+    list.querySelectorAll('[data-del]').forEach(b => {
+      b.addEventListener('click', () => {
+        adminState.hotSearches.splice(Number(b.dataset.del), 1);
+        persist();
+        paint();
+      });
+    });
+    if (adminState.hotSearches.length < MAX) {
+      $('#addHotBtn').addEventListener('click', () => {
+        adminState.hotSearches.push({ q: '新热搜', delta: 'NEW' });
+        persist();
+        paint();
+      });
+    }
+  }
+  paint();
+}
+
+/* ============================================================
+   5) 横幅管理
+============================================================ */
+function renderBanners() {
+  const main = $('#adminMain');
+  const MAX = 3;
+  function paint() {
+    main.innerHTML = `
+      <h2 class="ad-section-title">横幅管理</h2>
+      <p class="ad-section-sub">首页"今日热议"横幅，最多 ${MAX} 条 (当前显示 banners[0])。</p>
+      <div id="bannerList"></div>
+      ${adminState.banners.length < MAX ? `<button class="btn btn-primary" id="addBanBtn" style="margin-top:10px"><i class="ti ti-plus"></i> 添加横幅</button>` : `<div class="ad-notice warn">已达上限 ${MAX} 条</div>`}
+    `;
+    const listEl = $('#bannerList');
+    adminState.banners.forEach((b, i) => {
+      const form = document.createElement('div');
+      form.className = 'ad-form';
+      form.style.marginBottom = '12px';
+      form.innerHTML = `
+        <div class="full" style="background:${b.gradient};padding:14px 18px;border-radius:var(--r-md);margin-bottom:6px;display:flex;align-items:center;gap:14px">
+          <div style="font-size:24px;color:var(--brand-300);font-weight:500;font-family:ui-monospace,monospace">${esc(b.statValue)}</div>
+          <div style="flex:1"><b>${esc(b.title)}</b><div class="t-xs c-3">${esc(b.statLabel)}</div></div>
+          <span class="t-xs c-4">#${i+1}</span>
+          <button class="icon-btn" data-del="${i}"><i class="ti ti-trash"></i></button>
+        </div>
+        <div class="full">
+          <label class="field-label">标题</label>
+          <input class="input" data-i="${i}" data-k="title" value="${esc(b.title)}">
+        </div>
+        <div>
+          <label class="field-label">统计值 (左侧大字)</label>
+          <input class="input" data-i="${i}" data-k="statValue" value="${esc(b.statValue)}">
+        </div>
+        <div>
+          <label class="field-label">统计标签</label>
+          <input class="input" data-i="${i}" data-k="statLabel" value="${esc(b.statLabel)}">
+        </div>
+        <div>
+          <label class="field-label">关联帖子 (linkedPostId)</label>
+          <select class="select" data-i="${i}" data-k="linkedPostId">
+            ${adminState.posts.map(p => `<option value="${p.id}" ${p.id===b.linkedPostId?'selected':''}>${p.id} - ${esc((p.title||'').slice(0,40))}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <label class="field-label">日期 (ISO)</label>
+          <input class="input" data-i="${i}" data-k="date" value="${esc(b.date)}">
+        </div>
+        <div class="full">
+          <label class="field-label">背景渐变</label>
+          <div class="grad-picker">
+            ${PRESET_GRADIENTS.map(g => `<div class="grad-swatch ${g===b.gradient?'active':''}" data-grad="${esc(g)}" style="background:${g}"></div>`).join('')}
+          </div>
+        </div>
+      `;
+      form.querySelectorAll('input,select').forEach(inp => {
+        inp.addEventListener('input', e => {
+          const i = Number(e.target.dataset.i);
+          const k = e.target.dataset.k;
+          adminState.banners[i][k] = e.target.value;
+          persist();
+          // 不重 paint，避免输入焦点丢失
+        });
+      });
+      form.querySelector('.grad-picker').addEventListener('click', e => {
+        const sw = e.target.closest('.grad-swatch');
+        if (!sw) return;
+        form.querySelectorAll('.grad-swatch').forEach(x => x.classList.remove('active'));
+        sw.classList.add('active');
+        adminState.banners[i].gradient = sw.dataset.grad;
+        persist();
+        paint();
+      });
+      form.querySelector('[data-del]').addEventListener('click', () => {
+        if (!confirm('删除该横幅？')) return;
+        adminState.banners.splice(i, 1);
+        persist();
+        paint();
+      });
+      listEl.appendChild(form);
+    });
+    if (adminState.banners.length < MAX) {
+      $('#addBanBtn').addEventListener('click', () => {
+        adminState.banners.push({
+          id: 'b' + String(Date.now()).slice(-3),
+          title: '新横幅',
+          subtitle: '',
+          statValue: '+0',
+          statLabel: '今日热议',
+          date: new Date().toISOString(),
+          linkedPostId: adminState.posts[0]?.id || '',
+          gradient: PRESET_GRADIENTS[0],
+        });
+        persist();
+        paint();
+      });
+    }
+  }
+  paint();
+}
+
+/* ============================================================
+   6) 用户管理
+============================================================ */
+function renderUsers() {
+  const main = $('#adminMain');
+  let editingId = null;
+  let isNew = false;
+
+  function newAuthor() {
+    return { id: 'u' + String(Date.now()).slice(-3), name: '', avatar: AVATAR_GRADIENTS[0], level: 1 };
+  }
+
+  function paint() {
+    main.innerHTML = `
+      <h2 class="ad-section-title">用户管理 (作者池)</h2>
+      <p class="ad-section-sub">共 ${adminState.authors.length} 位作者。注意：删除作者会让引用他的帖子失效。</p>
+      <div class="ad-toolbar">
+        <button class="btn btn-primary" id="newUserBtn" style="margin-left:auto"><i class="ti ti-plus"></i> 新建作者</button>
+      </div>
+      <div id="userList"></div>
+    `;
+    $('#newUserBtn').addEventListener('click', () => {
+      isNew = true;
+      const nu = newAuthor();
+      adminState.authors.unshift(nu);
+      editingId = nu.id;
+      paint();
+    });
+
+    const listEl = $('#userList');
+    adminState.authors.forEach(a => {
+      const row = document.createElement('div');
+      row.className = 'ad-row';
+      if (editingId === a.id) row.classList.add('expanded');
+      const initial = (a.name || '?').slice(0,1);
+      row.innerHTML = `
+        <div class="avatar md ${a.avatar} has-bg ${a.vip?'vip-ring':''}">${esc(initial)}</div>
+        <div class="ad-row-body">
+          <div class="ad-row-title">${esc(a.name || '(未命名)')} ${a.vip?`<span class="badge gold t-xs">VIP ${esc(a.vip)}</span>`:''}</div>
+          <div class="ad-row-sub">${a.id} · Lv.${a.level} · 头像 ${a.avatar}</div>
+        </div>
+        <div class="ad-row-actions">
+          <button class="icon-btn" data-act="edit"><i class="ti ti-edit"></i></button>
+          <button class="icon-btn" data-act="del"><i class="ti ti-trash"></i></button>
+        </div>
+      `;
+      row.querySelector('[data-act="edit"]').addEventListener('click', () => {
+        editingId = editingId === a.id ? null : a.id;
+        paint();
+      });
+      row.querySelector('[data-act="del"]').addEventListener('click', () => {
+        const usedBy = adminState.posts.filter(p => p.authorId === a.id).length;
+        if (usedBy && !confirm(`作者 ${a.name} 被 ${usedBy} 条帖子引用，确认删除？`)) return;
+        if (!usedBy && !confirm(`删除作者 ${a.name}？`)) return;
+        adminState.authors = adminState.authors.filter(x => x.id !== a.id);
+        persist();
+        if (editingId === a.id) editingId = null;
+        paint();
+      });
+      listEl.appendChild(row);
+
+      if (editingId === a.id) {
+        const form = document.createElement('form');
+        form.className = 'ad-form';
+        form.innerHTML = `
+          <div>
+            <label class="field-label">ID</label>
+            <input class="input" name="id" value="${esc(a.id)}" ${isNew?'':'readonly'}>
+          </div>
+          <div>
+            <label class="field-label">姓名</label>
+            <input class="input" name="name" value="${esc(a.name)}" required>
+          </div>
+          <div>
+            <label class="field-label">等级</label>
+            <input class="input" name="level" type="number" min="1" max="99" value="${a.level}">
+          </div>
+          <div>
+            <label class="field-label">VIP 等级</label>
+            <select class="select" name="vip">
+              <option value="" ${!a.vip?'selected':''}>无</option>
+              <option value="silver" ${a.vip==='silver'?'selected':''}>silver</option>
+              <option value="gold" ${a.vip==='gold'?'selected':''}>gold</option>
+            </select>
+          </div>
+          <div class="full">
+            <label class="field-label">头像 (渐变 class)</label>
+            <div class="grad-picker" style="grid-template-columns:repeat(8,1fr)">
+              ${AVATAR_GRADIENTS.map(g => `<div class="grad-swatch ${g===a.avatar?'active':''}" data-grad="${g}" style="aspect-ratio:1" data-grad-class="${g}"></div>`).join('')}
+            </div>
+            <input type="hidden" name="avatar" value="${esc(a.avatar)}">
+          </div>
+          <div class="ad-form-foot">
+            <button type="button" class="btn" data-act="cancel">取消</button>
+            <button type="submit" class="btn btn-primary"><i class="ti ti-check"></i> 保存</button>
+          </div>
+        `;
+        // 给头像 grad-swatch 加上对应 bg-grad-x 的实际背景
+        form.querySelectorAll('.grad-swatch').forEach(sw => {
+          sw.style.background = `var(--bg-elev)`;
+          sw.classList.add(sw.dataset.gradClass);
+          // bg-grad-X 是 styles.css 已定义的 .bg-grad-1 等
+        });
+        form.querySelector('.grad-picker').addEventListener('click', e => {
+          const sw = e.target.closest('.grad-swatch');
+          if (!sw) return;
+          form.querySelectorAll('.grad-swatch').forEach(x => x.classList.remove('active'));
+          sw.classList.add('active');
+          form.elements.avatar.value = sw.dataset.grad;
+        });
+        form.querySelector('[data-act="cancel"]').addEventListener('click', () => {
+          if (isNew && !a.name) {
+            adminState.authors = adminState.authors.filter(x => x.id !== a.id);
+          }
+          editingId = null; isNew = false; paint();
+        });
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          const f = e.target.elements;
+          if (isNew) a.id = f.id.value.trim() || a.id;
+          a.name = f.name.value.trim();
+          a.level = Number(f.level.value) || 1;
+          a.avatar = f.avatar.value;
+          if (f.vip.value) a.vip = f.vip.value; else delete a.vip;
+          persist();
+          editingId = null; isNew = false;
+          paint();
+          toast('作者已保存');
+        });
+        listEl.appendChild(form);
+      }
+    });
+  }
+  paint();
+}
+
+/* ---------- Wire up topbar ---------- */
+$('#exportBtn').addEventListener('click', exportJson);
+$('#resetBtn').addEventListener('click', reset);
+$$('.ad-tab[data-tab]').forEach(t => t.addEventListener('click', e => {
+  e.preventDefault();
+  switchTab(t.dataset.tab);
+}));
+
+/* ---------- Bootstrap ---------- */
+(async () => {
+  try {
+    await loadState();
+    window.adminState = adminState;  // 暴露到 window 方便调试
+    updateCounts();
+    switchTab('channels');
+  } catch (err) {
+    console.error(err);
+    $('#adminMain').innerHTML = `
+      <div class="ad-notice warn">
+        <i class="ti ti-alert-triangle"></i> 数据加载失败: ${esc(err.message || String(err))}
+        <br>请确保通过 HTTP 服务器访问 (不要双击打开文件)，并且 <code>../data/site-data.json</code> 存在。
+      </div>
+    `;
+  }
+})();
+</script>
+</body>
+</html>

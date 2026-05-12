@@ -149,9 +149,12 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/data.js"></script>
-<script src="../shared/components.js"></script>
+<script src="../shared/data.js?v=9"></script>
+<script src="../shared/components.js?v=9"></script>
 <script>
+(async () => {
+  await QD.ready();
+
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));
   document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
@@ -159,9 +162,10 @@
 
   document.getElementById('feed').innerHTML = `
     <div style="display:flex;flex-direction:column;gap:12px">
-      ${QD.posts.slice(0, 4).map(p => QDC.tplPostCard(p).replace('<article ', `<article onclick="location.href='post-detail.html?id=${p.id}'" `)).join('')}
+      ${QD.posts.slice().sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 4).map(p => QDC.tplPostCard(p)).join('')}
     </div>
   `;
+})();
 </script>
 </body>
 </html>
