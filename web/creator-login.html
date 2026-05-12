@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>创作者登录 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  body {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(ellipse at top, rgba(255,215,0,0.10), transparent 60%),
+      radial-gradient(ellipse at 80% 30%, rgba(212,160,74,0.12), transparent 60%),
+      var(--bg-base);
+    padding: 20px;
+  }
+  .auth-card {
+    width: 400px;
+    max-width: 100%;
+    background: linear-gradient(180deg, rgba(212,160,74,0.06), var(--bg-card) 30%);
+    border: 1px solid rgba(255,215,0,0.30);
+    border-radius: var(--r-xl);
+    padding: 36px 32px 28px;
+    box-shadow: 0 12px 32px rgba(212,160,74,0.18);
+  }
+  .auth-logo {
+    display: flex; align-items: center; gap: 10px;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  .auth-logo-mark {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--brand-300), var(--brand-600));
+    border-radius: 9px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: white; font-weight: 500; font-size: 17px;
+  }
+  .auth-logo span.brand { font-size: 16px; font-weight: 500; }
+  .creator-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: linear-gradient(135deg, #FFD700, #E5AA00);
+    color: #1A1208;
+    font-size: 11px; font-weight: 500;
+    padding: 3px 10px;
+    border-radius: var(--r-pill);
+    margin: 0 auto 24px;
+    width: fit-content;
+  }
+  .creator-badge-wrap { display: flex; justify-content: center; }
+  .auth-title { font-size: 22px; font-weight: 500; margin: 0 0 6px; text-align: center; }
+  .auth-sub { color: var(--text-3); font-size: 12px; text-align: center; margin: 0 0 20px; }
+  .auth-form { display: flex; flex-direction: column; gap: 14px; }
+  .auth-form .field-label { font-size: 12px; color: var(--text-3); margin-bottom: 4px; display: block; }
+  .auth-error {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid rgba(229,90,75,0.30);
+    padding: 8px 12px;
+    border-radius: var(--r-md);
+    font-size: 12px;
+    display: none;
+  }
+  .auth-error.show { display: block; }
+  .auth-foot {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-3);
+    margin-top: 18px;
+  }
+  .auth-foot a { color: var(--brand-300); }
+  .auth-foot a:hover { color: var(--brand-200); text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="auth-card">
+  <div class="auth-logo">
+    <span class="auth-logo-mark">奇</span>
+    <span class="brand">奇点社区</span>
+  </div>
+  <div class="creator-badge-wrap">
+    <span class="creator-badge"><i class="ti ti-crown"></i> 创作者</span>
+  </div>
+
+  <h1 class="auth-title">创作者登录</h1>
+  <p class="auth-sub">访问创作者中心、收益分成、稿件管理</p>
+
+  <div class="auth-error" id="errBox"></div>
+
+  <form class="auth-form" id="loginForm">
+    <div>
+      <label class="field-label" for="email">邮箱</label>
+      <input class="input" type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com">
+    </div>
+    <div>
+      <label class="field-label" for="password">密码</label>
+      <input class="input" type="password" id="password" name="password" required minlength="6" autocomplete="current-password" placeholder="≥ 6 位">
+    </div>
+    <button class="btn btn-vip lg block" type="submit" id="submitBtn">
+      <i class="ti ti-crown"></i> 进入创作者中心
+    </button>
+  </form>
+
+  <div class="auth-foot">
+    还不是创作者? <a href="register.html" id="registerLink" onclick="location.href=this.getAttribute('href');return false;">注册时勾选"我是创作者"</a>
+  </div>
+  <div class="auth-foot" style="margin-top:8px">
+    <a href="login.html" id="normalLink" onclick="location.href=this.getAttribute('href');return false;">← 不是创作者? 去普通登录</a>
+  </div>
+</div>
+
+<script src="../shared/auth.js?v=12"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const nextUrl = params.get('next') || 'creator-center.html';
+  if (params.get('next')) {
+    document.getElementById('registerLink').href = 'register.html?next=' + encodeURIComponent(nextUrl);
+    document.getElementById('normalLink').href = 'login.html?next=' + encodeURIComponent(nextUrl);
+  }
+
+  // 已登录: 友好提示,不自动跳转
+  const cur = QDAuth.getCurrentUser();
+  if (cur) {
+    const e = document.getElementById('errBox');
+    e.style.background = 'var(--info-bg)';
+    e.style.color = 'var(--info)';
+    e.style.borderColor = 'rgba(74,159,229,0.25)';
+    if (cur.isCreator) {
+      e.innerHTML = `你已登录为创作者 <b>${cur.username}</b> · <a href="${nextUrl}" onclick="location.href='${nextUrl}';return false;" style="color:inherit;text-decoration:underline">进入创作者中心</a>`;
+    } else {
+      e.innerHTML = `当前登录账号 <b>${cur.username}</b> 不是创作者 · 重新登录创作者账号,或 <a href="register.html" onclick="location.href='register.html';return false;" style="color:inherit;text-decoration:underline">注册新创作者</a>`;
+    }
+    e.classList.add('show');
+  }
+
+  const form = document.getElementById('loginForm');
+  const errBox = document.getElementById('errBox');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function showError(msg) {
+    errBox.textContent = msg;
+    errBox.classList.add('show');
+  }
+  function clearError() { errBox.classList.remove('show'); }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError();
+    submitBtn.disabled = true;
+    try {
+      const email = form.elements.email.value.trim();
+      const password = form.elements.password.value;
+      const user = await QDAuth.login({ email, password });
+      if (!user.isCreator) {
+        // 不是创作者: 登出 + alert + 重置
+        await QDAuth.logout(); // 会跳走;为避免跳走,改成手动清除
+      }
+      // 上面 logout 会导航走,所以单独处理:
+      if (user.isCreator) {
+        location.href = nextUrl;
+      } else {
+        // 重新清除 current 然后报错
+        localStorage.removeItem('qd-current-user');
+        alert('该账号不是创作者账号');
+        submitBtn.disabled = false;
+      }
+    } catch (err) {
+      showError(err.message || '登录失败');
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

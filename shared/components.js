@@ -324,17 +324,127 @@ window.QDC = (function () {
     document.body.insertBefore(bar, document.body.firstChild);
   }
 
+  /* ---------- User menu dropdown styles (一次性注入) ---------- */
+  function injectUserMenuStyles() {
+    if (document.getElementById('qdc-user-menu-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'qdc-user-menu-styles';
+    style.textContent = `
+      .qd-user-menu { position: relative; }
+      .qd-user-trigger {
+        display: flex; align-items: center; gap: 8px;
+        padding: 4px 10px 4px 4px;
+        border-radius: var(--r-pill);
+        cursor: pointer;
+        transition: background .15s;
+      }
+      .qd-user-trigger:hover { background: var(--bg-card); }
+      .qd-user-trigger i.ti-chevron-down { font-size: 14px; color: var(--text-3); }
+      .qd-user-dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        min-width: 200px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-2);
+        border-radius: var(--r-lg);
+        padding: 6px;
+        box-shadow: var(--shadow-lg);
+        z-index: var(--z-fixed);
+        display: none;
+      }
+      .qd-user-menu.open .qd-user-dropdown { display: block; }
+      .qd-user-dropdown a, .qd-user-dropdown button {
+        display: flex; align-items: center; gap: 10px;
+        padding: 9px 12px;
+        border-radius: var(--r-md);
+        color: var(--text-1);
+        font-size: 13px;
+        text-decoration: none;
+        width: 100%;
+        text-align: left;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+      .qd-user-dropdown a:hover, .qd-user-dropdown button:hover { background: var(--bg-elev); }
+      .qd-user-dropdown i { font-size: 16px; color: var(--text-3); }
+      .qd-user-dropdown .qd-menu-info {
+        padding: 10px 12px 8px;
+        border-bottom: 1px solid var(--border-1);
+        margin-bottom: 4px;
+      }
+      .qd-user-dropdown .qd-menu-info .username { font-weight: 500; font-size: 13px; }
+      .qd-user-dropdown .qd-menu-info .email { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+      .qd-user-dropdown .qd-menu-divider { height: 1px; background: var(--border-1); margin: 4px 0; }
+      .qd-user-dropdown .danger { color: var(--danger); }
+      .qd-user-dropdown .danger:hover { background: var(--danger-bg); }
+      .qd-user-dropdown .creator-badge {
+        display: inline-flex; align-items: center;
+        background: linear-gradient(135deg, rgba(255,215,0,0.20), rgba(229,170,0,0.10));
+        color: #FFD700;
+        font-size: 10px;
+        padding: 1px 6px;
+        border-radius: var(--r-pill);
+        margin-left: auto;
+        border: 1px solid rgba(255,215,0,0.30);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   /* ---------- Header renderer ---------- */
   function renderHeader(rootEl, opts = {}) {
     // 渲染 header 同时尝试插入草稿横条（每个前台页都调 renderHeader → 自动得到横条）
     maybeShowDraftBanner();
-
+    injectUserMenuStyles();
 
     // 发帖按钮如果当前在某频道下，自动带 ch 参数
     const curCh = new URLSearchParams(location.search).get('ch') || '';
     const editorHref = 'post-editor.html' + (curCh ? '?ch=' + encodeURIComponent(curCh) : '');
     // 搜索框预填当前 ?q= 值（来自 search.html）
     const curQ = new URLSearchParams(location.search).get('q') || '';
+
+    // 当前登录用户（来自 QDAuth · localStorage），未登录返回 null
+    const auth = (typeof window !== 'undefined' && window.QDAuth) ? window.QDAuth.getCurrentUser() : null;
+
+    // 右上角：未登录显示 登录/注册 按钮；登录后显示头像 + 下拉菜单
+    // 注意：所有 a 标签都同时挂 href + onclick，避免被任何 click capture 拦截
+    let userArea = '';
+    if (auth) {
+      const userObj = { name: auth.username, avatar: auth.avatar, vip: auth.isCreator };
+      const go = (url) => `onclick="location.href='${url}';return false;"`;
+      userArea = `
+        <div class="qd-user-menu" id="qdUserMenu">
+          <div class="qd-user-trigger" onclick="event.stopPropagation();document.getElementById('qdUserMenu').classList.toggle('open')" style="cursor:pointer">
+            ${tplAvatar(userObj, 'sm')}
+            <span class="t-sm c-2">${escape(auth.username)}</span>
+            <i class="ti ti-chevron-down"></i>
+          </div>
+          <div class="qd-user-dropdown">
+            <div class="qd-menu-info">
+              <div class="username">${escape(auth.username)}${auth.isCreator ? ' <span class="creator-badge"><i class="ti ti-crown"></i> Creator</span>' : ''}</div>
+              <div class="email">${escape(auth.email || '')}</div>
+            </div>
+            <a href="profile.html" ${go('profile.html')}><i class="ti ti-user"></i> 我的主页</a>
+            ${auth.isCreator ? `<a href="creator-center.html" ${go('creator-center.html')}><i class="ti ti-chart-bar"></i> 创作者中心</a>` : ''}
+            <a href="messages.html" ${go('messages.html')}><i class="ti ti-bell"></i> 消息中心</a>
+            <a href="vip.html" ${go('vip.html')}><i class="ti ti-crown" style="color:#FFD700"></i> 黑卡会员</a>
+            <div class="qd-menu-divider"></div>
+            <button class="danger" onclick="QDAuth.logout()"><i class="ti ti-logout"></i> 退出登录</button>
+          </div>
+        </div>
+      `;
+    } else {
+      userArea = `
+        <a class="btn sm" href="login.html" onclick="location.href='login.html';return false;" style="cursor:pointer">
+          <i class="ti ti-login"></i> 登录
+        </a>
+        <a class="btn sm btn-primary" href="register.html" onclick="location.href='register.html';return false;" style="cursor:pointer">
+          <i class="ti ti-user-plus"></i> 注册
+        </a>
+      `;
+    }
 
     rootEl.innerHTML = `
       <div class="header">
@@ -350,12 +460,19 @@ window.QDC = (function () {
         </div>
         <button class="icon-btn" title="发布新帖" onclick="location.href='${editorHref}'"><i class="ti ti-pencil-plus"></i></button>
         <button class="icon-btn" title="通知" onclick="location.href='messages.html'"><i class="ti ti-bell"></i></button>
-        <a class="row gap-2" href="profile.html" style="text-decoration:none">
-          ${tplAvatar(Object.assign({ name: QD.user.username, vip: QD.user.vip.active }, { avatar: QD.user.avatar }), 'sm')}
-          <span class="t-sm c-2">${escape(QD.user.username)}</span>
-        </a>
+        ${userArea}
       </div>
     `;
+
+    // 下拉菜单：点外面关闭
+    if (auth) {
+      const closeMenu = (e) => {
+        const menu = document.getElementById('qdUserMenu');
+        if (menu && !menu.contains(e.target)) menu.classList.remove('open');
+      };
+      // 用 setTimeout 避开自身 click 立刻触发
+      setTimeout(() => document.addEventListener('click', closeMenu, { once: false }), 0);
+    }
   }
 
   /* ---------- Channel page styles (一次性注入) ---------- */

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>注册 · 奇点社区</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+<style>
+  body {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(ellipse at top, rgba(127,119,221,0.18), transparent 60%),
+      radial-gradient(ellipse at 80% 30%, rgba(74,219,204,0.10), transparent 60%),
+      var(--bg-base);
+    padding: 20px;
+  }
+  .auth-card {
+    width: 420px;
+    max-width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-xl);
+    padding: 36px 32px 28px;
+    box-shadow: var(--shadow-lg);
+  }
+  .auth-logo {
+    display: flex; align-items: center; gap: 10px;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .auth-logo-mark {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--brand-300), var(--brand-600));
+    border-radius: 9px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: white; font-weight: 500; font-size: 17px;
+  }
+  .auth-logo span.brand { font-size: 16px; font-weight: 500; }
+  .auth-title { font-size: 22px; font-weight: 500; margin: 0 0 6px; text-align: center; }
+  .auth-sub { color: var(--text-3); font-size: 12px; text-align: center; margin: 0 0 20px; }
+  .auth-form { display: flex; flex-direction: column; gap: 14px; }
+  .auth-form .field-label { font-size: 12px; color: var(--text-3); margin-bottom: 4px; display: block; }
+  .auth-error {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid rgba(229,90,75,0.30);
+    padding: 8px 12px;
+    border-radius: var(--r-md);
+    font-size: 12px;
+    display: none;
+  }
+  .auth-error.show { display: block; }
+  .auth-foot {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-3);
+    margin-top: 18px;
+  }
+  .auth-foot a { color: var(--brand-300); }
+  .auth-foot a:hover { color: var(--brand-200); text-decoration: underline; }
+  .checkbox-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px;
+    background: var(--bg-elev);
+    border-radius: var(--r-md);
+    cursor: pointer;
+    user-select: none;
+  }
+  .checkbox-row input { cursor: pointer; width: 16px; height: 16px; accent-color: var(--brand-400); }
+  .checkbox-row .hint { font-size: 11px; color: var(--text-4); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="auth-card">
+  <div class="auth-logo">
+    <span class="auth-logo-mark">奇</span>
+    <span class="brand">奇点社区</span>
+  </div>
+
+  <h1 class="auth-title">创建账号</h1>
+  <p class="auth-sub">注册即同意社区《用户协议》与《隐私政策》</p>
+
+  <div class="auth-error" id="errBox"></div>
+
+  <form class="auth-form" id="registerForm">
+    <div>
+      <label class="field-label" for="username">用户名</label>
+      <input class="input" type="text" id="username" name="username" required minlength="2" maxlength="20" autocomplete="username" placeholder="2-20 字">
+    </div>
+    <div>
+      <label class="field-label" for="email">邮箱</label>
+      <input class="input" type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com">
+    </div>
+    <div>
+      <label class="field-label" for="password">密码</label>
+      <input class="input" type="password" id="password" name="password" required minlength="6" autocomplete="new-password" placeholder="≥ 6 位">
+    </div>
+    <div>
+      <label class="field-label" for="password2">确认密码</label>
+      <input class="input" type="password" id="password2" name="password2" required minlength="6" autocomplete="new-password" placeholder="再输一次">
+    </div>
+    <label class="checkbox-row">
+      <input type="checkbox" id="isCreator" name="isCreator">
+      <div style="flex:1">
+        <div>我是创作者</div>
+        <div class="hint">勾选后可进入创作者中心,管理内容与收益</div>
+      </div>
+    </label>
+    <button class="btn btn-primary lg block" type="submit" id="submitBtn">
+      <i class="ti ti-user-plus"></i> 注册并登录
+    </button>
+  </form>
+
+  <div class="auth-foot">
+    已有账号? <a href="login.html" id="loginLink" onclick="location.href=this.getAttribute('href');return false;">去登录</a>
+  </div>
+</div>
+
+<script src="../shared/auth.js?v=12"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const nextUrl = params.get('next') || 'home.html';
+  if (params.get('next')) {
+    document.getElementById('loginLink').href = 'login.html?next=' + encodeURIComponent(nextUrl);
+  }
+  // 已登录: 友好提示,不自动跳转
+  const _existed = QDAuth.getCurrentUser();
+  if (_existed) {
+    const e = document.getElementById('errBox');
+    e.style.background = 'var(--info-bg)';
+    e.style.color = 'var(--info)';
+    e.style.borderColor = 'rgba(74,159,229,0.25)';
+    e.innerHTML = `你已登录为 <b>${_existed.username}</b> · <a href="${nextUrl}" onclick="location.href='${nextUrl}';return false;" style="color:inherit;text-decoration:underline">回到首页</a>。继续注册新账号会替换当前登录态`;
+    e.classList.add('show');
+  }
+
+  const form = document.getElementById('registerForm');
+  const errBox = document.getElementById('errBox');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function showError(msg) {
+    errBox.textContent = msg;
+    errBox.classList.add('show');
+  }
+  function clearError() { errBox.classList.remove('show'); }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError();
+    const f = form.elements;
+    const username = f.username.value.trim();
+    const email = f.email.value.trim();
+    const password = f.password.value;
+    const password2 = f.password2.value;
+    const isCreator = f.isCreator.checked;
+
+    if (password !== password2) {
+      showError('两次输入的密码不一致');
+      return;
+    }
+    submitBtn.disabled = true;
+    try {
+      await QDAuth.signup({ email, password, username, isCreator });
+      location.href = nextUrl;
+    } catch (err) {
+      showError(err.message || '注册失败');
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

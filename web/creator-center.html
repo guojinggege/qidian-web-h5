@@ -205,11 +205,19 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/data.js?v=9"></script>
-<script src="../shared/components.js?v=9"></script>
+<script src="../shared/auth.js?v=12"></script>
+<script src="../shared/data.js?v=12"></script>
+<script src="../shared/components.js?v=12"></script>
 <script>
 (async () => {
   await QD.ready();
+  // 路由保护: 必须是创作者
+  const _u = QDAuth.requireLogin(location.pathname + location.search);
+  if (!_u.isCreator) {
+    alert('创作者中心仅限创作者账号访问');
+    location.replace('creator-login.html?next=' + encodeURIComponent(location.pathname + location.search));
+    return;
+  }
 
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));

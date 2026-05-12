@@ -149,11 +149,14 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/data.js?v=9"></script>
-<script src="../shared/components.js?v=9"></script>
+<script src="../shared/auth.js?v=12"></script>
+<script src="../shared/data.js?v=12"></script>
+<script src="../shared/components.js?v=12"></script>
 <script>
 (async () => {
   await QD.ready();
+  // 路由保护: 未登录跳 login.html
+  QDAuth.requireLogin(location.pathname + location.search);
 
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));
