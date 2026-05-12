@@ -27,6 +27,17 @@
   .pd-title { font-size: 26px; font-weight: 500; line-height: 1.35; margin: 12px 0 16px; }
   .pd-content { font-size: 15px; line-height: 1.8; color: var(--text-2); }
   .pd-content p { margin: 0 0 14px; }
+  .pd-video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: #000;
+    margin: 16px 0;
+  }
+  .pd-video iframe, .pd-video video {
+    width: 100%; height: 100%; border: 0; display: block;
+  }
   .pd-images {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -107,8 +118,8 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/data.js?v=15"></script>
-<script src="../shared/components.js?v=15"></script>
+<script src="../shared/data.js?v=16"></script>
+<script src="../shared/components.js?v=16"></script>
 <script>
 (async () => {
   await QD.ready();
@@ -142,7 +153,10 @@
   }
 
   const ch = QD.channelById(post.channelId);
-  const author = QD.authorOf(post);
+  // 用户帖子用 post.authorName/authorAvatar; 种子帖用 authorOf
+  const author = post.isUserPost
+    ? { id: post.authorId, name: post.authorName || '用户', avatar: post.authorAvatar || 'bg-grad-6', level: post.authorLevel || 1, vip: false }
+    : QD.authorOf(post);
   const postComments = QD.comments.filter(c => c.postId === post.id);
   document.title = `${post.title} · 奇点社区`;
 
@@ -150,6 +164,24 @@
   const bodyHtml = post.body
     ? post.body.split(/\n\n+/).map(p => `<p>${QDC.escape(p.trim()).replace(/\n/g, '<br>')}</p>`).join('')
     : `<p>${QDC.escape(post.excerpt || '')}</p>`;
+
+  // 视频渲染：type=video 时优先用 videoEmbedType/Url; 兼容老种子帖的 thumb 占位
+  let videoHtml = '';
+  if (post.type === 'video') {
+    if (post.videoEmbedType === 'youtube' || post.videoEmbedType === 'bilibili') {
+      videoHtml = `<div class="pd-video"><iframe src="${post.videoEmbedUrl}" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="no-referrer"></iframe></div>`;
+    } else if (post.videoEmbedType === 'mp4' && post.videoEmbedUrl) {
+      videoHtml = `<div class="pd-video"><video src="${post.videoEmbedUrl}" controls playsinline></video></div>`;
+    } else if (post.videoUrl) {
+      // 用户帖子但 embed 字段缺失时,运行时再嗅探一次
+      const info = QDC.parseVideoUrl(post.videoUrl);
+      if (info.type === 'youtube' || info.type === 'bilibili') {
+        videoHtml = `<div class="pd-video"><iframe src="${info.embedUrl}" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="no-referrer"></iframe></div>`;
+      } else if (info.type === 'mp4') {
+        videoHtml = `<div class="pd-video"><video src="${info.embedUrl}" controls playsinline></video></div>`;
+      }
+    }
+  }
 
   // 图片渲染：images 数组里全是 URL/dataURL；格式异常时跳过
   const images = Array.isArray(post.images) ? post.images.filter(u => typeof u === 'string') : [];
@@ -183,6 +215,8 @@
       </div>
 
       <h1 class="pd-title">${post.title}</h1>
+
+      ${videoHtml}
 
       <div class="pd-content">
         ${bodyHtml}

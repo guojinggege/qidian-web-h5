@@ -211,6 +211,36 @@ window.QD = (function () {
   // 标记，供 UI 检测"是否正在预览草稿"
   state.__hasDraft = false;
 
+  // 读取用户发布的帖子 (localStorage 'qd-user-posts')
+  // 这些帖子永远在 QD.posts 最前面 (按 createdAt 倒序)
+  function loadUserPosts() {
+    try {
+      if (typeof localStorage === 'undefined') return [];
+      const raw = localStorage.getItem('qd-user-posts');
+      if (!raw) return [];
+      const arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) {
+      console.warn('[QD] qd-user-posts 解析失败，忽略:', e.message);
+      return [];
+    }
+  }
+
+  // 把用户帖子合并进 state.posts (插在最前面,按 createdAt 倒序)
+  function mergeUserPosts() {
+    const userPosts = loadUserPosts();
+    if (!userPosts.length) return 0;
+    // 去重: 如果 server / draft 里已有同 id, 用 user 版覆盖
+    const map = new Map(state.posts.map(p => [p.id, p]));
+    for (const up of userPosts) {
+      if (up && up.id) map.set(up.id, up);
+    }
+    state.posts = Array.from(map.values());
+    // 按 createdAt 倒序 (新帖在前)
+    state.posts.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+    return userPosts.length;
+  }
+
   let readyPromise = null;
   function ready() {
     if (readyPromise) return readyPromise;
@@ -258,6 +288,12 @@ window.QD = (function () {
           // eslint-disable-next-line no-console
           console.log('[QD] 数据已加载', serverSnapshot);
         }
+        // 最后合并用户发布的帖子 (独立 namespace qd-user-posts)
+        const userN = mergeUserPosts();
+        if (userN) {
+          // eslint-disable-next-line no-console
+          console.log('[QD] 已合并', userN, '条用户帖子 (qd-user-posts) · 总 posts:', state.posts.length);
+        }
         return state;
       })
       .catch(err => {
@@ -270,6 +306,8 @@ window.QD = (function () {
           applyData(draft);
           state.__hasDraft = true;
         }
+        // 同样合并用户帖子
+        mergeUserPosts();
         return state;
       });
     return readyPromise;

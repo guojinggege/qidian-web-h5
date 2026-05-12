@@ -35,6 +35,33 @@ window.QDC = (function () {
     return channelId + '-channel.html';
   }
 
+  /* ---------- 视频 URL 嗅探 ----------
+     输入: 任意视频 URL
+     输出: { type: 'youtube' | 'bilibili' | 'mp4' | 'unknown', embedUrl, videoId? , bvid? }
+  ---------------------------------------- */
+  function parseVideoUrl(url) {
+    if (!url || typeof url !== 'string') return { type: 'unknown', embedUrl: '' };
+    const u = url.trim();
+    // YouTube: watch?v=XX / youtu.be/XX / embed/XX
+    let m;
+    m = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+    if (m) {
+      const id = m[1];
+      return { type: 'youtube', videoId: id, embedUrl: 'https://www.youtube.com/embed/' + id };
+    }
+    // Bilibili: /video/BVxxxx or BVxxxx
+    m = u.match(/(BV[A-Za-z0-9]{8,})/);
+    if (m) {
+      const bvid = m[1];
+      return { type: 'bilibili', bvid, embedUrl: 'https://player.bilibili.com/player.html?bvid=' + bvid + '&page=1&high_quality=1' };
+    }
+    // mp4 / webm / mov
+    if (/\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(u)) {
+      return { type: 'mp4', embedUrl: u };
+    }
+    return { type: 'unknown', embedUrl: '' };
+  }
+
   /* ---------- Templates ---------- */
   function tplAvatar(user, size = '') {
     if (!user) return `<div class="avatar ${size}"></div>`;
@@ -56,8 +83,16 @@ window.QDC = (function () {
     const images = Array.isArray(post.images) ? post.images.filter(u => typeof u === 'string') : [];
     const thumbs = Array.isArray(post.thumbs) ? post.thumbs : [];
     let media = '';
-    if (post.type === 'video' && post.thumb) {
-      media = `<div class="post-thumb video" style="background-image:${post.thumb}"></div>`;
+    if (post.type === 'video') {
+      // 优先 post.thumb (老种子帖); 其次 post.coverImage; 否则按 embed type 用占位渐变
+      const thumb = post.thumb
+        || (post.coverImage ? `url('${post.coverImage.replace(/'/g, '%27')}')` : '')
+        || 'linear-gradient(135deg,#534AB7,#0E0E12)';
+      media = `<div class="post-thumb video" style="background:${thumb}">
+        <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.30)">
+          <i class="ti ti-player-play-filled" style="font-size:48px;color:white;text-shadow:0 2px 12px rgba(0,0,0,0.5)"></i>
+        </span>
+      </div>`;
     } else if (post.type === 'gallery') {
       // 优先 images，兜底 thumbs
       const cells = images.length
@@ -644,6 +679,11 @@ window.QDC = (function () {
               <i class="ti ${s.icon}"></i>r/${s.id} ${escape(s.name)} <span class="cnt">· ${subCounts[s.id] || 0}</span>
             </a>
           `).join('')}
+          <span style="flex:1"></span>
+          <a class="ch-sub-tab" id="subNavPostBtn" style="background:var(--brand-bg);color:var(--brand-200);border-color:rgba(127,119,221,0.40)"
+             href="post-editor.html?ch=${channelId}${activeSub ? '&sub=' + activeSub : ''}">
+            <i class="ti ti-pencil-plus"></i> 发帖
+          </a>
         </nav>
 
         <div class="feed-head" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
@@ -757,5 +797,5 @@ window.QDC = (function () {
     `;
   }
 
-  return { $, $$, el, escape, channelPageUrl, tplAvatar, tplChannelPill, tplPostCard, tplLiveMessage, tplComment, startLiveRoom, renderSidebar, renderHeader, renderChannelPage, renderH5TabBar, maybeShowDraftBanner };
+  return { $, $$, el, escape, channelPageUrl, parseVideoUrl, tplAvatar, tplChannelPill, tplPostCard, tplLiveMessage, tplComment, startLiveRoom, renderSidebar, renderHeader, renderChannelPage, renderH5TabBar, maybeShowDraftBanner };
 })();

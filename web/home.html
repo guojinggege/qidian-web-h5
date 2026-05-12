@@ -42,6 +42,27 @@
     <div class="main-pad">
       <div id="bannerSlot"></div>
 
+      <!-- 发帖 CTA 卡片 -->
+      <div style="
+        margin-bottom: 16px;
+        padding: 18px 22px;
+        background: linear-gradient(135deg, rgba(127,119,221,0.15), rgba(74,219,204,0.05) 80%);
+        border: 1px solid var(--border-2);
+        border-radius: var(--r-lg);
+        display: flex; align-items: center; gap: 16px;
+      ">
+        <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#938AE8,#534AB7);display:flex;align-items:center;justify-content:center;color:white;font-size:22px;flex-shrink:0">
+          <i class="ti ti-pencil-plus"></i>
+        </div>
+        <div class="grow">
+          <div class="t-md f-medium">想说点什么?</div>
+          <div class="t-sm c-3" style="margin-top:2px">在 11 个频道里找一个发帖,跟海外华人聊聊</div>
+        </div>
+        <button class="btn btn-primary" onclick="location.href='post-editor.html'">
+          <i class="ti ti-pencil-plus"></i> 立即发帖
+        </button>
+      </div>
+
       <div class="feed-head">
         <h1 id="feedTitle">推荐</h1>
         <div class="seg" id="feedTabs">
@@ -61,9 +82,9 @@
   </aside>
 </div>
 
-<script src="../shared/auth.js?v=15"></script>
-<script src="../shared/data.js?v=15"></script>
-<script src="../shared/components.js?v=15"></script>
+<script src="../shared/auth.js?v=16"></script>
+<script src="../shared/data.js?v=16"></script>
+<script src="../shared/components.js?v=16"></script>
 <script>
 (async () => {
   await QD.ready();

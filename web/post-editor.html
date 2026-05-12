@@ -3,29 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>发布新帖 · 奇点社区</title>
+<title>发表新帖 · 奇点社区</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
-  .ed-shell { max-width: 880px; margin: 0 auto; padding: 24px 28px 80px; }
-  .ed-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .ed-shell { max-width: 780px; margin: 0 auto; padding: 24px 28px 80px; }
+  .ed-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
   .ed-head h1 { margin: 0; font-size: 22px; font-weight: 500; }
-
-  .ed-types { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 24px; }
-  .ed-type {
-    padding: 14px 10px;
-    background: var(--bg-card);
+  .ed-notice {
+    padding: 10px 14px;
+    background: var(--bg-elev);
     border: 1px solid var(--border-1);
     border-radius: var(--r-md);
-    text-align: center;
-    cursor: pointer;
-    transition: border-color .15s, background .15s;
+    color: var(--text-3);
+    font-size: 12px;
+    margin-bottom: 20px;
   }
-  .ed-type:hover { border-color: var(--border-2); background: var(--bg-elev); }
-  .ed-type.active { border-color: var(--brand-400); background: var(--brand-bg); }
-  .ed-type i { font-size: 22px; display: block; margin-bottom: 6px; color: var(--text-2); }
-  .ed-type.active i { color: var(--brand-300); }
-  .ed-type span { font-size: 12px; }
+  .ed-draft-banner {
+    padding: 12px 16px;
+    background: var(--warning-bg);
+    border: 1px solid rgba(212,160,74,0.30);
+    border-radius: var(--r-md);
+    color: var(--warning);
+    font-size: 13px;
+    margin-bottom: 20px;
+    display: none;
+    align-items: center; gap: 10px;
+  }
+  .ed-draft-banner.show { display: flex; }
+  .ed-draft-banner .row-end { display: flex; gap: 8px; margin-left: auto; }
 
   .ed-card {
     background: var(--bg-card);
@@ -34,66 +40,143 @@
     padding: 24px 28px;
     margin-bottom: 16px;
   }
-  .ed-title-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--text-1);
-    font-size: 22px;
+  .ed-card .field { margin-bottom: 18px; }
+  .ed-card .field:last-child { margin-bottom: 0; }
+  .field-label { display: block; font-size: 12px; color: var(--text-3); margin-bottom: 6px; }
+  .field-label .req { color: var(--danger); margin-left: 2px; }
+  .field-hint { font-size: 11px; color: var(--text-4); margin-top: 4px; }
+  .field-err {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid rgba(229,90,75,0.30);
+    border-radius: var(--r-md);
+    padding: 6px 10px;
+    font-size: 11px;
+    margin-top: 6px;
+    display: none;
+  }
+  .field-err.show { display: block; }
+
+  .seg-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .seg-type {
+    padding: 14px;
+    background: var(--bg-elev);
+    border: 1.5px solid var(--border-1);
+    border-radius: var(--r-md);
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .seg-type:hover { border-color: var(--border-2); }
+  .seg-type.active { border-color: var(--brand-400); background: var(--brand-bg); }
+  .seg-type i { font-size: 22px; display: block; margin-bottom: 4px; color: var(--text-2); }
+  .seg-type.active i { color: var(--brand-300); }
+  .seg-type .name { font-size: 13px; font-weight: 500; }
+  .seg-type .desc { font-size: 11px; color: var(--text-4); margin-top: 2px; }
+
+  .char-count { text-align: right; font-size: 11px; color: var(--text-4); margin-top: 4px; }
+  .char-count.over { color: var(--danger); }
+
+  /* 图片上传 */
+  .img-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .img-cell {
+    position: relative;
+    aspect-ratio: 1;
+    background: var(--bg-elev);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    border: 1px solid var(--border-1);
+  }
+  .img-cell > img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .img-cell .cover-badge {
+    position: absolute; top: 4px; left: 4px;
+    background: linear-gradient(135deg, #FFD700, #E5AA00);
+    color: #1A1208;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
     font-weight: 500;
-    padding: 4px 0;
   }
-  .ed-title-input::placeholder { color: var(--text-4); }
+  .img-cell .img-actions {
+    position: absolute; top: 4px; right: 4px;
+    display: flex; gap: 4px;
+  }
+  .img-cell .img-actions button {
+    width: 22px; height: 22px;
+    border: none;
+    background: rgba(0,0,0,0.65);
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0;
+  }
+  .img-cell .img-actions button i { font-size: 13px; }
+  .img-cell.img-add {
+    cursor: pointer;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 4px;
+    color: var(--text-3);
+    border-style: dashed;
+    border-color: var(--border-2);
+    background: transparent;
+  }
+  .img-cell.img-add:hover { border-color: var(--brand-400); color: var(--brand-300); }
+  .img-cell.img-add i { font-size: 24px; }
+  .img-cell.img-add span { font-size: 11px; }
 
-  .ed-toolbar {
-    display: flex; gap: 4px; padding: 6px;
+  /* 视频预览 */
+  .video-preview {
+    width: 100%;
+    aspect-ratio: 16/9;
     background: var(--bg-elev);
+    border: 1px dashed var(--border-2);
     border-radius: var(--r-md);
-    margin-bottom: 14px;
+    margin-top: 12px;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-4);
+    font-size: 12px;
   }
-  .ed-toolbar .icon-btn { width: 28px; height: 28px; border-radius: 5px; }
-  .ed-toolbar .icon-btn i { font-size: 15px; }
-  .ed-toolbar .divider-v { width: 1px; background: var(--border-1); margin: 4px 4px; }
-
-  .ed-body {
-    width: 100%; min-height: 320px;
-    background: transparent; border: none; outline: none;
-    color: var(--text-1); font-size: 14px; line-height: 1.8; resize: vertical;
+  .video-preview iframe, .video-preview video {
+    width: 100%; height: 100%; border: none;
   }
-
-  .ed-channel {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 16px;
-    background: var(--bg-elev);
-    border-radius: var(--r-md);
-  }
-
-  .ed-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-1); }
-  .ed-row:last-child { border-bottom: none; }
-  .ed-row-label { display: flex; align-items: center; gap: 10px; }
 
   .ed-foot {
-    position: sticky;
-    bottom: 0;
+    position: sticky; bottom: 0;
     background: var(--bg-base);
     border-top: 1px solid var(--border-1);
-    padding: 14px 0;
+    margin: 24px -28px -80px;
+    padding: 16px 28px;
     display: flex; gap: 12px;
-    margin-top: 24px;
+    z-index: 10;
   }
+  .ed-foot .grow { flex: 1; }
 
-  .upload-zone {
-    border: 1.5px dashed var(--border-2);
-    border-radius: var(--r-md);
-    padding: 32px;
-    text-align: center;
-    color: var(--text-3);
-    margin-bottom: 14px;
-    cursor: pointer;
+  .toast-pe {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    color: var(--success);
+    padding: 12px 22px;
+    border-radius: var(--r-pill);
+    font-size: 13px;
+    box-shadow: var(--shadow-lg);
+    z-index: var(--z-toast);
+    opacity: 0; transition: opacity .2s; pointer-events: none;
   }
-  .upload-zone:hover { border-color: var(--brand-400); color: var(--brand-300); background: var(--brand-bg); }
-  .upload-zone i { font-size: 28px; display: block; margin-bottom: 6px; }
+  .toast-pe.show { opacity: 1; }
 </style>
 </head>
 <body>
@@ -104,130 +187,107 @@
   <main class="app-main">
     <div class="ed-shell">
       <div class="ed-head">
-        <button class="icon-btn" onclick="history.back()"><i class="ti ti-arrow-left"></i></button>
-        <h1>发布新帖</h1>
-        <span style="margin-left:auto" class="t-sm c-3">草稿自动保存于 1 分钟前 · <span class="text-link">查看草稿</span></span>
+        <button class="icon-btn" onclick="history.back()" title="返回"><i class="ti ti-arrow-left"></i></button>
+        <h1>发表新帖</h1>
       </div>
 
-      <div class="ed-types">
-        <div class="ed-type active"><i class="ti ti-align-left"></i><span>图文</span></div>
-        <div class="ed-type"><i class="ti ti-video"></i><span>视频</span></div>
-        <div class="ed-type"><i class="ti ti-photo"></i><span>图集</span></div>
-        <div class="ed-type"><i class="ti ti-microphone"></i><span>语音</span></div>
-        <div class="ed-type"><i class="ti ti-chart-bar"></i><span>投票</span></div>
-        <div class="ed-type"><i class="ti ti-help"></i><span>提问</span></div>
+      <div class="ed-notice">
+        <i class="ti ti-info-circle"></i>
+        发帖即同意社区《内容公约》,违规内容将被删除。优质内容会被推荐到首页热门。
       </div>
 
-      <div class="ed-card">
-        <input class="ed-title-input" placeholder="标题（限 80 字以内 · 第一句决定打开率）">
-        <div class="divider" style="margin: 14px 0"></div>
-
-        <div class="ed-toolbar">
-          <button class="icon-btn" title="加粗"><i class="ti ti-bold"></i></button>
-          <button class="icon-btn" title="斜体"><i class="ti ti-italic"></i></button>
-          <button class="icon-btn" title="下划线"><i class="ti ti-underline"></i></button>
-          <span class="divider-v"></span>
-          <button class="icon-btn" title="标题"><i class="ti ti-h-1"></i></button>
-          <button class="icon-btn" title="引用"><i class="ti ti-quote"></i></button>
-          <button class="icon-btn" title="列表"><i class="ti ti-list"></i></button>
-          <button class="icon-btn" title="代码"><i class="ti ti-code"></i></button>
-          <span class="divider-v"></span>
-          <button class="icon-btn" title="链接"><i class="ti ti-link"></i></button>
-          <button class="icon-btn" title="图片"><i class="ti ti-photo"></i></button>
-          <button class="icon-btn" title="视频"><i class="ti ti-video"></i></button>
-          <button class="icon-btn" title="@提及"><i class="ti ti-at"></i></button>
-          <span class="divider-v"></span>
-          <button class="icon-btn" title="VIP 高级排版"><i class="ti ti-crown" style="color:#FFD700"></i></button>
-        </div>
-
-        <textarea class="ed-body" placeholder="说点什么... 支持 Markdown · ⌘+↵ 发布"></textarea>
-
-        <div class="upload-zone">
-          <i class="ti ti-cloud-upload"></i>
-          <div class="t-sm">拖拽图片到此处，或 <span class="text-link">点击上传</span></div>
-          <div class="t-xs c-4" style="margin-top:4px">支持 JPG/PNG/GIF · 单张 ≤ 10MB · 最多 9 张</div>
-        </div>
-
-        <div class="row gap-2" style="flex-wrap:wrap">
-          <span class="badge brand">#冷知识</span>
-          <span class="badge brand">#世界史</span>
-          <span class="ch-pill" style="border-style:dashed; cursor:pointer"><i class="ti ti-plus ico"></i>添加标签</span>
+      <div class="ed-draft-banner" id="draftBanner">
+        <i class="ti ti-history"></i>
+        <span>检测到上次未发布的草稿</span>
+        <div class="row-end">
+          <button class="btn sm" id="draftContinue">继续编辑</button>
+          <button class="btn sm" id="draftDiscard"><i class="ti ti-trash"></i>丢弃</button>
         </div>
       </div>
 
-      <div class="ed-card">
-        <div class="t-md f-medium" style="margin-bottom: 14px">发布设置</div>
+      <form id="postForm" class="ed-card">
+        <div class="field">
+          <label class="field-label">频道<span class="req">*</span></label>
+          <select class="select" name="channelId" id="selChannel" required>
+            <option value="">— 请选择频道 —</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label">子频道<span class="req">*</span></label>
+          <select class="select" name="subChannelId" id="selSub" required disabled>
+            <option value="">— 先选频道 —</option>
+          </select>
+        </div>
 
-        <div class="ed-row">
-          <div class="ed-row-label">
-            <i class="ti ti-hash c-3"></i>
-            <span>发布到</span>
-          </div>
-          <div class="ed-channel">
-            <span class="ch-pill purple"><i class="ti ti-sparkles ico"></i>奇点</span>
-            <i class="ti ti-chevron-down c-3"></i>
+        <div class="field">
+          <label class="field-label">类型<span class="req">*</span></label>
+          <div class="seg-types" id="segTypes">
+            <div class="seg-type active" data-type="text">
+              <i class="ti ti-align-left"></i>
+              <div class="name">📝 文字帖</div>
+              <div class="desc">纯文字内容</div>
+            </div>
+            <div class="seg-type" data-type="gallery">
+              <i class="ti ti-photo"></i>
+              <div class="name">🖼️ 图文帖</div>
+              <div class="desc">配图分享</div>
+            </div>
+            <div class="seg-type" data-type="video">
+              <i class="ti ti-video"></i>
+              <div class="name">🎬 视频帖</div>
+              <div class="desc">嵌入视频</div>
+            </div>
           </div>
         </div>
 
-        <div class="ed-row">
-          <div class="ed-row-label">
-            <i class="ti ti-eye c-3"></i>
-            <span>谁可以查看</span>
-          </div>
-          <div class="seg">
-            <div class="seg-item active">所有人</div>
-            <div class="seg-item">仅订阅者</div>
-            <div class="seg-item">VIP</div>
-          </div>
+        <div class="field">
+          <label class="field-label">标题<span class="req">*</span></label>
+          <input class="input" name="title" id="inputTitle" type="text" minlength="2" maxlength="60" required
+                 placeholder="起一个有意思的标题">
+          <div class="char-count"><span id="titleLen">0</span>/60</div>
+          <div class="field-err" id="errTitle"></div>
         </div>
 
-        <div class="ed-row">
-          <div class="ed-row-label">
-            <i class="ti ti-broadcast c-3"></i>
-            <span>开启实时讨论房</span>
-          </div>
-          <div class="switch on"></div>
+        <div class="field">
+          <label class="field-label">正文<span class="req">*</span></label>
+          <textarea class="textarea" name="body" id="inputBody" minlength="10" maxlength="2000" required
+                    style="min-height:200px;line-height:1.7" placeholder="说说你想分享的事情...支持换行,第一段会成为帖子摘要"></textarea>
+          <div class="char-count"><span id="bodyLen">0</span>/2000</div>
+          <div class="field-err" id="errBody"></div>
         </div>
 
-        <div class="ed-row">
-          <div class="ed-row-label">
-            <i class="ti ti-message-circle c-3"></i>
-            <span>允许评论</span>
-          </div>
-          <div class="switch on"></div>
+        <div class="field">
+          <label class="field-label">标签 (可选, 逗号分隔, 最多 5 个)</label>
+          <input class="input" name="tags" id="inputTags" type="text" placeholder="例: 干货,海外华人,NBA">
         </div>
 
-        <div class="ed-row">
-          <div class="ed-row-label">
-            <i class="ti ti-coin c-3"></i>
-            <span>开启打赏</span>
-          </div>
-          <div class="switch on"></div>
+        <div class="field" id="fieldImages" style="display:none">
+          <label class="field-label">图片 (最多 9 张, 第一张为封面)</label>
+          <div class="img-grid" id="imgGrid"></div>
+          <div class="field-hint" id="imgCount">0 / 9 张 · 本地上传单张 ≤ 2MB</div>
         </div>
 
-        <div class="ed-row">
-          <div class="ed-row-label">
-            <i class="ti ti-crown" style="color:#FFD700"></i>
-            <span>VIP 付费解锁</span>
-            <span class="badge gold">VIP</span>
+        <div class="field" id="fieldVideo" style="display:none">
+          <label class="field-label">视频 URL<span class="req">*</span></label>
+          <input class="input" type="url" id="inputVideoUrl" placeholder="粘贴 YouTube / B站 / mp4 链接">
+          <div class="field-hint">
+            支持 YouTube、Bilibili 嵌入或直接 mp4 链接。
+            <button type="button" class="btn sm" disabled style="margin-left:8px;opacity:0.5;cursor:not-allowed">
+              <i class="ti ti-upload"></i> 本地上传 <span class="badge t-xs" style="margin-left:4px">Day 2 开放</span>
+            </button>
           </div>
-          <div class="switch"></div>
+          <div class="field-err" id="errVideo"></div>
+          <div class="video-preview" id="videoPreview"><span>填入 URL 后显示预览</span></div>
         </div>
-
-        <div class="ed-row">
-          <div class="ed-row-label">
-            <i class="ti ti-clock c-3"></i>
-            <span>定时发布</span>
-          </div>
-          <span class="text-link t-sm">不定时</span>
-        </div>
-      </div>
+      </form>
 
       <div class="ed-foot">
-        <button class="btn">存为草稿</button>
-        <button class="btn"><i class="ti ti-eye"></i>预览</button>
-        <span style="margin-left:auto" class="t-sm c-3">⌘+↵ 发布</span>
-        <button class="btn btn-primary lg"><i class="ti ti-send"></i>立即发布</button>
+        <button class="btn" id="btnCancel"><i class="ti ti-x"></i> 取消</button>
+        <span class="grow"></span>
+        <span class="t-xs c-4" id="autoSaveTip" style="align-self:center">自动保存草稿中...</span>
+        <button class="btn btn-primary lg" id="btnPublish" type="submit" form="postForm">
+          <i class="ti ti-send"></i> 发布
+        </button>
       </div>
     </div>
   </main>
@@ -235,28 +295,323 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/auth.js?v=15"></script>
-<script src="../shared/data.js?v=15"></script>
-<script src="../shared/components.js?v=15"></script>
+<div class="toast-pe" id="peToast">✓ 发布成功!</div>
+
+<script src="../shared/auth.js?v=16"></script>
+<script src="../shared/data.js?v=16"></script>
+<script src="../shared/components.js?v=16"></script>
 <script>
 (async () => {
   await QD.ready();
-  // 路由保护: 未登录跳 login.html
-  QDAuth.requireLogin(location.pathname + location.search);
+  const me = QDAuth.requireLogin(location.pathname + location.search);
 
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));
   document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
   document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
-  // type switcher
-  document.querySelectorAll('.ed-type').forEach(t => {
-    t.addEventListener('click', () => {
-      document.querySelectorAll('.ed-type').forEach(x => x.classList.remove('active'));
-      t.classList.add('active');
+
+  /* ---------- 频道 / 子频道 联动 ---------- */
+  const selChannel = document.getElementById('selChannel');
+  const selSub = document.getElementById('selSub');
+
+  selChannel.innerHTML = '<option value="">— 请选择频道 —</option>' +
+    QD.channels.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+
+  function fillSubChannels(channelId) {
+    const subs = channelId ? QD.subChannelsOf(channelId) : [];
+    if (!subs.length) {
+      selSub.innerHTML = '<option value="">— 先选频道 —</option>';
+      selSub.disabled = true;
+      return;
+    }
+    selSub.innerHTML = '<option value="">— 请选择子频道 —</option>' +
+      subs.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+    selSub.disabled = false;
+  }
+  selChannel.addEventListener('change', () => { fillSubChannels(selChannel.value); autoSaveDraft(); });
+  selSub.addEventListener('change', autoSaveDraft);
+
+  // URL 预选
+  const urlParams = new URLSearchParams(location.search);
+  const preCh = urlParams.get('ch');
+  const preSub = urlParams.get('sub');
+  if (preCh) {
+    selChannel.value = preCh;
+    fillSubChannels(preCh);
+    if (preSub) selSub.value = preSub;
+  }
+
+  /* ---------- 类型切换 ---------- */
+  let postType = 'text';
+  const segTypes = document.getElementById('segTypes');
+  const fieldImages = document.getElementById('fieldImages');
+  const fieldVideo = document.getElementById('fieldVideo');
+
+  function setType(t) {
+    postType = t;
+    document.querySelectorAll('.seg-type').forEach(el => {
+      el.classList.toggle('active', el.dataset.type === t);
     });
+    fieldImages.style.display = (t === 'gallery') ? '' : 'none';
+    fieldVideo.style.display  = (t === 'video')   ? '' : 'none';
+    autoSaveDraft();
+  }
+  segTypes.addEventListener('click', e => {
+    const t = e.target.closest('.seg-type');
+    if (t) setType(t.dataset.type);
   });
-  document.querySelectorAll('.switch').forEach(s => {
-    s.addEventListener('click', () => s.classList.toggle('on'));
+
+  /* ---------- 字数计数 ---------- */
+  const inTitle = document.getElementById('inputTitle');
+  const inBody  = document.getElementById('inputBody');
+  inTitle.addEventListener('input', () => {
+    document.getElementById('titleLen').textContent = inTitle.value.length;
+    autoSaveDraft();
+  });
+  inBody.addEventListener('input', () => {
+    document.getElementById('bodyLen').textContent = inBody.value.length;
+    autoSaveDraft();
+  });
+  document.getElementById('inputTags').addEventListener('input', autoSaveDraft);
+
+  /* ---------- 图片上传 ---------- */
+  let images = [];
+  let coverIdx = 0;
+  const MAX_IMG = 9;
+  const imgGrid = document.getElementById('imgGrid');
+  const imgCount = document.getElementById('imgCount');
+
+  function renderImageGrid() {
+    imgGrid.innerHTML = images.map((u, i) => `
+      <div class="img-cell" data-i="${i}">
+        <img src="${QDC.escape(u)}" alt="">
+        ${i === coverIdx ? '<span class="cover-badge">封面</span>' : ''}
+        <div class="img-actions">
+          ${i !== coverIdx ? '<button type="button" data-act="cover" title="设为封面"><i class="ti ti-star"></i></button>' : ''}
+          <button type="button" data-act="del" title="删除"><i class="ti ti-x"></i></button>
+        </div>
+      </div>
+    `).join('') + (images.length < MAX_IMG ? `
+      <div class="img-cell img-add" data-act="add" title="添加图片">
+        <i class="ti ti-plus"></i><span>添加图片</span>
+      </div>
+    ` : '');
+    imgCount.textContent = images.length + ' / 9 张 · 本地上传单张 ≤ 2MB';
+  }
+  imgGrid.addEventListener('click', e => {
+    if (e.target.closest('[data-act="add"]')) { openAddImage(); return; }
+    const delBtn = e.target.closest('[data-act="del"]');
+    if (delBtn) {
+      const i = +delBtn.closest('.img-cell').dataset.i;
+      images.splice(i, 1);
+      if (coverIdx >= images.length) coverIdx = 0;
+      renderImageGrid();
+      autoSaveDraft();
+      return;
+    }
+    const coverBtn = e.target.closest('[data-act="cover"]');
+    if (coverBtn) {
+      coverIdx = +coverBtn.closest('.img-cell').dataset.i;
+      renderImageGrid();
+      autoSaveDraft();
+    }
+  });
+  function openAddImage() {
+    if (images.length >= MAX_IMG) { alert('已达 9 张上限'); return; }
+    const url = prompt('粘贴图片 URL (留空 / 取消则改用本地上传):', '');
+    if (url && url.trim()) {
+      images.push(url.trim());
+      renderImageGrid(); autoSaveDraft();
+      return;
+    }
+    const fi = document.createElement('input');
+    fi.type = 'file'; fi.accept = 'image/*'; fi.style.display = 'none';
+    fi.onchange = ev => {
+      const file = ev.target.files && ev.target.files[0];
+      fi.remove();
+      if (!file) return;
+      if (file.size > 2 * 1024 * 1024) {
+        alert('文件 ' + file.name + ' 体积 ' + (file.size/1024/1024).toFixed(1) + 'MB,超过 2MB 上限');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = e => { images.push(e.target.result); renderImageGrid(); autoSaveDraft(); };
+      reader.readAsDataURL(file);
+    };
+    document.body.appendChild(fi);
+    fi.click();
+  }
+  renderImageGrid();
+
+  /* ---------- 视频嗅探 ---------- */
+  const inVideoUrl = document.getElementById('inputVideoUrl');
+  const videoPreview = document.getElementById('videoPreview');
+  const errVideo = document.getElementById('errVideo');
+  let videoInfo = null;
+
+  function previewVideo(url) {
+    errVideo.classList.remove('show');
+    if (!url) {
+      videoInfo = null;
+      videoPreview.innerHTML = '<span>填入 URL 后显示预览</span>';
+      return;
+    }
+    const info = QDC.parseVideoUrl(url);
+    videoInfo = info;
+    if (info.type === 'unknown') {
+      errVideo.textContent = '暂不支持该视频源 (仅 YouTube / Bilibili / mp4)';
+      errVideo.classList.add('show');
+      videoPreview.innerHTML = '<span style="color:var(--danger)">无法识别的视频源</span>';
+      return;
+    }
+    if (info.type === 'youtube' || info.type === 'bilibili') {
+      videoPreview.innerHTML = '<iframe src="' + info.embedUrl + '" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="no-referrer"></iframe>';
+    } else if (info.type === 'mp4') {
+      videoPreview.innerHTML = '<video src="' + info.embedUrl + '" controls playsinline></video>';
+    }
+  }
+  inVideoUrl.addEventListener('input', () => {
+    previewVideo(inVideoUrl.value.trim());
+    autoSaveDraft();
+  });
+
+  /* ---------- 草稿自动保存 ---------- */
+  const DRAFT_KEY = 'qd-post-draft';
+  let autoSaveTimer = null;
+  function autoSaveDraft() {
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(() => {
+      const draft = {
+        channelId: selChannel.value,
+        subChannelId: selSub.value,
+        type: postType,
+        title: inTitle.value,
+        body: inBody.value,
+        tags: document.getElementById('inputTags').value,
+        images, coverIdx,
+        videoUrl: inVideoUrl.value,
+        savedAt: new Date().toISOString(),
+      };
+      try {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+        document.getElementById('autoSaveTip').textContent =
+          '✓ 已保存草稿 ' + new Date().toLocaleTimeString('zh-CN');
+      } catch (e) {
+        document.getElementById('autoSaveTip').textContent = '⚠ 自动保存失败 (存储已满)';
+      }
+    }, 600);
+  }
+  function loadDraftIfAny() {
+    try {
+      const raw = localStorage.getItem(DRAFT_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (e) { return null; }
+  }
+  function applyDraft(d) {
+    if (!d) return;
+    if (d.channelId) { selChannel.value = d.channelId; fillSubChannels(d.channelId); }
+    if (d.subChannelId) selSub.value = d.subChannelId;
+    if (d.type) setType(d.type);
+    if (d.title != null) inTitle.value = d.title;
+    if (d.body != null) inBody.value = d.body;
+    if (d.tags != null) document.getElementById('inputTags').value = d.tags;
+    if (Array.isArray(d.images)) { images = d.images.slice(); coverIdx = d.coverIdx || 0; renderImageGrid(); }
+    if (d.videoUrl) { inVideoUrl.value = d.videoUrl; previewVideo(d.videoUrl); }
+    document.getElementById('titleLen').textContent = inTitle.value.length;
+    document.getElementById('bodyLen').textContent = inBody.value.length;
+  }
+  function clearDraft() { localStorage.removeItem(DRAFT_KEY); }
+
+  const existingDraft = loadDraftIfAny();
+  if (existingDraft && (existingDraft.title || existingDraft.body)) {
+    document.getElementById('draftBanner').classList.add('show');
+    document.getElementById('draftContinue').addEventListener('click', () => {
+      applyDraft(existingDraft);
+      document.getElementById('draftBanner').classList.remove('show');
+    });
+    document.getElementById('draftDiscard').addEventListener('click', () => {
+      clearDraft();
+      document.getElementById('draftBanner').classList.remove('show');
+    });
+  }
+
+  /* ---------- 取消 / 提交 ---------- */
+  document.getElementById('btnCancel').addEventListener('click', () => {
+    if (inTitle.value || inBody.value || images.length || inVideoUrl.value) {
+      if (!confirm('确定放弃编辑?草稿仍会保留,下次进来可恢复')) return;
+    }
+    location.href = 'home.html';
+  });
+
+  function showFieldErr(id, msg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (msg) { el.textContent = msg; el.classList.add('show'); }
+    else el.classList.remove('show');
+  }
+
+  document.getElementById('postForm').addEventListener('submit', e => {
+    e.preventDefault();
+    showFieldErr('errTitle', '');
+    showFieldErr('errBody', '');
+    showFieldErr('errVideo', '');
+
+    if (!selChannel.value) { alert('请选择频道'); selChannel.focus(); return; }
+    if (!selSub.value) { alert('请选择子频道'); selSub.focus(); return; }
+    const title = inTitle.value.trim();
+    const body = inBody.value.trim();
+    if (title.length < 2) { showFieldErr('errTitle', '标题至少 2 字'); inTitle.focus(); return; }
+    if (title.length > 60) { showFieldErr('errTitle', '标题最多 60 字'); inTitle.focus(); return; }
+    if (body.length < 10) { showFieldErr('errBody', '正文至少 10 字'); inBody.focus(); return; }
+
+    if (postType === 'video') {
+      if (!inVideoUrl.value.trim()) { showFieldErr('errVideo', '请粘贴视频 URL'); inVideoUrl.focus(); return; }
+      if (!videoInfo || videoInfo.type === 'unknown') { showFieldErr('errVideo', '暂不支持该视频源 (仅 YouTube / Bilibili / mp4)'); inVideoUrl.focus(); return; }
+    }
+
+    const tags = document.getElementById('inputTags').value
+      .split(/[,，]/).map(s => s.trim()).filter(Boolean).slice(0, 5);
+
+    const id = 'p_user_' + Date.now().toString(36);
+    const post = {
+      id,
+      channelId: selChannel.value,
+      subChannelId: selSub.value,
+      type: postType,
+      title,
+      excerpt: body.slice(0, 100),
+      body,
+      tags,
+      images: postType === 'gallery' ? images.slice() : [],
+      coverImage: (postType === 'gallery' && images[coverIdx]) ? images[coverIdx] : '',
+      videoUrl: postType === 'video' ? inVideoUrl.value.trim() : '',
+      videoEmbedType: postType === 'video' && videoInfo ? videoInfo.type : '',
+      videoEmbedUrl: postType === 'video' && videoInfo ? videoInfo.embedUrl : '',
+      authorId: me.id,
+      authorName: me.username,
+      authorAvatar: me.avatar || 'bg-grad-6',
+      authorLevel: 1,
+      stats: { up: 0, down: 0, comments: 0, share: 0, view: 0, liveOnline: 0 },
+      upvotes: 0, downvotes: 0, commentCount: 0, liveOnline: 0, shareCount: 0,
+      createdAt: new Date().toISOString(),
+      createdAtText: '刚刚',
+      hot: false,
+      isUserPost: true,
+    };
+    try {
+      const list = JSON.parse(localStorage.getItem('qd-user-posts') || '[]');
+      list.unshift(post);
+      localStorage.setItem('qd-user-posts', JSON.stringify(list));
+    } catch (err) {
+      alert('保存失败 (localStorage 可能已满): ' + (err.message || err));
+      return;
+    }
+    clearDraft();
+    document.getElementById('peToast').classList.add('show');
+    setTimeout(() => {
+      location.href = 'post-detail.html?id=' + id;
+    }, 800);
   });
 })();
 </script>
