@@ -141,17 +141,23 @@ window.QD = (function () {
   //   - REPLACE_FIELDS: 其它（channels/subChannels/user/banners 等）→ draft 有就整体覆盖
   // 这样可以避免旧草稿擦掉 server 新增字段（subChannels）+ 新种子帖。
   const ID_MERGE_FIELDS = ['posts', 'authors', 'dramas', 'films', 'masters'];
+  // admin 后台有编辑入口的字段 → draft 有就替换
   const REPLACE_FIELDS = [
-    'channels', 'subChannels', 'user', 'comments',
-    'liveMessages', 'liveIncomingPool',
-    'notifications', 'dms', 'searchSuggestions', 'hotSearches', 'banners',
-    'vipTiers', 'vipBenefits',
+    'channels', 'subChannels', 'user',
+    'hotSearches', 'banners', 'vipTiers', 'vipBenefits',
+  ];
+  // admin 后台没有编辑入口的字段 → 永远用 server,忽略 draft (防止旧 draft 擦掉
+  // server 端新加的字段, 比如 notifications 的 targetUrl)
+  const SERVER_ONLY_FIELDS = [
+    'comments', 'liveMessages', 'liveIncomingPool',
+    'notifications', 'dms', 'searchSuggestions',
   ];
   function mergeDraft(draft) {
     const replaced = [];
     const idMerged = {};
     const missing = [];
-    // 1. 整体替换的字段：draft 有就用 draft
+    const skippedServerOnly = [];
+    // 1. 整体替换的字段
     for (const k of REPLACE_FIELDS) {
       if (k in draft && draft[k] !== undefined && draft[k] !== null) {
         state[k] = draft[k];
@@ -160,7 +166,7 @@ window.QD = (function () {
         missing.push(k);
       }
     }
-    // 2. by-id 合并的字段：server + draft 用 id 合并（draft 覆盖同 id, 新 id 追加）
+    // 2. by-id 合并的字段
     for (const k of ID_MERGE_FIELDS) {
       if (k in draft && Array.isArray(draft[k])) {
         const serverArr = state[k] || [];
@@ -176,9 +182,13 @@ window.QD = (function () {
         missing.push(k);
       }
     }
+    // 3. SERVER_ONLY: 永远忽略 draft 里的这些字段 (避免 draft 擦掉 server 新字段)
+    for (const k of SERVER_ONLY_FIELDS) {
+      if (k in draft) skippedServerOnly.push(k);
+    }
     // 重建 authorById
     state.authorById = Object.fromEntries((state.authors || []).map(a => [a.id, a]));
-    return { replaced, idMerged, missing };
+    return { replaced, idMerged, missing, skippedServerOnly };
   }
 
   // 读取 admin 草稿（如果有）。结构：{ data: {完整 site-data 快照}, savedAt }

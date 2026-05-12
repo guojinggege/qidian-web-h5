@@ -61,11 +61,30 @@
   </aside>
 </div>
 
-<script src="../shared/data.js?v=13"></script>
-<script src="../shared/components.js?v=13"></script>
+<script src="../shared/auth.js?v=15"></script>
+<script src="../shared/data.js?v=15"></script>
+<script src="../shared/components.js?v=15"></script>
 <script>
 (async () => {
   await QD.ready();
+
+  // 调试 banner: 访问 ?debug=1 时显示 localStorage 鉴权状态
+  if (new URLSearchParams(location.search).get('debug') === '1') {
+    const u = QDAuth.getCurrentUser();
+    const usersRaw = localStorage.getItem('qd-users');
+    const usersCount = usersRaw ? JSON.parse(usersRaw).length : 0;
+    const bar = document.createElement('div');
+    bar.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#0E0E12;border-bottom:2px solid #FFD700;color:#E8E8F0;font-family:ui-monospace,monospace;font-size:11px;padding:10px 16px;box-shadow:0 4px 16px rgba(0,0,0,0.5)';
+    bar.innerHTML =
+      '<div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">'
+      + '<span style="background:#FFD700;color:#1A1208;padding:1px 8px;border-radius:99px;font-weight:500">DEBUG</span>'
+      + '<span><b>qd-current-user:</b> ' + (u ? '<span style="color:#4ADB7E">✓ ' + u.username + ' (' + u.email + ') isCreator=' + u.isCreator + '</span>' : '<span style="color:#E55A4B">✗ null (未登录)</span>') + '</span>'
+      + '<span><b>qd-users (注册库):</b> ' + usersCount + ' 个账号</span>'
+      + '<span style="margin-left:auto"><a href="?" style="color:#7F77DD">关闭 debug</a></span>'
+      + '</div>';
+    document.body.insertBefore(bar, document.body.firstChild);
+    document.body.style.paddingTop = '40px';
+  }
 
   // 兼容旧链接：home.html?ch=xxx → 跳转到对应频道页
   const legacyCh = new URLSearchParams(location.search).get('ch');

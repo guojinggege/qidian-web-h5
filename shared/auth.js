@@ -114,8 +114,19 @@ window.QDAuth = (function () {
   function getCurrentUser() {
     try {
       const raw = localStorage.getItem(CURRENT_KEY);
-      return raw ? JSON.parse(raw) : null;
+      if (!raw) {
+        // eslint-disable-next-line no-console
+        console.log('[QDAuth] getCurrentUser:', 'no value at LS key', CURRENT_KEY);
+        return null;
+      }
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object') {
+        console.warn('[QDAuth] getCurrentUser: LS value is invalid, treating as logged out', raw);
+        return null;
+      }
+      return parsed;
     } catch (e) {
+      console.warn('[QDAuth] getCurrentUser exception:', e.message);
       return null;
     }
   }
@@ -123,18 +134,23 @@ window.QDAuth = (function () {
   /* ---------- 路由保护 (同步) ----------
      未登录 → 跳 login.html?next={原路径+search}
      已登录 → 返回 user
+     注意:跳转目标永远是 login.html,不是 register.html
   ---------------------------------------- */
   function requireLogin(redirectTo) {
     const u = getCurrentUser();
-    if (u) return u;
+    if (u) {
+      // eslint-disable-next-line no-console
+      console.log('[QDAuth] requireLogin: PASS', { id: u.id, username: u.username, page: location.pathname });
+      return u;
+    }
     const next = redirectTo || (location.pathname + location.search);
-    // 计算 login.html 路径 (从当前页面相对)
     let loginUrl = 'login.html';
     if (location.pathname.includes('/web/')) loginUrl = 'login.html';
     else if (location.pathname.includes('/h5/')) loginUrl = '../web/login.html';
     else loginUrl = 'web/login.html';
-    location.replace(loginUrl + '?next=' + encodeURIComponent(next));
-    // 抛错阻止后续渲染
+    const target = loginUrl + '?next=' + encodeURIComponent(next);
+    console.warn('[QDAuth] requireLogin: BLOCKED (no current user), redirecting to', target);
+    location.replace(target);
     throw new Error('Not logged in, redirecting to login');
   }
 

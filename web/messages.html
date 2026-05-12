@@ -113,9 +113,9 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/auth.js?v=13"></script>
-<script src="../shared/data.js?v=13"></script>
-<script src="../shared/components.js?v=13"></script>
+<script src="../shared/auth.js?v=15"></script>
+<script src="../shared/data.js?v=15"></script>
+<script src="../shared/components.js?v=15"></script>
 <script>
 (async () => {
   await QD.ready();
@@ -136,19 +136,41 @@
     reward:  { icon: 'ti-coin', cls: 'ib-reward' },
   };
 
+  // 兜底计算 targetUrl: 即使数据层 targetUrl 字段缺失(如 admin draft 覆盖了旧数据),
+  // 也能根据 type 实时算出跳转目标
+  function computeTarget(n) {
+    if (n.targetUrl) return n.targetUrl;
+    if (n.type === 'follow') {
+      const uid = n.from && n.from !== 'sys' ? n.from : '';
+      return uid ? ('profile.html?uid=' + uid) : 'home.html';
+    }
+    if (n.type === 'system' || n.type === 'reward') {
+      return 'notice-detail.html?id=' + n.id;
+    }
+    // like / comment / mention: 优先用 postId,没有则跳第一个 post,否则 home
+    if (n.postId) return 'post-detail.html?id=' + n.postId;
+    if (QD.posts && QD.posts.length) return 'post-detail.html?id=' + QD.posts[0].id;
+    console.warn('[messages] 通知', n.id, '无法推断 targetUrl, fallback home.html');
+    return 'home.html';
+  }
+
   document.getElementById('msgList').innerHTML = QD.notifications.map(n => {
     const t = typeMap[n.type] || typeMap.system;
     const from = n.from === 'sys' ? null : QD.authorById[n.from];
-    const target = n.targetUrl || '#';
+    const target = computeTarget(n);
+    if (!n.targetUrl) {
+      console.warn('[messages] 通知', n.id, 'type=' + n.type, '缺 targetUrl,兜底为', target);
+    }
+    const safeTarget = target.replace(/'/g, "\\'");
     return `
-      <div class="msg-item ${!n.read ? 'unread' : ''}" data-target="${target}" onclick="location.href='${target}'" style="cursor:pointer">
+      <div class="msg-item ${!n.read ? 'unread' : ''}" data-target="${target}" data-msg-id="${n.id}" onclick="location.href='${safeTarget}'" style="cursor:pointer">
         <div class="icon-bubble ${t.cls}"><i class="ti ${t.icon}"></i></div>
         <div class="body">
           ${from ? `<div class="row gap-2" style="margin-bottom:2px"><span class="f-medium t-sm">${from.name}</span><span class="dot-sep"></span><span class="t-xs c-3">Lv.${from.level}</span></div>` : '<div class="row gap-2" style="margin-bottom:2px"><span class="f-medium t-sm">系统通知</span></div>'}
           <div class="t-sm c-2">${n.text}</div>
         </div>
         <div class="time">${n.time}</div>
-        <button class="btn sm" style="margin-left:8px" onclick="event.stopPropagation();location.href='${target}'">去查看</button>
+        <button class="btn sm" style="margin-left:8px" onclick="event.stopPropagation();location.href='${safeTarget}'">去查看</button>
       </div>
     `;
   }).join('');
