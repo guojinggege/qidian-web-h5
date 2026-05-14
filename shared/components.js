@@ -78,45 +78,81 @@ window.QDC = (function () {
 
   function tplPostCard(post) {
     const ch = QD.channelById(post.channelId);
-    const author = QD.authorOf(post);
+    // 用户帖子用 post.authorName/authorAvatar 快照;种子帖通过 authorOf 反查 authors[]
+    const author = post.isUserPost
+      ? { id: post.authorId, name: post.authorName || '用户', avatar: post.authorAvatar || 'bg-grad-6', level: post.authorLevel || 1, vip: false }
+      : QD.authorOf(post);
     // 安全提取 images（防止格式错误）
     const images = Array.isArray(post.images) ? post.images.filter(u => typeof u === 'string') : [];
     const thumbs = Array.isArray(post.thumbs) ? post.thumbs : [];
+
+    // 单元格 URL 转义
+    const cell = (urlOrGrad, extra) => `<div class="cell" style="background-image:${urlOrGrad}${extra || ''}"></div>`;
+
     let media = '';
+
     if (post.type === 'video') {
-      // 优先 post.thumb (老种子帖); 其次 post.coverImage; 否则按 embed type 用占位渐变
       const thumb = post.thumb
         || (post.coverImage ? `url('${post.coverImage.replace(/'/g, '%27')}')` : '')
         || 'linear-gradient(135deg,#534AB7,#0E0E12)';
-      media = `<div class="post-thumb video" style="background:${thumb}">
+      media = `<div class="post-thumb video" style="background:${thumb};position:relative">
         <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.30)">
-          <i class="ti ti-player-play-filled" style="font-size:48px;color:white;text-shadow:0 2px 12px rgba(0,0,0,0.5)"></i>
+          <i class="ti ti-player-play-filled" style="font-size:54px;color:rgba(255,255,255,0.92);text-shadow:0 2px 16px rgba(0,0,0,0.6)"></i>
+        </span>
+        <span style="position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,0.65);color:white;font-size:10px;padding:2px 8px;border-radius:99px;display:inline-flex;align-items:center;gap:3px">
+          <i class="ti ti-video" style="font-size:11px"></i> 视频
         </span>
       </div>`;
     } else if (post.type === 'gallery') {
-      // 优先 images，兜底 thumbs
-      const cells = images.length
-        ? images.slice(0, 9).map(u => `<div class="cell" style="background-image:url('${u.replace(/'/g, '%27')}')"></div>`)
-        : thumbs.map(t => `<div class="cell" style="background-image:${t}"></div>`);
-      if (cells.length) media = `<div class="post-thumb-grid">${cells.join('')}</div>`;
+      // 1 张大图 / 2 张并排 / 3+ 张 (溢出加 +N 遮罩)
+      if (images.length === 1) {
+        media = `<div class="post-thumb-grid one" style="grid-template-columns:1fr;aspect-ratio:16/9">
+          ${cell(`url('${images[0].replace(/'/g, '%27')}')`)}
+        </div>`;
+      } else if (images.length === 2) {
+        media = `<div class="post-thumb-grid two" style="grid-template-columns:1fr 1fr">
+          ${cell(`url('${images[0].replace(/'/g, '%27')}')`)}
+          ${cell(`url('${images[1].replace(/'/g, '%27')}')`)}
+        </div>`;
+      } else if (images.length >= 3) {
+        const more = images.length - 3;
+        const overlay = more > 0
+          ? `<span style="position:absolute;inset:0;background:rgba(0,0,0,0.55);color:white;font-size:22px;font-weight:500;display:flex;align-items:center;justify-content:center;border-radius:inherit">+${more}</span>`
+          : '';
+        media = `<div class="post-thumb-grid three" style="grid-template-columns:repeat(3, 1fr)">
+          ${cell(`url('${images[0].replace(/'/g, '%27')}')`)}
+          ${cell(`url('${images[1].replace(/'/g, '%27')}')`)}
+          <div class="cell" style="background-image:url('${images[2].replace(/'/g, '%27')}');position:relative">${overlay}</div>
+        </div>`;
+      } else if (thumbs.length) {
+        // 老种子帖兜底
+        media = `<div class="post-thumb-grid">${thumbs.map(t => cell(t)).join('')}</div>`;
+      }
     } else if (post.type === 'text' && images.length) {
-      // 图文帖：在卡片下方显示前 3 张图墙
-      const cells = images.slice(0, 3).map(u => `<div class="cell" style="background-image:url('${u.replace(/'/g, '%27')}')"></div>`);
+      // 老兼容: text 类型若意外携带图片,显示前 3 张
+      const cells = images.slice(0, 3).map(u => cell(`url('${u.replace(/'/g, '%27')}')`));
       media = `<div class="post-thumb-grid">${cells.join('')}</div>`;
     }
+
+    const isQuestion = post.type === 'question';
+    const isFutureType = post.type === 'voice' || post.type === 'poll';
+
     const vipBadge = post.vipLocked ? `<span class="badge gold"><i class="ti ti-crown"></i>VIP</span>` : '';
     const hotBadge = post.hot ? `<span class="badge danger"><i class="ti ti-flame"></i>热议</span>` : '';
+    const questionBadge = isQuestion
+      ? `<span class="badge" style="background:rgba(245,158,11,0.15);color:#FFD700;border:1px solid rgba(245,158,11,0.40)">❓ 待回答</span>`
+      : '';
+    const futureBadge = isFutureType
+      ? `<span class="badge" style="background:rgba(127,119,221,0.15);color:var(--brand-300)">${post.type === 'voice' ? '🎤' : '📊'} 未来类型</span>`
+      : '';
     const chHref     = channelPageUrl(ch && ch.id);
     const authorHref = `profile.html?uid=${author.id}`;
     const postHref   = `post-detail.html?id=${post.id}`;
-    // stopPropagation() 让内部锚点链接不会触发整卡片跳转
     const stop = `event.stopPropagation()`;
 
-    // 频道徽章带 r/ 前缀（reddit 风格,仅卡片上）
     const chPillHtml = ch
       ? `<span class="ch-pill ${ch.color}"><i class="ti ${ch.icon} ico"></i>r/${ch.id} · ${escape(ch.name)}</span>`
       : '';
-    // 子频道徽章（轻量,可选）
     const subCh = post.subChannelId ? (QD.subChannelById && QD.subChannelById(post.subChannelId)) : null;
     const subPillHtml = subCh
       ? `<span onclick="${stop};location.href='${channelPageUrl(post.channelId)}?sub=${subCh.id}'" style="cursor:pointer;display:inline-flex">
@@ -124,8 +160,15 @@ window.QDC = (function () {
          </span>`
       : '';
 
+    // 提问帖卡片底色微黄
+    const cardStyle = isQuestion
+      ? 'cursor:pointer;background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.20)'
+      : 'cursor:pointer';
+
+    const titlePrefix = isQuestion ? '❓ ' : '';
+
     return `
-      <article class="post-card" data-post-id="${post.id}" onclick="location.href='${postHref}'" style="cursor:pointer">
+      <article class="post-card" data-post-id="${post.id}" onclick="location.href='${postHref}'" style="${cardStyle}">
         <div class="post-meta">
           <span onclick="${stop};location.href='${chHref}'" style="cursor:pointer;display:inline-flex">${chPillHtml}</span>
           ${subPillHtml}
@@ -135,9 +178,9 @@ window.QDC = (function () {
           </span>
           <span class="dot-sep"></span>
           <span>${escape(QD.fmtTime(post.createdAt) || post.createdAtText || '')}</span>
-          ${hotBadge} ${vipBadge}
+          ${hotBadge} ${vipBadge} ${questionBadge} ${futureBadge}
         </div>
-        <h3 class="post-title">${escape(post.title)}</h3>
+        <h3 class="post-title">${titlePrefix}${escape(post.title)}</h3>
         ${post.excerpt ? `<p class="post-excerpt line-clamp-3">${escape(post.excerpt)}</p>` : ''}
         ${media}
         <div class="post-actions">

@@ -56,6 +56,42 @@
     aspect-ratio: auto;
     max-height: 540px;
   }
+  /* gallery 类型: 图片完整展示 + 全宽堆叠 */
+  .pd-gallery {
+    display: flex; flex-direction: column; gap: 12px;
+    margin-top: 14px;
+  }
+  .pd-gallery img {
+    width: 100%;
+    max-height: 720px;
+    object-fit: contain;
+    border-radius: var(--r-md);
+    background: var(--bg-elev);
+    display: block;
+  }
+  /* question 类型: 卡片轻微黄色背景 + 标题前 ❓ + "问题详情" 小标题 */
+  .pd-post.is-question {
+    background: rgba(245,158,11,0.06);
+    border-color: rgba(245,158,11,0.25);
+  }
+  .pd-question-head {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: #FFD700;
+    background: rgba(245,158,11,0.12);
+    border: 1px solid rgba(245,158,11,0.30);
+    padding: 4px 10px;
+    border-radius: var(--r-pill);
+    margin-top: 12px;
+  }
+  .pd-empty-answers {
+    padding: 28px 16px;
+    border: 1px dashed rgba(245,158,11,0.35);
+    border-radius: var(--r-md);
+    text-align: center;
+    color: #FFD700;
+    background: rgba(245,158,11,0.04);
+    margin-top: 14px;
+  }
   .pd-actions {
     display: flex; gap: 8px; align-items: center;
     padding: 14px 0; border-top: 1px solid var(--border-1); margin-top: 18px;
@@ -118,8 +154,8 @@
   <aside class="app-rightbar" style="display:none"></aside>
 </div>
 
-<script src="../shared/data.js?v=16"></script>
-<script src="../shared/components.js?v=16"></script>
+<script src="../shared/data.js?v=17"></script>
+<script src="../shared/components.js?v=17"></script>
 <script>
 (async () => {
   await QD.ready();
@@ -183,10 +219,26 @@
     }
   }
 
-  // 图片渲染：images 数组里全是 URL/dataURL；格式异常时跳过
+  // 图片渲染分两种风格:
+  //   gallery 类型: 全宽堆叠 (每张 100% 宽)
+  //   其他类型 (text 偶有图): grid 网格
   const images = Array.isArray(post.images) ? post.images.filter(u => typeof u === 'string') : [];
   const imagesHtml = images.length
-    ? `<div class="pd-images">${images.map(u => `<img src="${u.replace(/"/g, '&quot;')}" loading="lazy" alt="">`).join('')}</div>`
+    ? (post.type === 'gallery'
+        ? `<div class="pd-gallery">${images.map(u => `<img src="${u.replace(/"/g, '&quot;')}" loading="lazy" alt="">`).join('')}</div>`
+        : `<div class="pd-images">${images.map(u => `<img src="${u.replace(/"/g, '&quot;')}" loading="lazy" alt="">`).join('')}</div>`)
+    : '';
+
+  const isQuestion = post.type === 'question';
+  const titlePrefix = isQuestion ? '❓ ' : '';
+  const questionDetailHead = isQuestion
+    ? `<div class="pd-question-head"><i class="ti ti-help-circle"></i> 问题详情</div>`
+    : '';
+  const emptyAnswers = isQuestion && !post.stats.comments
+    ? `<div class="pd-empty-answers">
+         <i class="ti ti-message-circle-question" style="font-size:32px;display:block;margin-bottom:8px;color:#FFD700"></i>
+         <div>暂无回答,来留下你的见解</div>
+       </div>`
     : '';
 
   const channelLink = QDC.channelPageUrl(ch && ch.id);
@@ -200,7 +252,7 @@
       <span>${QD.fmtTime(post.createdAt) || post.createdAtText || ''}</span>
     </div>
 
-    <article class="pd-post">
+    <article class="pd-post ${isQuestion ? 'is-question' : ''}">
       <div class="row gap-3">
         <a href="${authorLink}" style="display:inline-flex">${QDC.tplAvatar(author, 'lg')}</a>
         <div class="grow">
@@ -208,20 +260,24 @@
             <a href="${authorLink}" class="f-medium" style="color:inherit">${author.name}</a>
             <span class="badge">Lv.${author.level}</span>
             ${author.vip ? '<span class="badge gold">VIP</span>' : ''}
+            ${isQuestion ? '<span class="badge" style="background:rgba(245,158,11,0.15);color:#FFD700;border:1px solid rgba(245,158,11,0.40)">❓ 待回答</span>' : ''}
           </div>
           <div class="t-sm c-3">${QD.fmtTime(post.createdAt) || post.createdAtText || ''} · 阅读 ${QD.fmtNum(post.stats.view)}</div>
         </div>
         <button class="btn sm"><i class="ti ti-user-plus"></i>关注</button>
       </div>
 
-      <h1 class="pd-title">${post.title}</h1>
+      <h1 class="pd-title">${titlePrefix}${post.title}</h1>
 
       ${videoHtml}
+      ${questionDetailHead}
 
       <div class="pd-content">
         ${bodyHtml}
         ${imagesHtml}
       </div>
+
+      ${emptyAnswers}
 
       <div class="pd-actions">
         <span class="pd-act active"><i class="ti ti-arrow-big-up"></i>${QD.fmtNum(post.stats.up)}</span>

@@ -57,6 +57,7 @@
   }
   .field-err.show { display: block; }
 
+  /* 6 类型卡片网格 (3 列 x 2 行) */
   .seg-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .seg-type {
     padding: 14px;
@@ -66,16 +67,53 @@
     text-align: center;
     cursor: pointer;
     transition: border-color .15s, background .15s;
+    position: relative;
   }
   .seg-type:hover { border-color: var(--border-2); }
   .seg-type.active { border-color: var(--brand-400); background: var(--brand-bg); }
-  .seg-type i { font-size: 22px; display: block; margin-bottom: 4px; color: var(--text-2); }
-  .seg-type.active i { color: var(--brand-300); }
+  .seg-type i.ti { font-size: 22px; display: block; margin-bottom: 4px; color: var(--text-2); }
+  .seg-type.active i.ti { color: var(--brand-300); }
   .seg-type .name { font-size: 13px; font-weight: 500; }
   .seg-type .desc { font-size: 11px; color: var(--text-4); margin-top: 2px; }
+  .seg-type .soon {
+    position: absolute; top: 6px; right: 6px;
+    background: rgba(255,215,0,0.15);
+    color: #FFD700;
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: var(--r-pill);
+    font-weight: 500;
+  }
 
   .char-count { text-align: right; font-size: 11px; color: var(--text-4); margin-top: 4px; }
   .char-count.over { color: var(--danger); }
+
+  /* Markdown 工具栏 */
+  .md-toolbar {
+    display: flex; flex-wrap: wrap; gap: 4px;
+    padding: 6px 8px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border-1);
+    border-bottom: none;
+    border-radius: var(--r-md) var(--r-md) 0 0;
+  }
+  .md-toolbar button {
+    width: 30px; height: 30px;
+    background: transparent;
+    border: none;
+    color: var(--text-3);
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0;
+  }
+  .md-toolbar button:hover { background: var(--bg-hover); color: var(--text-1); }
+  .md-toolbar button i { font-size: 14px; }
+  .md-toolbar .sep { width: 1px; height: 16px; background: var(--border-1); margin: 0 4px; align-self: center; }
+  .md-toolbar + .textarea {
+    border-radius: 0 0 var(--r-md) var(--r-md);
+    border-top: none;
+  }
 
   /* 图片上传 */
   .img-grid {
@@ -177,6 +215,66 @@
     opacity: 0; transition: opacity .2s; pointer-events: none;
   }
   .toast-pe.show { opacity: 1; }
+  .toast-pe.info { background: var(--bg-card); border-color: var(--brand-400); color: var(--brand-300); }
+
+  /* Modal 通用 */
+  .modal-pe {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: var(--z-modal);
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-pe.show { display: flex; }
+  .modal-pe-inner {
+    background: var(--bg-card);
+    border: 1px solid var(--border-2);
+    border-radius: var(--r-lg);
+    padding: 32px 28px 24px;
+    max-width: 460px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+  }
+  .modal-pe-icon {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand-400), var(--brand-700));
+    margin: 0 auto 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px; color: white;
+  }
+  .modal-pe h3 { text-align: center; font-weight: 500; margin: 0 0 8px; font-size: 18px; }
+  .modal-pe .modal-desc { text-align: center; color: var(--text-3); font-size: 13px; line-height: 1.6; margin-bottom: 20px; }
+  .modal-pe .modal-actions { display: flex; gap: 10px; justify-content: center; }
+
+  /* Vote modal 表单 */
+  .vote-form { display: flex; flex-direction: column; gap: 12px; }
+  .vote-form label { font-size: 12px; color: var(--text-3); }
+  .vote-form .opt-row { display: flex; gap: 8px; align-items: center; }
+  .vote-form .opt-row .input { flex: 1; }
+  .vote-form .opt-row button {
+    width: 32px; height: 32px;
+    border: 1px solid var(--border-1);
+    background: var(--bg-elev);
+    color: var(--text-3);
+    border-radius: var(--r-md);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .vote-form .opt-row button:hover { color: var(--danger); border-color: var(--danger); }
+  .vote-form .opt-row button:disabled { opacity: 0.3; cursor: not-allowed; }
+  .vote-add-btn {
+    background: transparent;
+    border: 1px dashed var(--border-2);
+    color: var(--brand-300);
+    padding: 8px;
+    border-radius: var(--r-md);
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .vote-add-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 </style>
 </head>
 <body>
@@ -201,6 +299,7 @@
         <span>检测到上次未发布的草稿</span>
         <div class="row-end">
           <button class="btn sm" id="draftContinue">继续编辑</button>
+          <button class="btn sm" id="draftPreview">查看草稿</button>
           <button class="btn sm" id="draftDiscard"><i class="ti ti-trash"></i>丢弃</button>
         </div>
       </div>
@@ -229,13 +328,30 @@
             </div>
             <div class="seg-type" data-type="gallery">
               <i class="ti ti-photo"></i>
-              <div class="name">🖼️ 图文帖</div>
-              <div class="desc">配图分享</div>
+              <div class="name">🖼️ 图集帖</div>
+              <div class="desc">多张图片</div>
             </div>
             <div class="seg-type" data-type="video">
               <i class="ti ti-video"></i>
               <div class="name">🎬 视频帖</div>
               <div class="desc">嵌入视频</div>
+            </div>
+            <div class="seg-type" data-type="question">
+              <i class="ti ti-help-circle"></i>
+              <div class="name">❓ 提问帖</div>
+              <div class="desc">求解答</div>
+            </div>
+            <div class="seg-type" data-type="voice">
+              <span class="soon">Day 2</span>
+              <i class="ti ti-microphone"></i>
+              <div class="name">🎤 语音帖</div>
+              <div class="desc">录音分享</div>
+            </div>
+            <div class="seg-type" data-type="poll">
+              <span class="soon">Day 2</span>
+              <i class="ti ti-chart-bar"></i>
+              <div class="name">📊 投票帖</div>
+              <div class="desc">发起投票</div>
             </div>
           </div>
         </div>
@@ -250,6 +366,23 @@
 
         <div class="field">
           <label class="field-label">正文<span class="req">*</span></label>
+          <div class="md-toolbar" id="mdToolbar">
+            <button type="button" data-md="bold" title="加粗"><i class="ti ti-bold"></i></button>
+            <button type="button" data-md="italic" title="斜体"><i class="ti ti-italic"></i></button>
+            <button type="button" data-md="underline" title="下划线"><i class="ti ti-underline"></i></button>
+            <span class="sep"></span>
+            <button type="button" data-md="h1" title="标题"><i class="ti ti-h-1"></i></button>
+            <button type="button" data-md="quote" title="引用"><i class="ti ti-quote"></i></button>
+            <button type="button" data-md="list" title="列表"><i class="ti ti-list"></i></button>
+            <button type="button" data-md="code" title="代码"><i class="ti ti-code"></i></button>
+            <span class="sep"></span>
+            <button type="button" data-md="link" title="链接"><i class="ti ti-link"></i></button>
+            <button type="button" data-md="image" title="插入图片"><i class="ti ti-photo"></i></button>
+            <button type="button" data-md="video" title="插入视频"><i class="ti ti-movie"></i></button>
+            <span class="sep"></span>
+            <button type="button" data-md="at" title="@提到"><i class="ti ti-at"></i></button>
+            <button type="button" data-md="vip" title="VIP 内容" style="color:#FFD700"><i class="ti ti-crown"></i></button>
+          </div>
           <textarea class="textarea" name="body" id="inputBody" minlength="10" maxlength="2000" required
                     style="min-height:200px;line-height:1.7" placeholder="说说你想分享的事情...支持换行,第一段会成为帖子摘要"></textarea>
           <div class="char-count"><span id="bodyLen">0</span>/2000</div>
@@ -262,16 +395,17 @@
         </div>
 
         <div class="field" id="fieldImages" style="display:none">
-          <label class="field-label">图片 (最多 9 张, 第一张为封面)</label>
+          <label class="field-label" id="imgLabel">图片 (最多 9 张, 第一张为封面)</label>
           <div class="img-grid" id="imgGrid"></div>
           <div class="field-hint" id="imgCount">0 / 9 张 · 本地上传单张 ≤ 2MB</div>
+          <div class="field-err" id="errImages"></div>
         </div>
 
         <div class="field" id="fieldVideo" style="display:none">
           <label class="field-label">视频 URL<span class="req">*</span></label>
           <input class="input" type="url" id="inputVideoUrl" placeholder="粘贴 YouTube / B站 / mp4 链接">
           <div class="field-hint">
-            支持 YouTube、Bilibili 嵌入或直接 mp4 链接。
+            支持 YouTube、Bilibili 嵌入或直接 mp4 链接。粘贴后失焦自动显示预览。
             <button type="button" class="btn sm" disabled style="margin-left:8px;opacity:0.5;cursor:not-allowed">
               <i class="ti ti-upload"></i> 本地上传 <span class="badge t-xs" style="margin-left:4px">Day 2 开放</span>
             </button>
@@ -297,9 +431,84 @@
 
 <div class="toast-pe" id="peToast">✓ 发布成功!</div>
 
-<script src="../shared/auth.js?v=16"></script>
-<script src="../shared/data.js?v=16"></script>
-<script src="../shared/components.js?v=16"></script>
+<!-- 语音帖占位 modal -->
+<div class="modal-pe" id="voiceModal">
+  <div class="modal-pe-inner">
+    <div class="modal-pe-icon">🎤</div>
+    <h3>语音帖功能</h3>
+    <p class="modal-desc">录音 + 转文字 + 波形展示功能正在加紧开发<br>预计 <b style="color:#FFD700">Day 2 开放</b>,敬请期待 🚀</p>
+    <div class="modal-actions">
+      <button class="btn" id="voiceBack">切回图文</button>
+      <button class="btn btn-primary" id="voiceClose">我知道了</button>
+    </div>
+  </div>
+</div>
+
+<!-- 投票帖占位 modal (功能性表单 UI) -->
+<div class="modal-pe" id="voteModal">
+  <div class="modal-pe-inner" style="max-width:520px">
+    <div class="row gap-2" style="margin-bottom:14px">
+      <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#FFD700,#E5AA00);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">📊</div>
+      <div>
+        <h3 style="margin:0;text-align:left">发起投票</h3>
+        <div class="t-xs c-4" style="margin-top:2px">让大家用脚投票 · <span style="color:#FFD700">Day 2 实装</span></div>
+      </div>
+    </div>
+    <div class="vote-form">
+      <div>
+        <label>投票问题<span style="color:var(--danger)"> *</span></label>
+        <input class="input" id="voteQuestion" type="text" placeholder="例: 海外华人男生最难的是哪一关?" style="margin-top:4px">
+      </div>
+      <div>
+        <label>投票选项<span style="color:var(--danger)"> *</span> <span class="t-xs c-4">(2 ~ 6 个)</span></label>
+        <div id="voteOpts" style="display:flex;flex-direction:column;gap:6px;margin-top:4px"></div>
+        <button type="button" class="vote-add-btn" id="voteAddOpt" style="margin-top:6px;width:100%">
+          <i class="ti ti-plus"></i> 添加选项
+        </button>
+      </div>
+      <div>
+        <label>截止时间</label>
+        <select class="select" id="voteDeadline" style="margin-top:4px">
+          <option>1 天后</option>
+          <option selected>3 天后</option>
+          <option>7 天后</option>
+          <option>30 天后</option>
+          <option>永不截止</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-actions" style="margin-top:20px">
+      <button class="btn" id="voteCancel">我知道了 / 切回图文</button>
+      <button class="btn btn-primary" id="voteSubmit"><i class="ti ti-send"></i> 提交</button>
+    </div>
+  </div>
+</div>
+
+<!-- 草稿预览 modal -->
+<div class="modal-pe" id="draftPreviewModal">
+  <div class="modal-pe-inner" style="max-width:520px">
+    <h3>草稿预览</h3>
+    <div class="modal-desc" style="text-align:left">
+      <div id="draftPreviewBody" style="
+        max-height: 400px; overflow-y: auto;
+        background: var(--bg-elev);
+        padding: 14px;
+        border-radius: var(--r-md);
+        font-size: 12px;
+        line-height: 1.7;
+        white-space: pre-wrap;
+        word-break: break-word;
+      "></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="draftPreviewClose">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script src="../shared/auth.js?v=17"></script>
+<script src="../shared/data.js?v=17"></script>
+<script src="../shared/components.js?v=17"></script>
 <script>
 (async () => {
   await QD.ready();
@@ -309,6 +518,16 @@
   QDC.renderSidebar(QDC.$('#sidebar'));
   document.querySelector('.app-shell').style.gridTemplateColumns = 'var(--sidebar-w) 1fr';
   document.querySelector('.app-shell').style.gridTemplateAreas = '"header header" "sidebar main"';
+
+  /* ---------- Toast 工具 ---------- */
+  const toastEl = document.getElementById('peToast');
+  function toast(msg, isInfo = false) {
+    toastEl.textContent = msg;
+    toastEl.classList.toggle('info', isInfo);
+    toastEl.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toastEl.classList.remove('show'), 2200);
+  }
 
   /* ---------- 频道 / 子频道 联动 ---------- */
   const selChannel = document.getElementById('selChannel');
@@ -341,21 +560,52 @@
     if (preSub) selSub.value = preSub;
   }
 
-  /* ---------- 类型切换 ---------- */
+  /* ---------- 类型切换 (含 voice/poll 占位 modal) ---------- */
   let postType = 'text';
+  let prevRealType = 'text'; // 记录最近一次成功切到的"真"类型,供占位 modal 关闭后回滚
   const segTypes = document.getElementById('segTypes');
   const fieldImages = document.getElementById('fieldImages');
   const fieldVideo = document.getElementById('fieldVideo');
+  const imgLabel = document.getElementById('imgLabel');
 
-  function setType(t) {
-    postType = t;
+  function applyTypeUI(t) {
     document.querySelectorAll('.seg-type').forEach(el => {
       el.classList.toggle('active', el.dataset.type === t);
     });
     fieldImages.style.display = (t === 'gallery') ? '' : 'none';
     fieldVideo.style.display  = (t === 'video')   ? '' : 'none';
-    autoSaveDraft();
+    if (t === 'gallery') {
+      imgLabel.innerHTML = '图片<span class="req">*</span> (至少 1 张, 最多 9 张, 第一张为封面)';
+    } else {
+      imgLabel.innerHTML = '图片 (最多 9 张, 第一张为封面)';
+    }
   }
+
+  function setType(t, opts = {}) {
+    // voice / poll 是占位类型,弹 modal 而不真正切换
+    if (t === 'voice') {
+      openVoiceModal();
+      return;
+    }
+    if (t === 'poll') {
+      openVoteModal();
+      return;
+    }
+    // 切换真类型: 清空非通用字段
+    if (postType !== t) {
+      if (postType === 'video' && t !== 'video') {
+        // 切走视频: 清空视频字段
+        document.getElementById('inputVideoUrl').value = '';
+        previewVideo('');
+      }
+      // 注意: 切换类型时 *保留* 标题/正文草稿 (任务 11 要求)
+    }
+    postType = t;
+    prevRealType = t;
+    applyTypeUI(t);
+    if (!opts.silent) autoSaveDraft();
+  }
+
   segTypes.addEventListener('click', e => {
     const t = e.target.closest('.seg-type');
     if (t) setType(t.dataset.type);
@@ -374,12 +624,87 @@
   });
   document.getElementById('inputTags').addEventListener('input', autoSaveDraft);
 
+  /* ---------- Markdown 工具栏 ---------- */
+  function wrapSelection(before, after) {
+    const ta = inBody;
+    const s = ta.selectionStart, e = ta.selectionEnd;
+    const sel = ta.value.slice(s, e);
+    const replaced = before + sel + (after != null ? after : before);
+    ta.value = ta.value.slice(0, s) + replaced + ta.value.slice(e);
+    ta.focus();
+    const cursorAt = s + before.length + sel.length;
+    ta.setSelectionRange(cursorAt, cursorAt);
+    document.getElementById('bodyLen').textContent = ta.value.length;
+    autoSaveDraft();
+  }
+  function prefixLine(prefix) {
+    const ta = inBody;
+    const s = ta.selectionStart;
+    // 找到当前行行首
+    const before = ta.value.slice(0, s);
+    const lineStart = before.lastIndexOf('\n') + 1;
+    ta.value = ta.value.slice(0, lineStart) + prefix + ta.value.slice(lineStart);
+    ta.focus();
+    ta.setSelectionRange(s + prefix.length, s + prefix.length);
+    document.getElementById('bodyLen').textContent = ta.value.length;
+    autoSaveDraft();
+  }
+  document.getElementById('mdToolbar').addEventListener('click', e => {
+    const btn = e.target.closest('button[data-md]');
+    if (!btn) return;
+    const cmd = btn.dataset.md;
+    switch (cmd) {
+      case 'bold':      wrapSelection('**'); break;
+      case 'italic':    wrapSelection('_'); break;
+      case 'underline': wrapSelection('<u>', '</u>'); break;
+      case 'h1':        prefixLine('# '); break;
+      case 'quote':     prefixLine('> '); break;
+      case 'list':      prefixLine('- '); break;
+      case 'code':      wrapSelection('`'); break;
+      case 'link': {
+        const url = prompt('请输入链接 URL:', 'https://');
+        if (url && url.trim()) {
+          const ta = inBody;
+          const s = ta.selectionStart, e = ta.selectionEnd;
+          const sel = ta.value.slice(s, e) || '链接文字';
+          const link = '[' + sel + '](' + url.trim() + ')';
+          ta.value = ta.value.slice(0, s) + link + ta.value.slice(e);
+          ta.focus();
+          ta.setSelectionRange(s + link.length, s + link.length);
+          document.getElementById('bodyLen').textContent = ta.value.length;
+          autoSaveDraft();
+        }
+        break;
+      }
+      case 'image':
+        if (postType !== 'gallery') {
+          setType('gallery', { silent: false });
+          toast('已切换到「图集帖」类型', true);
+        }
+        openAddImage();
+        break;
+      case 'video':
+        if (postType !== 'video') {
+          toast('请先切换到「视频帖」类型', true);
+        } else {
+          document.getElementById('inputVideoUrl').focus();
+        }
+        break;
+      case 'at':
+        toast('@ 提到功能 Day 2 开放', true);
+        break;
+      case 'vip':
+        toast('👑 VIP 内容功能开发中', true);
+        break;
+    }
+  });
+
   /* ---------- 图片上传 ---------- */
   let images = [];
   let coverIdx = 0;
   const MAX_IMG = 9;
   const imgGrid = document.getElementById('imgGrid');
-  const imgCount = document.getElementById('imgCount');
+  const imgCountEl = document.getElementById('imgCount');
 
   function renderImageGrid() {
     imgGrid.innerHTML = images.map((u, i) => `
@@ -396,7 +721,7 @@
         <i class="ti ti-plus"></i><span>添加图片</span>
       </div>
     ` : '');
-    imgCount.textContent = images.length + ' / 9 张 · 本地上传单张 ≤ 2MB';
+    imgCountEl.textContent = images.length + ' / 9 张 · 本地上传单张 ≤ 2MB';
   }
   imgGrid.addEventListener('click', e => {
     if (e.target.closest('[data-act="add"]')) { openAddImage(); return; }
@@ -443,7 +768,7 @@
   }
   renderImageGrid();
 
-  /* ---------- 视频嗅探 ---------- */
+  /* ---------- 视频嗅探 (blur 时也刷新预览) ---------- */
   const inVideoUrl = document.getElementById('inputVideoUrl');
   const videoPreview = document.getElementById('videoPreview');
   const errVideo = document.getElementById('errVideo');
@@ -474,6 +799,72 @@
     previewVideo(inVideoUrl.value.trim());
     autoSaveDraft();
   });
+  inVideoUrl.addEventListener('blur', () => {
+    previewVideo(inVideoUrl.value.trim());
+  });
+
+  /* ---------- 语音 modal ---------- */
+  const voiceModal = document.getElementById('voiceModal');
+  function openVoiceModal() { voiceModal.classList.add('show'); }
+  function closeVoiceModal() {
+    voiceModal.classList.remove('show');
+    // 切回上一个真类型
+    setType(prevRealType, { silent: true });
+  }
+  document.getElementById('voiceClose').addEventListener('click', closeVoiceModal);
+  document.getElementById('voiceBack').addEventListener('click', closeVoiceModal);
+  voiceModal.addEventListener('click', e => { if (e.target === voiceModal) closeVoiceModal(); });
+
+  /* ---------- 投票 modal ---------- */
+  const voteModal = document.getElementById('voteModal');
+  const voteOptsEl = document.getElementById('voteOpts');
+  let voteOpts = ['', ''];
+
+  function renderVoteOpts() {
+    voteOptsEl.innerHTML = voteOpts.map((v, i) => `
+      <div class="opt-row">
+        <input class="input" type="text" placeholder="选项 ${i + 1}" data-i="${i}" value="${(v || '').replace(/"/g, '&quot;')}">
+        <button type="button" data-act="del-opt" data-i="${i}" ${voteOpts.length <= 2 ? 'disabled' : ''} title="删除选项">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+    `).join('');
+    document.getElementById('voteAddOpt').disabled = voteOpts.length >= 6;
+  }
+  voteOptsEl.addEventListener('input', e => {
+    const inp = e.target.closest('input[data-i]');
+    if (inp) { voteOpts[+inp.dataset.i] = inp.value; }
+  });
+  voteOptsEl.addEventListener('click', e => {
+    const del = e.target.closest('[data-act="del-opt"]');
+    if (del && voteOpts.length > 2) {
+      voteOpts.splice(+del.dataset.i, 1);
+      renderVoteOpts();
+    }
+  });
+  document.getElementById('voteAddOpt').addEventListener('click', () => {
+    if (voteOpts.length < 6) {
+      voteOpts.push('');
+      renderVoteOpts();
+    }
+  });
+
+  function openVoteModal() {
+    voteOpts = ['', ''];
+    document.getElementById('voteQuestion').value = '';
+    renderVoteOpts();
+    voteModal.classList.add('show');
+  }
+  function closeVoteModal() {
+    voteModal.classList.remove('show');
+    setType(prevRealType, { silent: true });
+  }
+  document.getElementById('voteCancel').addEventListener('click', closeVoteModal);
+  voteModal.addEventListener('click', e => { if (e.target === voteModal) closeVoteModal(); });
+  document.getElementById('voteSubmit').addEventListener('click', () => {
+    toast('投票帖功能 Day 2 上线,敬请期待 🚀', true);
+    setTimeout(closeVoteModal, 400);
+  });
 
   /* ---------- 草稿自动保存 ---------- */
   const DRAFT_KEY = 'qd-post-draft';
@@ -494,8 +885,8 @@
       };
       try {
         localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-        document.getElementById('autoSaveTip').textContent =
-          '✓ 已保存草稿 ' + new Date().toLocaleTimeString('zh-CN');
+        const ago = new Date(draft.savedAt).toLocaleTimeString('zh-CN');
+        document.getElementById('autoSaveTip').textContent = '✓ 草稿已保存于 ' + ago;
       } catch (e) {
         document.getElementById('autoSaveTip').textContent = '⚠ 自动保存失败 (存储已满)';
       }
@@ -512,7 +903,7 @@
     if (!d) return;
     if (d.channelId) { selChannel.value = d.channelId; fillSubChannels(d.channelId); }
     if (d.subChannelId) selSub.value = d.subChannelId;
-    if (d.type) setType(d.type);
+    if (d.type && d.type !== 'voice' && d.type !== 'poll') setType(d.type, { silent: true });
     if (d.title != null) inTitle.value = d.title;
     if (d.body != null) inBody.value = d.body;
     if (d.tags != null) document.getElementById('inputTags').value = d.tags;
@@ -523,6 +914,29 @@
   }
   function clearDraft() { localStorage.removeItem(DRAFT_KEY); }
 
+  /* ---------- 草稿 banner / 预览 ---------- */
+  const draftPreviewModal = document.getElementById('draftPreviewModal');
+  function openDraftPreview(d) {
+    const map = { text: '📝 文字帖', gallery: '🖼️ 图集帖', video: '🎬 视频帖', question: '❓ 提问帖' };
+    const lines = [
+      '类型: ' + (map[d.type] || d.type || '未知'),
+      '频道: ' + (d.channelId || '(未选)'),
+      '子频道: ' + (d.subChannelId || '(未选)'),
+      '标题: ' + (d.title || '(空)'),
+      '正文 (' + (d.body || '').length + ' 字):',
+      (d.body || '(空)').slice(0, 400) + ((d.body || '').length > 400 ? '\n...(已截断)' : ''),
+      '',
+      '标签: ' + (d.tags || '(无)'),
+      '图片数: ' + (Array.isArray(d.images) ? d.images.length : 0),
+      '视频 URL: ' + (d.videoUrl || '(无)'),
+      '保存时间: ' + (d.savedAt ? new Date(d.savedAt).toLocaleString('zh-CN') : '(未知)'),
+    ];
+    document.getElementById('draftPreviewBody').textContent = lines.join('\n');
+    draftPreviewModal.classList.add('show');
+  }
+  document.getElementById('draftPreviewClose').addEventListener('click', () => draftPreviewModal.classList.remove('show'));
+  draftPreviewModal.addEventListener('click', e => { if (e.target === draftPreviewModal) draftPreviewModal.classList.remove('show'); });
+
   const existingDraft = loadDraftIfAny();
   if (existingDraft && (existingDraft.title || existingDraft.body)) {
     document.getElementById('draftBanner').classList.add('show');
@@ -530,6 +944,7 @@
       applyDraft(existingDraft);
       document.getElementById('draftBanner').classList.remove('show');
     });
+    document.getElementById('draftPreview').addEventListener('click', () => openDraftPreview(existingDraft));
     document.getElementById('draftDiscard').addEventListener('click', () => {
       clearDraft();
       document.getElementById('draftBanner').classList.remove('show');
@@ -556,6 +971,7 @@
     showFieldErr('errTitle', '');
     showFieldErr('errBody', '');
     showFieldErr('errVideo', '');
+    showFieldErr('errImages', '');
 
     if (!selChannel.value) { alert('请选择频道'); selChannel.focus(); return; }
     if (!selSub.value) { alert('请选择子频道'); selSub.focus(); return; }
@@ -568,6 +984,10 @@
     if (postType === 'video') {
       if (!inVideoUrl.value.trim()) { showFieldErr('errVideo', '请粘贴视频 URL'); inVideoUrl.focus(); return; }
       if (!videoInfo || videoInfo.type === 'unknown') { showFieldErr('errVideo', '暂不支持该视频源 (仅 YouTube / Bilibili / mp4)'); inVideoUrl.focus(); return; }
+    }
+    if (postType === 'gallery' && images.length === 0) {
+      showFieldErr('errImages', '图集帖至少需要 1 张图片');
+      return;
     }
 
     const tags = document.getElementById('inputTags').value
@@ -608,7 +1028,7 @@
       return;
     }
     clearDraft();
-    document.getElementById('peToast').classList.add('show');
+    toast('✓ 发布成功!');
     setTimeout(() => {
       location.href = 'post-detail.html?id=' + id;
     }, 800);
