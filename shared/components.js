@@ -76,12 +76,53 @@ window.QDC = (function () {
     return `<span class="ch-pill ${ch.color}"><i class="ti ${ch.icon} ico"></i>${ch.name}</span>`;
   }
 
+  /* ---------- VIP 解锁判断 (Commit 6) ----------
+     vip_only 是 post 上的 boolean 字段(spec from wavi-channels.json)。
+     任何区任何子频道下的帖子都可以标记。
+     未登录/非 VIP 用户看到"解锁阅读"占位。
+  ---------------------------------------- */
+  function isVipLocked(post) {
+    if (!post || !post.vip_only) return false;
+    const u = QD && QD.user;
+    return !(u && u.vip && u.vip.active === true);
+  }
+
   function tplPostCard(post) {
     const ch = QD.channelById(post.channelId);
     // 用户帖子用 post.authorName/authorAvatar 快照;种子帖通过 authorOf 反查 authors[]
     const author = post.isUserPost
       ? { id: post.authorId, name: post.authorName || '用户', avatar: post.authorAvatar || 'bg-grad-6', level: post.authorLevel || 1, vip: false }
       : QD.authorOf(post);
+
+    // VIP gate: 非 VIP 用户看 vip_only 帖子,返回 locked card
+    if (isVipLocked(post)) {
+      const chPill = ch ? `<span class="ch-pill ${ch.color}"><i class="ti ${ch.icon} ico"></i>r/${ch.id} · ${escape(ch.name)}</span>` : '';
+      return `
+        <article class="post-card vip-locked" data-post-id="${post.id}" onclick="location.href='post-detail.html?id=${post.id}'" style="cursor:pointer">
+          <div class="post-meta">
+            ${chPill}
+            <span style="display:inline-flex;align-items:center;gap:6px">
+              ${tplAvatar(author, 'sm')}
+              <span class="comment-name t-sm">${escape(author.name)}</span>
+            </span>
+            <span class="dot-sep"></span>
+            <span>${escape(QD.fmtTime(post.createdAt) || post.createdAtText || '')}</span>
+            <span class="badge gold"><i class="ti ti-crown"></i>VIP 限定</span>
+          </div>
+          <h3 class="post-title vip-locked-title">${escape(post.title)}</h3>
+          <div class="vip-locked-panel">
+            <i class="ti ti-lock-square-rounded vip-locked-icon"></i>
+            <div class="grow">
+              <div class="vip-locked-label">VIP 解锁全文</div>
+              <div class="vip-locked-sub">升级黑卡会员,看完所有 VIP 专属内容</div>
+            </div>
+            <button class="btn btn-primary" onclick="event.stopPropagation();location.href='vip.html'">
+              <i class="ti ti-crown"></i> 升级 VIP
+            </button>
+          </div>
+        </article>
+      `;
+    }
     // 安全提取 images（防止格式错误）
     const images = Array.isArray(post.images) ? post.images.filter(u => typeof u === 'string') : [];
     const thumbs = Array.isArray(post.thumbs) ? post.thumbs : [];
@@ -137,7 +178,8 @@ window.QDC = (function () {
     const isQuestion = post.type === 'question';
     const isFutureType = post.type === 'voice' || post.type === 'poll';
 
-    const vipBadge = post.vipLocked ? `<span class="badge gold"><i class="ti ti-crown"></i>VIP</span>` : '';
+    // VIP 用户看 vip_only 帖子时,仍显示 VIP 限定 badge 作为内容来源标记
+    const vipBadge = post.vip_only ? `<span class="badge gold"><i class="ti ti-crown"></i>VIP 限定</span>` : '';
     const hotBadge = post.hot ? `<span class="badge danger"><i class="ti ti-flame"></i>热议</span>` : '';
     const questionBadge = isQuestion
       ? `<span class="badge" style="background:rgba(245,158,11,0.15);color:#FFD700;border:1px solid rgba(245,158,11,0.40)">❓ 待回答</span>`
@@ -843,5 +885,5 @@ window.QDC = (function () {
     `;
   }
 
-  return { $, $$, el, escape, channelPageUrl, parseVideoUrl, tplAvatar, tplChannelPill, tplPostCard, tplLiveMessage, tplComment, startLiveRoom, renderSidebar, renderHeader, renderChannelPage, renderH5TabBar, maybeShowDraftBanner };
+  return { $, $$, el, escape, channelPageUrl, parseVideoUrl, tplAvatar, tplChannelPill, tplPostCard, tplLiveMessage, tplComment, startLiveRoom, renderSidebar, renderHeader, renderChannelPage, renderH5TabBar, maybeShowDraftBanner, isVipLocked };
 })();

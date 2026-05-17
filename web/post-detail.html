@@ -197,9 +197,18 @@
   document.title = `${post.title} · Wavi`;
 
   // post.body 多段渲染（按 \n\n 分段）
-  const bodyHtml = post.body
-    ? post.body.split(/\n\n+/).map(p => `<p>${QDC.escape(p.trim()).replace(/\n/g, '<br>')}</p>`).join('')
-    : `<p>${QDC.escape(post.excerpt || '')}</p>`;
+  // VIP gate (Commit 6): 非 VIP 用户看 vip_only 帖子 → 用解锁面板替换正文 + 隐藏图片/视频
+  const _vipLocked = QDC.isVipLocked(post);
+  const bodyHtml = _vipLocked
+    ? `<div class="vip-locked-detail">
+         <i class="ti ti-lock-square-rounded"></i>
+         <h2>本帖仅 VIP 可见</h2>
+         <p>升级黑卡会员,解锁本帖完整内容 + 600+ 部短剧 + 玄学咨询 8 折 + 8 大专属权益</p>
+         <button class="btn btn-primary" onclick="location.href='vip.html'"><i class="ti ti-crown"></i> 立即升级</button>
+       </div>`
+    : (post.body
+        ? post.body.split(/\n\n+/).map(p => `<p>${QDC.escape(p.trim()).replace(/\n/g, '<br>')}</p>`).join('')
+        : `<p>${QDC.escape(post.excerpt || '')}</p>`);
 
   // 视频渲染：type=video 时优先用 videoEmbedType/Url; 兼容老种子帖的 thumb 占位
   let videoHtml = '';
@@ -274,7 +283,7 @@
 
       <div class="pd-content">
         ${bodyHtml}
-        ${imagesHtml}
+        ${_vipLocked ? '' : imagesHtml}
       </div>
 
       ${emptyAnswers}

@@ -504,6 +504,53 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
 .post-actions .pa.active { color: var(--brand-300); }
 .post-actions .pa.live { color: var(--live); }
 
+/* ---------- VIP 解锁占位卡片 (Commit 6) ---------- */
+.post-card.vip-locked {
+  background: linear-gradient(180deg, rgba(255,215,0,0.06), var(--bg-card) 60%);
+  border-color: rgba(255,215,0,0.20);
+}
+.post-card.vip-locked:hover {
+  border-color: rgba(255,215,0,0.40);
+  background: linear-gradient(180deg, rgba(255,215,0,0.10), var(--bg-elev) 60%);
+}
+.post-title.vip-locked-title { opacity: 0.85; }
+.vip-locked-panel {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px;
+  margin-top: 4px;
+  background: linear-gradient(135deg, rgba(255,215,0,0.10), rgba(229,170,0,0.04));
+  border: 1px dashed rgba(255,215,0,0.30);
+  border-radius: var(--r-md);
+}
+.vip-locked-panel .vip-locked-icon {
+  font-size: 28px;
+  color: #FFD700;
+  flex-shrink: 0;
+}
+.vip-locked-panel .grow { min-width: 0; }
+.vip-locked-label {
+  font-size: 14px; font-weight: 500; color: #FFD700;
+  margin-bottom: 2px;
+}
+.vip-locked-sub { font-size: 12px; color: var(--text-3); }
+
+/* 详情页大号解锁面板 */
+.vip-locked-detail {
+  max-width: 480px; margin: 24px auto 16px;
+  padding: 32px 28px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255,215,0,0.12), rgba(229,170,0,0.04));
+  border: 1px solid rgba(255,215,0,0.30);
+  border-radius: var(--r-lg);
+}
+.vip-locked-detail i.ti { font-size: 44px; color: #FFD700; }
+.vip-locked-detail h2 {
+  font-size: 18px; font-weight: 500;
+  margin: 12px 0 6px;
+  color: var(--text-1);
+}
+.vip-locked-detail p { font-size: 13px; color: var(--text-2); line-height: 1.6; margin: 0 0 18px; }
+
 .post-thumb {
   width: 100%;
   aspect-ratio: 16/9;

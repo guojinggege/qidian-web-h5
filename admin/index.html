@@ -879,7 +879,7 @@ function renderPosts() {
           <i class="ti ${p.type==='video'?'ti-video':p.type==='gallery'?'ti-photo':'ti-align-left'}"></i>
         </div>
         <div class="ad-row-body">
-          <div class="ad-row-title">${esc(p.title || '(无标题)')} ${p.hot?'<span class="badge danger t-xs">热</span>':''} ${p.vipLocked?'<span class="badge gold t-xs">VIP</span>':''}${!p.subChannelId?' <span class="badge danger t-xs">未分类</span>':''}</div>
+          <div class="ad-row-title">${esc(p.title || '(无标题)')} ${p.hot?'<span class="badge danger t-xs">热</span>':''} ${p.vip_only?'<span class="badge gold t-xs">VIP 限定</span>':''}${!p.subChannelId?' <span class="badge danger t-xs">未分类</span>':''}</div>
           <div class="ad-row-sub">${p.id} · ${ch?.name||p.channelId}${p.subChannelId ? ' / ' + (adminState.subChannels.find(s=>s.id===p.subChannelId)?.name || p.subChannelId) : ''} · ${esc(author.name)} · ${p.createdAtText||''}</div>
         </div>
         <div class="ad-row-actions">
@@ -950,6 +950,13 @@ function renderPosts() {
               <option value="true" ${p.hot?'selected':''}>热议</option>
             </select>
           </div>
+          <div>
+            <label class="field-label">VIP 限定 <span class="t-xs c-4">(代替旧会员区)</span></label>
+            <select class="select" name="vip_only">
+              <option value="false" ${!p.vip_only?'selected':''}>公开</option>
+              <option value="true" ${p.vip_only?'selected':''}>VIP 限定(非 VIP 看解锁卡片)</option>
+            </select>
+          </div>
           <div class="full">
             <label class="field-label">标签 (逗号分隔)</label>
             <input class="input" name="tags" value="${esc((p.tags||[]).join(', '))}">
@@ -1013,6 +1020,7 @@ function renderPosts() {
           p.authorId = f.authorId.value;
           p.type = f.type.value;
           p.hot = f.hot.value === 'true';
+          p.vip_only = f.vip_only.value === 'true';
           p.tags = f.tags.value.split(/[,，]/).map(t => t.trim()).filter(Boolean);
           persist();
           editingId = null; isNew = false;

@@ -154,13 +154,20 @@
 
     <h1 class="pd-title-m">${post.title}</h1>
 
-    <div class="pd-content-m">
-      <p>${post.excerpt}</p>
-      <p>14 世纪黑死病爆发后，欧洲医学界普遍相信"皮肤毛孔张开会让瘟疫入侵"，这种"医学共识"持续了约 400 年，直到 18 世纪末才被推翻。法国国王路易十四一生只洗过 3 次澡。</p>
-      <p>更夸张的是：当时欧洲贵族认为"会出汗"是健康的表现，所以反复涂抹厚厚的脂粉来"密封"皮肤，导致铅中毒成了上层社会的常见病。</p>
-      <p>对比同时期的奥斯曼帝国、江户日本和明清中国 — 这三个文明圈都把"沐浴"视为礼仪和健康的核心实践。</p>
-      <p class="c-3" style="font-style:italic;font-size:12px">— 参考：Georges Vigarello《Concepts of Cleanliness》</p>
-    </div>
+    ${QDC.isVipLocked(post)
+      ? `<div class="vip-locked-detail">
+           <i class="ti ti-lock-square-rounded"></i>
+           <h2>本帖仅 VIP 可见</h2>
+           <p>升级黑卡会员,解锁本帖完整内容 + 600+ 部短剧 + 玄学咨询 8 折 + 8 大专属权益</p>
+           <button class="btn btn-primary" onclick="location.href='vip.html'"><i class="ti ti-crown"></i> 立即升级</button>
+         </div>`
+      : `<div class="pd-content-m">
+           <p>${post.excerpt}</p>
+           <p>14 世纪黑死病爆发后，欧洲医学界普遍相信"皮肤毛孔张开会让瘟疫入侵"，这种"医学共识"持续了约 400 年，直到 18 世纪末才被推翻。法国国王路易十四一生只洗过 3 次澡。</p>
+           <p>更夸张的是：当时欧洲贵族认为"会出汗"是健康的表现，所以反复涂抹厚厚的脂粉来"密封"皮肤，导致铅中毒成了上层社会的常见病。</p>
+           <p>对比同时期的奥斯曼帝国、江户日本和明清中国 — 这三个文明圈都把"沐浴"视为礼仪和健康的核心实践。</p>
+           <p class="c-3" style="font-style:italic;font-size:12px">— 参考：Georges Vigarello《Concepts of Cleanliness》</p>
+         </div>`}
   `;
 
   const cmts = QD.comments.filter(c => c.postId === post.id);
