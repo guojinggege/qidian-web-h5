@@ -52,7 +52,7 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
   --brand-bg: rgba(127,119,221,0.12);
   --brand-bg-strong: rgba(127,119,221,0.20);
 
-  /* 11 channel palettes */
+  /* 12 channel palettes (11 legacy + 1 new indigo for midnight) */
   --c-coral:  #E55A4B;  --c-coral-bg:  rgba(229,90,75,0.14);
   --c-amber:  #D4A04A;  --c-amber-bg:  rgba(212,160,74,0.14);
   --c-green:  #4ADB7E;  --c-green-bg:  rgba(74,219,126,0.14);
@@ -64,6 +64,7 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
   --c-lime:   #B8DB4A;  --c-lime-bg:   rgba(184,219,74,0.14);
   --c-sky:    #4ADBE5;  --c-sky-bg:    rgba(74,219,229,0.14);
   --c-rose:   #E54A6E;  --c-rose-bg:   rgba(229,74,110,0.14);
+  --c-indigo: #5C6BC0;  --c-indigo-bg: rgba(92,107,192,0.14);
 
   /* Status */
   --success: #4ADB7E; --success-bg: rgba(74,219,126,0.12);
@@ -375,6 +376,7 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
 .ch-pill.lime   { color: var(--c-lime);   background: var(--c-lime-bg);   border-color: rgba(184,219,74,0.20); }
 .ch-pill.sky    { color: var(--c-sky);    background: var(--c-sky-bg);    border-color: rgba(74,219,229,0.20); }
 .ch-pill.rose   { color: var(--c-rose);   background: var(--c-rose-bg);   border-color: rgba(229,74,110,0.20); }
+.ch-pill.indigo { color: var(--c-indigo); background: var(--c-indigo-bg); border-color: rgba(92,107,192,0.22); }
 .ch-pill.brand  { color: var(--brand-200);background: var(--brand-bg);    border-color: rgba(127,119,221,0.30); }
 
 /* ---------- Buttons ---------- */

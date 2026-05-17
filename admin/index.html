@@ -377,6 +377,10 @@ async function loadState() {
       lastSavedAt = parsed.savedAt;
       isDirty = true; // 有缓存即视为未保存
       updateDirtyUI();
+      // Commit 3: 即使从缓存恢复也要再做一次 v2 overlay。
+      // 关键 bug fix:之前 overlay 只埋在 loadFromServer,localStorage 命中时彻底绕过,
+      // 导致 admin 仍然显示旧 11 频道。overlay 自身带幂等保护,二次调用安全。
+      await applyChannelsV2Overlay();
       return;
     } catch (e) { console.warn('[admin] localStorage 解析失败，重新加载', e); }
   }
@@ -387,9 +391,54 @@ async function loadFromServer() {
   const r = await fetch(DATA_URL, { cache: 'no-store' });
   if (!r.ok) throw new Error('HTTP ' + r.status);
   adminState = await r.json();
+  await applyChannelsV2Overlay();
   isDirty = false;
   lastSavedAt = null;
   updateDirtyUI();
+}
+
+// 覆盖 adminState.channels / subChannels 为 channels-v2 (新 8 区结构)。
+// 旧数据保留在 legacyChannels / legacySubChannels 供帖子 channelId 反查 + 频道管理只读区展示。
+// 幂等:legacyChannels 只在首次填充,避免 admin 保存草稿后二次加载把 legacy 自己覆盖了。
+async function applyChannelsV2Overlay() {
+  try {
+    const r2 = await fetch('../data/channels-v2.json', { cache: 'no-store' });
+    if (!r2.ok) throw new Error('HTTP ' + r2.status);
+    const v2 = await r2.json();
+    const subsDefault = { midnight:true, relationships:true, overseas:true, gossip:true, visual:false, otaku:false, money:false, occult:false };
+    const icons = { midnight:'ti-moon', relationships:'ti-heart', visual:'ti-camera', overseas:'ti-world', gossip:'ti-flame', otaku:'ti-device-gamepad-2', money:'ti-coin', occult:'ti-yin-yang' };
+    const newCh = [], newSub = [];
+    (v2.channels || []).forEach(c => {
+      newCh.push({
+        id: c.id, slug: c.slug, name: c.name, color: c.color,
+        icon: icons[c.id] || 'ti-hash',
+        desc: c.tagline || c.description || '',
+        members: 0, online: 0, unread: 0,
+        subscribed: subsDefault[c.id] !== undefined ? subsDefault[c.id] : false,
+        level: 'A',
+      });
+      (c.sub_channels || []).forEach(s => {
+        newSub.push({
+          id: s.id, parentId: c.id, slug: s.slug, name: s.name,
+          desc: (s.tags || []).join(' · '), icon: 'ti-bookmark', color: c.color,
+        });
+      });
+    });
+    // 幂等保护:legacyChannels 已经存在(从缓存恢复)就不要重新设
+    const looksLikeV2 = (adminState.channels || []).some(c => newCh.find(nc => nc.id === c.id));
+    if (!adminState.legacyChannels && !looksLikeV2) {
+      adminState.legacyChannels = adminState.channels;
+      adminState.legacySubChannels = adminState.subChannels || [];
+    } else if (!adminState.legacyChannels && looksLikeV2) {
+      // 已经是 v2 数据但缺 legacy — 留空数组,避免后续 .filter / .length 报错
+      adminState.legacyChannels = [];
+      adminState.legacySubChannels = [];
+    }
+    adminState.channels = newCh;
+    adminState.subChannels = newSub;
+  } catch (e) {
+    console.warn('[admin] channels-v2 加载失败,沿用旧 channels', e);
+  }
 }
 
 function persist() {
@@ -563,10 +612,11 @@ function renderChannels() {
   let editingId = null;
 
   function paint() {
+    const legacyCount = (adminState.legacyChannels || []).length;
     main.innerHTML = `
       <h2 class="ad-section-title">频道管理</h2>
-      <p class="ad-section-sub">共 ${adminState.channels.length} 个频道。可编辑名称、描述、图标、颜色与统计数。<b>不可删除</b>，因为帖子/视频依赖 channelId。</p>
-      <div class="ad-notice"><i class="ti ti-info-circle"></i> 修改 <code>color</code> 会同时改变频道徽章和频道页 hero 配色。</div>
+      <p class="ad-section-sub">共 <b>${adminState.channels.length}</b> 个频道(Wavi 新结构)${legacyCount ? ` + <b>${legacyCount}</b> 个 legacy 频道(只读 · 待 Commit 5 归档)` : ''}。可编辑名称、描述、图标、颜色与统计数。<b>不可删除</b>，因为帖子/视频依赖 channelId。</p>
+      <div class="ad-notice"><i class="ti ti-info-circle"></i> 修改 <code>color</code> 会同时改变频道徽章和频道页 hero 配色。Legacy 频道在 Commit 4 数据迁移完成后会被归档,目前仅供帖子 channelId 反查 + 旧 URL 兼容。</div>
       <div id="chList"></div>
     `;
 
@@ -701,6 +751,44 @@ function renderChannels() {
         list.appendChild(form);
       }
     });
+
+    /* ---------- Legacy 频道区(只读 · 待 Commit 5 归档) ---------- */
+    const legacy = adminState.legacyChannels || [];
+    const legacySubs = adminState.legacySubChannels || [];
+    if (legacy.length) {
+      const header = document.createElement('div');
+      header.style.cssText = 'margin:24px 0 8px;padding:10px 12px;background:rgba(127,119,221,0.06);border:1px dashed rgba(127,119,221,0.30);border-radius:var(--r-md);display:flex;align-items:center;gap:10px';
+      header.innerHTML = `
+        <i class="ti ti-archive" style="color:var(--text-2);font-size:16px"></i>
+        <div class="grow">
+          <div class="t-md f-medium">Legacy 频道(只读)</div>
+          <div class="t-xs c-3">${legacy.length} 个旧频道,Commit 4 数据迁移完成、Commit 5 归档到 _archive/ 之前保留只读状态。点击不展开编辑。</div>
+        </div>
+      `;
+      list.appendChild(header);
+      legacy.forEach(ch => {
+        const mySubs = legacySubs.filter(s => s.parentId === ch.id);
+        const row = document.createElement('div');
+        row.className = 'ad-row';
+        row.style.cssText = 'opacity:0.55;cursor:default';
+        row.innerHTML = `
+          <div class="ad-row-icon" style="background:var(--c-${ch.color}-bg);color:var(--c-${ch.color})">
+            <i class="ti ${ch.icon}"></i>
+          </div>
+          <div class="ad-row-body">
+            <div class="ad-row-title">r/${ch.id} · ${esc(ch.name)}
+              <span class="badge t-xs" style="margin-left:6px;background:rgba(127,119,221,0.12);color:var(--brand-200);border:1px solid rgba(127,119,221,0.30)">legacy</span>
+              <span class="badge t-xs" style="margin-left:4px">${mySubs.length} 子频道</span>
+            </div>
+            <div class="ad-row-sub">${esc(ch.desc || '')} · ${ch.members ? ((ch.members/10000).toFixed(1)+'w 成员') : '—'}</div>
+          </div>
+          <div class="ad-row-actions">
+            <span class="t-xs c-4" title="只读" style="padding:4px 10px"><i class="ti ti-lock"></i> 只读</span>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+    }
   }
   paint();
 }
@@ -717,7 +805,7 @@ function renderPosts() {
   function newPost() {
     // 关键：以"顶部下拉的当前频道筛选值"作为新帖子的默认频道。
     // - 用户选了具体频道 (movie / sport ...) → 新帖默认在该频道
-    // - 下拉是"全部" → 退回 channels[0] (奇点)
+    // - 下拉是"全部" → 退回 channels[0] (midnight)
     // 用户在表单里仍可手动改 channelId 下拉。
     const defaultCh = filterCh === 'all' ? adminState.channels[0].id : filterCh;
     const firstSub = (adminState.subChannels || []).find(s => s.parentId === defaultCh);

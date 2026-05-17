@@ -2,10 +2,12 @@
    Wavi · Data Layer (异步加载器)
    ------------------------------------------------------------
    - 同步创建 window.QD，先用空数组占位
-   - QD.ready() 返回 Promise，内部 fetch ../data/site-data.json
+   - QD.ready() 返回 Promise，并行 fetch site-data.json + channels-v2.json
+   - channels/subChannels 来自 channels-v2.json (新 8 区结构)
+   - posts/users/messages 等仍来自 site-data.json
+   - 旧 channels 保留在 state.legacyChannels (帖子 chip fallback)
    - 加载失败降级到最小兜底数据，页面不会完全空白
    - 保持原有同名 API：QD.channels / QD.posts / QD.user 等
-   - 新增：QD.films / QD.banners / QD.fmtTime
 ============================================================ */
 
 window.QD = (function () {
@@ -14,6 +16,8 @@ window.QD = (function () {
   const state = {
     channels: [],
     subChannels: [],
+    legacyChannels: [],
+    legacySubChannels: [],
     user: null,
     authors: [],
     authorById: {},
@@ -67,14 +71,19 @@ window.QD = (function () {
     return state.posts.find(p => p.id === id);
   }
   function channelById(id) {
-    return state.channels.find(c => c.id === id);
+    return state.channels.find(c => c.id === id)
+      || (state.legacyChannels || []).find(c => c.id === id);
   }
   function subChannelById(id) {
     if (!id) return null;
-    return (state.subChannels || []).find(s => s.id === id);
+    return (state.subChannels || []).find(s => s.id === id)
+      || (state.legacySubChannels || []).find(s => s.id === id);
   }
   function subChannelsOf(channelId) {
-    return (state.subChannels || []).filter(s => s.parentId === channelId);
+    const v2 = (state.subChannels || []).filter(s => s.parentId === channelId);
+    if (v2.length) return v2;
+    // 旧频道页(qd-channel.html 等)迁移 banner 倒计时期间,fallback 显示旧 sub-channels
+    return (state.legacySubChannels || []).filter(s => s.parentId === channelId);
   }
   function authorOf(post) {
     if (!post) return state.authors[0];
@@ -107,10 +116,82 @@ window.QD = (function () {
 
   /* ---------- 数据加载 ---------- */
   // 所有调用方都位于 /web/*.html / /h5/*.html / /admin/*.html，
-  // 根目录的 index.html 不加载 data.js，所以统一用 '../data/site-data.json' 即可。
+  // 根目录的 index.html 不加载 data.js，所以统一用 '../data/...' 即可。
   const DATA_URL = '../data/site-data.json';
+  const CHANNELS_V2_URL = '../data/channels-v2.json';
   // admin 用同一个 key 暂存草稿；前台 fetch 完后合并它来实现"本地预览"
   const DRAFT_KEY = 'qd-admin-state-v1';
+
+  /* ---------- channels-v2 适配层 ----------
+     v2 文件字段是 snake_case (sub_channels / tagline / description / tags)
+     现有渲染器读 camelCase + 旧字段 (subChannels / desc / icon / members / online / unread / subscribed / level)
+     这里做字段映射,JSON 文件保持与 wavi-channels.json 字节一致(承诺不动)。
+  ---------------------------------------- */
+  // 默认订阅分配 (Q2 拍板): 4 个默认订阅 + 4 个"推荐你也看看"
+  const V2_SUBSCRIBED_DEFAULTS = {
+    midnight: true, relationships: true, overseas: true, gossip: true,
+    visual: false, otaku: false, money: false, occult: false,
+  };
+  // 每个新频道的 tabler-icon
+  const V2_CHANNEL_ICONS = {
+    midnight: 'ti-moon',
+    relationships: 'ti-heart',
+    visual: 'ti-camera',
+    overseas: 'ti-world',
+    gossip: 'ti-flame',
+    otaku: 'ti-device-gamepad-2',
+    money: 'ti-coin',
+    occult: 'ti-yin-yang',
+  };
+  // 合成的统计数 (原型展示用,接真用户系统时切动态值)
+  const V2_CHANNEL_STATS = {
+    midnight:      { members: 482911, online: 3210, unread: 12, level: '主频道' },
+    relationships: { members: 251007, online: 2840, unread: 28, level: 'S' },
+    visual:        { members: 182331, online: 1240, unread: 7,  level: 'A' },
+    overseas:      { members: 318422, online: 5840, unread: 18, level: 'S' },
+    gossip:        { members: 142655, online: 922,  unread: 4,  level: 'A' },
+    otaku:         { members: 88312,  online: 1100, unread: 9,  level: 'A' },
+    money:         { members: 95000,  online: 800,  unread: 6,  level: 'A' },
+    occult:        { members: 77000,  online: 600,  unread: 3,  level: 'A' },
+  };
+  const SUB_ICON_PALETTE = ['ti-bookmark','ti-star','ti-bulb','ti-message','ti-flame','ti-bell'];
+
+  function adaptChannelsV2(v2) {
+    const newChannels = [];
+    const newSubs = [];
+    (v2.channels || []).forEach(c => {
+      const stats = V2_CHANNEL_STATS[c.id] || { members: 0, online: 0, unread: 0, level: 'A' };
+      newChannels.push({
+        id: c.id,
+        slug: c.slug,
+        name: c.name,
+        icon: V2_CHANNEL_ICONS[c.id] || 'ti-hash',
+        color: c.color,
+        desc: c.tagline || c.description || '',
+        tagline: c.tagline,
+        description: c.description,
+        members: stats.members,
+        online: stats.online,
+        unread: stats.unread,
+        subscribed: V2_SUBSCRIBED_DEFAULTS[c.id] === undefined ? false : V2_SUBSCRIBED_DEFAULTS[c.id],
+        level: stats.level,
+        order: c.order,
+      });
+      (c.sub_channels || []).forEach((s, idx) => {
+        newSubs.push({
+          id: s.id,
+          parentId: c.id,
+          slug: s.slug,
+          name: s.name,
+          desc: (s.tags || []).join(' · '),
+          icon: SUB_ICON_PALETTE[idx % SUB_ICON_PALETTE.length],
+          color: c.color,
+          tags: s.tags || [],
+        });
+      });
+    });
+    return { newChannels, newSubs };
+  }
 
   // 全量替换（用于首次 server 加载 / fallback）。任何字段缺失都视为空。
   function applyData(d) {
@@ -244,72 +325,66 @@ window.QD = (function () {
   let readyPromise = null;
   function ready() {
     if (readyPromise) return readyPromise;
-    readyPromise = fetch(DATA_URL, { cache: 'no-store' })
-      .then(r => {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json();
-      })
-      .then(d => {
-        // 先用服务器数据
-        applyData(d);
-        const serverSnapshot = {
-          posts: state.posts.length,
-          channels: state.channels.length,
-          subChannels: state.subChannels.length,
-          dramas: state.dramas.length,
-          films: state.films.length,
-        };
-        // 再"增量合并" admin 草稿（如果有）。增量 = 只覆盖 draft 实际存在的字段。
-        // 这样旧草稿不会擦掉 server 端新增的 subChannels 等字段。
-        const draft = loadDraft();
-        if (draft) {
-          const result = mergeDraft(draft);
-          state.__hasDraft = true;
-          const newSnapshot = {
-            posts: state.posts.length,
-            channels: state.channels.length,
-            subChannels: state.subChannels.length,
-            dramas: state.dramas.length,
-            films: state.films.length,
-          };
-          // eslint-disable-next-line no-console
-          console.log('[QD] 已合并 admin 草稿（本地预览）', {
-            server: serverSnapshot,
-            after_merge: newSnapshot,
-            draft_replaced: result.replaced,
-            draft_id_merged: result.idMerged,
-            draft_missing_kept_from_server: result.missing,
-          });
-          // 草稿"过时"检测：草稿缺 subChannels 但 server 有 → 提示
-          if (!('subChannels' in draft) && serverSnapshot.subChannels > 0) {
-            console.warn('[QD] ⚠️ 检测到旧草稿（不含 subChannels 字段）。subChannels 已保留服务器数据。如果 admin 编辑过的内容显示不对，可去 admin 点"重置"清空草稿。');
-          }
-        } else {
-          // eslint-disable-next-line no-console
-          console.log('[QD] 数据已加载', serverSnapshot);
-        }
-        // 最后合并用户发布的帖子 (独立 namespace qd-user-posts)
-        const userN = mergeUserPosts();
-        if (userN) {
-          // eslint-disable-next-line no-console
-          console.log('[QD] 已合并', userN, '条用户帖子 (qd-user-posts) · 总 posts:', state.posts.length);
-        }
-        return state;
-      })
-      .catch(err => {
+    readyPromise = (async () => {
+      let serverData = null;
+      let v2Data = null;
+      try {
+        const [r1, r2] = await Promise.all([
+          fetch(DATA_URL, { cache: 'no-store' }),
+          fetch(CHANNELS_V2_URL, { cache: 'no-store' }),
+        ]);
+        if (!r1.ok) throw new Error('site-data HTTP ' + r1.status);
+        if (!r2.ok) throw new Error('channels-v2 HTTP ' + r2.status);
+        serverData = await r1.json();
+        v2Data = await r2.json();
+      } catch (err) {
         // eslint-disable-next-line no-console
         console.error('[QD] 加载失败，使用降级数据：', err.message || err);
         applyData(fallback);
-        // fetch 失败时仍尝试用 admin 草稿（如果有）
-        const draft = loadDraft();
-        if (draft) {
-          applyData(draft);
-          state.__hasDraft = true;
-        }
-        // 同样合并用户帖子
+        const draftF = loadDraft();
+        if (draftF) { applyData(draftF); state.__hasDraft = true; }
         mergeUserPosts();
         return state;
+      }
+      // 1. site-data.json → 灌入 posts / users / messages / 旧 channels
+      applyData(serverData);
+      state.legacyChannels = serverData.channels || [];
+      state.legacySubChannels = serverData.subChannels || [];
+      const serverSnapshot = {
+        posts: state.posts.length,
+        legacyChannels: state.legacyChannels.length,
+        legacySubChannels: state.legacySubChannels.length,
+        dramas: state.dramas.length,
+      };
+      // 2. admin 草稿合并 (可能改 channels/posts/users 等)
+      const draft = loadDraft();
+      if (draft) {
+        const result = mergeDraft(draft);
+        state.__hasDraft = true;
+        // eslint-disable-next-line no-console
+        console.log('[QD] 已合并 admin 草稿（本地预览）', {
+          server: serverSnapshot,
+          draft_replaced: result.replaced,
+          draft_id_merged: result.idMerged,
+        });
+      }
+      // 3. channels-v2.json overlay → 永远赢 (Commit 3: 新结构生效)
+      const { newChannels, newSubs } = adaptChannelsV2(v2Data);
+      state.channels = newChannels;
+      state.subChannels = newSubs;
+      // 4. 用户本地帖子最后合并
+      const userN = mergeUserPosts();
+      // eslint-disable-next-line no-console
+      console.log('[QD] 数据已加载', {
+        channels_v2: state.channels.length,
+        subChannels_v2: state.subChannels.length,
+        legacy_channels: state.legacyChannels.length,
+        posts: state.posts.length,
+        user_posts: userN,
+        site_version: (v2Data.site && v2Data.site.version) || 'unknown',
       });
+      return state;
+    })();
     return readyPromise;
   }
 

@@ -56,7 +56,7 @@
         </div>
         <div class="grow">
           <div class="t-md f-medium">想说点什么?</div>
-          <div class="t-sm c-3" style="margin-top:2px">在 11 个频道里找一个发帖,跟海外华人聊聊</div>
+          <div class="t-sm c-3" style="margin-top:2px">在 <span id="homeChannelCount">8</span> 个频道里找一个发帖,跟海外华人聊聊</div>
         </div>
         <button class="btn btn-primary" onclick="location.href='post-editor.html'">
           <i class="ti ti-pencil-plus"></i> 立即发帖
@@ -119,6 +119,10 @@
 
   QDC.renderHeader(QDC.$('#header'));
   QDC.renderSidebar(QDC.$('#sidebar'));
+
+  // 中央发帖卡片的频道计数 (动态)
+  const cntEl = document.getElementById('homeChannelCount');
+  if (cntEl) cntEl.textContent = QD.channels.length;
 
   /* ---------- 横幅：QD.banners[0] ---------- */
   function renderBanner() {
