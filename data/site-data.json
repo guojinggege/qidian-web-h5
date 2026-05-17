@@ -605,7 +605,7 @@
   "posts": [
     {
       "id": "p001",
-      "channelId": "qd",
+      "channelId": "midnight",
       "authorId": "u08",
       "type": "text",
       "title": "中世纪欧洲为什么洗澡反而被认为是不健康的？看完这段历史你会笑出声",
@@ -626,11 +626,11 @@
       "createdAt": "2026-05-12T07:58:00Z",
       "createdAtText": "2分钟前",
       "hot": true,
-      "subChannelId": "qd-history"
+      "subChannelId": "midnight-insomnia"
     },
     {
       "id": "p002",
-      "channelId": "sport",
+      "channelId": "gossip",
       "authorId": "u01",
       "type": "video",
       "title": "约基奇这个不看人传球，整个联盟现在已经没人能防了",
@@ -651,11 +651,11 @@
       },
       "createdAt": "2026-05-12T07:48:00Z",
       "createdAtText": "12分钟前",
-      "subChannelId": "sport-nba"
+      "subChannelId": "gossip-frontline"
     },
     {
       "id": "p003",
-      "channelId": "gender",
+      "channelId": "overseas",
       "authorId": "u02",
       "type": "gallery",
       "title": "海外华人圈最近这种\"清冷感\"风格的女生，是不是有点过头了？",
@@ -681,7 +681,7 @@
       "createdAt": "2026-05-12T07:32:00Z",
       "createdAtText": "28分钟前",
       "vipLocked": false,
-      "subChannelId": "gender-look"
+      "subChannelId": "overseas-life"
     },
     {
       "id": "p004",
@@ -706,11 +706,11 @@
       },
       "createdAt": "2026-05-12T07:00:00Z",
       "createdAtText": "1小时前",
-      "subChannelId": "money-stock"
+      "subChannelId": "money-side"
     },
     {
       "id": "p005",
-      "channelId": "fortune",
+      "channelId": "occult",
       "authorId": "u06",
       "type": "text",
       "title": "【免费分析】1992年8月15日午时生人，最近事业财运卡点在哪？",
@@ -730,11 +730,11 @@
       },
       "createdAt": "2026-05-12T06:00:00Z",
       "createdAtText": "2小时前",
-      "subChannelId": "fortune-bazi"
+      "subChannelId": "occult-fate"
     },
     {
       "id": "p006",
-      "channelId": "game",
+      "channelId": "otaku",
       "authorId": "u04",
       "type": "video",
       "title": "黑神话悟空一周年，今年TGA还有戏吗？冷静分析一下",
@@ -755,11 +755,11 @@
       },
       "createdAt": "2026-05-12T05:00:00Z",
       "createdAtText": "3小时前",
-      "subChannelId": "game-console"
+      "subChannelId": "otaku-gaming"
     },
     {
       "id": "p007",
-      "channelId": "funny",
+      "channelId": "gossip",
       "authorId": "u11",
       "type": "text",
       "title": "我妈说我这种35岁还在写代码的，在国内属于\"高级闲人\"",
@@ -780,11 +780,11 @@
       "createdAt": "2026-05-12T03:00:00Z",
       "createdAtText": "5小时前",
       "hot": true,
-      "subChannelId": "funny-life"
+      "subChannelId": "gossip-weird"
     },
     {
       "id": "p008",
-      "channelId": "drama",
+      "channelId": "gossip",
       "authorId": "u03",
       "type": "video",
       "title": "《海归霸总的复仇人生》— 第38集刚更，前妻这次终于跪下来了",
@@ -806,11 +806,11 @@
       "createdAt": "2026-05-12T00:00:00Z",
       "createdAtText": "8小时前",
       "vipLocked": true,
-      "subChannelId": "drama-revenge"
+      "subChannelId": "gossip-frontline"
     },
     {
       "id": "p009",
-      "channelId": "qd",
+      "channelId": "midnight",
       "authorId": "u01",
       "type": "text",
       "title": "为什么古罗马人吃饭要躺着？真相比电影里演的更荒谬",
@@ -830,11 +830,11 @@
       },
       "createdAt": "2026-05-12T07:30:00Z",
       "createdAtText": "30分钟前",
-      "subChannelId": "qd-history"
+      "subChannelId": "midnight-insomnia"
     },
     {
       "id": "p010",
-      "channelId": "qd",
+      "channelId": "midnight",
       "authorId": "u04",
       "type": "text",
       "title": "蜂蜜永远不会过期，考古队真在金字塔里挖出过3000年的蜂蜜",
@@ -856,11 +856,11 @@
       "createdAt": "2026-05-12T06:45:00Z",
       "createdAtText": "1小时15分钟前",
       "hot": true,
-      "subChannelId": "qd-fact"
+      "subChannelId": "midnight-insomnia"
     },
     {
       "id": "p011",
-      "channelId": "qd",
+      "channelId": "midnight",
       "authorId": "u10",
       "type": "text",
       "title": "维京人其实非常爱干净 — 周六洗澡这件事在中世纪欧洲是异类",
@@ -881,11 +881,11 @@
       },
       "createdAt": "2026-05-12T05:30:00Z",
       "createdAtText": "2小时30分钟前",
-      "subChannelId": "qd-history"
+      "subChannelId": "midnight-insomnia"
     },
     {
       "id": "p012",
-      "channelId": "qd",
+      "channelId": "midnight",
       "authorId": "u07",
       "type": "text",
       "title": "为什么我们看到的银河系总是带蓝紫色？真相是肉眼根本看不到颜色",
@@ -906,11 +906,11 @@
       },
       "createdAt": "2026-05-12T04:30:00Z",
       "createdAtText": "3小时30分钟前",
-      "subChannelId": "qd-science"
+      "subChannelId": "midnight-insomnia"
     },
     {
       "id": "p013",
-      "channelId": "drama",
+      "channelId": "gossip",
       "authorId": "u12",
       "type": "video",
       "title": "《前妻总裁夜夜跪下求我回家》大结局，编剧给了一个最毒的处理",
@@ -933,11 +933,11 @@
       "createdAt": "2026-05-12T07:15:00Z",
       "createdAtText": "45分钟前",
       "hot": true,
-      "subChannelId": "drama-domineering"
+      "subChannelId": "gossip-frontline"
     },
     {
       "id": "p014",
-      "channelId": "drama",
+      "channelId": "overseas",
       "authorId": "u02",
       "type": "video",
       "title": "5部海外华人爽剧排行榜 — 第一名让我熬夜追到凌晨3点",
@@ -959,11 +959,11 @@
       },
       "createdAt": "2026-05-12T05:00:00Z",
       "createdAtText": "3小时前",
-      "subChannelId": "drama-domineering"
+      "subChannelId": "overseas-life"
     },
     {
       "id": "p015",
-      "channelId": "drama",
+      "channelId": "overseas",
       "authorId": "u03",
       "type": "text",
       "title": "为什么海外华人这么爱看霸总短剧？我想了一年，觉得有个文化心理在底层",
@@ -984,11 +984,11 @@
       },
       "createdAt": "2026-05-12T02:00:00Z",
       "createdAtText": "6小时前",
-      "subChannelId": "drama-domineering"
+      "subChannelId": "overseas-life"
     },
     {
       "id": "p016",
-      "channelId": "drama",
+      "channelId": "occult",
       "authorId": "u06",
       "type": "video",
       "title": "《玄学大师我，重生救国回到了2008》— 这个设定我赌它能拍出年度爆款",
@@ -1010,11 +1010,11 @@
       },
       "createdAt": "2026-05-11T22:00:00Z",
       "createdAtText": "10小时前",
-      "subChannelId": "drama-mystic"
+      "subChannelId": "occult-night"
     },
     {
       "id": "p017",
-      "channelId": "sport",
+      "channelId": "gossip",
       "authorId": "u05",
       "type": "text",
       "title": "曼城被淘汰之后，瓜帅是不是真该考虑退一下了？",
@@ -1035,11 +1035,11 @@
       },
       "createdAt": "2026-05-12T06:30:00Z",
       "createdAtText": "1小时30分钟前",
-      "subChannelId": "sport-soccer"
+      "subChannelId": "gossip-frontline"
     },
     {
       "id": "p018",
-      "channelId": "sport",
+      "channelId": "gossip",
       "authorId": "u04",
       "type": "text",
       "title": "克莱跳槽小牛之后，库里这个赛季还能进总决赛吗？",
@@ -1060,11 +1060,11 @@
       },
       "createdAt": "2026-05-12T04:00:00Z",
       "createdAtText": "4小时前",
-      "subChannelId": "sport-nba"
+      "subChannelId": "gossip-frontline"
     },
     {
       "id": "p019",
-      "channelId": "sport",
+      "channelId": "gossip",
       "authorId": "u10",
       "type": "text",
       "title": "F1 摩纳哥站维斯塔潘连冠，本赛季冠军已无悬念",
@@ -1085,11 +1085,11 @@
       },
       "createdAt": "2026-05-12T01:00:00Z",
       "createdAtText": "7小时前",
-      "subChannelId": "sport-mixed"
+      "subChannelId": "gossip-frontline"
     },
     {
       "id": "p020",
-      "channelId": "sport",
+      "channelId": "gossip",
       "authorId": "u11",
       "type": "text",
       "title": "Counter-Strike 2 这个 patch 之后老司机彻底疯了",
@@ -1110,11 +1110,11 @@
       },
       "createdAt": "2026-05-11T23:00:00Z",
       "createdAtText": "9小时前",
-      "subChannelId": "sport-esports"
+      "subChannelId": "gossip-frontline"
     },
     {
       "id": "p021",
-      "channelId": "fortune",
+      "channelId": "occult",
       "authorId": "u09",
       "type": "text",
       "title": "1988 戊辰龙在 2026 的事业财运总结 — 上半年大动，下半年要稳",
@@ -1135,11 +1135,11 @@
       },
       "createdAt": "2026-05-12T07:00:00Z",
       "createdAtText": "1小时前",
-      "subChannelId": "fortune-bazi"
+      "subChannelId": "occult-fate"
     },
     {
       "id": "p022",
-      "channelId": "fortune",
+      "channelId": "occult",
       "authorId": "u02",
       "type": "text",
       "title": "塔罗占卜：最近30天该不该跳槽？三张牌给你方向",
@@ -1160,11 +1160,11 @@
       },
       "createdAt": "2026-05-12T05:00:00Z",
       "createdAtText": "3小时前",
-      "subChannelId": "fortune-tarot"
+      "subChannelId": "occult-fate"
     },
     {
       "id": "p023",
-      "channelId": "fortune",
+      "channelId": "overseas",
       "authorId": "u01",
       "type": "text",
       "title": "海外华人风水实操：北美公寓格局怎么避开\"穿心煞\"",
@@ -1185,11 +1185,11 @@
       },
       "createdAt": "2026-05-12T03:00:00Z",
       "createdAtText": "5小时前",
-      "subChannelId": "fortune-fengshui"
+      "subChannelId": "overseas-life"
     },
     {
       "id": "p024",
-      "channelId": "fortune",
+      "channelId": "occult",
       "authorId": "u06",
       "type": "text",
       "title": "为什么紫微比八字更适合现代人？我研究 10 年的结论",
@@ -1210,12 +1210,12 @@
       },
       "createdAt": "2026-05-12T00:00:00Z",
       "createdAtText": "8小时前",
-      "subChannelId": "fortune-ziwei"
+      "subChannelId": "occult-fate"
     },
     {
       "id": "p100",
-      "channelId": "qd",
-      "subChannelId": "qd-fact",
+      "channelId": "midnight",
+      "subChannelId": "midnight-insomnia",
       "authorId": "u11",
       "type": "text",
       "title": "为什么蚊子叮你比叮别人多? 血型只是其中之一",
@@ -1241,8 +1241,8 @@
     },
     {
       "id": "p101",
-      "channelId": "qd",
-      "subChannelId": "qd-science",
+      "channelId": "midnight",
+      "subChannelId": "midnight-insomnia",
       "authorId": "u04",
       "type": "text",
       "title": "薛定谔的猫到底死没死? 三句话讲清楚真正的争论",
@@ -1269,8 +1269,8 @@
     },
     {
       "id": "p102",
-      "channelId": "qd",
-      "subChannelId": "qd-brain",
+      "channelId": "midnight",
+      "subChannelId": "midnight-insomnia",
       "authorId": "u02",
       "type": "text",
       "title": "如果地球突然停转 1 秒钟会发生什么? 凌晨 3 点的脑洞",
@@ -1296,8 +1296,8 @@
     },
     {
       "id": "p103",
-      "channelId": "qd",
-      "subChannelId": "qd-brain",
+      "channelId": "midnight",
+      "subChannelId": "midnight-insomnia",
       "authorId": "u10",
       "type": "text",
       "title": "为什么我们没有第 6 根手指? 进化的\"够用\"哲学",
@@ -1324,8 +1324,8 @@
     },
     {
       "id": "p104",
-      "channelId": "sport",
-      "subChannelId": "sport-soccer",
+      "channelId": "gossip",
+      "subChannelId": "gossip-frontline",
       "authorId": "u05",
       "type": "text",
       "title": "梅西去美职联,究竟是养老还是降维打击?",
@@ -1352,8 +1352,8 @@
     },
     {
       "id": "p105",
-      "channelId": "sport",
-      "subChannelId": "sport-esports",
+      "channelId": "gossip",
+      "subChannelId": "gossip-frontline",
       "authorId": "u11",
       "type": "text",
       "title": "上分到铂金的中级玩家最容易卡在哪里? 我打过 1000 把后的总结",
@@ -1380,8 +1380,8 @@
     },
     {
       "id": "p106",
-      "channelId": "sport",
-      "subChannelId": "sport-mixed",
+      "channelId": "gossip",
+      "subChannelId": "gossip-frontline",
       "authorId": "u06",
       "type": "text",
       "title": "MMA 选手为什么不能不练柔术? UFC 现役冠军 9 个有 8 个练",
@@ -1408,8 +1408,8 @@
     },
     {
       "id": "p107",
-      "channelId": "drama",
-      "subChannelId": "drama-revenge",
+      "channelId": "gossip",
+      "subChannelId": "gossip-frontline",
       "authorId": "u03",
       "type": "text",
       "title": "复仇短剧的三幕剧公式,你看过几个就明白了",
@@ -1436,8 +1436,8 @@
     },
     {
       "id": "p108",
-      "channelId": "drama",
-      "subChannelId": "drama-tragic",
+      "channelId": "gossip",
+      "subChannelId": "gossip-frontline",
       "authorId": "u08",
       "type": "text",
       "title": "be 结局的短剧能爆的三个共同点",
@@ -1464,8 +1464,8 @@
     },
     {
       "id": "p109",
-      "channelId": "drama",
-      "subChannelId": "drama-tragic",
+      "channelId": "gossip",
+      "subChannelId": "gossip-frontline",
       "authorId": "u12",
       "type": "text",
       "title": "《半生缘》改编网剧首播,世均还是顾曼桢",
@@ -1492,8 +1492,8 @@
     },
     {
       "id": "p110",
-      "channelId": "drama",
-      "subChannelId": "drama-mystic",
+      "channelId": "occult",
+      "subChannelId": "occult-night",
       "authorId": "u06",
       "type": "text",
       "title": "为什么玄学 + 重生题材的短剧最近批量出现?",
@@ -1521,8 +1521,8 @@
     },
     {
       "id": "p111",
-      "channelId": "game",
-      "subChannelId": "game-console",
+      "channelId": "otaku",
+      "subChannelId": "otaku-gaming",
       "authorId": "u01",
       "type": "text",
       "title": "PS5 Pro 入手指南:现在买不亏?",
@@ -1549,8 +1549,8 @@
     },
     {
       "id": "p112",
-      "channelId": "game",
-      "subChannelId": "game-anime",
+      "channelId": "otaku",
+      "subChannelId": "otaku-anime",
       "authorId": "u04",
       "type": "text",
       "title": "《葬送的芙莉莲》第二季最让你破防的细节",
@@ -1577,8 +1577,8 @@
     },
     {
       "id": "p113",
-      "channelId": "game",
-      "subChannelId": "game-anime",
+      "channelId": "otaku",
+      "subChannelId": "otaku-anime",
       "authorId": "u11",
       "type": "text",
       "title": "Frieren 这么好看,为什么国内讨论不如海外?",
@@ -1605,8 +1605,8 @@
     },
     {
       "id": "p114",
-      "channelId": "game",
-      "subChannelId": "game-steam",
+      "channelId": "otaku",
+      "subChannelId": "otaku-gaming",
       "authorId": "u05",
       "type": "text",
       "title": "Steam 夏促这 10 款独立游戏值得入,我都通关了",
@@ -1633,8 +1633,8 @@
     },
     {
       "id": "p115",
-      "channelId": "game",
-      "subChannelId": "game-steam",
+      "channelId": "otaku",
+      "subChannelId": "otaku-gaming",
       "authorId": "u09",
       "type": "text",
       "title": "Steam Deck OLED 用 1 年,真实体验",
@@ -1661,8 +1661,8 @@
     },
     {
       "id": "p116",
-      "channelId": "game",
-      "subChannelId": "game-mobile",
+      "channelId": "otaku",
+      "subChannelId": "otaku-gaming",
       "authorId": "u07",
       "type": "text",
       "title": "原神 5.0 版本更新,值得回归吗?",
@@ -1689,8 +1689,8 @@
     },
     {
       "id": "p117",
-      "channelId": "game",
-      "subChannelId": "game-mobile",
+      "channelId": "otaku",
+      "subChannelId": "otaku-gaming",
       "authorId": "u02",
       "type": "text",
       "title": "为什么国产手游越来越像\"活动列表\"",
@@ -1717,8 +1717,8 @@
     },
     {
       "id": "p118",
-      "channelId": "movie",
-      "subChannelId": "movie-film",
+      "channelId": "gossip",
+      "subChannelId": "gossip-internet",
       "authorId": "u08",
       "type": "text",
       "title": "诺兰新作《奥本海默 2》会拍什么?",
@@ -1745,8 +1745,8 @@
     },
     {
       "id": "p119",
-      "channelId": "movie",
-      "subChannelId": "movie-film",
+      "channelId": "gossip",
+      "subChannelId": "gossip-internet",
       "authorId": "u10",
       "type": "text",
       "title": "戛纳金棕榈过了 1 个月,你看过几部?",
@@ -1773,8 +1773,8 @@
     },
     {
       "id": "p120",
-      "channelId": "movie",
-      "subChannelId": "movie-us",
+      "channelId": "gossip",
+      "subChannelId": "gossip-internet",
       "authorId": "u05",
       "type": "text",
       "title": "《最后生还者》第二季,游戏党失望了吗?",
@@ -1801,8 +1801,8 @@
     },
     {
       "id": "p121",
-      "channelId": "movie",
-      "subChannelId": "movie-us",
+      "channelId": "gossip",
+      "subChannelId": "gossip-internet",
       "authorId": "u06",
       "type": "text",
       "title": "HBO 这部新剧怎么没人讨论 - 太可惜",
@@ -1829,8 +1829,8 @@
     },
     {
       "id": "p122",
-      "channelId": "movie",
-      "subChannelId": "movie-cn",
+      "channelId": "gossip",
+      "subChannelId": "gossip-internet",
       "authorId": "u01",
       "type": "text",
       "title": "《漫长的季节》之后,导演辛爽下部作品",
@@ -1857,8 +1857,8 @@
     },
     {
       "id": "p123",
-      "channelId": "movie",
-      "subChannelId": "movie-cn",
+      "channelId": "gossip",
+      "subChannelId": "gossip-internet",
       "authorId": "u04",
       "type": "text",
       "title": "为什么国剧的\"高级感\"集中在悬疑赛道?",
@@ -1885,8 +1885,8 @@
     },
     {
       "id": "p124",
-      "channelId": "movie",
-      "subChannelId": "movie-anime",
+      "channelId": "otaku",
+      "subChannelId": "otaku-anime",
       "authorId": "u11",
       "type": "text",
       "title": "《海贼王》连载 25 年,Boss 还没出场",
@@ -1913,8 +1913,8 @@
     },
     {
       "id": "p125",
-      "channelId": "movie",
-      "subChannelId": "movie-anime",
+      "channelId": "otaku",
+      "subChannelId": "otaku-anime",
       "authorId": "u02",
       "type": "text",
       "title": "为什么 90% 的新番在第 4 集就掉头?",
@@ -1941,8 +1941,8 @@
     },
     {
       "id": "p126",
-      "channelId": "gender",
-      "subChannelId": "gender-look",
+      "channelId": "overseas",
+      "subChannelId": "overseas-life",
       "authorId": "u08",
       "type": "text",
       "title": "海外华人的健身房文化和国内有什么不同",
@@ -1969,8 +1969,8 @@
     },
     {
       "id": "p127",
-      "channelId": "gender",
-      "subChannelId": "gender-emotion",
+      "channelId": "relationships",
+      "subChannelId": "rel-adult-love",
       "authorId": "u12",
       "type": "text",
       "title": "异地恋撑过 2 年的伴侣,3 个共同点",
@@ -1997,8 +1997,8 @@
     },
     {
       "id": "p128",
-      "channelId": "gender",
-      "subChannelId": "gender-emotion",
+      "channelId": "relationships",
+      "subChannelId": "rel-adult-love",
       "authorId": "u04",
       "type": "text",
       "title": "为什么我们总是被\"回避型\"吸引",
@@ -2025,8 +2025,8 @@
     },
     {
       "id": "p129",
-      "channelId": "gender",
-      "subChannelId": "gender-marriage",
+      "channelId": "overseas",
+      "subChannelId": "overseas-life",
       "authorId": "u05",
       "type": "text",
       "title": "海外华人 35+ 还没结婚,真实的心理压力",
@@ -2053,8 +2053,8 @@
     },
     {
       "id": "p130",
-      "channelId": "gender",
-      "subChannelId": "gender-marriage",
+      "channelId": "relationships",
+      "subChannelId": "rel-adult-love",
       "authorId": "u03",
       "type": "text",
       "title": "婚前财产协议在加州/纽约怎么落地",
@@ -2081,8 +2081,8 @@
     },
     {
       "id": "p131",
-      "channelId": "gender",
-      "subChannelId": "gender-vip",
+      "channelId": "relationships",
+      "subChannelId": "rel-women-talk",
       "authorId": "u01",
       "type": "text",
       "title": "颜值审美的本质 - 进化心理学说了什么",
@@ -2109,8 +2109,8 @@
     },
     {
       "id": "p132",
-      "channelId": "gender",
-      "subChannelId": "gender-vip",
+      "channelId": "overseas",
+      "subChannelId": "overseas-life",
       "authorId": "u06",
       "type": "text",
       "title": "海外华人女性的择偶逻辑变化",
@@ -2137,8 +2137,8 @@
     },
     {
       "id": "p133",
-      "channelId": "money",
-      "subChannelId": "money-side",
+      "channelId": "overseas",
+      "subChannelId": "overseas-money",
       "authorId": "u10",
       "type": "text",
       "title": "海外华人下班后做什么副业 ROI 高?",
@@ -2194,7 +2194,7 @@
     {
       "id": "p135",
       "channelId": "money",
-      "subChannelId": "money-stock",
+      "subChannelId": "money-side",
       "authorId": "u05",
       "type": "text",
       "title": "Tesla 股价砍半之后,定投还是清仓?",
@@ -2222,7 +2222,7 @@
     {
       "id": "p136",
       "channelId": "money",
-      "subChannelId": "money-property",
+      "subChannelId": "money-side",
       "authorId": "u01",
       "type": "text",
       "title": "湾区买 first home 现在还是好时机吗?",
@@ -2249,8 +2249,8 @@
     },
     {
       "id": "p137",
-      "channelId": "money",
-      "subChannelId": "money-property",
+      "channelId": "overseas",
+      "subChannelId": "overseas-money",
       "authorId": "u05",
       "type": "text",
       "title": "伦敦海外华人买房,zone 2 还是 zone 3?",
@@ -2277,8 +2277,8 @@
     },
     {
       "id": "p138",
-      "channelId": "money",
-      "subChannelId": "money-startup",
+      "channelId": "overseas",
+      "subChannelId": "overseas-money",
       "authorId": "u03",
       "type": "text",
       "title": "海外华人创业,SaaS 还是 e-commerce?",
@@ -2306,7 +2306,7 @@
     {
       "id": "p139",
       "channelId": "money",
-      "subChannelId": "money-startup",
+      "subChannelId": "money-side",
       "authorId": "u11",
       "type": "text",
       "title": "做 indie hacker 第 6 个月,MRR $3,000",
@@ -2333,8 +2333,8 @@
     },
     {
       "id": "p140",
-      "channelId": "funny",
-      "subChannelId": "funny-joke",
+      "channelId": "gossip",
+      "subChannelId": "gossip-weird",
       "authorId": "u11",
       "type": "text",
       "title": "程序员段子大赛:我妈以为我是黑客",
@@ -2361,8 +2361,8 @@
     },
     {
       "id": "p141",
-      "channelId": "funny",
-      "subChannelId": "funny-joke",
+      "channelId": "gossip",
+      "subChannelId": "gossip-weird",
       "authorId": "u02",
       "type": "text",
       "title": "婚姻段子:老婆说她不在乎钱",
@@ -2389,8 +2389,8 @@
     },
     {
       "id": "p142",
-      "channelId": "funny",
-      "subChannelId": "funny-meme",
+      "channelId": "gossip",
+      "subChannelId": "gossip-weird",
       "authorId": "u06",
       "type": "text",
       "title": "最近这个 meme 你刷到几次? \"我不是,我没有\"",
@@ -2417,8 +2417,8 @@
     },
     {
       "id": "p143",
-      "channelId": "funny",
-      "subChannelId": "funny-meme",
+      "channelId": "gossip",
+      "subChannelId": "gossip-weird",
       "authorId": "u07",
       "type": "text",
       "title": "中文互联网梗:从\"笑死\"到\"乐\"的演化",
@@ -2445,8 +2445,8 @@
     },
     {
       "id": "p144",
-      "channelId": "funny",
-      "subChannelId": "funny-video",
+      "channelId": "gossip",
+      "subChannelId": "gossip-weird",
       "authorId": "u04",
       "type": "text",
       "title": "B 站这条 30 秒视频,我看了 10 遍还在笑",
@@ -2473,8 +2473,8 @@
     },
     {
       "id": "p145",
-      "channelId": "funny",
-      "subChannelId": "funny-video",
+      "channelId": "gossip",
+      "subChannelId": "gossip-weird",
       "authorId": "u08",
       "type": "text",
       "title": "YouTube short 算法逻辑,创作者怎么应对",
@@ -2501,8 +2501,8 @@
     },
     {
       "id": "p146",
-      "channelId": "funny",
-      "subChannelId": "funny-life",
+      "channelId": "overseas",
+      "subChannelId": "overseas-life",
       "authorId": "u10",
       "type": "text",
       "title": "海外华人才懂的日常:排队 vs queue 的精神分裂",
@@ -2529,8 +2529,8 @@
     },
     {
       "id": "p147",
-      "channelId": "fortune",
-      "subChannelId": "fortune-fengshui",
+      "channelId": "occult",
+      "subChannelId": "occult-fate",
       "authorId": "u09",
       "type": "text",
       "title": "公寓格局优化,\"明厨暗厕\"到底要不要",
@@ -2557,8 +2557,8 @@
     },
     {
       "id": "p148",
-      "channelId": "fortune",
-      "subChannelId": "fortune-tarot",
+      "channelId": "occult",
+      "subChannelId": "occult-fate",
       "authorId": "u02",
       "type": "text",
       "title": "塔罗师怎么避免变成\"情绪垃圾桶\"",
@@ -2585,8 +2585,8 @@
     },
     {
       "id": "p149",
-      "channelId": "fortune",
-      "subChannelId": "fortune-ziwei",
+      "channelId": "occult",
+      "subChannelId": "occult-fate",
       "authorId": "u06",
       "type": "text",
       "title": "紫微的 14 主星,你的命宫在哪一颗?",
@@ -2613,8 +2613,8 @@
     },
     {
       "id": "p150",
-      "channelId": "pickup",
-      "subChannelId": "pickup-approach",
+      "channelId": "relationships",
+      "subChannelId": "rel-flirt",
       "authorId": "u11",
       "type": "text",
       "title": "搭讪的 90% 是在第一句话之前发生的",
@@ -2641,8 +2641,8 @@
     },
     {
       "id": "p151",
-      "channelId": "pickup",
-      "subChannelId": "pickup-approach",
+      "channelId": "overseas",
+      "subChannelId": "overseas-cross-culture",
       "authorId": "u04",
       "type": "text",
       "title": "海外华人怎么破跨文化的搭讪心理障碍",
@@ -2669,8 +2669,8 @@
     },
     {
       "id": "p152",
-      "channelId": "pickup",
-      "subChannelId": "pickup-date",
+      "channelId": "relationships",
+      "subChannelId": "rel-flirt",
       "authorId": "u07",
       "type": "text",
       "title": "第 3 次约会的 turning point 怎么处理",
@@ -2697,8 +2697,8 @@
     },
     {
       "id": "p153",
-      "channelId": "pickup",
-      "subChannelId": "pickup-date",
+      "channelId": "relationships",
+      "subChannelId": "rel-flirt",
       "authorId": "u02",
       "type": "text",
       "title": "为什么 50% 的男生第 1 次约会就败了",
@@ -2725,8 +2725,8 @@
     },
     {
       "id": "p154",
-      "channelId": "pickup",
-      "subChannelId": "pickup-self",
+      "channelId": "relationships",
+      "subChannelId": "rel-men-talk",
       "authorId": "u05",
       "type": "text",
       "title": "30 岁开始健身,1 年身体变化对比",
@@ -2753,8 +2753,8 @@
     },
     {
       "id": "p155",
-      "channelId": "pickup",
-      "subChannelId": "pickup-self",
+      "channelId": "relationships",
+      "subChannelId": "rel-men-talk",
       "authorId": "u09",
       "type": "text",
       "title": "为什么自我提升的核心是\"被需要\"",
@@ -2781,8 +2781,8 @@
     },
     {
       "id": "p156",
-      "channelId": "pickup",
-      "subChannelId": "pickup-case",
+      "channelId": "overseas",
+      "subChannelId": "overseas-cross-culture",
       "authorId": "u05",
       "type": "text",
       "title": "一个北美程序员的 2 年情感历程",
@@ -2809,8 +2809,8 @@
     },
     {
       "id": "p157",
-      "channelId": "pickup",
-      "subChannelId": "pickup-case",
+      "channelId": "relationships",
+      "subChannelId": "rel-flirt",
       "authorId": "u12",
       "type": "text",
       "title": "学长分享:从 PUA 走向真诚的转折点",
@@ -2837,8 +2837,8 @@
     },
     {
       "id": "p158",
-      "channelId": "asmr",
-      "subChannelId": "asmr-sleep",
+      "channelId": "otaku",
+      "subChannelId": "otaku-asmr",
       "authorId": "u02",
       "type": "text",
       "title": "30 分钟雨声助眠合集,后半夜醒来就能续上",
@@ -2865,8 +2865,8 @@
     },
     {
       "id": "p159",
-      "channelId": "asmr",
-      "subChannelId": "asmr-sleep",
+      "channelId": "otaku",
+      "subChannelId": "otaku-asmr",
       "authorId": "u08",
       "type": "text",
       "title": "为什么白噪音 + ASMR 双轨入睡最有效",
@@ -2893,8 +2893,8 @@
     },
     {
       "id": "p160",
-      "channelId": "asmr",
-      "subChannelId": "asmr-relax",
+      "channelId": "otaku",
+      "subChannelId": "otaku-asmr",
       "authorId": "u11",
       "type": "text",
       "title": "上班压力大,试过这个\"5 分钟解压音频\"吗",
@@ -2921,8 +2921,8 @@
     },
     {
       "id": "p161",
-      "channelId": "asmr",
-      "subChannelId": "asmr-relax",
+      "channelId": "otaku",
+      "subChannelId": "otaku-asmr",
       "authorId": "u06",
       "type": "text",
       "title": "ASMR 听腻了? 试试\"自然声\"",
@@ -2949,8 +2949,8 @@
     },
     {
       "id": "p162",
-      "channelId": "asmr",
-      "subChannelId": "asmr-trigger",
+      "channelId": "otaku",
+      "subChannelId": "otaku-asmr",
       "authorId": "u04",
       "type": "text",
       "title": "最容易触发 ASMR 的 5 种声音排行",
@@ -2977,8 +2977,8 @@
     },
     {
       "id": "p163",
-      "channelId": "asmr",
-      "subChannelId": "asmr-trigger",
+      "channelId": "otaku",
+      "subChannelId": "otaku-asmr",
       "authorId": "u10",
       "type": "text",
       "title": "翻书声 vs 敲击声,你更喜欢哪个",
@@ -3005,8 +3005,8 @@
     },
     {
       "id": "p164",
-      "channelId": "asmr",
-      "subChannelId": "asmr-rp",
+      "channelId": "otaku",
+      "subChannelId": "otaku-asmr",
       "authorId": "u07",
       "type": "text",
       "title": "理发店 ASMR 为什么这么火",
@@ -3033,8 +3033,8 @@
     },
     {
       "id": "p165",
-      "channelId": "asmr",
-      "subChannelId": "asmr-rp",
+      "channelId": "otaku",
+      "subChannelId": "otaku-asmr",
       "authorId": "u01",
       "type": "text",
       "title": "化妆 ASMR 主播怎么做出\"临场感\"",
