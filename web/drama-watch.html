@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>视频播放 · 奇点社区</title>
+<title>视频播放 · Wavi</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
@@ -97,7 +97,7 @@
 
   // 视频不存在
   if (!video) {
-    document.title = '视频不存在 · 奇点社区';
+    document.title = '视频不存在 · Wavi';
     document.getElementById('main').innerHTML = `
       <div class="err-box">
         <i class="ti ti-video-off"></i>
@@ -111,7 +111,7 @@
     return;
   }
 
-  document.title = `${video.title} · 奇点社区`;
+  document.title = `${video.title} · Wavi`;
 
   /* ---------- 播放器渲染 ---------- */
   function renderPlayer(v) {

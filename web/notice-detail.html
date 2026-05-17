@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>系统通知 · 奇点社区</title>
+<title>系统通知 · Wavi</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
@@ -67,7 +67,7 @@
   const shell = document.getElementById('ndShell');
 
   if (!n) {
-    document.title = '通知不存在 · 奇点社区';
+    document.title = '通知不存在 · Wavi';
     shell.innerHTML = `
       <div class="nd-card" style="text-align:center;padding:60px 32px">
         <i class="ti ti-mood-sad" style="font-size:56px;color:var(--text-4);display:block;margin-bottom:14px"></i>
@@ -84,7 +84,7 @@
   const title = n.title || (n.type === 'reward' ? '收到打赏' : '系统通知');
   const body = n.body || n.text || '';
 
-  document.title = title + ' · 奇点社区';
+  document.title = title + ' · Wavi';
   shell.innerHTML = `
     <div class="row gap-2 t-sm c-3" style="margin-bottom:14px">
       <a href="messages.html" class="text-link" onclick="location.href='messages.html';return false;"><i class="ti ti-arrow-left"></i> 返回消息中心</a>

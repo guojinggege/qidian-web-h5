@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>大师详情 · 奇点社区</title>
+<title>大师详情 · Wavi</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
@@ -91,7 +91,7 @@
   const shell = document.getElementById('mdShell');
 
   if (!m) {
-    document.title = '大师不存在 · 奇点社区';
+    document.title = '大师不存在 · Wavi';
     shell.innerHTML = `
       <div style="padding:80px 20px;text-align:center;color:var(--text-2);background:var(--bg-card);border:1px dashed var(--border-2);border-radius:var(--r-lg)">
         <i class="ti ti-mood-sad" style="font-size:56px;color:var(--text-4);display:block;margin-bottom:14px"></i>
@@ -103,7 +103,7 @@
     return;
   }
 
-  document.title = m.name + ' · 玄学大师 · 奇点社区';
+  document.title = m.name + ' · 玄学大师 · Wavi';
   const subName = (QD.subChannelById && QD.subChannelById(m.subChannelId)) ?
     QD.subChannelById(m.subChannelId).name : '';
 

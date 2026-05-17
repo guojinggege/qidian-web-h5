@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>帖子详情 · 奇点社区</title>
+<title>帖子详情 · Wavi</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
 <link rel="stylesheet" href="../shared/styles.css">
 <style>
@@ -173,7 +173,7 @@
 
   // 帖子不存在
   if (!post) {
-    document.title = '帖子不存在 · 奇点社区';
+    document.title = '帖子不存在 · Wavi';
     document.getElementById('postMain').innerHTML = `
       <div style="padding: 80px 20px; text-align: center; background: var(--bg-card); border: 1px dashed var(--border-2); border-radius: var(--r-lg)">
         <i class="ti ti-mood-sad" style="font-size: 56px; color: var(--text-4); display: block; margin-bottom: 14px"></i>
@@ -194,7 +194,7 @@
     ? { id: post.authorId, name: post.authorName || '用户', avatar: post.authorAvatar || 'bg-grad-6', level: post.authorLevel || 1, vip: false }
     : QD.authorOf(post);
   const postComments = QD.comments.filter(c => c.postId === post.id);
-  document.title = `${post.title} · 奇点社区`;
+  document.title = `${post.title} · Wavi`;
 
   // post.body 多段渲染（按 \n\n 分段）
   const bodyHtml = post.body

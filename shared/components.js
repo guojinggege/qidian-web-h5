@@ -1,5 +1,5 @@
 /* ============================================================
-   奇点社区 · Shared interaction helpers
+   Wavi · Shared interaction helpers
 ============================================================ */
 
 window.QDC = (function () {
@@ -527,8 +527,9 @@ window.QDC = (function () {
     rootEl.innerHTML = `
       <div class="header">
         <a class="logo" href="home.html">
-          <span class="logo-mark">奇</span>
-          <span>奇点社区</span>
+          <span class="logo-mark">W</span>
+          <span>Wavi</span>
+          <span class="logo-slogan" style="margin-left:8px;font-size:12px;color:#888;font-style:italic;font-weight:400;white-space:nowrap">对得上电波的人都在这里</span>
         </a>
         <div class="search-bar">
           <i class="ti ti-search"></i>
@@ -662,7 +663,7 @@ window.QDC = (function () {
     let activeSub = urlSubRaw && subById[urlSubRaw] ? urlSubRaw : null;
     const activeSubCh = activeSub ? subById[activeSub] : null;
 
-    document.title = (activeSubCh ? activeSubCh.name + ' · ' : '') + ch.name + ' · 奇点社区';
+    document.title = (activeSubCh ? activeSubCh.name + ' · ' : '') + ch.name + ' · Wavi';
     document.body.dataset.channel = channelId;
     injectChannelStyles();
 

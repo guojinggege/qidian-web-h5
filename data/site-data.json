@@ -2,7 +2,7 @@
   "_meta": {
     "version": 1,
     "updatedAt": "2026-05-12T08:00:00Z",
-    "note": "奇点社区 Mock 数据。所有 ISO 时间均 UTC；createdAtText 是渲染用的相对时间字符串。"
+    "note": "Wavi Mock 数据。所有 ISO 时间均 UTC；createdAtText 是渲染用的相对时间字符串。"
   },
   "channels": [
     {
