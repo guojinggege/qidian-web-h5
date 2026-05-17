@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASMR · Wavi</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body data-channel="asmr">
+<div class="app-shell">
+  <header class="app-header"><div id="header"></div></header>
+  <aside class="app-sidebar"><nav class="sidebar" id="sidebar"></nav></aside>
+  <main class="app-main" id="channelMain"></main>
+  <aside class="app-rightbar"><div class="rightbar" id="rightbar"></div></aside>
+</div>
+
+<script src="../shared/data.js?v=17"></script>
+<script src="../shared/components.js?v=17"></script>
+<script>
+(async () => {
+  await QD.ready();
+  QDC.renderChannelPage('asmr');
+})();
+</script>
+</body>
+</html>

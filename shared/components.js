@@ -27,31 +27,13 @@ window.QDC = (function () {
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
   /* ---------- 频道页 URL ---------- */
-  // 新 8 区每个都有专属页 {id}-channel.html (Commit 3 创建)
-  // drama / fortune 是旧的历史特殊页,banner 会把用户引导到新页
+  // 新 8 区每个都有专属页 {id}-channel.html。
+  // Commit 5 之后,旧入口(qd/sport/drama/...)已变成 redirect-stub 占位页,
+  // 不再被 channelPageUrl 直接生成 — 任何遗留路径都会落到 web/_archive/ 的 redirect stub。
   function channelPageUrl(channelId) {
     if (!channelId) return 'home.html';
-    if (channelId === 'drama')   return 'drama-channel.html';
-    if (channelId === 'fortune') return 'divination-channel.html';
     return channelId + '-channel.html';
   }
-
-  /* ---------- 旧频道 → 新频道迁移映射 ---------- */
-  // 用于 renderChannelPage 顶部展示"本频道已迁移到 XX,3 秒后跳转"banner。
-  // 注意:旧 'money' (财经搞钱) 与新 'money' (搞钱与生存区) 是同一个 channelId,
-  // 不进 map (无需迁移,内容差异由数据层接管)。
-  const MIGRATION_MAP = {
-    qd:      'midnight',
-    sport:   'gossip',
-    drama:   'gossip',
-    game:    'otaku',
-    movie:   'gossip',
-    fortune: 'occult',
-    gender:  'visual',
-    pickup:  'relationships',
-    asmr:    'otaku',
-    funny:   'gossip',
-  };
 
   /* ---------- 视频 URL 嗅探 ----------
      输入: 任意视频 URL
@@ -658,77 +640,11 @@ window.QDC = (function () {
     document.head.appendChild(style);
   }
 
-  /* ---------- 迁移 banner (旧频道页顶部) ---------- */
-  function injectMigrationBannerStyles() {
-    if (document.getElementById('qdc-migration-banner-styles')) return;
-    const style = document.createElement('style');
-    style.id = 'qdc-migration-banner-styles';
-    style.textContent = `
-      #qdc-migration-banner {
-        position: sticky; top: 0; z-index: 60;
-        display: flex; align-items: center; gap: 10px;
-        padding: 10px 16px;
-        cursor: pointer;
-        text-decoration: none;
-        background: var(--mig-bg, rgba(127,119,221,0.12));
-        border-bottom: 1px solid var(--mig-border, rgba(127,119,221,0.40));
-        color: var(--mig-fg, var(--text-1));
-        font-size: 13px;
-        font-weight: 500;
-        transition: filter 0.15s;
-      }
-      #qdc-migration-banner:hover { filter: brightness(1.18); }
-      #qdc-migration-banner i.ti { font-size: 16px; color: var(--mig-fg); }
-      #qdc-migration-banner .grow { flex: 1; color: var(--text-1); }
-      #qdc-migration-banner .grow b { color: var(--mig-fg); }
-      #qdc-migration-banner .countdown {
-        font-size: 12px; opacity: 0.7;
-        font-variant-numeric: tabular-nums;
-        color: var(--text-2);
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  function maybeShowMigrationBanner(channelId) {
-    const newChId = MIGRATION_MAP[channelId];
-    if (!newChId) return false;
-    const newCh = QD.channelById(newChId);
-    if (!newCh) return false;
-    injectMigrationBannerStyles();
-    const target = channelPageUrl(newChId);
-    const banner = document.createElement('a');
-    banner.id = 'qdc-migration-banner';
-    banner.href = target;
-    banner.style.setProperty('--mig-bg', `var(--c-${newCh.color}-bg)`);
-    banner.style.setProperty('--mig-border', `var(--c-${newCh.color})`);
-    banner.style.setProperty('--mig-fg', `var(--c-${newCh.color})`);
-    banner.innerHTML = `
-      <i class="ti ti-arrow-right-circle"></i>
-      <span class="grow">本频道已迁移到「<b>${escape(newCh.name)}</b>」,<span class="countdown" id="qdc-mig-cd">3 秒</span>后自动跳转。点这里立即前往。</span>
-    `;
-    document.body.insertBefore(banner, document.body.firstChild);
-    let remaining = 3;
-    const cdEl = banner.querySelector('#qdc-mig-cd');
-    const timer = setInterval(() => {
-      remaining -= 1;
-      if (remaining <= 0) {
-        clearInterval(timer);
-        location.href = target;
-        return;
-      }
-      if (cdEl) cdEl.textContent = remaining + ' 秒';
-    }, 1000);
-    return true;
-  }
-
   /* ---------- Channel page renderer ---------- */
-  // 新 8 区都通过这个函数渲染。drama / fortune 是旧专属页,不走这里。
-  // 旧 channelId (qd/sport/...) 也走这里,函数顶部会触发迁移 banner。
+  // 新 8 区都通过这个函数渲染。
+  // Commit 5 之后,旧 channelId 不再触达这里(老入口被 redirect-stub 替换,
+  // 不加载 components.js)。迁移 banner 代码已移除(Commit 5)。
   function renderChannelPage(channelId) {
-    // 旧频道 → 顶部 banner + 3s 自动跳转 (仍然继续渲染旧内容以免页面空白)
-    maybeShowMigrationBanner(channelId);
-
     const ch = QD.channelById(channelId);
     if (!ch) {
       document.body.innerHTML = `
