@@ -1,0 +1,434 @@
+{
+  "site": {
+    "name": "Wavi",
+    "name_zh": "Wavi",
+    "slug": "wavi",
+    "slogan": "对得上电波的人都在这里",
+    "slogan_en": "Find your wavelength.",
+    "description": "一个面向深夜、孤独、有共鸣感的成年人社区",
+    "version": "2.0.0",
+    "renamed_from": "qidian"
+  },
+
+  "channels": [
+    {
+      "id": "midnight",
+      "order": 1,
+      "name": "深夜情绪区",
+      "slug": "midnight",
+      "tagline": "今晚谁也不睡",
+      "color": "indigo",
+      "description": "孤独、倾诉、成年人情绪释放",
+      "sub_channels": [
+        {
+          "id": "midnight-insomnia",
+          "name": "今晚睡不着",
+          "slug": "insomnia",
+          "tags": ["凌晨失眠", "深夜聊天", "一个人的夜晚", "海外孤独", "情绪碎片"]
+        },
+        {
+          "id": "midnight-confession",
+          "name": "忏悔教堂",
+          "slug": "confession",
+          "tags": ["不敢说的秘密", "后悔的决定", "人性阴影", "羞耻时刻", "成长教训"]
+        },
+        {
+          "id": "midnight-letters",
+          "name": "匿名来信",
+          "slug": "letters",
+          "tags": ["写给前任", "写给父母", "写给陌生人", "写给未来自己", "未发送的话"]
+        },
+        {
+          "id": "midnight-breakdown",
+          "name": "成年人崩溃瞬间",
+          "slug": "breakdown",
+          "tags": ["职场压力", "婚姻疲惫", "中年焦虑", "留学生崩溃", "成年人委屈"]
+        },
+        {
+          "id": "midnight-radio",
+          "name": "深夜电台",
+          "slug": "radio",
+          "tags": ["深夜投稿", "声音陪伴", "夜聊房间", "失眠语音", "情绪FM"]
+        },
+        {
+          "id": "midnight-tree-hole",
+          "name": "匿名树洞",
+          "slug": "tree-hole",
+          "tags": ["一夜树洞", "陌生人来信", "不署名的话", "半小时陪聊", "听我说完"]
+        }
+      ]
+    },
+
+    {
+      "id": "relationships",
+      "order": 2,
+      "name": "两性关系区",
+      "slug": "relationships",
+      "tagline": "成年人之间的事",
+      "color": "rose",
+      "description": "暧昧、恋爱、关系博弈",
+      "sub_channels": [
+        {
+          "id": "rel-flirt",
+          "name": "暧昧研究所",
+          "slug": "flirt",
+          "tags": ["聊天记录分析", "暧昧节奏", "约会观察", "信号解读", "翻车现场"]
+        },
+        {
+          "id": "rel-deepnight",
+          "name": "深夜关系",
+          "slug": "deepnight",
+          "tags": ["暧昧期煎熬", "复杂关系观察", "异地的距离", "半夜的电话", "我们算什么"]
+        },
+        {
+          "id": "rel-adult-love",
+          "name": "成年人爱情",
+          "slug": "adult-love",
+          "tags": ["婚姻现实", "年龄差恋爱", "异地关系", "金钱与爱情", "长期关系"]
+        },
+        {
+          "id": "rel-men-talk",
+          "name": "男生真心话",
+          "slug": "men-talk",
+          "tags": ["男性压力", "男生情感", "性格焦虑", "两性观点", "男人成长"]
+        },
+        {
+          "id": "rel-women-talk",
+          "name": "女生深夜话题",
+          "slug": "women-talk",
+          "tags": ["女性焦虑", "安全感", "审美觉醒", "情绪关系", "女性成长"]
+        }
+      ]
+    },
+
+    {
+      "id": "visual",
+      "order": 3,
+      "name": "视觉与穿搭区",
+      "slug": "visual",
+      "tagline": "Look of the day",
+      "color": "amber",
+      "description": "穿搭、摄影、美学",
+      "sub_channels": [
+        {
+          "id": "visual-ootd",
+          "name": "Look of the Day",
+          "slug": "ootd",
+          "tags": ["今日穿搭", "男生改造", "配饰细节", "美妆教程", "穿搭翻车"]
+        },
+        {
+          "id": "visual-photo",
+          "name": "摄影作品集",
+          "slug": "photography",
+          "tags": ["人像摄影", "JK制服系", "健身写真", "海边氛围", "留学生日常"]
+        },
+        {
+          "id": "visual-lifestyle",
+          "name": "生活感记录",
+          "slug": "lifestyle",
+          "tags": ["通勤瞬间", "出租屋日记", "食堂晚餐", "路灯下的城市", "周末早晨"]
+        },
+        {
+          "id": "visual-aesthetic",
+          "name": "氛围美学研究所",
+          "slug": "aesthetic",
+          "tags": ["禁欲系穿搭", "港风复古", "极简ins风", "高级感配色", "视觉风向"]
+        },
+        {
+          "id": "visual-glow-up",
+          "name": "变美实验室",
+          "slug": "glow-up",
+          "tags": ["医美记录", "减肥日记", "化妆教学", "男生改造", "发型穿搭"]
+        }
+      ]
+    },
+
+    {
+      "id": "overseas",
+      "order": 4,
+      "name": "海外华人区",
+      "slug": "overseas",
+      "tagline": "在别的国家想家",
+      "color": "teal",
+      "description": "海外生活、文化冲突、孤独感",
+      "sub_channels": [
+        {
+          "id": "overseas-life",
+          "name": "海外华人圈",
+          "slug": "life",
+          "tags": ["海外生活", "华人圈观察", "文化差异", "海外孤独", "海外社交"]
+        },
+        {
+          "id": "overseas-students",
+          "name": "留子生存实录",
+          "slug": "students",
+          "tags": ["留学日常", "租房避坑", "留子恋爱", "海外兼职", "精神状态"]
+        },
+        {
+          "id": "overseas-cross-culture",
+          "name": "异国关系",
+          "slug": "cross-culture",
+          "tags": ["跨国恋", "文化冲突", "海外dating", "国际婚姻", "语言隔阂"]
+        },
+        {
+          "id": "overseas-money",
+          "name": "海外捞金日志",
+          "slug": "money",
+          "tags": ["华人生意", "海外副业", "AI赚钱", "跨境项目", "真实收入"]
+        },
+        {
+          "id": "overseas-cities",
+          "name": "深夜城市",
+          "slug": "cities",
+          "tags": ["伦敦夜晚", "东京失眠", "温哥华孤独", "纽约华人", "悉尼故事"]
+        }
+      ]
+    },
+
+    {
+      "id": "gossip",
+      "order": 5,
+      "name": "吃瓜观察区",
+      "slug": "gossip",
+      "tagline": "今天又有大瓜",
+      "color": "coral",
+      "description": "热点、猎奇、互联网生态",
+      "sub_channels": [
+        {
+          "id": "gossip-frontline",
+          "name": "吃瓜前线",
+          "slug": "frontline",
+          "tags": ["网红塌房", "明星瓜", "留学生瓜", "情侣翻车", "热点速递"]
+        },
+        {
+          "id": "gossip-internet",
+          "name": "华人互联网观察",
+          "slug": "internet",
+          "tags": ["小红书生态", "微博观察", "海外中文圈", "抖音文化", "网络奇观"]
+        },
+        {
+          "id": "gossip-weird",
+          "name": "离谱人类图鉴",
+          "slug": "weird",
+          "tags": ["奇葩行为", "社死现场", "逆天发言", "人类迷惑", "现实荒诞"]
+        },
+        {
+          "id": "gossip-strange",
+          "name": "今天也很怪",
+          "slug": "strange",
+          "tags": ["奇怪新闻", "都市怪谈", "奇妙网友", "离谱经历", "互联网疯感"]
+        },
+        {
+          "id": "gossip-vip-leak",
+          "name": "深夜爆料局",
+          "slug": "vip-leak",
+          "tags": ["职场瓜", "情感瓜", "校园瓜", "海外圈子瓜", "圈内观察"]
+        }
+      ]
+    },
+
+    {
+      "id": "otaku",
+      "order": 6,
+      "name": "游戏二次元区",
+      "slug": "otaku",
+      "tagline": "屏幕背后的恋人",
+      "color": "purple",
+      "description": "宅文化、虚拟陪伴、声音",
+      "sub_channels": [
+        {
+          "id": "otaku-anime",
+          "name": "二次元深夜档",
+          "slug": "anime",
+          "tags": ["动漫讨论", "CP文化", "宅男日常", "二游角色", "Cosplay"]
+        },
+        {
+          "id": "otaku-gaming",
+          "name": "游戏荷尔蒙",
+          "slug": "gaming",
+          "tags": ["游戏CP", "陪玩故事", "网恋经历", "游戏社交", "开黑关系"]
+        },
+        {
+          "id": "otaku-ai",
+          "name": "AI 共处实验",
+          "slug": "ai",
+          "tags": ["AI角色玩法", "个性化提示词", "AI陪伴体验", "数字情感讨论", "AI vs真人"]
+        },
+        {
+          "id": "otaku-voice",
+          "name": "声音恋人",
+          "slug": "voice",
+          "tags": ["声控文化", "女友音", "男友音", "哄睡声音", "电台主播"]
+        },
+        {
+          "id": "otaku-asmr",
+          "name": "ASMR 频道",
+          "slug": "asmr",
+          "tags": ["助眠音频", "耳语陪伴", "沉浸声音", "白噪音", "情绪舒缓"]
+        }
+      ]
+    },
+
+    {
+      "id": "money",
+      "order": 7,
+      "name": "搞钱与生存区",
+      "slug": "money",
+      "tagline": "钱、活着、和野心",
+      "color": "green",
+      "description": "副业、职场、创作者经济",
+      "sub_channels": [
+        {
+          "id": "money-side",
+          "name": "搞钱研究所",
+          "slug": "side-hustle",
+          "tags": ["副业分享", "AI变现", "自媒体赚钱", "海外机会", "低成本创业"]
+        },
+        {
+          "id": "money-creators",
+          "name": "内容创作者经济",
+          "slug": "creators",
+          "tags": ["自媒体收入", "海外创作者生态", "创作平台对比", "粉丝经济观察", "流量变现路径"]
+        },
+        {
+          "id": "money-rich",
+          "name": "富人观察局",
+          "slug": "rich",
+          "tags": ["富二代生活", "奢侈消费", "高端圈层", "有钱人关系", "金钱游戏"]
+        },
+        {
+          "id": "money-workers",
+          "name": "打工人生存",
+          "slug": "workers",
+          "tags": ["海外打工", "职场现实", "裁员焦虑", "公司八卦", "社畜吐槽"]
+        },
+        {
+          "id": "money-niche",
+          "name": "地下俱乐部",
+          "slug": "niche",
+          "tags": ["小众圈层", "特殊兴趣", "冷门文化", "亚文化聚集", "高阶玩家区"]
+        }
+      ]
+    },
+
+    {
+      "id": "occult",
+      "order": 8,
+      "name": "玄学怪谈区",
+      "slug": "occult",
+      "tagline": "深夜从来不是巧合",
+      "color": "blue",
+      "description": "命理、都市传说、神秘氛围",
+      "sub_channels": [
+        {
+          "id": "occult-fate",
+          "name": "玄学命理",
+          "slug": "fate",
+          "tags": ["八字", "星盘", "塔罗", "紫微斗数", "运势分析"]
+        },
+        {
+          "id": "occult-night",
+          "name": "深夜玄学局",
+          "slug": "night",
+          "tags": ["灵异巧合", "命运故事", "转运经历", "第六感", "梦境解析"]
+        },
+        {
+          "id": "occult-urban",
+          "name": "人间怪谈",
+          "slug": "urban-legend",
+          "tags": ["都市传说", "恐怖经历", "海外怪事", "酒店故事", "半夜禁忌"]
+        },
+        {
+          "id": "occult-taboo",
+          "name": "禁忌档案",
+          "slug": "taboo",
+          "tags": ["民间禁忌", "奇异习俗", "灵异照片", "未解事件", "古怪经历"]
+        },
+        {
+          "id": "occult-parallel",
+          "name": "平行世界研究会",
+          "slug": "parallel",
+          "tags": ["曼德拉效应", "时间错乱", "AI阴谋论", "宇宙猜想", "高维讨论"]
+        }
+      ]
+    }
+  ],
+
+  "membership_flag": {
+    "note": "原 9. 深夜会员区 已废除。付费墙改为功能层 — 任何区任何子频道下的帖子都可标记 vip_only: true。",
+    "vip_only_post_field": "vip_only",
+    "vip_only_tags_allowed": ["会员限定", "VIP专属", "解锁阅读"]
+  },
+
+  "channel_migration_map": {
+    "_doc": "旧奇点频道 → 新 Wavi 频道的迁移路径。Claude Code 用这个表迁移 88 条种子帖子。",
+    "奇点": {
+      "to": "midnight",
+      "default_sub": "midnight-insomnia",
+      "note": "原'奇点'主频道是泛知识/都市观察，绝大部分调性匹配深夜情绪区"
+    },
+    "体育竞技": {
+      "to": "gossip",
+      "default_sub": "gossip-frontline",
+      "note": "原体育帖归入吃瓜前线（球评类瓜）"
+    },
+    "短剧": {
+      "to": "gossip",
+      "default_sub": "gossip-frontline",
+      "note": "短剧讨论归入吃瓜，娱乐属性强于内容属性"
+    },
+    "游戏二次元": {
+      "to": "otaku",
+      "default_sub": "otaku-gaming",
+      "note": "直接对应游戏二次元区"
+    },
+    "影视文化": {
+      "to": "gossip",
+      "default_sub": "gossip-internet",
+      "note": "影评归入华人互联网观察（小红书/微博影评生态）"
+    },
+    "两性颜值": {
+      "to": "visual",
+      "default_sub": "visual-ootd",
+      "note": "改入视觉与穿搭区。原'颜值打分'类帖子作废，'穿搭/审美讨论'类保留"
+    },
+    "财经搞钱": {
+      "to": "money",
+      "default_sub": "money-side",
+      "note": "对应搞钱研究所"
+    },
+    "搞笑": {
+      "to": "gossip",
+      "default_sub": "gossip-weird",
+      "note": "搞笑归入离谱人类图鉴"
+    },
+    "玄学命理": {
+      "to": "occult",
+      "default_sub": "occult-fate",
+      "note": "完全对应玄学怪谈区"
+    },
+    "泡妞学": {
+      "to": "relationships",
+      "default_sub": "rel-flirt",
+      "note": "改入暧昧研究所。'技巧教学/PUA'类帖子作废，'关系观察/聊天分析'类保留"
+    },
+    "ASMR": {
+      "to": "otaku",
+      "default_sub": "otaku-asmr",
+      "note": "完全对应 ASMR 频道"
+    }
+  },
+
+  "posts_disposal_rules": {
+    "_doc": "88 条种子帖子的处置规则。能匹配的归类，不能匹配的标记 deprecated 并不展示。",
+    "delete_keywords_in_title": [
+      "颜值打分", "身材评分", "看脸打分",
+      "撩妹技巧", "PUA话术", "把妹教程",
+      "OF推荐", "OnlyFans", "Fansly",
+      "灰产", "黑产", "地下产业",
+      "约炮", "包养", "援交"
+    ],
+    "if_matched": "set status to 'deprecated' and exclude from feed",
+    "if_unmatched": "migrate by channel_migration_map.default_sub"
+  }
+}
