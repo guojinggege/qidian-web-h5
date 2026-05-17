@@ -1,11 +1,11 @@
-# 奇点社区 · 后台管理 (Admin)
+# Wavi · 后台管理 (Admin)
 
 > 一个无后端的 Web 端内容运营工具。所有编辑暂存在浏览器 localStorage，可以**实时预览效果**（仅你自己可见），满意后再"导出 JSON → 替换 → git push"正式发布。
 
 ## 入口
 
 - 本地：http://localhost:8080/admin/
-- 线上：https://guojinggege.github.io/qidian-web-h5/admin/
+- 线上：见仓库 GitHub Pages 域名 + `/admin/`
 
 只支持 HTTP 访问（双击文件打开会因为 CORS 加载不到 JSON）。
 
@@ -50,8 +50,8 @@
 
 | Tab | 能做什么 | 不能做什么 |
 |-----|---------|----------|
-| **频道管理** | 编辑 11 个频道的 name / desc / icon / color / members / online / unread / 订阅状态 / level | 不能删除频道（帖子/视频依赖 channelId） |
-| **帖子管理** | 新建 / 编辑 / 删除帖子。字段：标题 / 摘要 / 正文 / 频道 / 作者 / 类型 / 热标 / 标签 | 不能批量导入；删除立即生效 |
+| **频道管理** | 编辑 Wavi 新 8 区的 name / desc / icon / color / members / online / unread / 订阅状态 / level。Day 2 之后顶部为新 8 区,下半部分有 11 个 legacy 频道只读区(供帖子 channelId 反查) | 不能删除频道（帖子/视频依赖 channelId）；legacy 区只读 |
+| **帖子管理** | 新建 / 编辑 / 删除帖子。字段：标题 / 摘要 / 正文 / 频道 / 作者 / 类型 / 热标 / **VIP 限定** / 标签 | 不能批量导入；删除立即生效 |
 | **视频管理** | 短剧 & 影视 双 tab。新建 / 编辑 / 删除。playUrl 自动推断 embedType (mp4 / youtube / bilibili)，10 个预设封面渐变 | 不能上传文件（只填 URL） |
 | **热搜榜** | 增删改 q + delta，最多 10 条 | — |
 | **横幅管理** | 编辑首页"今日热议"横幅，最多 3 条。可选关联帖子 + 10 个预设渐变 | — |
